@@ -1,6 +1,8 @@
 import 'dart:ui';
 
-Map<int, Color> godotThemeColorMap = {
+import 'package:flutter/material.dart';
+
+final Map<int, Color> godotThemeColorMap = {
   50: Color.fromRGBO(101, 137, 189, .1),
   100: Color.fromRGBO(101, 137, 189, .2),
   200: Color.fromRGBO(101, 137, 189, .3),
@@ -12,3 +14,5 @@ Map<int, Color> godotThemeColorMap = {
   800: Color.fromRGBO(101, 137, 189, .9),
   900: Color.fromRGBO(101, 137, 189, 1),
 };
+
+final Color godotColor = MaterialColor(0xFF6589BD, godotThemeColorMap);
