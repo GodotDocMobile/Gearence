@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:godotclassreference/components/drawer.dart';
 
+import 'screens/class_select.dart';
+
 import 'constants/colors.dart';
 
 void main() => runApp(MyApp());
@@ -17,13 +19,13 @@ class MyApp extends StatelessWidget {
         drawer: GCRDrawer(),
         appBar: AppBar(
           actions: <Widget>[
-            FlatButton(
-              child: Icon(
-                Icons.search,
-                color: Colors.white,
-              ),
-              onPressed: () {},
-            )
+//            FlatButton(
+//              child: Icon(
+//                Icons.search,
+//                color: Colors.white,
+//              ),
+//              onPressed: () {},
+//            )
           ],
           title: Text('Flutter Demo'),
         ),

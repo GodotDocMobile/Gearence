@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:godotclassreference/constants/colors.dart';
 import 'package:package_info/package_info.dart';
+
+import 'package:godotclassreference/constants/colors.dart';
+
+import 'package:godotclassreference/screens/class_select.dart';
 
 // ignore: must_be_immutable
 class GCRDrawer extends StatelessWidget {
@@ -31,7 +34,7 @@ class GCRDrawer extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
                           Text(
-                            "version $_version",
+                            "v $_version",
                             style: TextStyle(color: Colors.white30),
                           ),
                         ],
@@ -39,17 +42,26 @@ class GCRDrawer extends StatelessWidget {
                     ],
                   )),
               ListTile(
-                leading: Icon(Icons.language),
-                title: Text("Language"),
+                leading: Icon(Icons.list),
+                title: Text("List Classes"),
+                onTap: () {
+                  Navigator.pop(context); // this will close the drawer
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ClassSelect()));
+                },
               ),
+//              ListTile(
+//                leading: Icon(Icons.language),
+//                title: Text("Language"),
+//              ),
               ListTile(
                 leading: Icon(Icons.compare_arrows),
                 title: Text("Godot Version"),
               ),
-              ListTile(
-                leading: Icon(Icons.color_lens),
-                title: Text("Theme"),
-              )
+//              ListTile(
+//                leading: Icon(Icons.color_lens),
+//                title: Text("Theme"),
+//              )
             ],
           ),
         );
