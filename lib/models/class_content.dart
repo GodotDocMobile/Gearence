@@ -36,11 +36,11 @@ class ClassContent {
       this.themeItems,
       this.tutorials});
 
-  static ClassContent fromJson(XmlElement node) {
+  static ClassContent fromXml(XmlElement node) {
     ClassContent toReturn = ClassContent();
 
     final rootAttrs = node.attributes;
-    final childNodes = node.children;
+
     // attribute fields
     toReturn.name = _getAttrByName(rootAttrs, 'name');
 
@@ -54,9 +54,10 @@ class ClassContent {
         node.findElements('brief_description').first.text;
 
     // constants
-    final constantNode = node.findElements('constants').first;
-    if (constantNode != null) {
-      toReturn.constants = constantNode.children.map((f) {
+    final constantRoot = node.findElements('constants');
+    if (constantRoot.length > 0) {
+      final constantNodes = constantRoot.first.children;
+      toReturn.constants = constantNodes.map((f) {
         final nodeAttr = f.attributes;
         return Constant(
             name: _getAttrByName(nodeAttr, 'name'),
@@ -69,68 +70,94 @@ class ClassContent {
     toReturn.description = node.findElements('description').first.text;
 
     // members
-    final memberNode = node.findElements('members').first;
-    toReturn.members = memberNode.children.map((f) {
-      final nodeAttr = f.attributes;
-      return Member(
-          name: _getAttrByName(nodeAttr, 'name'),
-          type: _getAttrByName(nodeAttr, 'type'),
-          setter: _getAttrByName(nodeAttr, 'setter'),
-          getter: _getAttrByName(nodeAttr, 'getter'),
-          enumValue: _getAttrByName(nodeAttr, 'enum'),
-          memberText: f.text);
-    }).toList();
+    final memberRoot = node.findElements('members');
+    if (memberRoot.length > 0) {
+      final memberNodes = memberRoot.first.children;
+      toReturn.members = memberNodes.map((f) {
+        final nodeAttr = f.attributes;
+        return Member(
+            name: _getAttrByName(nodeAttr, 'name'),
+            type: _getAttrByName(nodeAttr, 'type'),
+            setter: _getAttrByName(nodeAttr, 'setter'),
+            getter: _getAttrByName(nodeAttr, 'getter'),
+            enumValue: _getAttrByName(nodeAttr, 'enum'),
+            memberText: f.text);
+      }).toList();
+    }
 
     // methods
-    final methodNode = node.findElements('methods').first;
-    toReturn.methods = methodNode.children.map((f) {
-      final nodeAttr = f.attributes;
-      final argumentNodes = f.document.findElements('argument');
-      final methodReturnNodes = f.document.findElements('return');
+    final methodRoot = node.findElements('methods');
+    if (methodRoot.length > 0) {
+      final methodNodes = methodRoot.first.children;
+      toReturn.methods = methodNodes.map((f) {
+        final element = f as XmlElement;
+        final nodeAttr = f.attributes;
 
-      MethodReturn methodRtn;
-      if (methodReturnNodes.length > 0) {
-        final methodReturnAttr = methodReturnNodes.first.attributes;
-        methodRtn = MethodReturn(
-          type: _getAttrByName(methodReturnAttr, 'type'),
-          enumValue: _getAttrByName(methodReturnAttr, 'enum'),
-        );
-      }
+        final argumentNodes = element.findElements('argument');
+        final methodReturnNodes = element.findAllElements('return');
 
-      final a = f.document.findElements('description');
-      return Method(
-          name: _getAttrByName(nodeAttr, 'name'),
-          qualifiers: _getAttrByName(nodeAttr, 'qualifiers'),
-          // TODO: fix here with 3.0/AABB.xml
-          description: f.document.findElements('description')?.first?.text,
-          arguments: argumentNodes.map((a) {
-            final argumentAttr = a.attributes;
-            return MethodArgument(
-                index: _getAttrByName(argumentAttr, 'index'),
-                name: _getAttrByName(argumentAttr, 'name'),
-                type: _getAttrByName(argumentAttr, 'type'),
-                enumValue: _getAttrByName(argumentAttr, 'enum'),
-                defaultValue: _getAttrByName(argumentAttr, 'default'));
-          }).toList(),
-          returnValue: methodRtn);
-    }).toList();
+        MethodReturn methodRtn;
+        if (methodReturnNodes.length > 0) {
+          final methodReturnAttr = methodReturnNodes.first.attributes;
+          methodRtn = MethodReturn(
+            type: _getAttrByName(methodReturnAttr, 'type'),
+            enumValue: _getAttrByName(methodReturnAttr, 'enum'),
+          );
+        }
+
+        List<MethodArgument> _arguments = argumentNodes.map((a) {
+          final argumentAttr = a.attributes;
+          return MethodArgument(
+              index: _getAttrByName(argumentAttr, 'index'),
+              name: _getAttrByName(argumentAttr, 'name'),
+              type: _getAttrByName(argumentAttr, 'type'),
+              enumValue: _getAttrByName(argumentAttr, 'enum'),
+              defaultValue: _getAttrByName(argumentAttr, 'default'));
+        }).toList();
+
+        _arguments.sort((a, b) => a.index.compareTo(b.index));
+
+        return Method(
+            name: _getAttrByName(nodeAttr, 'name'),
+            qualifiers: _getAttrByName(nodeAttr, 'qualifiers'),
+            description: element.findAllElements('description').first.text,
+            arguments: _arguments,
+            returnValue: methodRtn);
+      }).toList();
+    }
 
     // signals
-    final signalNode = node.findElements('signals').first;
-    toReturn.signals = signalNode.children.map((f) {
-      final nodeAttr = f.attributes;
-      final argumentNodes = f.document.findElements('argument');
-      return Signal(
-          name: _getAttrByName(nodeAttr, 'name'),
-          description: f.document.findElements('argument').first.text,
-          arguments: argumentNodes.map((a) {
-            final argumentAttr = a.attributes;
-            return SignalArgument(
-                index: _getAttrByName(argumentAttr, 'index'),
-                name: _getAttrByName(argumentAttr, 'name'),
-                type: _getAttrByName(argumentAttr, 'type'));
-          }));
-    }).toList();
+    final signalRoot = node.findElements('signals');
+    if (signalRoot.length > 0) {
+      final signalNodes = signalRoot.first.children;
+      toReturn.signals = signalNodes.map((f) {
+        final element = f as XmlElement;
+        final nodeAttr = f.attributes;
+        final argumentNodes = element.findElements('argument');
+        return Signal(
+            name: _getAttrByName(nodeAttr, 'name'),
+            description: element.findElements('description').first.text,
+            arguments: argumentNodes.map((a) {
+              final argumentAttr = a.attributes;
+              return SignalArgument(
+                  index: _getAttrByName(argumentAttr, 'index'),
+                  name: _getAttrByName(argumentAttr, 'name'),
+                  type: _getAttrByName(argumentAttr, 'type'));
+            }).toList());
+      }).toList();
+    }
+
+    // theme_items
+    final themeItemRoot = node.findElements('theme_items');
+    if (themeItemRoot.length > 0) {
+      final themeItemNodes = themeItemRoot.first.children;
+      toReturn.themeItems = themeItemNodes.map((f) {
+        final nodeAttr = f.attributes;
+        return ThemeItem(
+            name: _getAttrByName(nodeAttr, 'name'),
+            type: _getAttrByName(nodeAttr, 'type'));
+      }).toList();
+    }
 
     return toReturn;
   }
