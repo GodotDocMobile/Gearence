@@ -3,9 +3,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:xml/xml.dart' as xml;
 
+import 'package:godotclassreference/models/class_content.dart';
 import 'package:godotclassreference/screens/class_detail.dart';
-
 import 'package:godotclassreference/components/drawer.dart';
 
 class ClassSelect extends StatelessWidget {
@@ -38,17 +39,15 @@ class ClassSelect extends StatelessWidget {
             return ListView(
               children: snapshot.data
                   .map((f) => ListTile(
-                        title: Text(f.replaceAll('.xml', '')),
-                        onTap: () {
-                          Navigator.push(
+                      title: Text(f.replaceAll('.xml', '')),
+                      onTap: () {
+                        Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => ClassDetail(
                                   className: f.replaceAll('.xml', '')),
-                            ),
-                          );
-                        },
-                      ))
+                            ));
+                      }))
                   .toList(),
             );
           }

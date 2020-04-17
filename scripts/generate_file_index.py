@@ -2,14 +2,21 @@
 import json
 from os import listdir
 from os.path import isfile,join
-# import xml.etree.ElementTree as ET
-from lxml import etree
+import re
 
 def strip_file(file_path):
     print(file_path)
-    parser = etree.XMLParser(remove_blank_text=True)
-    tree = etree.parse(file_path,parser)
-    tree.write(file_path,pretty_print=False)
+    f = open(file_path,"r")
+    content = f.read()
+    # print(content)
+    f.close()
+
+    # print(re.sub('\n[\t]*<','<',re.sub('>\n[\t]*<','><',content)))
+
+    f = open(file_path,"w")
+    f.write(re.sub('\n[\t]*<','<',re.sub('>\n[\t]*<','><',content)))
+    f.close()
+    pass
 
 if __name__ == "__main__":
     onlyfiles = [f for f in listdir("../xmls/3.0") if isfile(join("../xmls/3.0/",f))]
