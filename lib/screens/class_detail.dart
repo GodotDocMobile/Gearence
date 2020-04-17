@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:godotclassreference/constants/colors.dart';
 import 'package:godotclassreference/screens/class_detail/class_constants.dart';
+import 'package:godotclassreference/screens/class_detail/class_enums.dart';
 import 'package:godotclassreference/screens/class_detail/class_info.dart';
 import 'package:godotclassreference/screens/class_detail/class_members.dart';
 import 'package:godotclassreference/screens/class_detail/class_methods.dart';
@@ -44,6 +46,8 @@ class ClassDetail extends StatelessWidget {
               child: ClassThemeItems(
                 clsContent: snapshot.data,
               ),
+              showCnt: true,
+              itemCount: snapshot.data.themeItems.length,
             ));
           }
           return DefaultTabController(
@@ -55,7 +59,36 @@ class ClassDetail extends StatelessWidget {
                 bottom: TabBar(
                   isScrollable: true,
                   tabs: tabs.map((f) {
-                    return Tab(text: f.title);
+                    return Tab(
+                      child: Row(
+                        children: <Widget>[
+                          Text(f.title),
+                          f.showCnt
+                              ? Row(
+                                  children: <Widget>[
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(3))),
+//                                      width: 30,
+                                      height: 20,
+                                      child: Center(
+                                        child: Text(
+                                          " " + f.itemCount.toString() + " ",
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : SizedBox()
+                        ],
+                      ),
+                    );
                   }).toList(),
                 ),
               ),
@@ -79,11 +112,15 @@ class ClassDetail extends StatelessWidget {
 }
 
 class ClassTab {
-  ClassTab({this.title, this.child});
+  ClassTab({this.title, this.child, this.itemCount, this.showCnt = false});
 
   final String title;
 
   final Widget child;
+
+  final int itemCount;
+
+  final bool showCnt;
 }
 
 List<ClassTab> getClassTabs(ClassContent clsContent) {
@@ -95,28 +132,48 @@ List<ClassTab> getClassTabs(ClassContent clsContent) {
       ),
     ),
     ClassTab(
+      title: "Enums",
+      child: ClassEnums(
+        clsContent: clsContent,
+      ),
+      showCnt: true,
+      itemCount: clsContent.constants == null
+          ? 0
+          : clsContent.constants.where((w) => w.enumValue != null).length,
+    ),
+    ClassTab(
       title: "Constants",
       child: ClassConstants(
         clsContent: clsContent,
       ),
+      showCnt: true,
+      itemCount: clsContent.constants == null
+          ? 0
+          : clsContent.constants.where((w) => w == null).length,
     ),
     ClassTab(
       title: "Members",
       child: ClassMembers(
         clsContent: clsContent,
       ),
+      showCnt: true,
+      itemCount: clsContent.members == null ? 0 : clsContent.members.length,
     ),
     ClassTab(
       title: "Methods",
       child: ClassMethods(
         clsContent: clsContent,
       ),
+      showCnt: true,
+      itemCount: clsContent.methods == null ? 0 : clsContent.methods.length,
     ),
     ClassTab(
       title: "Signals",
       child: ClassSignals(
         clsContent: clsContent,
       ),
+      showCnt: true,
+      itemCount: clsContent.signals == null ? 0 : clsContent.signals.length,
     )
   ];
 }
