@@ -21,8 +21,8 @@ if __name__ == "__main__":
             print('parsing '+ver+' ...')
             files = [f for f in listdir(join("../xmls",ver)) if isfile(join("../xmls",ver,f))]
             files.sort()
-            for json_file in files:
-                strip_file(join("../xmls",ver,json_file))
+            # for json_file in files:
+            #     strip_file(join("../xmls",ver,json_file))
             files_json = json.dumps(files)
             f = open(join("../xmls","files_"+ver+".json"),"w")
             f.write(files_json)
