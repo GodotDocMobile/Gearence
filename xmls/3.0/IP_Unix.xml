@@ -1,9 +1,3 @@
 <class name="IP_Unix" inherits="IP" category="Core" version="3.0.7"><brief_description>
-		Unix IP support. See [IP].
-	</brief_description><description>
-		Unix-specific implementation of IP support functions. See [IP].
-	</description><tutorials>
-	</tutorials><demos>
-	</demos><methods>
-	</methods><constants>
-	</constants></class>
+		Unix IP support. See [IP].</brief_description><description>
+		Unix-specific implementation of IP support functions. See [IP].</description><tutorials></tutorials><demos></demos><methods></methods><constants></constants></class>
