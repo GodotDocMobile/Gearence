@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:godotclassreference/models/class_content.dart';
 
 class ClassConstants extends StatelessWidget {
@@ -8,6 +9,25 @@ class ClassConstants extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text("Constants");
+    if (clsContent.constants == null ||
+        clsContent.constants.where((w) => w == null).length == 0) {
+      return Center(
+        child: Text('0 constant in this class'),
+      );
+    }
+
+    return ListView(
+      padding: EdgeInsets.all(5),
+      children: clsContent.constants.where((w) => w == null).map((c) {
+        return ListTile(
+          leading: Card(
+            child: Text(c.value),
+          ),
+          title: Text(c.name),
+//          trailing: Text('value:' + c.value),
+          subtitle: Text(c.constantText),
+        );
+      }).toList(),
+    );
   }
 }
