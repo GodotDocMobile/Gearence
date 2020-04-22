@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:xml/xml.dart' as xml;
 
 import 'package:godotclassreference/screens/class_detail/class_constants.dart';
@@ -21,8 +22,11 @@ class ClassDetail extends StatelessWidget {
         super(key: key);
 
   Future<ClassContent> getClassDetail() async {
-    final file = await rootBundle.loadString('xmls/3.0/' + className + '.xml');
-//    final aaa = xml.parse(file).root;
+    final version = StoredValues().prefs.getString('version');
+
+    final file = await rootBundle
+        .loadString('xmls/' + version + '/' + className + '.xml');
+    final aaa = xml.parse(file).root;
     final rootNode = xml.parse(file).root.children.elementAt(1);
 //    final bbb = aaa.children.where((w) => w.text != '\n').last;
     return ClassContent.fromXml(rootNode);
