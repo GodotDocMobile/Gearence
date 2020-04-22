@@ -29,6 +29,10 @@ class ClassEnums extends StatelessWidget {
     return ListView(
       padding: EdgeInsets.all(5),
       children: _enums.map((e) {
+        final _enumValues =
+            clsContent.constants.where((w) => w.enumValue == e).toList();
+        _enumValues.sort((a, b) => a.value.compareTo(b.value));
+
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -49,8 +53,7 @@ class ClassEnums extends StatelessWidget {
               ],
             ),
             Column(
-              children:
-                  clsContent.constants.where((w) => w.enumValue == e).map((c) {
+              children: _enumValues.map((c) {
                 return ListTile(
 //                  leading: Card(
 //                    child: Text(c.value),
