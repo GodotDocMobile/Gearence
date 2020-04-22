@@ -47,21 +47,23 @@ class ClassInfo extends StatelessWidget {
         ),
 
         //category
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Category:',
-              style: fieldNames,
-            ),
-            Padding(
-                padding: EdgeInsets.fromLTRB(10, 4, 0, 0),
-                child: Text(clsContent.category)),
-          ],
-        ),
-        SizedBox(
-          height: 10,
-        ),
+        (clsContent.category == null
+            ? SizedBox()
+            : Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    'Category:',
+                    style: fieldNames,
+                  ),
+                  Padding(
+                      padding: EdgeInsets.fromLTRB(10, 4, 0, 0),
+                      child: Text(clsContent.category)),
+                  SizedBox(
+                    height: 10,
+                  ),
+                ],
+              )),
 
         //description
         Text('Description:', style: fieldNames),

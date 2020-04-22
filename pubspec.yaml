@@ -18,7 +18,7 @@ environment:
 
 dependencies:
   # store values to local
-  shared_preferences: ^0.5.6+3
+  shared_preferences: ^0.5.7
 
   # read package info from code
   package_info: ^0.4.0+16
@@ -51,10 +51,10 @@ flutter:
 
 
   assets:
-#    - xmls/2.1/
+    - xmls/2.1/
     - xmls/3.0/
-#    - xmls/3.1/
-#    - xmls/3.2/
+    - xmls/3.1/
+    - xmls/3.2/
     - xmls/files_2.1.json
     - xmls/files_3.0.json
     - xmls/files_3.1.json
