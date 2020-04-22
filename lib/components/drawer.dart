@@ -41,15 +41,15 @@ class GCRDrawer extends StatelessWidget {
                       )
                     ],
                   )),
-              ListTile(
-                leading: Icon(Icons.list),
-                title: Text("List Classes"),
-                onTap: () {
-                  Navigator.pop(context); // this will close the drawer
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ClassSelect()));
-                },
-              ),
+//              ListTile(
+//                leading: Icon(Icons.list),
+//                title: Text("List Classes"),
+//                onTap: () {
+//                  Navigator.pop(context); // this will close the drawer
+//                  Navigator.push(context,
+//                      MaterialPageRoute(builder: (context) => ClassSelect()));
+//                },
+//              ),
 //              ListTile(
 //                leading: Icon(Icons.language),
 //                title: Text("Language"),

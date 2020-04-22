@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:godotclassreference/components/description_text.dart';
 import 'package:godotclassreference/models/class_content.dart';
 
 class ClassSignals extends StatelessWidget {
@@ -25,7 +26,11 @@ class ClassSignals extends StatelessWidget {
                   return a.type + " " + a.name;
                 }).toString(),
           ),
-          subtitle: Text(s.description),
+          subtitle: DescriptionText(
+            className: clsContent.name,
+            content: s.description,
+            onLinkTap: (e) {},
+          ),
         );
       }).toList(),
     );

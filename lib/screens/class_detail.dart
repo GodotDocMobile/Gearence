@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:xml/xml.dart' as xml;
+
 import 'package:godotclassreference/screens/class_detail/class_constants.dart';
 import 'package:godotclassreference/screens/class_detail/class_enums.dart';
 import 'package:godotclassreference/screens/class_detail/class_info.dart';
@@ -8,8 +10,6 @@ import 'package:godotclassreference/screens/class_detail/class_members.dart';
 import 'package:godotclassreference/screens/class_detail/class_methods.dart';
 import 'package:godotclassreference/screens/class_detail/class_signals.dart';
 import 'package:godotclassreference/screens/class_detail/class_theme_items.dart';
-
-import 'package:xml/xml.dart' as xml;
 
 import 'package:godotclassreference/models/class_content.dart';
 
@@ -22,8 +22,9 @@ class ClassDetail extends StatelessWidget {
 
   Future<ClassContent> getClassDetail() async {
     final file = await rootBundle.loadString('xmls/3.0/' + className + '.xml');
-    final rootNode = xml.parse(file).root.lastChild;
-
+//    final aaa = xml.parse(file).root;
+    final rootNode = xml.parse(file).root.children.elementAt(1);
+//    final bbb = aaa.children.where((w) => w.text != '\n').last;
     return ClassContent.fromXml(rootNode);
   }
 
