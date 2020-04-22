@@ -1,4 +1,4 @@
-<class name="Skeleton" inherits="Spatial" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="Skeleton" inherits="Spatial" category="Core" version="3.0.7"><brief_description>
 		Skeleton for characters and animated objects.</brief_description><description>
 		Skeleton provides a hierarchical interface for managing bones, including pose, rest and animation (see [Animation]). Skeleton will support rag doll dynamics in the future.
 		The overall transform of a bone with respect to the skeleton is determined by the following hierarchical order: rest pose, custom pose and pose.

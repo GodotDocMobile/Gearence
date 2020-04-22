@@ -1,4 +1,4 @@
-<class name="PhysicsBody" inherits="CollisionObject" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="PhysicsBody" inherits="CollisionObject" category="Core" version="3.0.7"><brief_description>
 		Base class for all objects affected by physics in 3D space.</brief_description><description>
 		PhysicsBody is an abstract base class for implementing a physics body. All *Body types inherit from it.</description><tutorials>
 		http://docs.godotengine.org/en/3.0/tutorials/physics/physics_introduction.html</tutorials><demos></demos><methods><method name="add_collision_exception_with"><return type="void"></return><argument index="0" name="body" type="Node"></argument><description>

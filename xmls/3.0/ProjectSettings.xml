@@ -1,4 +1,4 @@
-<class name="ProjectSettings" inherits="Object" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="ProjectSettings" inherits="Object" category="Core" version="3.0.7"><brief_description>
 		Contains global variables accessible from everywhere.</brief_description><description>
 		Contains global variables accessible from everywhere. Use "ProjectSettings.get_setting(variable)", "ProjectSettings.set_setting(variable,value)" or "ProjectSettings.has_setting(variable)" to access them. Variables stored in project.godot are also loaded into ProjectSettings, making this object very useful for reading custom game configuration options.</description><tutorials></tutorials><demos></demos><methods><method name="add_property_info"><return type="void"></return><argument index="0" name="hint" type="Dictionary"></argument><description>
 				Add a custom property info to a property. The dictionary must contain: name:[String](the name of the property) and type:[int](see TYPE_* in [@GlobalScope]), and optionally hint:[int](see PROPERTY_HINT_* in [@GlobalScope]), hint_string:[String].

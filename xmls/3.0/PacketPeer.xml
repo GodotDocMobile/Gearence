@@ -1,4 +1,4 @@
-<class name="PacketPeer" inherits="Reference" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="PacketPeer" inherits="Reference" category="Core" version="3.0.7"><brief_description>
 		Abstraction and base class for packet-based protocols.</brief_description><description>
 		PacketPeer is an abstraction and base class for packet-based protocols (such as UDP). It provides an API for sending and receiving packets both as raw data or variables. This makes it easy to transfer data over a protocol, without having to encode data as low level bytes or having to worry about network ordering.</description><tutorials></tutorials><demos></demos><methods><method name="get_available_packet_count" qualifiers="const"><return type="int"></return><description>
 				Return the number of packets currently available in the ring-buffer.</description></method><method name="get_packet"><return type="PoolByteArray"></return><description>

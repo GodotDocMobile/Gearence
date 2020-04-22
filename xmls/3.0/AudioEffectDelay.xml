@@ -1,4 +1,4 @@
-<class name="AudioEffectDelay" inherits="AudioEffect" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="AudioEffectDelay" inherits="AudioEffect" category="Core" version="3.0.7"><brief_description>
 		Adds a Delay audio effect to an Audio bus. Plays input signal back after a period of time.
 		Two tap delay and feedback options.</brief_description><description>
 		Plays input signal back after a period of time. The delayed signal may be played back multiple times to create the sound of a repeating, decaying echo. Delay effects range from a subtle echo effect to a pronounced blending of previous sounds with new sounds.</description><tutorials></tutorials><demos></demos><methods></methods><members><member name="dry" type="float" setter="set_dry" getter="get_dry">

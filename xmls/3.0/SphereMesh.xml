@@ -1,4 +1,4 @@
-<class name="SphereMesh" inherits="PrimitiveMesh" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="SphereMesh" inherits="PrimitiveMesh" category="Core" version="3.0.7"><brief_description>
 		Class representing a spherical [PrimitiveMesh].</brief_description><description>
 		Class representing a spherical [PrimitiveMesh].</description><tutorials></tutorials><demos></demos><methods></methods><members><member name="height" type="float" setter="set_height" getter="get_height">
 			Full height of the sphere. Defaults to 2.0.</member><member name="is_hemisphere" type="bool" setter="set_is_hemisphere" getter="get_is_hemisphere">

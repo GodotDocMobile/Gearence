@@ -1,4 +1,4 @@
-<class name="UndoRedo" inherits="Object" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="UndoRedo" inherits="Object" category="Core" version="3.0.7"><brief_description>
 		Helper to manage UndoRedo in the editor or custom tools.</brief_description><description>
 		Helper to manage UndoRedo in the editor or custom tools. It works by registering methods and property changes inside 'actions'.
 		Common behavior is to create an action, then add do/undo calls to functions or property changes, then committing the action.

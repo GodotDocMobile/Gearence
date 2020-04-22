@@ -1,4 +1,4 @@
-<class name="SurfaceTool" inherits="Reference" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="SurfaceTool" inherits="Reference" category="Core" version="3.0.7"><brief_description>
 		Helper tool to create geometry.</brief_description><description>
 		The [code]SurfaceTool[/code] is used to construct a [Mesh] by specifying vertex attributes individually. It can be used to construct a [Mesh] from script. All properties except index need to be added before a call to [method add_vertex]. For example adding vertex colors and UVs looks like
 		[codeblock]

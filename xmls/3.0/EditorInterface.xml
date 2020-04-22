@@ -1,4 +1,4 @@
-<class name="EditorInterface" inherits="Node" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="EditorInterface" inherits="Node" category="Core" version="3.0.7"><brief_description>
 		Godot editor's interface.</brief_description><description>
 		EditorInterface gives you control over Godot editor's window. It allows customizing the window, saving and (re-)loading scenes, rendering mesh previews, inspecting and editing resources and objects, and provides access to [EditorSettings], [EditorFileSystem], [EditorResourcePreview], [ScriptEditor], the editor viewport, and information about scenes.</description><tutorials></tutorials><demos></demos><methods><method name="edit_resource"><return type="void"></return><argument index="0" name="resource" type="Resource"></argument><description>
 				Edits the given [Resource].</description></method><method name="get_base_control"><return type="Control"></return><description>

@@ -1,4 +1,4 @@
-<class name="HTTPRequest" inherits="Node" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="HTTPRequest" inherits="Node" category="Core" version="3.0.7"><brief_description>
 		A node with the ability to send HTTP requests.</brief_description><description>
 		A node with the ability to send HTTP requests. Uses [HTTPClient] internally.
 		Can be used to make HTTP requests, i.e. download or upload files or web content via HTTP.</description><tutorials>

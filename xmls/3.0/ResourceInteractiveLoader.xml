@@ -1,4 +1,4 @@
-<class name="ResourceInteractiveLoader" inherits="Reference" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="ResourceInteractiveLoader" inherits="Reference" category="Core" version="3.0.7"><brief_description>
 		Interactive Resource Loader.</brief_description><description>
 		Interactive Resource Loader. This object is returned by ResourceLoader when performing an interactive load. It allows to load with high granularity, so this is mainly useful for displaying load bars/percentages.</description><tutorials></tutorials><demos></demos><methods><method name="get_resource"><return type="Resource"></return><description>
 				Return the loaded resource (only if loaded). Otherwise, returns null.</description></method><method name="get_stage" qualifiers="const"><return type="int"></return><description>

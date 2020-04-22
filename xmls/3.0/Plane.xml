@@ -1,4 +1,4 @@
-<class name="Plane" category="Built-In Types" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="Plane" category="Built-In Types" version="3.0.7"><brief_description>
 		Plane in hessian form.</brief_description><description>
 		Plane represents a normalized plane equation. Basically, "normal" is the normal of the plane (a,b,c normalized), and "d" is the distance from the origin to the plane (in the direction of "normal"). "Over" or "Above" the plane is considered the side of the plane towards where the normal is pointing.</description><tutorials>
 		http://docs.godotengine.org/en/3.0/tutorials/math/index.html</tutorials><demos></demos><methods><method name="Plane"><return type="Plane"></return><argument index="0" name="a" type="float"></argument><argument index="1" name="b" type="float"></argument><argument index="2" name="c" type="float"></argument><argument index="3" name="d" type="float"></argument><description>

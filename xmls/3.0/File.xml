@@ -1,4 +1,4 @@
-<class name="File" inherits="Reference" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="File" inherits="Reference" category="Core" version="3.0.7"><brief_description>
 		Type to handle file reading and writing operations.</brief_description><description>
 		File type. This is used to permanently store data into the user device's file system and to read from it. This can be used to store game save data or player configuration files, for example.
 		Here's a sample on how to write and read from a file:

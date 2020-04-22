@@ -1,4 +1,4 @@
-<class name="TabContainer" inherits="Control" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="TabContainer" inherits="Control" category="Core" version="3.0.7"><brief_description>
 		Tabbed Container.</brief_description><description>
 		Sets the active tab's [code]visible[/code] property to the value [code]true[/code]. Sets all other children's to [code]false[/code].
 		Ignores non-[Control] children.

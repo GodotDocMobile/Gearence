@@ -1,4 +1,4 @@
-<class name="TCP_Server" inherits="Reference" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="TCP_Server" inherits="Reference" category="Core" version="3.0.7"><brief_description>
 		TCP Server.</brief_description><description>
 		TCP Server class. Listens to connections on a port and returns a [StreamPeerTCP] when got a connection.</description><tutorials></tutorials><demos></demos><methods><method name="is_connection_available" qualifiers="const"><return type="bool"></return><description>
 				Return true if a connection is available for taking.</description></method><method name="listen"><return type="int" enum="Error"></return><argument index="0" name="port" type="int"></argument><argument index="1" name="bind_address" type="String" default="&quot;*&quot;"></argument><description>

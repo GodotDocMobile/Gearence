@@ -1,4 +1,4 @@
-<class name="Rect2" category="Built-In Types" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="Rect2" category="Built-In Types" version="3.0.7"><brief_description>
 		2D Axis-aligned bounding box.</brief_description><description>
 		Rect2 consists of a position, a size, and several utility functions. It is typically used for fast overlap tests.</description><tutorials>
 		http://docs.godotengine.org/en/3.0/tutorials/math/index.html</tutorials><demos></demos><methods><method name="Rect2"><return type="Rect2"></return><argument index="0" name="position" type="Vector2"></argument><argument index="1" name="size" type="Vector2"></argument><description>

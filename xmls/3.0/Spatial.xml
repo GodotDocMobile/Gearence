@@ -1,4 +1,4 @@
-<class name="Spatial" inherits="Node" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="Spatial" inherits="Node" category="Core" version="3.0.7"><brief_description>
 		Most basic 3D game object, parent of all 3D related nodes.</brief_description><description>
 		Most basic 3D game object, with a 3D [Transform] and visibility settings. All other 3D game objects inherit from Spatial. Use Spatial as a parent node to move, scale, rotate and show/hide children in a 3D project.
 		Affine operations (rotate, scale, translate) happen in parent's local coordinate system, unless the Spatial object is set as top level. Affine operations in this coordinate system correspond to direct affine operations on the Spatial's transform. The word local below refers to this coordinate system. The coordinate system that is attached to the Spatial object itself is referred to as object-local coordinate system.</description><tutorials>

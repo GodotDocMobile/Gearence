@@ -1,4 +1,4 @@
-<class name="VisualInstance" inherits="Spatial" category="Core" version="3.0.7"><brief_description></brief_description><description></description><tutorials></tutorials><demos></demos><methods><method name="get_aabb" qualifiers="const"><return type="AABB"></return><description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="VisualInstance" inherits="Spatial" category="Core" version="3.0.7"><brief_description></brief_description><description></description><tutorials></tutorials><demos></demos><methods><method name="get_aabb" qualifiers="const"><return type="AABB"></return><description>
 				Returns the [AABB] (also known as the bounding box) for this VisualInstance.</description></method><method name="get_transformed_aabb" qualifiers="const"><return type="AABB"></return><description>
 				Returns the transformed [AABB] (also known as the bounding box) for this VisualInstance.
 				Transformed in this case means the [AABB] plus the position, rotation, and scale of the [Spatial]s [Transform]</description></method><method name="set_base"><return type="void"></return><argument index="0" name="base" type="RID"></argument><description>

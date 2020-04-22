@@ -1,4 +1,4 @@
-<class name="StreamPeerTCP" inherits="StreamPeer" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="StreamPeerTCP" inherits="StreamPeer" category="Core" version="3.0.7"><brief_description>
 		TCP Stream peer.</brief_description><description>
 		TCP Stream peer. This object can be used to connect to TCP servers, or also is returned by a TCP server.</description><tutorials></tutorials><demos></demos><methods><method name="connect_to_host"><return type="int" enum="Error"></return><argument index="0" name="host" type="String"></argument><argument index="1" name="port" type="int"></argument><description>
 				Connect to the specified host:port pair. A hostname will be resolved if valid. Returns [OK] on success or [FAILED] on failure.</description></method><method name="disconnect_from_host"><return type="void"></return><description>

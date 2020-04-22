@@ -1,4 +1,4 @@
-<class name="StaticBody2D" inherits="PhysicsBody2D" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="StaticBody2D" inherits="PhysicsBody2D" category="Core" version="3.0.7"><brief_description>
 		Static body for 2D Physics.</brief_description><description>
 		Static body for 2D Physics. A StaticBody2D is a body that is not intended to move. It is ideal for implementing objects in the environment, such as walls or platforms.
 		Additionally, a constant linear or angular velocity can be set for the static body, which will affect colliding bodies as if it were moving (for example, a conveyor belt).</description><tutorials></tutorials><demos></demos><methods></methods><members><member name="bounce" type="float" setter="set_bounce" getter="get_bounce">

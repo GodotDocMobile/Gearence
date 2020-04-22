@@ -1,4 +1,4 @@
-<class name="Polygon2D" inherits="Node2D" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="Polygon2D" inherits="Node2D" category="Core" version="3.0.7"><brief_description>
 		A 2D polygon.</brief_description><description>
 		A Polygon2D is defined by a set of points. Each point is connected to the next, with the final point being connected to the first, resulting in a closed polygon. Polygon2Ds can be filled with color (solid or gradient) or filled with a given texture.</description><tutorials></tutorials><demos></demos><methods></methods><members><member name="antialiased" type="bool" setter="set_antialiased" getter="get_antialiased">
 			If [code]true[/code] polygon edges will be anti-aliased. Default value: [code]false[/code].</member><member name="color" type="Color" setter="set_color" getter="get_color">

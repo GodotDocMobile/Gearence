@@ -1,4 +1,4 @@
-<class name="ARVRServer" inherits="Object" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="ARVRServer" inherits="Object" category="Core" version="3.0.7"><brief_description>
 		This is our AR/VR Server.</brief_description><description>
 		The AR/VR Server is the heart of our AR/VR solution and handles all the processing.</description><tutorials></tutorials><demos></demos><methods><method name="center_on_hmd"><return type="void"></return><argument index="0" name="rotation_mode" type="int" enum="ARVRServer.RotationMode"></argument><argument index="1" name="keep_height" type="bool"></argument><description>
 				This is a really important function to understand correctly. AR and VR platforms all handle positioning slightly differently.

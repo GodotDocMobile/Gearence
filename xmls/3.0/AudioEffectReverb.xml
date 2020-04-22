@@ -1,4 +1,4 @@
-<class name="AudioEffectReverb" inherits="AudioEffect" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="AudioEffectReverb" inherits="AudioEffect" category="Core" version="3.0.7"><brief_description>
 		Adds a Reverb audio effect to an Audio bus.
 		Simulates the sound of acoustic environments such as rooms, concert halls, caverns, or an open spaces.</brief_description><description>
 		Simulates rooms of different sizes. Its parameters can be adjusted to simulate the sound of a specific room.</description><tutorials></tutorials><demos></demos><methods></methods><members><member name="damping" type="float" setter="set_damping" getter="get_damping">

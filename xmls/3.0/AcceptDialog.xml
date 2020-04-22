@@ -1,4 +1,4 @@
-<class name="AcceptDialog" inherits="WindowDialog" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="AcceptDialog" inherits="WindowDialog" category="Core" version="3.0.7"><brief_description>
 		Base dialog for user notification.</brief_description><description>
 		This dialog is useful for small notifications to the user about an event. It can only be accepted or closed, with the same result.</description><tutorials></tutorials><demos></demos><methods><method name="add_button"><return type="Button"></return><argument index="0" name="text" type="String"></argument><argument index="1" name="right" type="bool" default="false"></argument><argument index="2" name="action" type="String" default="&quot;&quot;"></argument><description>
 				Adds a button with label [i]text[/i] and a custom [i]action[/i] to the dialog and returns the created button. [i]action[/i] will be passed to the [signal custom_action] signal when pressed.

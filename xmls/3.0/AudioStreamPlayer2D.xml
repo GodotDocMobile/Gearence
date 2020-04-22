@@ -1,4 +1,4 @@
-<class name="AudioStreamPlayer2D" inherits="Node2D" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="AudioStreamPlayer2D" inherits="Node2D" category="Core" version="3.0.7"><brief_description>
 		Plays audio in 2D.</brief_description><description>
 		Plays audio that dampens with distance from screen center.</description><tutorials>
 		http://docs.godotengine.org/en/latest/learning/features/audio/index.html

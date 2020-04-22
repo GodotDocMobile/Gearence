@@ -1,4 +1,4 @@
-<class name="PoolStringArray" category="Built-In Types" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="PoolStringArray" category="Built-In Types" version="3.0.7"><brief_description>
 		String Array.</brief_description><description>
 		String Array. Array of strings. Can only contain strings. Optimized for memory usage, can't fragment the memory. Note that this type is passed by value and not by reference.</description><tutorials></tutorials><demos></demos><methods><method name="PoolStringArray"><return type="PoolStringArray"></return><argument index="0" name="from" type="Array"></argument><description>
 				Create from a generic array.</description></method><method name="append"><argument index="0" name="string" type="String"></argument><description>

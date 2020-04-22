@@ -1,4 +1,4 @@
-<class name="Object" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="Object" category="Core" version="3.0.7"><brief_description>
 		Base class for all non built-in types.</brief_description><description>
 		Base class for all non built-in types. Everything not a built-in type starts the inheritance chain from this class.
 		Objects do not manage memory, if inheriting from one the object will most likely have to be deleted manually (call the [method free] function from the script or delete from C++).

@@ -1,4 +1,4 @@
-<class name="InputEventKey" inherits="InputEventWithModifiers" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="InputEventKey" inherits="InputEventWithModifiers" category="Core" version="3.0.7"><brief_description>
 		Input event type for keyboard events.</brief_description><description>
 		Stores key presses on the keyboard. Supports key presses, key releases and [member echo] events.</description><tutorials>
 		http://docs.godotengine.org/en/3.0/tutorials/inputs/inputevent.html</tutorials><demos></demos><methods><method name="get_scancode_with_modifiers" qualifiers="const"><return type="int"></return><description>

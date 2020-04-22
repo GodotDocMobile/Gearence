@@ -1,4 +1,4 @@
-<class name="PoolByteArray" category="Built-In Types" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="PoolByteArray" category="Built-In Types" version="3.0.7"><brief_description>
 		Raw byte array.</brief_description><description>
 		Raw byte array. Contains bytes. Optimized for memory usage, can't fragment the memory. Note that this type is passed by value and not by reference.</description><tutorials></tutorials><demos></demos><methods><method name="PoolByteArray"><return type="PoolByteArray"></return><argument index="0" name="from" type="Array"></argument><description>
 				Create from a generic array.</description></method><method name="append"><argument index="0" name="byte" type="int"></argument><description>

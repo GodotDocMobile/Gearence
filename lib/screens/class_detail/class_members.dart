@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:godotclassreference/components/description_text.dart';
 import 'package:godotclassreference/models/class_content.dart';
 
 class ClassMembers extends StatelessWidget {
@@ -58,9 +59,10 @@ class ClassMembers extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-            child: Text(
-              m.memberText,
-              style: TextStyle(color: Colors.grey),
+            child: DescriptionText(
+              className: clsContent.name,
+              content: m.memberText,
+              onLinkTap: (e) {},
             ),
           ),
           SizedBox(

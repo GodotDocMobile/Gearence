@@ -1,4 +1,4 @@
-<class name="TileMap" inherits="Node2D" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="TileMap" inherits="Node2D" category="Core" version="3.0.7"><brief_description>
 		Node for 2D tile-based maps.</brief_description><description>
 		Node for 2D tile-based maps. Tilemaps use a [TileSet] which contain a list of tiles (textures plus optional collision, navigation, and/or occluder shapes) which are used to create grid-based maps.</description><tutorials>
 		http://docs.godotengine.org/en/3.0/tutorials/2d/using_tilemaps.html</tutorials><demos></demos><methods><method name="clear"><return type="void"></return><description>

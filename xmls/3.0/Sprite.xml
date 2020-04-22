@@ -1,4 +1,4 @@
-<class name="Sprite" inherits="Node2D" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="Sprite" inherits="Node2D" category="Core" version="3.0.7"><brief_description>
 		General purpose Sprite node.</brief_description><description>
 		A node that displays a 2D texture. The texture displayed can be a region from a larger atlas texture, or a frame from a sprite sheet animation.</description><tutorials></tutorials><demos></demos><methods></methods><members><member name="centered" type="bool" setter="set_centered" getter="is_centered">
 			If [code]true[/code] texture is centered. Default value: [code]true[/code].</member><member name="flip_h" type="bool" setter="set_flip_h" getter="is_flipped_h">

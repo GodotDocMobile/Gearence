@@ -1,4 +1,4 @@
-<class name="InputEventJoypadButton" inherits="InputEvent" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="InputEventJoypadButton" inherits="InputEvent" category="Core" version="3.0.7"><brief_description>
 		Input event for gamepad buttons.</brief_description><description>
 		Input event type for gamepad buttons. For joysticks see [InputEventJoypadMotion].</description><tutorials>
 		http://docs.godotengine.org/en/3.0/tutorials/inputs/inputevent.html</tutorials><demos></demos><methods></methods><members><member name="button_index" type="int" setter="set_button_index" getter="get_button_index">

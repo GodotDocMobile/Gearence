@@ -1,4 +1,4 @@
-<class name="AudioStreamSample" inherits="AudioStream" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="AudioStreamSample" inherits="AudioStream" category="Core" version="3.0.7"><brief_description>
 		Plays audio.</brief_description><description>
 		Plays audio, can loop.</description><tutorials></tutorials><demos></demos><methods></methods><members><member name="format" type="int" setter="set_format" getter="get_format" enum="AudioStreamSample.Format">
 			Audio format. See FORMAT_* constants for values.</member><member name="loop_begin" type="int" setter="set_loop_begin" getter="get_loop_begin">

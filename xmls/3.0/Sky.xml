@@ -1,4 +1,4 @@
-<class name="Sky" inherits="Resource" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="Sky" inherits="Resource" category="Core" version="3.0.7"><brief_description>
 		The base class for [PanoramaSky] and [ProceduralSky].</brief_description><description>
 		The base class for [PanoramaSky] and [ProceduralSky].</description><tutorials></tutorials><demos></demos><methods></methods><members><member name="radiance_size" type="int" setter="set_radiance_size" getter="get_radiance_size" enum="Sky.RadianceSize">
 			The Sky's radiance map size.

@@ -1,4 +1,4 @@
-<class name="CanvasItem" inherits="Node" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="CanvasItem" inherits="Node" category="Core" version="3.0.7"><brief_description>
 		Base class of anything 2D.</brief_description><description>
 		Base class of anything 2D. Canvas items are laid out in a tree and children inherit and extend the transform of their parent. CanvasItem is extended by [Control], for anything GUI related, and by [Node2D] for anything 2D engine related.
 		Any CanvasItem can draw. For this, the "update" function must be called, then NOTIFICATION_DRAW will be received on idle time to request redraw. Because of this, canvas items don't need to be redraw on every frame, improving the performance significantly. Several functions for drawing on the CanvasItem are provided (see draw_* functions). They can only be used inside the notification, signal or _draw() overrides function, though.

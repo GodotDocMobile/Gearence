@@ -1,4 +1,4 @@
-<class name="SpriteFrames" inherits="Resource" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="SpriteFrames" inherits="Resource" category="Core" version="3.0.7"><brief_description>
 		Sprite frame library for AnimatedSprite.</brief_description><description>
 		Sprite frame library for [AnimatedSprite]. Contains frames and animation data for playback.</description><tutorials></tutorials><demos></demos><methods><method name="add_animation"><return type="void"></return><argument index="0" name="anim" type="String"></argument><description>
 				Adds a new animation to the the library.</description></method><method name="add_frame"><return type="void"></return><argument index="0" name="anim" type="String"></argument><argument index="1" name="frame" type="Texture"></argument><argument index="2" name="at_position" type="int" default="-1"></argument><description>

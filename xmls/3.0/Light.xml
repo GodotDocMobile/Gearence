@@ -1,4 +1,4 @@
-<class name="Light" inherits="VisualInstance" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="Light" inherits="VisualInstance" category="Core" version="3.0.7"><brief_description>
 		Provides a base class for different kinds of light nodes.</brief_description><description>
 		Light is the abstract base class for light nodes, so it shouldn't be used directly (It can't be instanced). Other types of light nodes inherit from it. Light contains the common variables and parameters used for lighting.</description><tutorials>
 		http://docs.godotengine.org/en/3.0/tutorials/3d/lights_and_shadows.html</tutorials><demos></demos><methods></methods><members><member name="editor_only" type="bool" setter="set_editor_only" getter="is_editor_only">

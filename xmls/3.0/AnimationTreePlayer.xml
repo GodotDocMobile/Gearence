@@ -1,4 +1,4 @@
-<class name="AnimationTreePlayer" inherits="Node" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="AnimationTreePlayer" inherits="Node" category="Core" version="3.0.7"><brief_description>
 		Animation Player that uses a node graph for blending Animations.</brief_description><description>
 		A node graph tool for blending multiple animations bound to an [AnimationPlayer]. Especially useful for animating characters or other skeleton-based rigs. It can combine several animations to form a desired pose.
 		It takes [Animation]s from an [AnimationPlayer] node and mixes them depending on the graph.</description><tutorials></tutorials><demos></demos><methods><method name="add_node"><return type="void"></return><argument index="0" name="type" type="int" enum="AnimationTreePlayer.NodeType"></argument><argument index="1" name="id" type="String"></argument><description>

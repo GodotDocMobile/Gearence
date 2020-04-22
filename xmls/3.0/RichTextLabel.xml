@@ -1,4 +1,4 @@
-<class name="RichTextLabel" inherits="Control" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="RichTextLabel" inherits="Control" category="Core" version="3.0.7"><brief_description>
 		Label that displays rich text.</brief_description><description>
 		Rich text can contain custom text, fonts, images and some basic formatting. The label manages these as an internal tag stack. It also adapts itself to given width/heights.
 		Note that assignments to [member bbcode_text] clear the tag stack and reconstruct it from the property's contents. Any edits made to [member bbcode_text] will erase previous edits made from other manual sources such as [method append_bbcode] and the [code]push_*[/code] / [method pop] methods.</description><tutorials>

@@ -1,4 +1,4 @@
-<class name="EditorImportPlugin" inherits="Reference" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="EditorImportPlugin" inherits="Reference" category="Core" version="3.0.7"><brief_description>
 		Registers a custom resource importer in the editor. Use the class to parse any file and import it as a new resource type.</brief_description><description>
 		EditorImportPlugins provide a way to extend the editor's resource import functionality. Use them to import resources from custom files or to provide alternatives to the editor's existing importers. Register your [EditorPlugin] with [method EditorPlugin.add_import_plugin].
 		EditorImportPlugins work by associating with specific file extensions and a resource type. See [method get_recognized_extension] and [method get_resource_type]). They may optionally specify some import presets that affect the import process. EditorImportPlugins are responsible for creating the resources and saving them in the [code].import[/code] directory.

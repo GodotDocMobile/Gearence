@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:godotclassreference/components/description_text.dart';
 import 'package:godotclassreference/models/class_content.dart';
 import 'package:godotclassreference/theme/default.dart';
 
@@ -19,7 +20,11 @@ class ClassInfo extends StatelessWidget {
       padding: EdgeInsets.all(6),
       children: <Widget>[
         //brief_description
-        Text(clsContent.briefDescription),
+        DescriptionText(
+          className: clsContent.name,
+          content: clsContent.briefDescription,
+          onLinkTap: (e) {},
+        ),
         SizedBox(
           height: 10,
         ),
@@ -60,7 +65,14 @@ class ClassInfo extends StatelessWidget {
 
         //description
         Text('Description:', style: fieldNames),
-        Text(clsContent.description),
+        DescriptionText(
+          className: clsContent.name,
+          content: clsContent.description,
+          onLinkTap: (e) {
+//            print('nothing happen');
+          },
+        ),
+//        Text(clsContent.description),
         //tutorials
         clsContent.demos != null && clsContent.demos.length > 0
             ? Column(

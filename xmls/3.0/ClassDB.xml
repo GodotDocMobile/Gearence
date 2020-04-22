@@ -1,4 +1,4 @@
-<class name="ClassDB" inherits="Object" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="ClassDB" inherits="Object" category="Core" version="3.0.7"><brief_description>
 		Class information repository.</brief_description><description>
 		Provides access to metadata stored for every available class.</description><tutorials></tutorials><demos></demos><methods><method name="can_instance" qualifiers="const"><return type="bool"></return><argument index="0" name="class" type="String"></argument><description>
 				Returns true if you can instance objects from the specified 'class', false in other case.</description></method><method name="class_exists" qualifiers="const"><return type="bool"></return><argument index="0" name="class" type="String"></argument><description>

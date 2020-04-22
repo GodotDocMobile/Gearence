@@ -1,4 +1,4 @@
-<class name="BaseButton" inherits="Control" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="BaseButton" inherits="Control" category="Core" version="3.0.7"><brief_description>
 		Base class for different kinds of buttons.</brief_description><description>
 		BaseButton is the abstract base class for buttons, so it shouldn't be used directly (it doesn't display anything). Other types of buttons inherit from it.</description><tutorials></tutorials><demos></demos><methods><method name="_pressed" qualifiers="virtual"><return type="void"></return><description>
 				Called when button is pressed.</description></method><method name="_toggled" qualifiers="virtual"><return type="void"></return><argument index="0" name="button_pressed" type="bool"></argument><description>

@@ -1,4 +1,4 @@
-<class name="FileDialog" inherits="ConfirmationDialog" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="FileDialog" inherits="ConfirmationDialog" category="Core" version="3.0.7"><brief_description>
 		Dialog for selecting files or directories in the filesystem.</brief_description><description>
 		FileDialog is a preset dialog used to choose files and directories in the filesystem. It supports filter masks.</description><tutorials></tutorials><demos></demos><methods><method name="add_filter"><return type="void"></return><argument index="0" name="filter" type="String"></argument><description>
 				Add a custom filter. Example: [code]add_filter("*.png ; PNG Images")[/code]</description></method><method name="clear_filters"><return type="void"></return><description>

@@ -1,4 +1,4 @@
-<class name="AudioEffectCompressor" inherits="AudioEffect" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="AudioEffectCompressor" inherits="AudioEffect" category="Core" version="3.0.7"><brief_description>
 		Adds a Compressor audio effect to an Audio bus.
 		Reduces sounds that exceed a certain threshold level, smooths out the dynamics and increases the overall volume.</brief_description><description>
 		Dynamic range compressor reduces the level of the sound when the amplitude goes over a certain threshold in Decibels. One of the main uses of a compressor is to increase the dynamic range by clipping as little as possible (when sound goes over 0dB).

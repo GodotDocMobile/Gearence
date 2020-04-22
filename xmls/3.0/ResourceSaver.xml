@@ -1,4 +1,4 @@
-<class name="ResourceSaver" inherits="Object" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="ResourceSaver" inherits="Object" category="Core" version="3.0.7"><brief_description>
 		Resource saving interface.</brief_description><description>
 		Resource saving interface, used for saving resources to disk.</description><tutorials></tutorials><demos></demos><methods><method name="get_recognized_extensions"><return type="PoolStringArray"></return><argument index="0" name="type" type="Resource"></argument><description>
 				Returns the list of extensions available for saving a resource of a given type.</description></method><method name="save"><return type="int" enum="Error"></return><argument index="0" name="path" type="String"></argument><argument index="1" name="resource" type="Resource"></argument><argument index="2" name="flags" type="int" default="0"></argument><description>

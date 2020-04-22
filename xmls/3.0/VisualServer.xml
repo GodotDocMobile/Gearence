@@ -1,4 +1,4 @@
-<class name="VisualServer" inherits="Object" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="VisualServer" inherits="Object" category="Core" version="3.0.7"><brief_description>
 		Server for anything visible.</brief_description><description>
 		Server for anything visible. The visual server is the API backend for everything visible. The whole scene system mounts on it to display.
 		The visual server is completely opaque, the internals are entirely implementation specific and cannot be accessed.</description><tutorials></tutorials><demos></demos><methods><method name="black_bars_set_images"><return type="void"></return><argument index="0" name="left" type="RID"></argument><argument index="1" name="top" type="RID"></argument><argument index="2" name="right" type="RID"></argument><argument index="3" name="bottom" type="RID"></argument><description>

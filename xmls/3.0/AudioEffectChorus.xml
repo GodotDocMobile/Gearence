@@ -1,4 +1,4 @@
-<class name="AudioEffectChorus" inherits="AudioEffect" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="AudioEffectChorus" inherits="AudioEffect" category="Core" version="3.0.7"><brief_description>
 		Adds a chorus audio effect.</brief_description><description>
 		Adds a chorus audio effect. The effect applies a filter with voices to duplicate the audio source and manipulate it through the filter.</description><tutorials></tutorials><demos></demos><methods></methods><members><member name="dry" type="float" setter="set_dry" getter="get_dry">
 			The effect's raw signal.</member><member name="voice/1/cutoff_hz" type="float" setter="set_voice_cutoff_hz" getter="get_voice_cutoff_hz">

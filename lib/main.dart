@@ -15,24 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: godotColor,
       ),
-      home: Scaffold(
-        drawer: GCRDrawer(),
-        appBar: AppBar(
-          actions: <Widget>[
-//            FlatButton(
-//              child: Icon(
-//                Icons.search,
-//                color: Colors.white,
-//              ),
-//              onPressed: () {},
-//            )
-          ],
-          title: Text('Flutter Demo'),
-        ),
-        body: Center(
-          child: Text('Flutter Demo Home Page'),
-        ),
-      ),
+      home: ClassSelect(),
     );
   }
 }

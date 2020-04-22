@@ -1,4 +1,4 @@
-<class name="ParticlesMaterial" inherits="Material" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="ParticlesMaterial" inherits="Material" category="Core" version="3.0.7"><brief_description>
 		Particle properties for [Particles] and [Particles2D] nodes.</brief_description><description>
 		ParticlesMaterial defines particle properties and behavior. It is used in the [code]process_material[/code] of [Particles] and [Particles2D] emitter nodes.
 		Some of this material's properties are applied to each particle when emitted, while others can have a [CurveTexture] applied to vary values over the lifetime of the particle.</description><tutorials></tutorials><demos></demos><methods></methods><members><member name="angle" type="float" setter="set_param" getter="get_param">

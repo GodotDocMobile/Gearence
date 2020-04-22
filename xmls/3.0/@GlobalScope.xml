@@ -1,4 +1,4 @@
-<class name="@GlobalScope" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="@GlobalScope" category="Core" version="3.0.7"><brief_description>
 		Global scope constants and variables.</brief_description><description>
 		Global scope constants and variables. This is all that resides in the globals, constants regarding error codes, scancodes, property hints, etc. It's not much.
 		Singletons are also documented here, since they can be accessed from anywhere.</description><tutorials></tutorials><demos></demos><methods></methods><members><member name="ARVRServer" type="ARVRServer" setter="" getter="">
@@ -212,67 +212,67 @@
 			| key</constant><constant name="KEY_BRACERIGHT" value="125" enum="KeyList">
 			} key</constant><constant name="KEY_ASCIITILDE" value="126" enum="KeyList">
 			~ key</constant><constant name="KEY_NOBREAKSPACE" value="160" enum="KeyList"></constant><constant name="KEY_EXCLAMDOWN" value="161" enum="KeyList"></constant><constant name="KEY_CENT" value="162" enum="KeyList">
-			&#162; key</constant><constant name="KEY_STERLING" value="163" enum="KeyList"></constant><constant name="KEY_CURRENCY" value="164" enum="KeyList"></constant><constant name="KEY_YEN" value="165" enum="KeyList">
+			¢ key</constant><constant name="KEY_STERLING" value="163" enum="KeyList"></constant><constant name="KEY_CURRENCY" value="164" enum="KeyList"></constant><constant name="KEY_YEN" value="165" enum="KeyList">
 			Yen Key</constant><constant name="KEY_BROKENBAR" value="166" enum="KeyList">
-			&#166; key</constant><constant name="KEY_SECTION" value="167" enum="KeyList">
-			&#167; key</constant><constant name="KEY_DIAERESIS" value="168" enum="KeyList">
-			&#168; key</constant><constant name="KEY_COPYRIGHT" value="169" enum="KeyList">
-			&#169; key</constant><constant name="KEY_ORDFEMININE" value="170" enum="KeyList"></constant><constant name="KEY_GUILLEMOTLEFT" value="171" enum="KeyList">
-			&#171; key</constant><constant name="KEY_NOTSIGN" value="172" enum="KeyList">
-			&#187; key</constant><constant name="KEY_HYPHEN" value="173" enum="KeyList">
-			&#8208; key</constant><constant name="KEY_REGISTERED" value="174" enum="KeyList">
-			&#174; key</constant><constant name="KEY_MACRON" value="175" enum="KeyList">
+			¦ key</constant><constant name="KEY_SECTION" value="167" enum="KeyList">
+			§ key</constant><constant name="KEY_DIAERESIS" value="168" enum="KeyList">
+			¨ key</constant><constant name="KEY_COPYRIGHT" value="169" enum="KeyList">
+			© key</constant><constant name="KEY_ORDFEMININE" value="170" enum="KeyList"></constant><constant name="KEY_GUILLEMOTLEFT" value="171" enum="KeyList">
+			« key</constant><constant name="KEY_NOTSIGN" value="172" enum="KeyList">
+			» key</constant><constant name="KEY_HYPHEN" value="173" enum="KeyList">
+			‐ key</constant><constant name="KEY_REGISTERED" value="174" enum="KeyList">
+			® key</constant><constant name="KEY_MACRON" value="175" enum="KeyList">
 			Macron Key</constant><constant name="KEY_DEGREE" value="176" enum="KeyList">
-			&#176; key</constant><constant name="KEY_PLUSMINUS" value="177" enum="KeyList">
-			&#177; key</constant><constant name="KEY_TWOSUPERIOR" value="178" enum="KeyList">
-			&#178; key</constant><constant name="KEY_THREESUPERIOR" value="179" enum="KeyList">
-			&#179; key</constant><constant name="KEY_ACUTE" value="180" enum="KeyList">
-			&#180; key</constant><constant name="KEY_MU" value="181" enum="KeyList">
-			&#181; key</constant><constant name="KEY_PARAGRAPH" value="182" enum="KeyList">
+			° key</constant><constant name="KEY_PLUSMINUS" value="177" enum="KeyList">
+			± key</constant><constant name="KEY_TWOSUPERIOR" value="178" enum="KeyList">
+			² key</constant><constant name="KEY_THREESUPERIOR" value="179" enum="KeyList">
+			³ key</constant><constant name="KEY_ACUTE" value="180" enum="KeyList">
+			´ key</constant><constant name="KEY_MU" value="181" enum="KeyList">
+			µ key</constant><constant name="KEY_PARAGRAPH" value="182" enum="KeyList">
 			Paragraph Key</constant><constant name="KEY_PERIODCENTERED" value="183" enum="KeyList">
-			&#183; key</constant><constant name="KEY_CEDILLA" value="184" enum="KeyList">
-			&#172; key</constant><constant name="KEY_ONESUPERIOR" value="185" enum="KeyList">
-			&#185; key</constant><constant name="KEY_MASCULINE" value="186" enum="KeyList">
-			&#9794; key</constant><constant name="KEY_GUILLEMOTRIGHT" value="187" enum="KeyList">
-			&#187; key</constant><constant name="KEY_ONEQUARTER" value="188" enum="KeyList">
-			&#188; key</constant><constant name="KEY_ONEHALF" value="189" enum="KeyList">
-			&#189; key</constant><constant name="KEY_THREEQUARTERS" value="190" enum="KeyList">
-			&#190; key</constant><constant name="KEY_QUESTIONDOWN" value="191" enum="KeyList">
-			&#191; key</constant><constant name="KEY_AGRAVE" value="192" enum="KeyList">
-			&#224; key</constant><constant name="KEY_AACUTE" value="193" enum="KeyList">
-			&#225; key</constant><constant name="KEY_ACIRCUMFLEX" value="194" enum="KeyList">
-			&#226; key</constant><constant name="KEY_ATILDE" value="195" enum="KeyList">
-			&#227; key</constant><constant name="KEY_ADIAERESIS" value="196" enum="KeyList">
-			&#228; key</constant><constant name="KEY_ARING" value="197" enum="KeyList">
-			&#229; key</constant><constant name="KEY_AE" value="198" enum="KeyList">
-			&#230; key</constant><constant name="KEY_CCEDILLA" value="199" enum="KeyList">
-			&#231; key</constant><constant name="KEY_EGRAVE" value="200" enum="KeyList">
-			&#232; key</constant><constant name="KEY_EACUTE" value="201" enum="KeyList">
-			&#233; key</constant><constant name="KEY_ECIRCUMFLEX" value="202" enum="KeyList">
-			&#234; key</constant><constant name="KEY_EDIAERESIS" value="203" enum="KeyList">
-			&#235; key</constant><constant name="KEY_IGRAVE" value="204" enum="KeyList">
-			&#236; key</constant><constant name="KEY_IACUTE" value="205" enum="KeyList">
-			&#237; key</constant><constant name="KEY_ICIRCUMFLEX" value="206" enum="KeyList">
-			&#238; key</constant><constant name="KEY_IDIAERESIS" value="207" enum="KeyList">
-			&#235; key</constant><constant name="KEY_ETH" value="208" enum="KeyList">
-			&#240; key</constant><constant name="KEY_NTILDE" value="209" enum="KeyList">
-			&#241; key</constant><constant name="KEY_OGRAVE" value="210" enum="KeyList">
-			&#242; key</constant><constant name="KEY_OACUTE" value="211" enum="KeyList">
-			&#243; key</constant><constant name="KEY_OCIRCUMFLEX" value="212" enum="KeyList">
-			&#244; key</constant><constant name="KEY_OTILDE" value="213" enum="KeyList">
-			&#245; key</constant><constant name="KEY_ODIAERESIS" value="214" enum="KeyList">
-			&#246; key</constant><constant name="KEY_MULTIPLY" value="215" enum="KeyList">
-			&#215; key</constant><constant name="KEY_OOBLIQUE" value="216" enum="KeyList">
-			&#248; key</constant><constant name="KEY_UGRAVE" value="217" enum="KeyList">
-			&#249; key</constant><constant name="KEY_UACUTE" value="218" enum="KeyList">
-			&#250; key</constant><constant name="KEY_UCIRCUMFLEX" value="219" enum="KeyList">
-			&#251; key</constant><constant name="KEY_UDIAERESIS" value="220" enum="KeyList">
-			&#252; key</constant><constant name="KEY_YACUTE" value="221" enum="KeyList">
-			&#253; key</constant><constant name="KEY_THORN" value="222" enum="KeyList">
-			&#254; key</constant><constant name="KEY_SSHARP" value="223" enum="KeyList">
-			&#223; key</constant><constant name="KEY_DIVISION" value="247" enum="KeyList">
-			&#247; key</constant><constant name="KEY_YDIAERESIS" value="255" enum="KeyList">
-			&#255; key</constant><constant name="KEY_CODE_MASK" value="33554431" enum="KeyModifierMask">
+			· key</constant><constant name="KEY_CEDILLA" value="184" enum="KeyList">
+			¬ key</constant><constant name="KEY_ONESUPERIOR" value="185" enum="KeyList">
+			¹ key</constant><constant name="KEY_MASCULINE" value="186" enum="KeyList">
+			♂ key</constant><constant name="KEY_GUILLEMOTRIGHT" value="187" enum="KeyList">
+			» key</constant><constant name="KEY_ONEQUARTER" value="188" enum="KeyList">
+			¼ key</constant><constant name="KEY_ONEHALF" value="189" enum="KeyList">
+			½ key</constant><constant name="KEY_THREEQUARTERS" value="190" enum="KeyList">
+			¾ key</constant><constant name="KEY_QUESTIONDOWN" value="191" enum="KeyList">
+			¿ key</constant><constant name="KEY_AGRAVE" value="192" enum="KeyList">
+			à key</constant><constant name="KEY_AACUTE" value="193" enum="KeyList">
+			á key</constant><constant name="KEY_ACIRCUMFLEX" value="194" enum="KeyList">
+			â key</constant><constant name="KEY_ATILDE" value="195" enum="KeyList">
+			ã key</constant><constant name="KEY_ADIAERESIS" value="196" enum="KeyList">
+			ä key</constant><constant name="KEY_ARING" value="197" enum="KeyList">
+			å key</constant><constant name="KEY_AE" value="198" enum="KeyList">
+			æ key</constant><constant name="KEY_CCEDILLA" value="199" enum="KeyList">
+			ç key</constant><constant name="KEY_EGRAVE" value="200" enum="KeyList">
+			è key</constant><constant name="KEY_EACUTE" value="201" enum="KeyList">
+			é key</constant><constant name="KEY_ECIRCUMFLEX" value="202" enum="KeyList">
+			ê key</constant><constant name="KEY_EDIAERESIS" value="203" enum="KeyList">
+			ë key</constant><constant name="KEY_IGRAVE" value="204" enum="KeyList">
+			ì key</constant><constant name="KEY_IACUTE" value="205" enum="KeyList">
+			í key</constant><constant name="KEY_ICIRCUMFLEX" value="206" enum="KeyList">
+			î key</constant><constant name="KEY_IDIAERESIS" value="207" enum="KeyList">
+			ë key</constant><constant name="KEY_ETH" value="208" enum="KeyList">
+			ð key</constant><constant name="KEY_NTILDE" value="209" enum="KeyList">
+			ñ key</constant><constant name="KEY_OGRAVE" value="210" enum="KeyList">
+			ò key</constant><constant name="KEY_OACUTE" value="211" enum="KeyList">
+			ó key</constant><constant name="KEY_OCIRCUMFLEX" value="212" enum="KeyList">
+			ô key</constant><constant name="KEY_OTILDE" value="213" enum="KeyList">
+			õ key</constant><constant name="KEY_ODIAERESIS" value="214" enum="KeyList">
+			ö key</constant><constant name="KEY_MULTIPLY" value="215" enum="KeyList">
+			× key</constant><constant name="KEY_OOBLIQUE" value="216" enum="KeyList">
+			ø key</constant><constant name="KEY_UGRAVE" value="217" enum="KeyList">
+			ù key</constant><constant name="KEY_UACUTE" value="218" enum="KeyList">
+			ú key</constant><constant name="KEY_UCIRCUMFLEX" value="219" enum="KeyList">
+			û key</constant><constant name="KEY_UDIAERESIS" value="220" enum="KeyList">
+			ü key</constant><constant name="KEY_YACUTE" value="221" enum="KeyList">
+			ý key</constant><constant name="KEY_THORN" value="222" enum="KeyList">
+			þ key</constant><constant name="KEY_SSHARP" value="223" enum="KeyList">
+			ß key</constant><constant name="KEY_DIVISION" value="247" enum="KeyList">
+			÷ key</constant><constant name="KEY_YDIAERESIS" value="255" enum="KeyList">
+			ÿ key</constant><constant name="KEY_CODE_MASK" value="33554431" enum="KeyModifierMask">
 			Key Code Mask</constant><constant name="KEY_MODIFIER_MASK" value="-16777216" enum="KeyModifierMask">
 			Modifier Key Mask</constant><constant name="KEY_MASK_SHIFT" value="33554432" enum="KeyModifierMask">
 			Shift Key Mask</constant><constant name="KEY_MASK_ALT" value="67108864" enum="KeyModifierMask">

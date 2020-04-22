@@ -1,4 +1,4 @@
-<class name="DirectionalLight" inherits="Light" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="DirectionalLight" inherits="Light" category="Core" version="3.0.7"><brief_description>
 		Directional light from a distance, as from the Sun.</brief_description><description>
 		A directional light is a type of [Light] node that models an infinite number of parallel rays covering the entire scene. It is used for lights with strong intensity that are located far away from the scene to model sunlight or moonlight. The worldspace location of the DirectionalLight transform (origin) is ignored. Only the basis is used do determine light direction.</description><tutorials>
 		http://docs.godotengine.org/en/3.0/tutorials/3d/lights_and_shadows.html</tutorials><demos></demos><methods></methods><members><member name="directional_shadow_bias_split_scale" type="float" setter="set_param" getter="get_param">

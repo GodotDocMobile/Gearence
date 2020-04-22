@@ -1,4 +1,4 @@
-<class name="RigidBody" inherits="PhysicsBody" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="RigidBody" inherits="PhysicsBody" category="Core" version="3.0.7"><brief_description>
 		Physics Body whose position is determined through physics simulation in 3D space.</brief_description><description>
 		This is the node that implements full 3D physics. This means that you do not control a RigidBody directly. Instead you can apply forces to it (gravity, impulses, etc.), and the physics simulation will calculate the resulting movement, collision, bouncing, rotating, etc.
 		A RigidBody has 4 behavior [member mode]s: Rigid, Static, Character, and Kinematic.

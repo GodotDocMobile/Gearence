@@ -1,4 +1,4 @@
-<class name="InputMap" inherits="Object" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="InputMap" inherits="Object" category="Core" version="3.0.7"><brief_description>
 		Singleton that manages [InputEventAction].</brief_description><description>
 		Manages all [InputEventAction] which can be created/modified from the project settings menu [code]Project &gt; Project Settings &gt; Input Map[/code] or in code with [method add_action] and [method action_add_event]. See [method Node._input].</description><tutorials>
 		http://docs.godotengine.org/en/3.0/tutorials/inputs/inputevent.html#inputmap</tutorials><demos></demos><methods><method name="action_add_event"><return type="void"></return><argument index="0" name="action" type="String"></argument><argument index="1" name="event" type="InputEvent"></argument><description>

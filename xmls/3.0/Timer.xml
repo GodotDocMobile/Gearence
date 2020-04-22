@@ -1,4 +1,4 @@
-<class name="Timer" inherits="Node" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="Timer" inherits="Node" category="Core" version="3.0.7"><brief_description>
 		A countdown timer.</brief_description><description>
 		Counts down a specified interval and emits a signal on reaching 0. Can be set to repeat or "one shot" mode.</description><tutorials></tutorials><demos></demos><methods><method name="is_stopped" qualifiers="const"><return type="bool"></return><description>
 				Returns [code]true[/code] if the timer is stopped.</description></method><method name="start"><return type="void"></return><description>

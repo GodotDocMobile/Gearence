@@ -1,4 +1,4 @@
-<class name="Physics2DDirectBodyState" inherits="Object" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="Physics2DDirectBodyState" inherits="Object" category="Core" version="3.0.7"><brief_description>
 		Direct access object to a physics body in the [Physics2DServer].</brief_description><description>
 		Direct access object to a physics body in the [Physics2DServer]. This object is passed via the direct state callback of rigid/character bodies, and is intended for changing the direct state of that body.</description><tutorials></tutorials><demos></demos><methods><method name="get_contact_collider" qualifiers="const"><return type="RID"></return><argument index="0" name="contact_idx" type="int"></argument><description>
 				Return the [RID] of the collider.</description></method><method name="get_contact_collider_id" qualifiers="const"><return type="int"></return><argument index="0" name="contact_idx" type="int"></argument><description>

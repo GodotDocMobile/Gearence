@@ -1,4 +1,4 @@
-<class name="ParallaxLayer" inherits="Node2D" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="ParallaxLayer" inherits="Node2D" category="Core" version="3.0.7"><brief_description>
 		A parallax scrolling layer to be used with [ParallaxBackground].</brief_description><description>
 		A ParallaxLayer must be the child of a [ParallaxBackground] node. Each ParallaxLayer can be set to move at different speeds relative to the camera movement or the [member ParallaxBackground.scroll_offset] value.
 		This node's children will be affected by its scroll offset.

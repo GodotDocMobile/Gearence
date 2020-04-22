@@ -1,4 +1,4 @@
-<class name="SceneState" inherits="Reference" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="SceneState" inherits="Reference" category="Core" version="3.0.7"><brief_description>
 		A script interface to a scene file's data.</brief_description><description>
 		Maintains a list of resources, nodes, exported, and overridden properties, and built-in scripts associated with a scene.</description><tutorials></tutorials><demos></demos><methods><method name="get_connection_binds" qualifiers="const"><return type="Array"></return><argument index="0" name="idx" type="int"></argument><description>
 				Returns the list of bound parameters for the signal at [code]idx[/code].</description></method><method name="get_connection_count" qualifiers="const"><return type="int"></return><description>

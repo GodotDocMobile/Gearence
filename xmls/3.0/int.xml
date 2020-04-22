@@ -1,4 +1,4 @@
-<class name="int" category="Built-In Types" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="int" category="Built-In Types" version="3.0.7"><brief_description>
 		Integer built-in type.</brief_description><description>
 		Integer built-in type.</description><tutorials></tutorials><demos></demos><methods><method name="int"><return type="int"></return><argument index="0" name="from" type="bool"></argument><description>
 				Cast a [bool] value to an integer value, [code]int(true)[/code] will be equals to 1 and [code]int(false)[/code] will be equals to 0.</description></method><method name="int"><return type="int"></return><argument index="0" name="from" type="float"></argument><description>

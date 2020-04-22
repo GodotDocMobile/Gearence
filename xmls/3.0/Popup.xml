@@ -1,4 +1,4 @@
-<class name="Popup" inherits="Control" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="Popup" inherits="Control" category="Core" version="3.0.7"><brief_description>
 		Base container control for popups and dialogs.</brief_description><description>
 		Popup is a base [Control] used to show dialogs and popups. It's a subwindow and modal by default (see [Control]) and has helpers for custom popup behavior.</description><tutorials></tutorials><demos></demos><methods><method name="popup"><return type="void"></return><argument index="0" name="bounds" type="Rect2" default="Rect2( 0, 0, 0, 0 )"></argument><description>
 				Popup (show the control in modal form).</description></method><method name="popup_centered"><return type="void"></return><argument index="0" name="size" type="Vector2" default="Vector2( 0, 0 )"></argument><description>

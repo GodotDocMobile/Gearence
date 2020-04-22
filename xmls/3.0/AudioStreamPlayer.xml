@@ -1,4 +1,4 @@
-<class name="AudioStreamPlayer" inherits="Node" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="AudioStreamPlayer" inherits="Node" category="Core" version="3.0.7"><brief_description>
 		Plays back audio.</brief_description><description>
 		Plays background audio.</description><tutorials>
 		http://docs.godotengine.org/en/latest/learning/features/audio/index.html

@@ -1,4 +1,4 @@
-<class name="OS" inherits="Object" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="OS" inherits="Object" category="Core" version="3.0.7"><brief_description>
 		Operating System functions.</brief_description><description>
 		Operating System functions. OS Wraps the most common functionality to communicate with the host Operating System, such as: mouse grabbing, mouse cursors, clipboard, video mode, date and time, timers, environment variables, execution of binaries, command line, etc.</description><tutorials></tutorials><demos></demos><methods><method name="alert"><return type="void"></return><argument index="0" name="text" type="String"></argument><argument index="1" name="title" type="String" default="&quot;Alert!&quot;"></argument><description>
 				Displays a modal dialog box utilizing the host OS.</description></method><method name="can_draw" qualifiers="const"><return type="bool"></return><description>

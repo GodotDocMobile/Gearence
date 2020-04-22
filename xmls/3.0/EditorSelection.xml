@@ -1,4 +1,4 @@
-<class name="EditorSelection" inherits="Object" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="EditorSelection" inherits="Object" category="Core" version="3.0.7"><brief_description>
 		Manages the SceneTree selection in the editor.</brief_description><description>
 		This object manages the SceneTree selection in the editor.</description><tutorials></tutorials><demos></demos><methods><method name="add_node"><return type="void"></return><argument index="0" name="node" type="Node"></argument><description>
 				Add a node to the selection.</description></method><method name="clear"><return type="void"></return><description>

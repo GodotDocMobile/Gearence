@@ -1,4 +1,4 @@
-<class name="Color" category="Built-In Types" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="Color" category="Built-In Types" version="3.0.7"><brief_description>
 		Color in RGBA format with some support for ARGB format.</brief_description><description>
 		A color is represented as red, green and blue (r,g,b) components. Additionally, "a" represents the alpha component, often used for transparency. Values are in floating point and usually range from 0 to 1. Some methods (such as [member CanvasItem.modulate]) may accept values &gt; 1.
 		You can also create a color from standardised color names with [method @GDScript.ColorN].</description><tutorials></tutorials><demos></demos><methods><method name="Color"><return type="Color"></return><argument index="0" name="r" type="float"></argument><argument index="1" name="g" type="float"></argument><argument index="2" name="b" type="float"></argument><argument index="3" name="a" type="float"></argument><description>

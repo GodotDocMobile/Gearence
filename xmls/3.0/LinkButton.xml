@@ -1,4 +1,4 @@
-<class name="LinkButton" inherits="BaseButton" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="LinkButton" inherits="BaseButton" category="Core" version="3.0.7"><brief_description>
 		Simple button used to represent a link to some resource.</brief_description><description>
 		This kind of buttons are primarily used when the interaction with the button causes a context change (like linking to a web page).</description><tutorials></tutorials><demos></demos><methods></methods><members><member name="text" type="String" setter="set_text" getter="get_text"></member><member name="underline" type="int" setter="set_underline_mode" getter="get_underline_mode" enum="LinkButton.UnderlineMode"></member></members><constants><constant name="UNDERLINE_MODE_ALWAYS" value="0" enum="UnderlineMode">
 			The LinkButton will always show an underline at the bottom of its text</constant><constant name="UNDERLINE_MODE_ON_HOVER" value="1" enum="UnderlineMode">

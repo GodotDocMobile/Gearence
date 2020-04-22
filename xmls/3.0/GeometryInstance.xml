@@ -1,4 +1,4 @@
-<class name="GeometryInstance" inherits="VisualInstance" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="GeometryInstance" inherits="VisualInstance" category="Core" version="3.0.7"><brief_description>
 		Base node for geometry based visual instances.</brief_description><description>
 		Base node for geometry based visual instances. Shares some common functionality like visibility and custom materials.</description><tutorials></tutorials><demos></demos><methods></methods><members><member name="cast_shadow" type="int" setter="set_cast_shadows_setting" getter="get_cast_shadows_setting" enum="GeometryInstance.ShadowCastingSetting">
 			The selected shadow casting flag. See SHADOW_CASTING_SETTING_* constants for values.</member><member name="extra_cull_margin" type="float" setter="set_extra_cull_margin" getter="get_extra_cull_margin">

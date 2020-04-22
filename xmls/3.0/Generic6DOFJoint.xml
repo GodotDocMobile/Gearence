@@ -1,4 +1,4 @@
-<class name="Generic6DOFJoint" inherits="Joint" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="Generic6DOFJoint" inherits="Joint" category="Core" version="3.0.7"><brief_description>
 		The generic 6 degrees of freedom joint can implement a variety of joint-types by locking certain axes' rotation or translation.</brief_description><description>
 		The first 3 dof axes are linear axes, which represent translation of Bodies, and the latter 3 dof axes represent the angular motion. Each axis can be either locked, or limited.</description><tutorials></tutorials><demos></demos><methods></methods><members><member name="angular_limit_x/damping" type="float" setter="set_param_x" getter="get_param_x">
 			The amount of rotational damping across the x-axis.

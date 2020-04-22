@@ -1,4 +1,4 @@
-<class name="PathFollow2D" inherits="Node2D" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="PathFollow2D" inherits="Node2D" category="Core" version="3.0.7"><brief_description>
 		Point sampler for a [Path2D].</brief_description><description>
 		This node takes its parent [Path2D], and returns the coordinates of a point within it, given a distance from the first vertex.
 		It is useful for making other nodes follow a path, without coding the movement pattern. For that, the nodes must be descendants of this node. Then, when setting an offset in this node, the descendant nodes will move accordingly.</description><tutorials></tutorials><demos></demos><methods></methods><members><member name="cubic_interp" type="bool" setter="set_cubic_interpolation" getter="get_cubic_interpolation">

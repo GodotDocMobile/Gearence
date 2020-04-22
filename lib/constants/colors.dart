@@ -30,3 +30,7 @@ final Map<int, Color> godotThemeColorMap = {
 };
 
 final Color godotColor = MaterialColor(0xFF6589BD, godotThemeColorMap);
+
+Color hexToColor(String hexString, {String alphaChannel = 'FF'}) {
+  return Color(int.parse(hexString.replaceFirst('#', '0x$alphaChannel')));
+}

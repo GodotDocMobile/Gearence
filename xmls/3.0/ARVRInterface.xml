@@ -1,4 +1,4 @@
-<class name="ARVRInterface" inherits="Reference" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="ARVRInterface" inherits="Reference" category="Core" version="3.0.7"><brief_description>
 		Base class for ARVR interface implementation.</brief_description><description>
 		This class needs to be implemented to make an AR or VR platform available to Godot and these should be implemented as C++ modules or GDNative modules (note that for GDNative the subclass ARVRScriptInterface should be used). Part of the interface is exposed to GDScript so you can detect, enable and configure an AR or VR platform.
 		Interfaces should be written in such a way that simply enabling them will give us a working setup. You can query the available interfaces through ARVRServer.</description><tutorials></tutorials><demos></demos><methods><method name="get_capabilities" qualifiers="const"><return type="int"></return><description>

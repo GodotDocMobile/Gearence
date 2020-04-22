@@ -1,4 +1,4 @@
-<class name="ArrayMesh" inherits="Mesh" category="Core" version="3.0.7"><brief_description></brief_description><description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="ArrayMesh" inherits="Mesh" category="Core" version="3.0.7"><brief_description></brief_description><description>
 		The [code]ArrayMesh[/code] is used to construct a [Mesh] by specifying the attributes as arrays. The most basic example is the creation of a single triangle
 		[codeblock]
 		var vertices = PoolVector3Array()

@@ -1,4 +1,4 @@
-<class name="SpatialMaterial" inherits="Material" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="SpatialMaterial" inherits="Material" category="Core" version="3.0.7"><brief_description>
 		Default 3D rendering material.</brief_description><description>
 		This provides a default material with a wide variety of rendering features and properties without the need to write shader code. See the tutorial below for details.</description><tutorials>
 		http://docs.godotengine.org/en/3.0/tutorials/3d/spatial_material.html</tutorials><demos></demos><methods></methods><members><member name="albedo_color" type="Color" setter="set_albedo" getter="get_albedo">

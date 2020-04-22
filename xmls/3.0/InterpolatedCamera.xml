@@ -1,4 +1,4 @@
-<class name="InterpolatedCamera" inherits="Camera" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="InterpolatedCamera" inherits="Camera" category="Core" version="3.0.7"><brief_description>
 		Camera which moves toward another node.</brief_description><description>
 		InterpolatedCamera is a [Camera] which smoothly moves to match a target node's position and rotation.
 		If it is not [member enabled] or does not have a valid target set, InterpolatedCamera acts like a normal Camera.</description><tutorials></tutorials><demos></demos><methods><method name="set_target"><return type="void"></return><argument index="0" name="target" type="Object"></argument><description>

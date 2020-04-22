@@ -1,4 +1,4 @@
-<class name="Quat" category="Built-In Types" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="Quat" category="Built-In Types" version="3.0.7"><brief_description>
 		Quaternion.</brief_description><description>
 		A 4-dimensional vector representing a rotation.
 		The vector represents a 4 dimensional complex number where multiplication of the basis elements is not commutative (multiplying i with j gives a different result than multiplying j with i).
@@ -16,7 +16,7 @@
 				Returns the length of the quaternion, squared.</description></method><method name="normalized"><return type="Quat"></return><description>
 				Returns a copy of the quaternion, normalized to unit length.</description></method><method name="slerp"><return type="Quat"></return><argument index="0" name="b" type="Quat"></argument><argument index="1" name="t" type="float"></argument><description>
 				Performs a spherical-linear interpolation with another quaternion.</description></method><method name="slerpni"><return type="Quat"></return><argument index="0" name="b" type="Quat"></argument><argument index="1" name="t" type="float"></argument><description>
-				Performs a spherical-linear interpolation with another quaterion without checking if the rotation path is not bigger than 90&#176;.</description></method><method name="xform"><return type="Vector3"></return><argument index="0" name="v" type="Vector3"></argument><description>
+				Performs a spherical-linear interpolation with another quaterion without checking if the rotation path is not bigger than 90°.</description></method><method name="xform"><return type="Vector3"></return><argument index="0" name="v" type="Vector3"></argument><description>
 				Transforms the vector [code]v[/code] by this quaternion.</description></method></methods><members><member name="w" type="float" setter="" getter="">
 			W component of the quaternion. Default value: [code]1[/code]</member><member name="x" type="float" setter="" getter="">
 			X component of the quaternion. Default value: [code]0[/code]</member><member name="y" type="float" setter="" getter="">

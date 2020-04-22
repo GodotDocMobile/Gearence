@@ -1,4 +1,4 @@
-<class name="String" category="Built-In Types" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="String" category="Built-In Types" version="3.0.7"><brief_description>
 		Built-in string class.</brief_description><description>
 		This is the built-in string class (and the one used by GDScript). It supports Unicode and provides all necessary means for string handling. Strings are reference counted and use a copy-on-write approach, so passing them around is cheap in resources.</description><tutorials></tutorials><demos></demos><methods><method name="String"><return type="String"></return><argument index="0" name="from" type="bool"></argument><description>
 				Constructs a new String from the given [bool].</description></method><method name="String"><return type="String"></return><argument index="0" name="from" type="int"></argument><description>

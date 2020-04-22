@@ -1,4 +1,4 @@
-<class name="WindowDialog" inherits="Popup" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="WindowDialog" inherits="Popup" category="Core" version="3.0.7"><brief_description>
 		Base class for window dialogs.</brief_description><description>
 		Windowdialog is the base class for all window-based dialogs. It's a by-default toplevel [Control] that draws a window decoration and allows motion and resizing.</description><tutorials></tutorials><demos></demos><methods><method name="get_close_button"><return type="TextureButton"></return><description>
 				Return the close [TextureButton].</description></method></methods><members><member name="resizable" type="bool" setter="set_resizable" getter="get_resizable">

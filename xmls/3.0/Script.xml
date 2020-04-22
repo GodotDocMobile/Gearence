@@ -1,4 +1,4 @@
-<class name="Script" inherits="Resource" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="Script" inherits="Resource" category="Core" version="3.0.7"><brief_description>
 		A class stored as a resource.</brief_description><description>
 		A class stored as a resource. A script exends the functionality of all objects that instance it.
 		The [code]new[/code] method of a script subclass creates a new instance. [method Object.set_script] extends an existing object, if that object's class matches one of the script's base classes.</description><tutorials>

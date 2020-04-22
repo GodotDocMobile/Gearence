@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:godotclassreference/components/description_text.dart';
 import 'package:godotclassreference/constants/colors.dart';
 import 'package:godotclassreference/models/class_content.dart';
 
@@ -56,7 +57,11 @@ class ClassEnums extends StatelessWidget {
 //                  ),
                   title: Text(c.name + ' = ' + c.value),
 //          trailing: Text('value:' + c.value),
-                  subtitle: Text(c.constantText),
+                  subtitle: DescriptionText(
+                    className: clsContent.name,
+                    content: c.constantText,
+                    onLinkTap: (e) {},
+                  ),
                 );
               }).toList(),
             ),

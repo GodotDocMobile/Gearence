@@ -1,4 +1,4 @@
-<class name="Thread" inherits="Reference" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="Thread" inherits="Reference" category="Core" version="3.0.7"><brief_description>
 		A unit of execution in a process.</brief_description><description>
 		A unit of execution in a process. Can run methods on [Object]s simultaneously. The use of synchronization via [Mutex], [Semaphore] is advised if working with shared objects.</description><tutorials></tutorials><demos></demos><methods><method name="get_id" qualifiers="const"><return type="String"></return><description>
 				Returns the current [code]Thread[/code]s id, uniquely identifying it among all threads.</description></method><method name="is_active" qualifiers="const"><return type="bool"></return><description>

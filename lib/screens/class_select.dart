@@ -3,9 +3,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:xml/xml.dart' as xml;
 
-import 'package:godotclassreference/models/class_content.dart';
+import 'package:godotclassreference/constants/class_list.dart';
 import 'package:godotclassreference/screens/class_detail.dart';
 import 'package:godotclassreference/components/drawer.dart';
 
@@ -13,7 +12,9 @@ class ClassSelect extends StatelessWidget {
   static Future<List<String>> getXmlFiles() async {
     final file = await rootBundle.loadString('xmls/files_3.0.json');
     final decoded = json.decode(file);
-    return List<String>.from(decoded);
+    final parsedList = List<String>.from(decoded);
+    ClassList().updateList(parsedList);
+    return parsedList;
   }
 
   @override

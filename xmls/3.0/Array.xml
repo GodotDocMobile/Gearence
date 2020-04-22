@@ -1,4 +1,4 @@
-<class name="Array" category="Built-In Types" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="Array" category="Built-In Types" version="3.0.7"><brief_description>
 		Generic array datatype.</brief_description><description>
 		Generic array, contains several elements of any type, accessible by a numerical index starting at 0. Negative indices can be used to count from the back, like in Python (-1 is the last element, -2 the second to last, etc.). Example:
 		[codeblock]

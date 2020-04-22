@@ -1,4 +1,4 @@
-<class name="ShortCut" inherits="Resource" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="ShortCut" inherits="Resource" category="Core" version="3.0.7"><brief_description>
 		A shortcut for binding input.</brief_description><description>
 		A shortcut for binding input.
 		Shortcuts are commonly used for interacting with a [Control] element from a [InputEvent].</description><tutorials></tutorials><demos></demos><methods><method name="get_as_text" qualifiers="const"><return type="String"></return><description>

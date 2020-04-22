@@ -1,4 +1,4 @@
-<class name="TouchScreenButton" inherits="Node2D" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="TouchScreenButton" inherits="Node2D" category="Core" version="3.0.7"><brief_description>
 		Button for touch screen devices.</brief_description><description>
 		Button for touch screen devices. You can set it to be visible on all screens, or only on touch devices.</description><tutorials></tutorials><demos></demos><methods><method name="is_pressed" qualifiers="const"><return type="bool"></return><description>
 				Returns [code]true[/code] if this button is currently pressed.</description></method></methods><members><member name="action" type="String" setter="set_action" getter="get_action">

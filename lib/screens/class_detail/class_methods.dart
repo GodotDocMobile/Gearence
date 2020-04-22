@@ -22,7 +22,8 @@ class ClassMethods extends StatelessWidget {
         return Column(
           children: <Widget>[
             ListTile(
-              leading: Text(m.returnValue.type),
+              leading:
+                  Text(m.returnValue == null ? 'void' : m.returnValue.type),
               title: Text(m.name +
                   m.arguments.map((a) {
                     return a.type + " " + a.name;

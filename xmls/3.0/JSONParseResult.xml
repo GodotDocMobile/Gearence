@@ -1,4 +1,4 @@
-<class name="JSONParseResult" inherits="Reference" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="JSONParseResult" inherits="Reference" category="Core" version="3.0.7"><brief_description>
 		Data class wrapper for decoded JSON.</brief_description><description>
 		Returned by [method JSON.parse], [code]JSONParseResult[/code] contains decoded JSON or error information if JSON source not successfully parsed. You can check if JSON source was successfully parsed with [code]if json_result.error == OK[/code].</description><tutorials></tutorials><demos></demos><methods></methods><members><member name="error" type="int" setter="set_error" getter="get_error" enum="Error">
 			The error type if JSON source was not successfully parsed. See [@GlobalScope] ERR_* constants.</member><member name="error_line" type="int" setter="set_error_line" getter="get_error_line">

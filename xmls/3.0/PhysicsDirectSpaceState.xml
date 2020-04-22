@@ -1,4 +1,4 @@
-<class name="PhysicsDirectSpaceState" inherits="Object" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="PhysicsDirectSpaceState" inherits="Object" category="Core" version="3.0.7"><brief_description>
 		Direct access object to a space in the [PhysicsServer].</brief_description><description>
 		Direct access object to a space in the [PhysicsServer]. It's used mainly to do queries against objects and areas residing in a given space.</description><tutorials>
 		http://docs.godotengine.org/en/3.0/tutorials/physics/ray-casting.html</tutorials><demos></demos><methods><method name="cast_motion"><return type="Array"></return><argument index="0" name="shape" type="PhysicsShapeQueryParameters"></argument><argument index="1" name="motion" type="Vector3"></argument><description>

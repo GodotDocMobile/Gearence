@@ -1,4 +1,4 @@
-<class name="AtlasTexture" inherits="Texture" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="AtlasTexture" inherits="Texture" category="Core" version="3.0.7"><brief_description>
 		Packs multiple small textures in a single, bigger one. Helps to optimize video memory costs and render calls.</brief_description><description>
 		[Texture] resource aimed at managing big textures files that pack multiple smaller textures. Consists of a [Texture], a margin that defines the border width,
 		and a region that defines the actual area of the AtlasTexture.</description><tutorials></tutorials><demos></demos><methods></methods><members><member name="atlas" type="Texture" setter="set_atlas" getter="get_atlas">

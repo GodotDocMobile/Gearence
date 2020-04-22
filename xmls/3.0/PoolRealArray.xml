@@ -1,4 +1,4 @@
-<class name="PoolRealArray" category="Built-In Types" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="PoolRealArray" category="Built-In Types" version="3.0.7"><brief_description>
 		Real Array.</brief_description><description>
 		Real Array. Array of floating point values. Can only contain floats. Optimized for memory usage, can't fragment the memory. Note that this type is passed by value and not by reference.</description><tutorials></tutorials><demos></demos><methods><method name="PoolRealArray"><return type="PoolRealArray"></return><argument index="0" name="from" type="Array"></argument><description>
 				Create from a generic array.</description></method><method name="append"><argument index="0" name="value" type="float"></argument><description>

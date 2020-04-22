@@ -1,4 +1,4 @@
-<class name="GraphEdit" inherits="Control" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="GraphEdit" inherits="Control" category="Core" version="3.0.7"><brief_description>
 		GraphEdit is an area capable of showing various GraphNodes. It manages connection events between them.</brief_description><description>
 		GraphEdit manages the showing of GraphNodes it contains, as well as connections and disconnections between them. Signals are sent for each of these two events. Disconnection between GraphNodes slots is disabled by default.
 		It is greatly advised to enable low processor usage mode (see [method OS.set_low_processor_usage_mode]) when using GraphEdits.</description><tutorials></tutorials><demos></demos><methods><method name="add_valid_connection_type"><return type="void"></return><argument index="0" name="from_type" type="int"></argument><argument index="1" name="to_type" type="int"></argument><description>

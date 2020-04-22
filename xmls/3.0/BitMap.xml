@@ -1,4 +1,4 @@
-<class name="BitMap" inherits="Resource" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="BitMap" inherits="Resource" category="Core" version="3.0.7"><brief_description>
 		Boolean matrix.</brief_description><description>
 		A two-dimensional array of boolean values, can be used to efficiently store a binary matrix (every matrix element takes only one bit) and query the values using natural cartesian coordinates.</description><tutorials></tutorials><demos></demos><methods><method name="create"><return type="void"></return><argument index="0" name="size" type="Vector2"></argument><description>
 				Creates a bitmap with the specified size, filled with false.</description></method><method name="create_from_image_alpha"><return type="void"></return><argument index="0" name="image" type="Image"></argument><description>

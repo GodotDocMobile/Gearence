@@ -1,4 +1,4 @@
-<class name="EditorFileSystemDirectory" inherits="Object" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="EditorFileSystemDirectory" inherits="Object" category="Core" version="3.0.7"><brief_description>
 		A diretory for the resource filesystem.</brief_description><description>
 		A more generalized, low-level variation of the directory concept.</description><tutorials></tutorials><demos></demos><methods><method name="find_dir_index" qualifiers="const"><return type="int"></return><argument index="0" name="name" type="String"></argument><description>
 				Returns the index of the directory with name [code]name[/code] or [code]-1[/code] if not found.</description></method><method name="find_file_index" qualifiers="const"><return type="int"></return><argument index="0" name="name" type="String"></argument><description>

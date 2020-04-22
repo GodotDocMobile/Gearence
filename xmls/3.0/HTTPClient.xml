@@ -1,4 +1,4 @@
-<class name="HTTPClient" inherits="Reference" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="HTTPClient" inherits="Reference" category="Core" version="3.0.7"><brief_description>
 		Hyper-text transfer protocol client.</brief_description><description>
 		Hyper-text transfer protocol client (sometimes called "User Agent"). Used to make HTTP requests to download web content, upload files and other data or to communicate with various services, among other use cases.
 		Note that this client only needs to connect to a host once (see [method connect_to_host]) to send multiple requests. Because of this, methods that take URLs usually take just the part after the host instead of the full URL, as the client is already connected to a host. See [method request] for a full example and to get started.

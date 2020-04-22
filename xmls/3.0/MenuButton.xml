@@ -1,4 +1,4 @@
-<class name="MenuButton" inherits="Button" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="MenuButton" inherits="Button" category="Core" version="3.0.7"><brief_description>
 		Special button that brings up a [PopupMenu] when clicked.</brief_description><description>
 		Special button that brings up a [PopupMenu] when clicked. That's pretty much all it does, as it's just a helper class when building GUIs.</description><tutorials></tutorials><demos></demos><methods><method name="get_popup" qualifiers="const"><return type="PopupMenu"></return><description>
 				Return the [PopupMenu] contained in this button.</description></method><method name="set_disable_shortcuts"><return type="void"></return><argument index="0" name="disabled" type="bool"></argument><description></description></method></methods><signals><signal name="about_to_show"><description>

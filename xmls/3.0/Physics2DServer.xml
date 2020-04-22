@@ -1,4 +1,4 @@
-<class name="Physics2DServer" inherits="Object" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="Physics2DServer" inherits="Object" category="Core" version="3.0.7"><brief_description>
 		Physics 2D Server.</brief_description><description>
 		Physics 2D Server is the server responsible for all 2D physics. It can create many kinds of physics objects, but does not insert them on the node tree.</description><tutorials></tutorials><demos></demos><methods><method name="area_add_shape"><return type="void"></return><argument index="0" name="area" type="RID"></argument><argument index="1" name="shape" type="RID"></argument><argument index="2" name="transform" type="Transform2D" default="Transform2D( 1, 0, 0, 1, 0, 0 )"></argument><description>
 				Adds a shape to the area, along with a transform matrix. Shapes are usually referenced by their index, so you should track which shape has a given index.</description></method><method name="area_attach_object_instance_id"><return type="void"></return><argument index="0" name="area" type="RID"></argument><argument index="1" name="id" type="int"></argument><description>

@@ -1,4 +1,4 @@
-<class name="Control" inherits="CanvasItem" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="Control" inherits="CanvasItem" category="Core" version="3.0.7"><brief_description>
 		All User Interface nodes inherit from Control. A control's anchors and margins adapt its position and size relative to its parent.</brief_description><description>
 		Base class for all User Interface or [i]UI[/i] related nodes. [code]Control[/code] features a bounding rectangle that defines its extents, an anchor position relative to its parent and margins that represent an offset to the anchor. The margins update automatically when the node, any of its parents, or the screen size change.
 		For more information on Godot's UI system, anchors, margins, and containers, see the related tutorials in the manual. To build flexible UIs, you'll need a mix of UI elements that inherit from [code]Control[/code] and [Container] nodes.

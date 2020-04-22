@@ -1,4 +1,4 @@
-<class name="EditorResourcePreviewGenerator" inherits="Reference" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="EditorResourcePreviewGenerator" inherits="Reference" category="Core" version="3.0.7"><brief_description>
 		Custom generator of previews.</brief_description><description>
 		Custom code to generate previews. Please check "file_dialog/thumbnail_size" in EditorSettings to find out the right size to do previews at.</description><tutorials></tutorials><demos></demos><methods><method name="generate" qualifiers="virtual"><return type="Texture"></return><argument index="0" name="from" type="Resource"></argument><description>
 				Generate a preview from a given resource. This must be always implemented.

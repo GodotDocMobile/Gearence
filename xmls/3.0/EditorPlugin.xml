@@ -1,4 +1,4 @@
-<class name="EditorPlugin" inherits="Node" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="EditorPlugin" inherits="Node" category="Core" version="3.0.7"><brief_description>
 		Used by the editor to extend its functionality.</brief_description><description>
 		Plugins are used by the editor to extend functionality. The most common types of plugins are those which edit a given node or resource type, import plugins and export plugins. Also see [EditorScript] to add functions to the editor.</description><tutorials>
 		http://docs.godotengine.org/en/3.0/development/plugins/index.html</tutorials><demos></demos><methods><method name="add_control_to_bottom_panel"><return type="ToolButton"></return><argument index="0" name="control" type="Control"></argument><argument index="1" name="title" type="String"></argument><description>

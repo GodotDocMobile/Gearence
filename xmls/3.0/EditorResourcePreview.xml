@@ -1,4 +1,4 @@
-<class name="EditorResourcePreview" inherits="Node" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="EditorResourcePreview" inherits="Node" category="Core" version="3.0.7"><brief_description>
 		Helper to generate previews of resources or files.</brief_description><description>
 		This object is used to generate previews for resources of files.</description><tutorials></tutorials><demos></demos><methods><method name="add_preview_generator"><return type="void"></return><argument index="0" name="generator" type="EditorResourcePreviewGenerator"></argument><description>
 				Create an own, custom preview generator.</description></method><method name="check_for_invalidation"><return type="void"></return><argument index="0" name="path" type="String"></argument><description>

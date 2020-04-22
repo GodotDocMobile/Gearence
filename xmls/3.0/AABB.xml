@@ -1,4 +1,4 @@
-<class name="AABB" category="Built-In Types" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="AABB" category="Built-In Types" version="3.0.7"><brief_description>
 		Axis-Aligned Bounding Box.</brief_description><description>
 		AABB consists of a position, a size, and several utility functions. It is typically used for fast overlap tests.</description><tutorials>
 		http://docs.godotengine.org/en/3.0/tutorials/math/index.html</tutorials><demos></demos><methods><method name="AABB"><return type="AABB"></return><argument index="0" name="position" type="Vector3"></argument><argument index="1" name="size" type="Vector3"></argument><description>

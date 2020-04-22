@@ -1,4 +1,4 @@
-<class name="NetworkedMultiplayerPeer" inherits="PacketPeer" category="Core" version="3.0.7"><brief_description>
+<?xml version="1.0" encoding="UTF-8" ?><class name="NetworkedMultiplayerPeer" inherits="PacketPeer" category="Core" version="3.0.7"><brief_description>
 		A high-level network interface to simplify multiplayer interactions.</brief_description><description>
 		Manages the connection to network peers. Assigns unique IDs to each client connected to the server.</description><tutorials>
 		http://docs.godotengine.org/en/3.0/tutorials/networking/high_level_multiplayer.html</tutorials><demos></demos><methods><method name="get_connection_status" qualifiers="const"><return type="int" enum="NetworkedMultiplayerPeer.ConnectionStatus"></return><description>
