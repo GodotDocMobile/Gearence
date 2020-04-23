@@ -1,0 +1,10 @@
+<class name="RawArray" category="Built-In Types"><brief_description>
+	Raw byte array.</brief_description><description>
+	Raw byte array. Contains bytes. Optimized for memory usage, can't fragment the memory.</description><methods><method name="RawArray"><return type="RawArray"></return><argument index="0" name="from" type="Array"></argument><description>
+			Create from a generic array.</description></method><method name="get_string_from_ascii"><return type="String"></return><description>
+			Returns a copy of the array's contents formatted as String. Fast alternative to get_string_from_utf8(), assuming the content is ASCII-only (unlike the UTF-8 function, this function maps every byte to a character in the string, so any multibyte sequence will be torn apart).</description></method><method name="get_string_from_utf8"><return type="String"></return><description>
+			Returns a copy of the array's contents formatted as String, assuming the array is formatted as UTF-8. Slower than get_string_from_ascii(), but works for UTF-8. Usually you should prefer this function over get_string_from_ascii() to support international input.</description></method><method name="push_back"><argument index="0" name="byte" type="int"></argument><description>
+			Append an element at the end of the array.</description></method><method name="resize"><argument index="0" name="idx" type="int"></argument><description>
+			Set the size of the [RawArray]. If larger than the current size it will reserve some space beforehand, and if it is smaller it will cut off the array.</description></method><method name="set"><argument index="0" name="idx" type="int"></argument><argument index="1" name="byte" type="int"></argument><description>
+			Change the byte at the given index.</description></method><method name="size"><return type="int"></return><description>
+			Return the size of the array.</description></method></methods><constants></constants></class>

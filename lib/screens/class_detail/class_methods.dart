@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:godotclassreference/components/description_text.dart';
 import 'package:godotclassreference/models/class_content.dart';
 
 class ClassMethods extends StatelessWidget {
@@ -33,9 +34,10 @@ class ClassMethods extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-              child: Text(
-                m.description,
-                style: TextStyle(color: Colors.grey),
+              child: DescriptionText(
+                className: clsContent.name,
+                content: m.description,
+                onLinkTap: (e) {},
               ),
             )
           ],

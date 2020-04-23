@@ -1,0 +1,9 @@
+<class name="ResourcePreloader" inherits="Node" category="Core"><brief_description>
+	Resource Preloader Node.</brief_description><description>
+	Resource Preloader Node. This node is used to preload sub-resources inside a scene, so when the scene is loaded all the resources are ready to use and be retrieved from here.</description><methods><method name="add_resource"><argument index="0" name="name" type="String"></argument><argument index="1" name="resource" type="Object"></argument><description>
+			Add a resource to the preloader. Set the text-id that will be used to identify it (retrieve it/erase it/etc).</description></method><method name="get_resource" qualifiers="const"><return type="Object"></return><argument index="0" name="name" type="String"></argument><description>
+			Return the resource given a text-id.</description></method><method name="get_resource_list" qualifiers="const"><return type="StringArray"></return><description>
+			Return the list of resources inside the preloader.</description></method><method name="has_resource" qualifiers="const"><return type="bool"></return><argument index="0" name="name" type="String"></argument><description>
+			Return true if the preloader has a given resource.</description></method><method name="remove_resource"><argument index="0" name="name" type="String"></argument><description>
+			Remove a resource from the preloader by text id.</description></method><method name="rename_resource"><argument index="0" name="name" type="String"></argument><argument index="1" name="newname" type="String"></argument><description>
+			Rename a resource inside the preloader, from a text-id to a new text-id.</description></method></methods><constants></constants></class>

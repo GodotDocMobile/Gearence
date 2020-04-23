@@ -1,0 +1,35 @@
+<class name="InputEventMouseButton" category="Built-In Types"><brief_description>
+		Built-in input event type for mouse button events.</brief_description><description>
+		Input event type for mouse button events that extends the global [InputEvent] type.</description><methods><method name="is_action"><return type="bool"></return><argument index="0" name="action" type="String"></argument><description>
+				Return if this input event matches a pre-defined action.</description></method><method name="is_action_pressed"><return type="bool"></return><argument index="0" name="action" type="String"></argument><description>
+				Return whether the given action is being pressed.</description></method><method name="is_action_released"><return type="bool"></return><argument index="0" name="action" type="String"></argument><description>
+				Return whether the given action is released (i.e. not pressed).</description></method><method name="is_echo"><return type="bool"></return><description>
+				Return if this input event is an echo event (only for events of type KEY, i.e. always false for this type).</description></method><method name="is_pressed"><return type="bool"></return><description>
+				Return if this input event is pressed.</description></method><method name="set_as_action"><argument index="0" name="action" type="String"></argument><argument index="1" name="pressed" type="bool"></argument><description>
+				Change the input event to an action event of the given name with the pressed status passed as argument.</description></method></methods><members><member name="ID" type="int">
+			Event identifier, positive integer increased at each new event.</member><member name="alt" type="bool">
+			State of the Alt modifier.</member><member name="button_index" type="int">
+			Mouse button identifier, one of the BUTTON_* or BUTTON_WHEEL_* constants in [@Global Scope].</member><member name="button_mask" type="int">
+			Mouse button mask identifier, one of or a bitwise combination of the BUTTON_MASK_* constants in [@Global Scope].</member><member name="control" type="bool">
+			State of the Control modifier.</member><member name="device" type="int">
+			Device identifier.</member><member name="doubleclick" type="bool">
+			Whether the event is a double-click.</member><member name="global_pos" type="Vector2">
+			Global position of the mouse click.</member><member name="global_x" type="int">
+			Global X coordinate of the mouse click.</member><member name="global_y" type="int">
+			Global Y coordinate of the mouse click.</member><member name="meta" type="bool">
+			State of the Meta modifier.</member><member name="pos" type="Vector2">
+			Local position of the mouse click.</member><member name="pressed" type="bool">
+			Pressed state of the mouse button.</member><member name="shift" type="bool">
+			State of the Shift modifier.</member><member name="type" type="int">
+			Type of event (one of the [InputEvent] constants).</member><member name="x" type="int">
+			Local X coordinate of the mouse click.</member><member name="y" type="int">
+			Local Y coordinate of the mouse click.</member></members><constants><constant name="NONE" value="0">
+			Empty input event.</constant><constant name="KEY" value="1">
+			Key event.</constant><constant name="MOUSE_MOTION" value="2">
+			Mouse motion event.</constant><constant name="MOUSE_BUTTON" value="3">
+			Mouse button event.</constant><constant name="JOYSTICK_MOTION" value="4">
+			Joystick motion event.</constant><constant name="JOYSTICK_BUTTON" value="5">
+			Joystick button event.</constant><constant name="SCREEN_TOUCH" value="6">
+			Screen touch event.</constant><constant name="SCREEN_DRAG" value="7">
+			Screen drag event.</constant><constant name="ACTION" value="8">
+			Pre-defined action event (see [InputMap]).</constant></constants></class>

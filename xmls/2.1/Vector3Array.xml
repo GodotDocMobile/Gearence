@@ -1,0 +1,13 @@
+<class name="Vector3Array" category="Built-In Types"><brief_description>
+		An Array of Vector3.</brief_description><description>
+		An Array specifically designed to hold Vector3.</description><methods><method name="Vector3Array"><return type="Vector3Array"></return><argument index="0" name="from" type="Array"></argument><description>
+				Construct a new Vector3Array. Optionally, you can pass in an Array that will be converted.</description></method><method name="append"><argument index="0" name="vector3" type="Vector3"></argument><description>
+				Append an element at the end of the array (alias of [method push_back]).</description></method><method name="append_array"><argument index="0" name="array" type="Vector3Array"></argument><description>
+				Append an [Vector3Array] at the end of this array.</description></method><method name="insert"><return type="int"></return><argument index="0" name="idx" type="int"></argument><argument index="1" name="vector3" type="Vector3"></argument><description>
+				Insert a new element at a given position in the array. The position must be valid, or at the end of the array (pos==size()).</description></method><method name="invert"><description>
+				Reverse the order of the elements in the array (so first element will now be the last).</description></method><method name="push_back"><argument index="0" name="vector3" type="Vector3"></argument><description>
+				Insert a Vector3 at the end.</description></method><method name="remove"><argument index="0" name="idx" type="int"></argument><description>
+				Remove an element from the array by index.</description></method><method name="resize"><argument index="0" name="idx" type="int"></argument><description>
+				Set the size of the Vector3Array. If larger than the current size it will reserve some space beforehand, and if it is smaller it will cut off the array.</description></method><method name="set"><argument index="0" name="idx" type="int"></argument><argument index="1" name="vector3" type="Vector3"></argument><description>
+				Change the [Vector3] at the given index.</description></method><method name="size"><return type="int"></return><description>
+				Return the size of the array.</description></method></methods><constants></constants></class>

@@ -81,7 +81,7 @@ class GCRDrawerState extends State<GCRDrawer> {
                   title: Text("Godot Version"),
                   trailing: DropdownButton<String>(
                     value: godotVersion,
-                    items: <String>['2.1', '3.0', '3.1', '3.2'].map((i) {
+                    items: <String>['2.0', '2.1', '3.0', '3.1', '3.2'].map((i) {
                       return DropdownMenuItem<String>(
                         value: i,
                         child: Text(i),

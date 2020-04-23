@@ -1,0 +1,12 @@
+<class name="LargeTexture" inherits="Texture" category="Core"><brief_description>
+		A Texture capable of storing many smaller Textures with offsets.</brief_description><description>
+		A Texture capable of storing many smaller Textures with offsets.
+		You can dynamically add pieces(Textures) to this fLargeTexture] using different offsets.</description><methods><method name="add_piece"><return type="int"></return><argument index="0" name="ofs" type="Vector2"></argument><argument index="1" name="texture" type="Texture"></argument><description>
+				Add another [Texture] to this [LargeTexture], starting on offset "ofs".</description></method><method name="clear"><description>
+				Clear the [LargeTexture].</description></method><method name="get_piece_count" qualifiers="const"><return type="int"></return><description>
+				Return the number of pieces currently in this [LargeTexture].</description></method><method name="get_piece_offset" qualifiers="const"><return type="Vector2"></return><argument index="0" name="idx" type="int"></argument><description>
+				Return the offset of the piece with index "idx".</description></method><method name="get_piece_texture" qualifiers="const"><return type="Texture"></return><argument index="0" name="idx" type="int"></argument><description>
+				Return the [Texture] of the piece with index "idx".</description></method><method name="set_piece_offset"><argument index="0" name="idx" type="int"></argument><argument index="1" name="ofs" type="Vector2"></argument><description>
+				Set the offset of the piece with index "idx" to "ofs".</description></method><method name="set_piece_texture"><argument index="0" name="idx" type="int"></argument><argument index="1" name="texture" type="Texture"></argument><description>
+				Set the [Texture] of the piece with index "idx" to  "ofs".</description></method><method name="set_size"><argument index="0" name="size" type="Vector2"></argument><description>
+				Set the size of this [LargeTexture].</description></method></methods><constants></constants></class>

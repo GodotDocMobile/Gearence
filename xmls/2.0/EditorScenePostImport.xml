@@ -1,0 +1,1 @@
+<class name="EditorScenePostImport" inherits="Reference" category="Core"><brief_description></brief_description><description></description><methods><method name="post_import" qualifiers="virtual"><argument index="0" name="scene" type="Object"></argument><description></description></method></methods><constants></constants></class>

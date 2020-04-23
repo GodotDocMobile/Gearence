@@ -1,0 +1,17 @@
+<class name="MultiMesh" inherits="Resource" category="Core"><brief_description>
+		Provides high performance mesh instancing.</brief_description><description>
+		MultiMesh provides low level mesh instancing. If the amount of [Mesh] instances needed goes from hundreds to thousands (and most need to be visible at close proximity) creating such a large amount of [MeshInstance] nodes may affect performance by using too much CPU or video memory.
+		For this case a MultiMesh becomes very useful, as it can draw thousands of instances with little API overhead.
+		As a drawback, if the instances are too far away of each other, performance may be reduced as every single instance will always rendered (they are spatially indexed as one, for the whole object).
+		Since instances may have any behavior, the AABB used for visibility must be provided by the user, or generated with [method generate_aabb].</description><methods><method name="generate_aabb"><description>
+				Generate a new visibility AABB, using mesh AABB and instance transforms. Since instance information is stored in the [VisualServer], this function is VERY SLOW and must NOT be used often.</description></method><method name="get_aabb" qualifiers="const"><return type="AABB"></return><description>
+				Return the visibility AABB.</description></method><method name="get_instance_color" qualifiers="const"><return type="Color"></return><argument index="0" name="instance" type="int"></argument><description>
+				Get the color of a specific instance.</description></method><method name="get_instance_count" qualifiers="const"><return type="int"></return><description>
+				Return the amount of instances that is going to be drawn.</description></method><method name="get_instance_transform" qualifiers="const"><return type="Transform"></return><argument index="0" name="instance" type="int"></argument><description>
+				Return the transform of a specific instance.</description></method><method name="get_mesh" qualifiers="const"><return type="Mesh"></return><description>
+				Return the [Mesh] resource drawn as multiple instances.</description></method><method name="set_aabb"><argument index="0" name="visibility_aabb" type="AABB"></argument><description>
+				Set the visibility AABB. If not provided, MultiMesh will not be visible.</description></method><method name="set_instance_color"><argument index="0" name="instance" type="int"></argument><argument index="1" name="color" type="Color"></argument><description>
+				Set the color of a specific instance.</description></method><method name="set_instance_count"><argument index="0" name="count" type="int"></argument><description>
+				Set the amount of instances that is going to be drawn. Changing this number will erase all the existing instance transform and color data.</description></method><method name="set_instance_transform"><argument index="0" name="instance" type="int"></argument><argument index="1" name="transform" type="Transform"></argument><description>
+				Set the transform for a specific instance.</description></method><method name="set_mesh"><argument index="0" name="mesh" type="Mesh"></argument><description>
+				Set the [Mesh] resource to be drawn in multiple instances.</description></method></methods><constants></constants></class>

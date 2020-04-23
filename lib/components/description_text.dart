@@ -86,7 +86,8 @@ class DescriptionText extends StatelessWidget {
       } else if (tag.startsWith('method ') ||
           tag.startsWith('member ') ||
           tag.startsWith('signal ') ||
-          tag.startsWith('enum ')) {
+          tag.startsWith('enum ') ||
+          tag.startsWith('constant ')) {
         String linkTarget = tag.substring(tag.indexOf(' ') + 1, tag.length);
         String linkTag = tag.substring(0, tag.indexOf(' ')).padRight(6);
         _toRtn.add(TextSpan(

@@ -1,0 +1,8 @@
+<class name="RealArray" category="Built-In Types"><brief_description>
+	Real Array .</brief_description><description>
+	Real Array. Array of floating point values. Can only contain floats. Optimized for memory usage, can't fragment the memory.</description><methods><method name="RealArray"><return type="RealArray"></return><argument index="0" name="from" type="Array"></argument><description>
+			Create from a generic array.</description></method><method name="push_back"><argument index="0" name="value" type="float"></argument><description>
+			Append an element at the end of the array.</description></method><method name="resize"><argument index="0" name="idx" type="int"></argument><description>
+			Set the size of the [RealArray]. If larger than the current size it will reserve some space beforehand, and if it is smaller it will cut off the array.</description></method><method name="set"><argument index="0" name="idx" type="int"></argument><argument index="1" name="value" type="float"></argument><description>
+			Change the float at the given index.</description></method><method name="size"><return type="int"></return><description>
+			Return the size of the array.</description></method></methods><constants></constants></class>

@@ -1,0 +1,12 @@
+<class name="MeshLibrary" inherits="Resource" category="Core"><brief_description>
+		Library of meshes.</brief_description><description>
+		Library of meshes. Contains a list of [Mesh] resources, each with name and ID. Useful for GridMap or painting Terrain.</description><methods><method name="clear"><description>
+				Clear the library.</description></method><method name="create_item"><argument index="0" name="id" type="int"></argument><description>
+				Create a new item in the library, supplied an id.</description></method><method name="get_item_list" qualifiers="const"><return type="IntArray"></return><description>
+				Return the list of items.</description></method><method name="get_item_mesh" qualifiers="const"><return type="Mesh"></return><argument index="0" name="id" type="int"></argument><description>
+				Return the mesh of the item.</description></method><method name="get_item_name" qualifiers="const"><return type="String"></return><argument index="0" name="id" type="int"></argument><description>
+				Return the name of the item.</description></method><method name="get_item_navmesh" qualifiers="const"><return type="NavigationMesh"></return><argument index="0" name="id" type="int"></argument><description></description></method><method name="get_item_shape" qualifiers="const"><return type="Shape"></return><argument index="0" name="id" type="int"></argument><description></description></method><method name="get_last_unused_item_id" qualifiers="const"><return type="int"></return><description>
+				Get an unused id for a new item.</description></method><method name="remove_item"><argument index="0" name="id" type="int"></argument><description>
+				Remove the item.</description></method><method name="set_item_mesh"><argument index="0" name="id" type="int"></argument><argument index="1" name="mesh" type="Mesh"></argument><description>
+				Set the mesh of the item.</description></method><method name="set_item_name"><argument index="0" name="id" type="int"></argument><argument index="1" name="name" type="String"></argument><description>
+				Set the name of the item.</description></method><method name="set_item_navmesh"><argument index="0" name="id" type="int"></argument><argument index="1" name="navmesh" type="NavigationMesh"></argument><description></description></method><method name="set_item_shape"><argument index="0" name="id" type="int"></argument><argument index="1" name="shape" type="Shape"></argument><description></description></method></methods><constants></constants></class>

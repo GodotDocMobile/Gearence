@@ -1,0 +1,5 @@
+<class name="MultiMeshInstance" inherits="GeometryInstance" category="Core"><brief_description>
+		Node that instances a [MultiMesh].</brief_description><description>
+		MultiMeshInstance is a [Node] that takes a [MultiMesh] resource and adds it to the current scenario by creating an instance of it (yes, this is an instance of instances).</description><methods><method name="get_multimesh" qualifiers="const"><return type="Object"></return><description>
+				Return the [MultiMesh] that is used for instancing.</description></method><method name="set_multimesh"><argument index="0" name="multimesh" type="Object"></argument><description>
+				Set the [MultiMesh] to be instance.</description></method></methods><constants></constants></class>

@@ -1,0 +1,8 @@
+<class name="StringArray" category="Built-In Types"><brief_description>
+	String Array.</brief_description><description>
+	String Array. Array of strings. Can only contain strings. Optimized for memory usage, can't fragment the memory.</description><methods><method name="StringArray"><return type="StringArray"></return><argument index="0" name="from" type="Array"></argument><description>
+			Create from a generic array.</description></method><method name="push_back"><argument index="0" name="string" type="String"></argument><description>
+			Append a string element at end of the array.</description></method><method name="resize"><argument index="0" name="idx" type="int"></argument><description>
+			Set the size of the [StringArray]. If larger than the current size it will reserve some space beforehand, and if it is smaller it will cut off the array.</description></method><method name="set"><argument index="0" name="idx" type="int"></argument><argument index="1" name="string" type="String"></argument><description>
+			Change the [String] at the given index.</description></method><method name="size"><return type="int"></return><description>
+			Return the size of the array.</description></method></methods><constants></constants></class>

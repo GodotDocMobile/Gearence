@@ -27,7 +27,7 @@ class ClassDetail extends StatelessWidget {
     final file = await rootBundle
         .loadString('xmls/' + version + '/' + className + '.xml');
     final aaa = xml.parse(file).root;
-    final rootNode = xml.parse(file).root.children.elementAt(1);
+    final rootNode = xml.parse(file).root.children.last;
 //    final bbb = aaa.children.where((w) => w.text != '\n').last;
     return ClassContent.fromXml(rootNode);
   }

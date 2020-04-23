@@ -1,0 +1,44 @@
+<class name="TextEdit" inherits="Control" category="Core"><brief_description>
+	Multiline text editing control.</brief_description><description>
+	TextEdit is meant for editing large, multiline text. It also has facilities for editing code, such as syntax highlighting support and multiple levels of undo/redo.</description><methods><method name="add_color_region"><argument index="0" name="begin_key" type="String"></argument><argument index="1" name="end_key" type="String"></argument><argument index="2" name="color" type="Color"></argument><argument index="3" name="line_only" type="bool" default="false"></argument><description>
+			Add color region (given the delimiters) and its colors.</description></method><method name="add_keyword_color"><argument index="0" name="keyword" type="String"></argument><argument index="1" name="color" type="Color"></argument><description>
+			Add a keyword and its color.</description></method><method name="clear_colors"><description>
+			Clear all the syntax coloring information.</description></method><method name="clear_undo_history"><description>
+			Clear the undo history.</description></method><method name="copy"><description>
+			Copy the current selection.</description></method><method name="cursor_get_blink_enabled" qualifiers="const"><return type="bool"></return><description>
+			Gets whether the text editor caret is blinking.</description></method><method name="cursor_get_blink_speed" qualifiers="const"><return type="float"></return><description>
+			Gets the text editor caret blink speed.</description></method><method name="cursor_get_column" qualifiers="const"><return type="int"></return><description>
+			Return the column the editing cursor is at.</description></method><method name="cursor_get_line" qualifiers="const"><return type="int"></return><description>
+			Return the line the editing cursor is at.</description></method><method name="cursor_set_blink_enabled"><argument index="0" name="enable" type="bool"></argument><description>
+			Set the text editor caret to blink.</description></method><method name="cursor_set_blink_speed"><argument index="0" name="blink_speed" type="float"></argument><description>
+			Set the text editor caret blink speed. Cannot be less then or equal to 0.</description></method><method name="cursor_set_column"><argument index="0" name="column" type="int"></argument><argument index="1" name="adjust_viewport" type="bool" default="false"></argument><description></description></method><method name="cursor_set_line"><argument index="0" name="line" type="int"></argument><argument index="1" name="adjust_viewport" type="bool" default="false"></argument><description></description></method><method name="cut"><description>
+			Cut the current selection.</description></method><method name="get_line" qualifiers="const"><return type="String"></return><argument index="0" name="line" type="int"></argument><description>
+			Return the text of a specific line.</description></method><method name="get_line_count" qualifiers="const"><return type="int"></return><description>
+			Return the amount of total lines in the text.</description></method><method name="get_selection_from_column" qualifiers="const"><return type="int"></return><description>
+			Return the selection begin column.</description></method><method name="get_selection_from_line" qualifiers="const"><return type="int"></return><description>
+			Return the selection begin line.</description></method><method name="get_selection_text" qualifiers="const"><return type="String"></return><description>
+			Return the text inside the selection.</description></method><method name="get_selection_to_column" qualifiers="const"><return type="int"></return><description>
+			Return the selection end column.</description></method><method name="get_selection_to_line" qualifiers="const"><return type="int"></return><description>
+			Return the selection end line.</description></method><method name="get_text"><return type="String"></return><description>
+			Return the whole text.</description></method><method name="get_word_under_cursor" qualifiers="const"><return type="String"></return><description></description></method><method name="insert_text_at_cursor"><argument index="0" name="text" type="String"></argument><description>
+			Insert a given text at the cursor position.</description></method><method name="is_selection_active" qualifiers="const"><return type="bool"></return><description>
+			Return true if the selection is active.</description></method><method name="is_syntax_coloring_enabled" qualifiers="const"><return type="bool"></return><description>
+			Return true if the syntax coloring is enabled.</description></method><method name="paste"><description>
+			Paste the current selection.</description></method><method name="redo"><description>
+			Perform redo operation.</description></method><method name="search" qualifiers="const"><return type="IntArray"></return><argument index="0" name="flags" type="String"></argument><argument index="1" name="from_line" type="int"></argument><argument index="2" name="from_column" type="int"></argument><argument index="3" name="to_line" type="int"></argument><description>
+			Perform a search inside the text. Search flags can be specified in the SEARCH_* enum.</description></method><method name="select"><argument index="0" name="from_line" type="int"></argument><argument index="1" name="from_column" type="int"></argument><argument index="2" name="to_line" type="int"></argument><argument index="3" name="to_column" type="int"></argument><description>
+			Perform selection, from line/column to line/column.</description></method><method name="select_all"><description>
+			Select all the text.</description></method><method name="set_custom_bg_color"><argument index="0" name="color" type="Color"></argument><description>
+			Set a custom background color. A background color with alpha==0 disables this.</description></method><method name="set_max_chars"><argument index="0" name="amount" type="int"></argument><description>
+			Set the maximum amount of characters editable.</description></method><method name="set_readonly"><argument index="0" name="enable" type="bool"></argument><description>
+			Set the text editor as read-only. Text can be displayed but not edited.</description></method><method name="set_symbol_color"><argument index="0" name="color" type="Color"></argument><description>
+			Set the color for symbols.</description></method><method name="set_syntax_coloring"><argument index="0" name="enable" type="bool"></argument><description>
+			Set to enable the syntax coloring.</description></method><method name="set_text"><argument index="0" name="text" type="String"></argument><description>
+			Set the entire text.</description></method><method name="set_wrap"><argument index="0" name="enable" type="bool"></argument><description>
+			Enable text wrapping when it goes beyond he edge of what is visible.</description></method><method name="undo"><description>
+			Perform undo operation.</description></method></methods><signals><signal name="cursor_changed"><description>
+			Emitted when the cursor changes.</description></signal><signal name="request_completion"><description></description></signal><signal name="text_changed"><description>
+			Emitted when the text changes.</description></signal></signals><constants><constant name="SEARCH_MATCH_CASE" value="1">
+			Match case when searching.</constant><constant name="SEARCH_WHOLE_WORDS" value="2">
+			Match whole words when searching.</constant><constant name="SEARCH_BACKWARDS" value="4">
+			Search from end to beginning.</constant></constants><theme_items><theme_item name="brace_mismatch_color" type="Color"></theme_item><theme_item name="breakpoint_color" type="Color"></theme_item><theme_item name="caret_color" type="Color"></theme_item><theme_item name="completion" type="StyleBox"></theme_item><theme_item name="completion_existing" type="Color"></theme_item><theme_item name="completion_lines" type="int"></theme_item><theme_item name="completion_max_width" type="int"></theme_item><theme_item name="completion_scroll_color" type="Color"></theme_item><theme_item name="completion_scroll_width" type="int"></theme_item><theme_item name="completion_selected" type="StyleBox"></theme_item><theme_item name="current_line_color" type="Color"></theme_item><theme_item name="focus" type="StyleBox"></theme_item><theme_item name="font" type="Font"></theme_item><theme_item name="font_color" type="Color"></theme_item><theme_item name="font_color_selected" type="Color"></theme_item><theme_item name="line_spacing" type="int"></theme_item><theme_item name="mark_color" type="Color"></theme_item><theme_item name="normal" type="StyleBox"></theme_item><theme_item name="selection_color" type="Color"></theme_item><theme_item name="symbol_color" type="Color"></theme_item><theme_item name="tab" type="Texture"></theme_item></theme_items></class>

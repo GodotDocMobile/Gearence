@@ -1,0 +1,5 @@
+<class name="Path" inherits="Spatial" category="Core"><brief_description>
+		Container for a [Curve3D].</brief_description><description>
+		This class is a container/Node-ification of a [Curve3D], so it can have [Spatial] properties and [Node] info.</description><methods><method name="get_curve" qualifiers="const"><return type="Curve3D"></return><description>
+				Returns the [Curve3D] contained.</description></method><method name="set_curve"><argument index="0" name="curve" type="Curve3D"></argument><description>
+				Sets the [Curve3D].</description></method></methods><constants></constants></class>

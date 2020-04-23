@@ -1,0 +1,18 @@
+<class name="Matrix3" category="Built-In Types"><brief_description>
+		3x3 matrix datatype.</brief_description><description>
+		3x3 matrix used for 3D rotation and scale. Contains 3 vector fields x,y and z. Can also be accessed as array of 3D vectors. Almost always used as orthogonal basis for a [Transform].</description><methods><method name="Matrix3"><return type="Matrix3"></return><argument index="0" name="from" type="Quat"></argument><description>
+				Create a matrix from a quaternion.</description></method><method name="Matrix3"><return type="Matrix3"></return><argument index="0" name="axis" type="Vector3"></argument><argument index="1" name="phi" type="float"></argument><description>
+				Create a matrix from an axis vector and an angle.</description></method><method name="Matrix3"><return type="Matrix3"></return><argument index="0" name="x_axis" type="Vector3"></argument><argument index="1" name="y_axis" type="Vector3"></argument><argument index="2" name="z_axis" type="Vector3"></argument><description>
+				Create a matrix from 3 axis vectors.</description></method><method name="determinant"><return type="float"></return><description>
+				Return the determinant of the matrix.</description></method><method name="get_euler"><return type="Vector3"></return><description>
+				Return euler angles from the matrix.</description></method><method name="get_orthogonal_index"><return type="int"></return><description></description></method><method name="get_scale"><return type="Vector3"></return><description></description></method><method name="inverse"><return type="Matrix3"></return><description>
+				Return the affine inverse of the matrix.</description></method><method name="orthonormalized"><return type="Matrix3"></return><description>
+				Return the orthonormalized version of the matrix (useful to call from time to time to avoid rounding error).</description></method><method name="rotated"><return type="Matrix3"></return><argument index="0" name="axis" type="Vector3"></argument><argument index="1" name="phi" type="float"></argument><description>
+				Return the rotated version of the matrix, by a given axis and angle.</description></method><method name="scaled"><return type="Matrix3"></return><argument index="0" name="scale" type="Vector3"></argument><description>
+				Return the scaled version of the matrix, by a 3D scale.</description></method><method name="tdotx"><return type="float"></return><argument index="0" name="with" type="Vector3"></argument><description>
+				Transposed dot product with the x axis of the matrix.</description></method><method name="tdoty"><return type="float"></return><argument index="0" name="with" type="Vector3"></argument><description>
+				Transposed dot product with the y axis of the matrix.</description></method><method name="tdotz"><return type="float"></return><argument index="0" name="with" type="Vector3"></argument><description>
+				Transposed dot product with the z axis of the matrix.</description></method><method name="transposed"><return type="Matrix3"></return><description>
+				Return the transposed version of the matrix.</description></method><method name="xform"><return type="Vector3"></return><argument index="0" name="v" type="Vector3"></argument><description>
+				Return a vector transformed by the matrix and return it.</description></method><method name="xform_inv"><return type="Vector3"></return><argument index="0" name="v" type="Vector3"></argument><description>
+				Return a vector transformed by the transposed matrix and return it.</description></method></methods><members><member name="x" type="Vector3"></member><member name="y" type="Vector3"></member><member name="z" type="Vector3"></member></members><constants></constants></class>

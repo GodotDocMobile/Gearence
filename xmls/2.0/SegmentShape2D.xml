@@ -1,0 +1,7 @@
+<class name="SegmentShape2D" inherits="Shape2D" category="Core"><brief_description>
+	Segment Shape for 2D Collision Detection.</brief_description><description>
+	Segment Shape for 2D Collision Detection, consists of two points, 'a' and 'b'.</description><methods><method name="get_a" qualifiers="const"><return type="Vector2"></return><description>
+			Return the first point's position.</description></method><method name="get_b" qualifiers="const"><return type="Vector2"></return><description>
+			Return the second point's position.</description></method><method name="set_a"><argument index="0" name="a" type="Vector2"></argument><description>
+			Set the first point's position.</description></method><method name="set_b"><argument index="0" name="b" type="Vector2"></argument><description>
+			Set the second point's position.</description></method></methods><constants></constants></class>

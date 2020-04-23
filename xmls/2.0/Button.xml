@@ -1,0 +1,16 @@
+<class name="Button" inherits="BaseButton" category="Core"><brief_description>
+	Standard themed Button.</brief_description><description>
+	Button is the standard themed button. It can contain text and an icon, and will display them according to the current [Theme].</description><methods><method name="get_button_icon" qualifiers="const"><return type="Texture"></return><description>
+			Return the button icon.</description></method><method name="get_clip_text" qualifiers="const"><return type="bool"></return><description>
+			Return the state of the [i]clip_text[/i] property (see [method set_clip_text])</description></method><method name="get_text" qualifiers="const"><return type="String"></return><description>
+			Return the button text.</description></method><method name="get_text_align" qualifiers="const"><return type="int"></return><description>
+			Return the text alignment policy.</description></method><method name="is_flat" qualifiers="const"><return type="bool"></return><description>
+			Return the state of the [i]flat[/i] property (see [method set_flat]).</description></method><method name="set_button_icon"><argument index="0" name="texture" type="Texture"></argument><description>
+			Set the icon that will be displayed next to the text inside the button area.</description></method><method name="set_clip_text"><argument index="0" name="enabled" type="bool"></argument><description>
+			Set the [i]clip_text[/i] property of a Button. When this property is enabled, text that is too large to fit the button is clipped, when disabled (default) the Button will always be wide enough to hold the text.</description></method><method name="set_flat"><argument index="0" name="enabled" type="bool"></argument><description>
+			Set the [i]flat[/i] property of a Button. Flat buttons don't display decoration unless hovered or pressed.</description></method><method name="set_text"><argument index="0" name="text" type="String"></argument><description>
+			Set the button text, which will be displayed inside the button area.</description></method><method name="set_text_align"><argument index="0" name="align" type="int"></argument><description>
+			Set the text alignment policy, using one of the ALIGN_* constants.</description></method></methods><constants><constant name="ALIGN_LEFT" value="0">
+			Align the text to the left.</constant><constant name="ALIGN_CENTER" value="1">
+			Center the text.</constant><constant name="ALIGN_RIGHT" value="2">
+			Align the text to the right.</constant></constants><theme_items><theme_item name="disabled" type="StyleBox"></theme_item><theme_item name="focus" type="StyleBox"></theme_item><theme_item name="font" type="Font"></theme_item><theme_item name="font_color" type="Color"></theme_item><theme_item name="font_color_disabled" type="Color"></theme_item><theme_item name="font_color_hover" type="Color"></theme_item><theme_item name="font_color_pressed" type="Color"></theme_item><theme_item name="hover" type="StyleBox"></theme_item><theme_item name="hseparation" type="int"></theme_item><theme_item name="normal" type="StyleBox"></theme_item><theme_item name="pressed" type="StyleBox"></theme_item></theme_items></class>

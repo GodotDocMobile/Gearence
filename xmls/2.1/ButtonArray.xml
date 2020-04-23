@@ -1,0 +1,22 @@
+<class name="ButtonArray" inherits="Control" category="Core"><brief_description>
+		Array of Buttons.</brief_description><description>
+		Array of Buttons. A ButtonArray is useful to have an array of buttons laid out vertically or horizontally. Only one button can be selected, and is referenced by its index in the array (first button is 0, second button is 1, etc.).
+		This is useful [i]e.g.[/i] for joypad-friendly interfaces and option menus.</description><methods><method name="add_button"><argument index="0" name="text" type="String"></argument><argument index="1" name="tooltip" type="String" default="&quot;&quot;"></argument><description>
+				Append a new button to the array, with the specified text.</description></method><method name="add_icon_button"><argument index="0" name="icon" type="Texture"></argument><argument index="1" name="text" type="String" default="&quot;&quot;"></argument><argument index="2" name="tooltip" type="String" default="&quot;&quot;"></argument><description>
+				Append a new button to the array, with the specified icon and text.</description></method><method name="clear"><description>
+				Remove all buttons from the array.</description></method><method name="erase_button"><argument index="0" name="button_idx" type="int"></argument><description>
+				Remove the specified button in the array.</description></method><method name="get_button_count" qualifiers="const"><return type="int"></return><description>
+				Return the amount of buttons in the array.</description></method><method name="get_button_icon" qualifiers="const"><return type="Texture"></return><argument index="0" name="button_idx" type="int"></argument><description>
+				Return the icon of the specified button.</description></method><method name="get_button_text" qualifiers="const"><return type="String"></return><argument index="0" name="button_idx" type="int"></argument><description>
+				Return the text of the specified button.</description></method><method name="get_button_tooltip" qualifiers="const"><return type="String"></return><argument index="0" name="button_idx" type="int"></argument><description></description></method><method name="get_hovered" qualifiers="const"><return type="int"></return><description>
+				Return the index of the currently hovered button in the array.</description></method><method name="get_selected" qualifiers="const"><return type="int"></return><description>
+				Return the index of the currently selected button in the array.</description></method><method name="is_flat" qualifiers="const"><return type="bool"></return><description></description></method><method name="set_button_icon"><argument index="0" name="button_idx" type="int"></argument><argument index="1" name="icon" type="Texture"></argument><description>
+				Set the icon of the specified button.</description></method><method name="set_button_text"><argument index="0" name="button_idx" type="int"></argument><argument index="1" name="text" type="String"></argument><description>
+				Define the text of the specified button.</description></method><method name="set_button_tooltip"><argument index="0" name="button_idx" type="int"></argument><argument index="1" name="text" type="String"></argument><description></description></method><method name="set_flat"><argument index="0" name="enabled" type="bool"></argument><description></description></method><method name="set_selected"><argument index="0" name="button_idx" type="int"></argument><description>
+				Select a button in the array based on the given index.</description></method></methods><signals><signal name="button_selected"><argument index="0" name="button_idx" type="int"></argument><description>
+				A button has been selected, its index is given as the argument.</description></signal></signals><constants><constant name="ALIGN_BEGIN" value="0">
+			Align buttons at the beginning.</constant><constant name="ALIGN_CENTER" value="1">
+			Align buttons in the middle.</constant><constant name="ALIGN_END" value="2">
+			Align buttons at the end.</constant><constant name="ALIGN_FILL" value="3">
+			Spread the buttons, but keep them small.</constant><constant name="ALIGN_EXPAND_FILL" value="4">
+			Spread the buttons, but expand them.</constant></constants></class>

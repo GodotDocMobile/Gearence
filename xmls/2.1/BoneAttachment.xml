@@ -1,0 +1,3 @@
+<class name="BoneAttachment" inherits="Spatial" category="Core"><brief_description>
+		A node that will attach to a bone.</brief_description><description>
+		This node must be the child of a [Skeleton] node. You can then select a bone for this node to attach to. The BoneAttachment node will copy the transform of the selected bone.</description><methods><method name="get_bone_name" qualifiers="const"><return type="String"></return><description></description></method><method name="set_bone_name"><argument index="0" name="bone_name" type="String"></argument><description></description></method></methods><constants></constants></class>

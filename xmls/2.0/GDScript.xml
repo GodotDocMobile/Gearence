@@ -1,0 +1,1 @@
+<class name="GDScript" inherits="Script" category="Core"><brief_description></brief_description><description></description><methods><method name="get_as_byte_code" qualifiers="const"><return type="RawArray"></return><description></description></method><method name="new"><description></description></method></methods><constants></constants></class>

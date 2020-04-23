@@ -1,0 +1,8 @@
+<class name="EditorSelection" inherits="Object" category="Core"><brief_description>
+		Manages the SceneTree selection in the editor.</brief_description><description>
+		This object manages the SceneTree selection in the editor.</description><methods><method name="add_node"><argument index="0" name="node" type="Node"></argument><description>
+				Add a node to the selection.</description></method><method name="clear"><description>
+				Clear the selection.</description></method><method name="get_selected_nodes"><return type="Array"></return><description>
+				Get the list of selectes nodes.</description></method><method name="remove_node"><argument index="0" name="node" type="Node"></argument><description>
+				Remove a node from the selection.</description></method></methods><signals><signal name="selection_changed"><description>
+				Emitted when the selection changes.</description></signal></signals><constants></constants></class>

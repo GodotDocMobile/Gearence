@@ -1,0 +1,17 @@
+<class name="CanvasLayer" inherits="Node" category="Core"><brief_description>
+		Canvas Item layer.</brief_description><description>
+		Canvas Item layer. [CanvasItem] nodes that are direct or indirect children of a [CanvasLayer] will be drawn in that layer. The layer is a numeric index that defines the draw order. The default 2D scene renders with index 0, so a [CanvasLayer] with index -1 will be drawn below, and one with index 1 will be drawn above. This is very useful for HUDs (in layer 1+ or above), or backgrounds (in layer -1 or below).</description><methods><method name="get_custom_viewport" qualifiers="const"><return type="Viewport"></return><description>
+				Return the viewport RID for this layer.</description></method><method name="get_layer" qualifiers="const"><return type="int"></return><description>
+				Return the layer index, determines the draw order, a lower value will be below a higher one.</description></method><method name="get_offset" qualifiers="const"><return type="Vector2"></return><description>
+				Return the base offset for this layer (helper).</description></method><method name="get_rotation" qualifiers="const"><return type="float"></return><description>
+				Return the base rotation for this layer (helper).</description></method><method name="get_rotationd" qualifiers="const"><return type="float"></return><description>
+				Get rotation of the layer in degree.</description></method><method name="get_scale" qualifiers="const"><return type="Vector2"></return><description>
+				Return the base scale for this layer (helper).</description></method><method name="get_transform" qualifiers="const"><return type="Matrix32"></return><description>
+				Return the base transform for this layer.</description></method><method name="get_world_2d" qualifiers="const"><return type="World2D"></return><description>
+				Return the [World2D] used by this layer.</description></method><method name="set_custom_viewport"><argument index="0" name="viewport" type="Viewport"></argument><description></description></method><method name="set_layer"><argument index="0" name="layer" type="int"></argument><description>
+				Set the layer index, determines the draw order, a lower value will be below a higher one.</description></method><method name="set_offset"><argument index="0" name="offset" type="Vector2"></argument><description>
+				Set the base offset for this layer (helper).</description></method><method name="set_rotation"><argument index="0" name="radians" type="float"></argument><description>
+				Set the base rotation for this layer (helper).</description></method><method name="set_rotationd"><argument index="0" name="degrees" type="float"></argument><description>
+				Set rotation of the layer in degree.</description></method><method name="set_scale"><argument index="0" name="scale" type="Vector2"></argument><description>
+				Set the base scale for this layer (helper).</description></method><method name="set_transform"><argument index="0" name="transform" type="Matrix32"></argument><description>
+				Set the base transform for this layer.</description></method></methods><constants></constants></class>

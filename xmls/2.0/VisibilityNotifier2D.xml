@@ -1,0 +1,10 @@
+<class name="VisibilityNotifier2D" inherits="Node2D" category="Core"><brief_description>
+	Detect when the node is visible on screen.</brief_description><description>
+	The VisibilityNotifier2D is used to notify when its bounding rectangle enters the screen, is visible on the screen, or when it exits the screen.</description><methods><method name="get_rect" qualifiers="const"><return type="Rect2"></return><description>
+			Return the visibility bounding rectangle of the VisibilityNotifier2D.</description></method><method name="is_on_screen" qualifiers="const"><return type="bool"></return><description>
+			Return true if any part of the bounding rectangle is on the screen.</description></method><method name="set_rect"><argument index="0" name="rect" type="Rect2"></argument><description>
+			Set the visibility bounding rectangle of the VisibilityNotifier2D.</description></method></methods><signals><signal name="enter_screen"><description>
+			Emitted when the VisibilityNotifier2D enters the screen.</description></signal><signal name="enter_viewport"><argument index="0" name="viewport" type="Object"></argument><description>
+			Emitted when the VisibilityNotifier2D enters a [Viewport].</description></signal><signal name="exit_screen"><description>
+			Emitted when the VisibilityNotifier2D exits the screen.</description></signal><signal name="exit_viewport"><argument index="0" name="viewport" type="Object"></argument><description>
+			Emitted when the VisibilityNotifier2D exits a [Viewport].</description></signal></signals><constants></constants></class>
