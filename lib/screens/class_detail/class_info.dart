@@ -30,18 +30,20 @@ class ClassInfo extends StatelessWidget {
         ),
 
         //version
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Version:',
-              style: fieldNames,
-            ),
-            Padding(
-                padding: EdgeInsets.fromLTRB(10, 4, 0, 0),
-                child: Text(clsContent.version)),
-          ],
-        ),
+        (clsContent.version == null
+            ? SizedBox()
+            : Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    'Version:',
+                    style: fieldNames,
+                  ),
+                  Padding(
+                      padding: EdgeInsets.fromLTRB(10, 4, 0, 0),
+                      child: Text(clsContent.version)),
+                ],
+              )),
         SizedBox(
           height: 10,
         ),

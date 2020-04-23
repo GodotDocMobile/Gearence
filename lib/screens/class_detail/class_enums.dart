@@ -12,7 +12,10 @@ class ClassEnums extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (clsContent.constants == null ||
-        clsContent.constants.where((w) => w != null).length == 0) {
+        clsContent.constants
+                .where((w) => w != null && w.enumValue != null)
+                .length ==
+            0) {
       return Center(
         child: Text('0 enum in this class'),
       );

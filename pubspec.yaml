@@ -51,10 +51,12 @@ flutter:
 
 
   assets:
+    - xmls/2.0/
     - xmls/2.1/
     - xmls/3.0/
     - xmls/3.1/
     - xmls/3.2/
+    - xmls/files_2.0.json
     - xmls/files_2.1.json
     - xmls/files_3.0.json
     - xmls/files_3.1.json
