@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:godotclassreference/components/description_text.dart';
+import 'package:godotclassreference/constants/colors.dart';
 import 'package:godotclassreference/models/class_content.dart';
 
 class ClassMembers extends StatelessWidget {
@@ -27,7 +28,7 @@ class ClassMembers extends StatelessWidget {
               children: <Widget>[
                 Text(
                   m.name,
-                  style: TextStyle(fontSize: 25),
+                  style: TextStyle(fontSize: 25, color: godotColor),
                 ),
                 Row(
                   children: <Widget>[
@@ -55,16 +56,20 @@ class ClassMembers extends StatelessWidget {
                 ),
               ],
             ),
-//          subtitle: Text(m.memberText),
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-            child: DescriptionText(
+            subtitle: DescriptionText(
               className: clsContent.name,
               content: m.memberText,
               onLinkTap: (e) {},
             ),
           ),
+//          Padding(
+//            padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+//            child: DescriptionText(
+//              className: clsContent.name,
+//              content: m.memberText,
+//              onLinkTap: (e) {},
+//            ),
+//          ),
           SizedBox(
             height: 10,
           ),

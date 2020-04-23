@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:godotclassreference/components/description_text.dart';
+import 'package:godotclassreference/constants/colors.dart';
 import 'package:godotclassreference/models/class_content.dart';
 
 class ClassMethods extends StatelessWidget {
@@ -21,25 +22,121 @@ class ClassMethods extends StatelessWidget {
       children: clsContent.methods.map((m) {
         m.arguments.sort((a, b) => a.index.compareTo(b.index));
         return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            ListTile(
-              leading:
-                  Text(m.returnValue == null ? 'void' : m.returnValue.type),
-              title: Text(m.name +
-                  m.arguments.map((a) {
-                    return a.type + " " + a.name;
-                  }).toString()),
-              trailing: m.qualifiers == null ? SizedBox() : Text(m.qualifiers),
-//          subtitle: Text(m.description),
+//            ListTile(
+//              leading:
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  m.returnValue == null ? 'void' : m.returnValue.type,
+                  style: TextStyle(fontSize: 25),
+                ),
+                Expanded(
+                  child: Text(
+                    ' ' + m.name,
+                    softWrap: true,
+                    style: TextStyle(fontSize: 25, color: godotColor),
+//                    overflow: TextOverflow.fade,
+                  ),
+                ),
+              ],
             ),
+
+//              title: Text(m.name +
+//                  m.arguments.map((a) {
+//                    return a.type + " " + a.name;
+//                  }).toString()),
+//              trailing:
             Padding(
-              padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-              child: DescriptionText(
-                className: clsContent.name,
-                content: m.description,
-                onLinkTap: (e) {},
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: <Widget>[
+                  (m.arguments != null && m.arguments.length > 0
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              'arguments:',
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: <Widget>[
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: m.arguments.map((a) {
+                                      return Text(a.type,
+                                          style: TextStyle(fontSize: 15));
+                                    }).toList(),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: m.arguments.map((a) {
+                                      return Text(a.name,
+                                          style: TextStyle(fontSize: 15));
+                                    }).toList(),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        )
+                      : SizedBox()),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Row(
+                    children: <Widget>[
+//                      Text(
+//                        "return ",
+//                        style: TextStyle(color: Colors.grey),
+//                      ),
+//                      Text(m.returnValue == null ? 'void' : m.returnValue.type),
+//                      SizedBox(
+//                        width: 5,
+//                      ),
+                      m.qualifiers == null
+                          ? SizedBox()
+                          : Row(
+                              children: <Widget>[
+                                Text(
+                                  'qualifiers ',
+                                  style: TextStyle(color: Colors.grey),
+                                ),
+                                Text(m.qualifiers),
+                              ],
+                            ),
+                    ],
+                  ),
+                  DescriptionText(
+                    className: clsContent.name,
+                    content: m.description,
+                    onLinkTap: (e) {},
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                ],
               ),
-            )
+            ),
+            SizedBox(
+              height: 10,
+            ),
+//            ),
+//            Padding(
+//              padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+//              child: DescriptionText(
+//                className: clsContent.name,
+//                content: m.description,
+//                onLinkTap: (e) {},
+//              ),
+//            )
           ],
         );
       }).toList(),
