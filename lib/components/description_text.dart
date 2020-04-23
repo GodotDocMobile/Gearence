@@ -11,12 +11,14 @@ class DescriptionText extends StatelessWidget {
   final String className;
   final String content;
   final Function(TapEventArg args) onLinkTap;
+  final TextStyle style;
 
   DescriptionText(
       {Key key,
       @required this.className,
       @required this.content,
-      this.onLinkTap})
+      this.onLinkTap,
+      this.style})
       : assert(className != null),
         assert(content != null),
         assert(onLinkTap != null),
@@ -66,7 +68,7 @@ class DescriptionText extends StatelessWidget {
         bool tagOK = tagStack.length > 0 &&
             tagStack.last == tag.substring(1, tag.length);
 
-        final aaa = tag.substring(1, tag.length);
+//        final aaa = tag.substring(1, tag.length);
 
         if (!tagOK) {
           _toRtn.add(TextSpan(text: ']'));
@@ -89,7 +91,7 @@ class DescriptionText extends StatelessWidget {
           tag.startsWith('enum ') ||
           tag.startsWith('constant ')) {
         String linkTarget = tag.substring(tag.indexOf(' ') + 1, tag.length);
-        String linkTag = tag.substring(0, tag.indexOf(' ')).padRight(6);
+//        String linkTag = tag.substring(0, tag.indexOf(' ')).padRight(6);
         _toRtn.add(TextSpan(
             text: linkTarget + (tag.startsWith('method ') ? '()' : ''),
             recognizer: TapGestureRecognizer()
@@ -194,7 +196,7 @@ class DescriptionText extends StatelessWidget {
         pos = brkEnd + 1;
         tagStack.add('color');
       } else if (tag.startsWith('font=')) {
-        String fnt = tag.substring(5, tag.length);
+//        String fnt = tag.substring(5, tag.length);
         pos = brkEnd + 1;
         tagStack.add('font');
       } else {
@@ -225,7 +227,7 @@ class DescriptionText extends StatelessWidget {
   Widget build(BuildContext context) {
     return RichText(
       text: TextSpan(
-        style: DefaultTextStyle.of(context).style,
+        style: this.style == null ? DefaultTextStyle.of(context).style : style,
         children: _parseText(),
       ),
     );

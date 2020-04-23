@@ -14,7 +14,7 @@ class ClassSelect extends StatelessWidget {
     await StoredValues().readValue();
 
     String version = StoredValues().prefs.getString('version');
-    print(version);
+//    print(version);
     if (version == null || version.length == 0) {
       version = '3.0';
       await StoredValues().prefs.setString('version', '3.0');
