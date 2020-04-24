@@ -11,20 +11,28 @@ class ClassConstants extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (clsContent.constants == null ||
-        clsContent.constants.where((w) => w == null).length == 0) {
+        clsContent.constants.where((w) => w.enumValue == null).length == 0) {
       return Center(
         child: Text('0 constant in this class'),
       );
     }
 
     return ListView(
-      padding: EdgeInsets.all(5),
-      children: clsContent.constants.where((w) => w == null).map((c) {
+//      padding: EdgeInsets.all(5),
+      children: clsContent.constants.where((w) => w.enumValue == null).map((c) {
         return ListTile(
-          leading: Card(
-            child: Text(c.value),
+//          leading: Card(
+//            child: Text(c.value),
+//          ),
+          title: Row(
+            children: <Widget>[
+              Text(c.name),
+              Text(
+                ' = ' + c.value,
+                style: TextStyle(color: Colors.grey),
+              )
+            ],
           ),
-          title: Text(c.name),
 //          trailing: Text('value:' + c.value),
           subtitle: DescriptionText(
             className: clsContent.name,
