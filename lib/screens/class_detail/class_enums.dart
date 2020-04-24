@@ -38,6 +38,7 @@ class ClassEnums extends StatelessWidget {
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Row(
               children: <Widget>[
