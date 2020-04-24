@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "960460149124",
+    "firebase_url": "https://godot-class-reference.firebaseio.com",
+    "project_id": "godot-class-reference",
+    "storage_bucket": "godot-class-reference.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:960460149124:android:f3d853fea8e669a92c8dd1",
+        "android_client_info": {
+          "package_name": "com.fengjiongmax.godotclassreference"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "960460149124-vq5a7r3h11962o708dmop7u5s9v4nt6g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5QR8j3N2wSSgyN_HN4Yek2IOiHSanoSw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "960460149124-vq5a7r3h11962o708dmop7u5s9v4nt6g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

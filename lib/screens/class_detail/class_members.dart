@@ -23,43 +23,41 @@ class ClassMembers extends StatelessWidget {
         return Column(children: <Widget>[
           ListTile(
             leading: Text(m.type),
-            title: Column(
+            title: Text(
+              m.name,
+              style: TextStyle(fontSize: 25, color: godotColor),
+            ),
+            subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  m.name,
-                  style: TextStyle(fontSize: 25, color: godotColor),
+                  'setter',
+                  style: TextStyle(color: Colors.grey),
                 ),
-                Row(
-                  children: <Widget>[
-                    Text(m.setter + "(value)"),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(4, 0, 0, 0),
-                      child: Text(
-                        'setter',
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                    )
-                  ],
+                Padding(
+                  padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                  child: Text(
+                    m.setter + "(value)",
+                    style: TextStyle(color: Colors.black),
+                  ),
                 ),
-                Row(
-                  children: <Widget>[
-                    Text(m.getter + "()"),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(4, 0, 0, 0),
-                      child: Text(
-                        'getter',
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                    ),
-                  ],
+                Text(
+                  'getter',
+                  style: TextStyle(color: Colors.grey),
+                ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                  child: Text(
+                    m.getter + "()",
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ),
+                DescriptionText(
+                  className: clsContent.name,
+                  content: m.memberText,
+                  onLinkTap: (e) {},
                 ),
               ],
-            ),
-            subtitle: DescriptionText(
-              className: clsContent.name,
-              content: m.memberText,
-              onLinkTap: (e) {},
             ),
           ),
 //          Padding(

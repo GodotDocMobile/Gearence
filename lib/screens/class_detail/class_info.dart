@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:godotclassreference/components/description_text.dart';
 import 'package:godotclassreference/models/class_content.dart';
 import 'package:godotclassreference/theme/default.dart';
@@ -20,6 +21,10 @@ class ClassInfo extends StatelessWidget {
       padding: EdgeInsets.all(6),
       children: <Widget>[
         //brief_description
+        Text(
+          'Brief Description:',
+          style: TextStyle(color: Colors.grey),
+        ),
         DescriptionText(
           className: clsContent.name,
           content: clsContent.briefDescription,
@@ -37,7 +42,7 @@ class ClassInfo extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     'Version:',
-                    style: fieldNames,
+                    style: TextStyle(color: Colors.grey),
                   ),
                   Padding(
                       padding: EdgeInsets.fromLTRB(10, 4, 0, 0),
@@ -56,7 +61,7 @@ class ClassInfo extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     'Category:',
-                    style: fieldNames,
+                    style: TextStyle(color: Colors.grey),
                   ),
                   Padding(
                       padding: EdgeInsets.fromLTRB(10, 4, 0, 0),
@@ -68,7 +73,7 @@ class ClassInfo extends StatelessWidget {
               )),
 
         //description
-        Text('Description:', style: fieldNames),
+//        Text('Description:', style: fieldNames),
         DescriptionText(
           className: clsContent.name,
           content: clsContent.description,

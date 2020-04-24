@@ -21,37 +21,20 @@ class ClassMethods extends StatelessWidget {
       padding: EdgeInsets.all(5),
       children: clsContent.methods.map((m) {
         m.arguments.sort((a, b) => a.index.compareTo(b.index));
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-//            ListTile(
-//              leading:
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  m.returnValue == null ? 'void' : m.returnValue.type,
-                  style: TextStyle(fontSize: 25),
-                ),
-                Expanded(
-                  child: Text(
-                    ' ' + m.name,
-                    softWrap: true,
-                    style: TextStyle(fontSize: 25, color: godotColor),
+        return ListTile(
+          leading: Text(
+            m.returnValue == null ? 'void' : m.returnValue.type,
+//                  style: TextStyle(fontSize: 25),
+          ),
+          title: Text(
+            m.name,
+            softWrap: true,
+            style: TextStyle(fontSize: 25, color: godotColor),
 //                    overflow: TextOverflow.fade,
-                  ),
-                ),
-              ],
-            ),
-
-//              title: Text(m.name +
-//                  m.arguments.map((a) {
-//                    return a.type + " " + a.name;
-//                  }).toString()),
-//              trailing:
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
+          ),
+          subtitle: Column(
+            children: <Widget>[
+              Column(
                 children: <Widget>[
                   (m.arguments != null && m.arguments.length > 0
                       ? Column(
@@ -59,7 +42,6 @@ class ClassMethods extends StatelessWidget {
                           children: <Widget>[
                             Text(
                               'arguments:',
-                              style: TextStyle(color: Colors.grey),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -70,7 +52,9 @@ class ClassMethods extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: m.arguments.map((a) {
                                       return Text(a.type,
-                                          style: TextStyle(fontSize: 15));
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              color: Colors.black));
                                     }).toList(),
                                   ),
                                   SizedBox(
@@ -81,7 +65,31 @@ class ClassMethods extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: m.arguments.map((a) {
                                       return Text(a.name,
-                                          style: TextStyle(fontSize: 15));
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              color: Colors.black));
+                                    }).toList(),
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: m.arguments.map((a) {
+                                      return a.defaultValue == null
+                                          ? Text('')
+                                          : Row(
+                                              children: <Widget>[
+                                                Text(
+                                                  ' = ',
+                                                  style: TextStyle(
+                                                      color: Colors.grey),
+                                                ),
+                                                Text(
+                                                  a.defaultValue,
+                                                  style: TextStyle(
+                                                      color: Colors.black),
+                                                )
+                                              ],
+                                            );
                                     }).toList(),
                                   )
                                 ],
@@ -90,9 +98,9 @@ class ClassMethods extends StatelessWidget {
                           ],
                         )
                       : SizedBox()),
-                  SizedBox(
-                    height: 5,
-                  ),
+//                    SizedBox(
+//                      height: 5,
+//                    ),
                   Row(
                     children: <Widget>[
 //                      Text(
@@ -109,35 +117,25 @@ class ClassMethods extends StatelessWidget {
                               children: <Widget>[
                                 Text(
                                   'qualifiers ',
-                                  style: TextStyle(color: Colors.grey),
                                 ),
-                                Text(m.qualifiers),
+                                Text(
+                                  m.qualifiers,
+                                  style: TextStyle(color: Colors.black),
+                                ),
                               ],
                             ),
                     ],
                   ),
-                  DescriptionText(
-                    className: clsContent.name,
-                    content: m.description,
-                    onLinkTap: (e) {},
-                    style: TextStyle(color: Colors.grey),
-                  ),
                 ],
               ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-//            ),
-//            Padding(
-//              padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-//              child: DescriptionText(
-//                className: clsContent.name,
-//                content: m.description,
-//                onLinkTap: (e) {},
-//              ),
-//            )
-          ],
+              DescriptionText(
+                className: clsContent.name,
+                content: m.description,
+                onLinkTap: (e) {},
+//            style: TextStyle(color: Colors.grey),
+              ),
+            ],
+          ),
         );
       }).toList(),
     );
