@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
+import 'package:godotclassreference/constants/tap_event_arg.dart';
 import 'package:xml/xml.dart' as xml;
 
 import 'package:godotclassreference/screens/class_detail/class_constants.dart';
@@ -35,6 +36,8 @@ class ClassDetail extends StatelessWidget {
     return ClassContent.fromXml(rootNode);
   }
 
+  void onLinkTap(TapEventArg args) {}
+
   @override
   Widget build(BuildContext context) {
     final _classContent = getClassDetail();
@@ -43,7 +46,7 @@ class ClassDetail extends StatelessWidget {
       future: _classContent,
       builder: (BuildContext context, AsyncSnapshot<ClassContent> snapshot) {
         if (snapshot.hasData) {
-          List<ClassTab> tabs = getClassTabs(snapshot.data);
+          List<ClassTab> tabs = getClassTabs(snapshot.data, this.onLinkTap);
           // append theme item tab if needed
           if (snapshot.data.themeItems != null &&
               snapshot.data.themeItems.length > 0) {
@@ -77,10 +80,10 @@ class ClassDetail extends StatelessWidget {
                                     ),
                                     Container(
                                       decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(3))),
-//                                      width: 30,
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(3)),
+                                      ),
                                       height: 20,
                                       child: Center(
                                         child: Text(
@@ -129,18 +132,21 @@ class ClassTab {
   final bool showCnt;
 }
 
-List<ClassTab> getClassTabs(ClassContent clsContent) {
+List<ClassTab> getClassTabs(
+    ClassContent clsContent, Function(TapEventArg args) onLinkTap) {
   return <ClassTab>[
     ClassTab(
       title: "Info",
       child: ClassInfo(
         clsContent: clsContent,
+        onLinkTap: onLinkTap,
       ),
     ),
     ClassTab(
       title: "Enums",
       child: ClassEnums(
         clsContent: clsContent,
+        onLinkTap: onLinkTap,
       ),
       showCnt: true,
       itemCount: clsContent.constants == null
@@ -151,6 +157,7 @@ List<ClassTab> getClassTabs(ClassContent clsContent) {
       title: "Constants",
       child: ClassConstants(
         clsContent: clsContent,
+        onLinkTap: onLinkTap,
       ),
       showCnt: true,
       itemCount: clsContent.constants == null
@@ -161,6 +168,7 @@ List<ClassTab> getClassTabs(ClassContent clsContent) {
       title: "Members",
       child: ClassMembers(
         clsContent: clsContent,
+        onLinkTap: onLinkTap,
       ),
       showCnt: true,
       itemCount: clsContent.members == null ? 0 : clsContent.members.length,
@@ -169,6 +177,7 @@ List<ClassTab> getClassTabs(ClassContent clsContent) {
       title: "Methods",
       child: ClassMethods(
         clsContent: clsContent,
+        onLinkTap: onLinkTap,
       ),
       showCnt: true,
       itemCount: clsContent.methods == null ? 0 : clsContent.methods.length,
@@ -177,6 +186,7 @@ List<ClassTab> getClassTabs(ClassContent clsContent) {
       title: "Signals",
       child: ClassSignals(
         clsContent: clsContent,
+        onLinkTap: onLinkTap,
       ),
       showCnt: true,
       itemCount: clsContent.signals == null ? 0 : clsContent.signals.length,
