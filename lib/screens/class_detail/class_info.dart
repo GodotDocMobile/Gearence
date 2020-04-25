@@ -1,13 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:godotclassreference/components/description_text.dart';
+import 'package:godotclassreference/constants/tap_event_arg.dart';
 import 'package:godotclassreference/models/class_content.dart';
 import 'package:godotclassreference/theme/default.dart';
 
 class ClassInfo extends StatelessWidget {
   final ClassContent clsContent;
+  final Function(TapEventArg args) onLinkTap;
 
-  ClassInfo({Key key, this.clsContent}) : super(key: key);
+  ClassInfo({Key key, this.clsContent, @required this.onLinkTap})
+      : assert(onLinkTap != null),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +32,7 @@ class ClassInfo extends StatelessWidget {
         DescriptionText(
           className: clsContent.name,
           content: clsContent.briefDescription,
-          onLinkTap: (e) {},
+          onLinkTap: onLinkTap,
         ),
         SizedBox(
           height: 10,
@@ -77,9 +81,7 @@ class ClassInfo extends StatelessWidget {
         DescriptionText(
           className: clsContent.name,
           content: clsContent.description,
-          onLinkTap: (e) {
-//            print('nothing happen');
-          },
+          onLinkTap: onLinkTap,
         ),
 //        Text(clsContent.description),
         //tutorials

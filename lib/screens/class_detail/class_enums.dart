@@ -2,12 +2,27 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:godotclassreference/components/description_text.dart';
 import 'package:godotclassreference/constants/colors.dart';
+import 'package:godotclassreference/constants/tap_event_arg.dart';
 import 'package:godotclassreference/models/class_content.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class ClassEnums extends StatelessWidget {
   final ClassContent clsContent;
+  final String scrollTo;
+  final Function(TapEventArg args) onLinkTap;
 
-  ClassEnums({Key key, this.clsContent}) : super(key: key);
+  final ItemScrollController scrollController = ItemScrollController();
+  final ItemPositionsListener itemPositionsListener =
+      ItemPositionsListener.create();
+
+  ClassEnums(
+      {Key key,
+      @required this.clsContent,
+      this.scrollTo,
+      @required this.onLinkTap})
+      : assert(clsContent != null),
+        assert(onLinkTap != null),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,13 +42,16 @@ class ClassEnums extends StatelessWidget {
         .toSet()
         .where((w) => w != null)
         .toList();
-//    print(_enums);
 
-    return ListView(
+    final _toRtn = ScrollablePositionedList.builder(
       padding: EdgeInsets.all(5),
-      children: _enums.map((e) {
-        final _enumValues =
-            clsContent.constants.where((w) => w.enumValue == e).toList();
+      itemCount: _enums.length,
+      itemScrollController: scrollController,
+      itemPositionsListener: itemPositionsListener,
+      itemBuilder: (context, index) {
+        final _enumValues = clsContent.constants
+            .where((w) => w.enumValue == _enums[index])
+            .toList();
         _enumValues.sort((a, b) => a.value.compareTo(b.value));
 
         return Column(
@@ -47,7 +65,7 @@ class ClassEnums extends StatelessWidget {
                   style: TextStyle(color: godotColor, fontSize: 20),
                 ),
                 Text(
-                  e,
+                  _enums[index],
                   style: TextStyle(fontSize: 20),
                 ),
                 Text(
@@ -59,15 +77,11 @@ class ClassEnums extends StatelessWidget {
             Column(
               children: _enumValues.map((c) {
                 return ListTile(
-//                  leading: Card(
-//                    child: Text(c.value),
-//                  ),
                   title: Text(c.name + ' = ' + c.value),
-//          trailing: Text('value:' + c.value),
                   subtitle: DescriptionText(
                     className: clsContent.name,
                     content: c.constantText,
-                    onLinkTap: (e) {},
+                    onLinkTap: onLinkTap,
                   ),
                 );
               }).toList(),
@@ -77,17 +91,14 @@ class ClassEnums extends StatelessWidget {
             )
           ],
         );
-      }).toList(),
-//      children: clsContent.constants.where((w) => w != null).map((c) {
-//        return ListTile(
-//          leading: Card(
-//            child: Text(c.value),
-//          ),
-//          title: Text(c.name),
-////          trailing: Text('value:' + c.value),
-//          subtitle: Text(c.constantText),
-//        );
-//      }).toList(),
+      },
     );
+
+//    if (scrollTo != null && scrollTo.length > 0) {
+//      _scrollController.jumpTo(index: _scrollIndex);
+//    }
+//    _scrollController.jumpTo(index: _enums.length - 1);
+
+    return _toRtn;
   }
 }
