@@ -17,6 +17,8 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
+  scrollable_positioned_list: ^0.1.4
+
   flutter_svg: ^0.17.4
 
   firebase_admob: ^0.9.3+2
