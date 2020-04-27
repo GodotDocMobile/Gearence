@@ -54,6 +54,7 @@ class ClassDetail extends StatelessWidget {
               title: 'Theme Item',
               child: ClassThemeItems(
                 clsContent: snapshot.data,
+                onLinkTap: onLinkTap,
               ),
               showCnt: true,
               itemCount: snapshot.data.themeItems.length,
@@ -62,7 +63,6 @@ class ClassDetail extends StatelessWidget {
           return DefaultTabController(
             length: tabs.length,
             child: Scaffold(
-//              drawer: GCRDrawer(),
               appBar: AppBar(
                 title: Text(className),
                 bottom: TabBar(
@@ -106,6 +106,12 @@ class ClassDetail extends StatelessWidget {
                   return c.child;
                 }).toList(),
               ),
+//              bottomNavigationBar: Row(
+//                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                children: <Widget>[
+//                  Text('Hello'),
+//                ],
+//              ),
             ),
           );
         }
@@ -162,7 +168,7 @@ List<ClassTab> getClassTabs(
       showCnt: true,
       itemCount: clsContent.constants == null
           ? 0
-          : clsContent.constants.where((w) => w == null).length,
+          : clsContent.constants.where((w) => w.enumValue == null).length,
     ),
     ClassTab(
       title: "Members",

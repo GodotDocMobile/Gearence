@@ -34,3 +34,9 @@ final Color godotColor = MaterialColor(0xFF6589BD, godotThemeColorMap);
 Color hexToColor(String hexString, {String alphaChannel = 'FF'}) {
   return Color(int.parse(hexString.replaceFirst('#', '0x$alphaChannel')));
 }
+
+final Color enumColor = Colors.lightBlueAccent;
+final Color functionColor = Colors.blueAccent;
+final Color builtinValueColor = Colors.redAccent;
+final Color classColor = Colors.greenAccent;
+final Color signalColor = Colors.amberAccent;
