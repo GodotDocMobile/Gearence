@@ -43,7 +43,7 @@ class ClassMembers extends StatelessWidget {
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    m.setter == null
+                    m.setter == null || m.setter.length == 0
                         ? SizedBox()
                         : Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,7 +61,7 @@ class ClassMembers extends StatelessWidget {
                               ),
                             ],
                           ),
-                    m.getter == null
+                    m.getter == null || m.getter.length == 0
                         ? SizedBox()
                         : Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
