@@ -5,7 +5,7 @@ import 'package:godotclassreference/constants/class_list.dart';
 import 'package:godotclassreference/constants/colors.dart';
 import 'package:godotclassreference/constants/tap_event_arg.dart';
 
-//implementation check godot/editor/editor_help.cpp _add_text_to_rt
+//logic check godot/editor/editor_help.cpp _add_text_to_rt
 
 class DescriptionText extends StatelessWidget {
   final String className;
@@ -25,12 +25,15 @@ class DescriptionText extends StatelessWidget {
         super(key: key);
 
   // this is a full implementation of _add_text_to_rt
-  List<TextSpan> _parseText() {
+  List<TextSpan> _parseText(BuildContext context) {
     List<TextSpan> _toRtn = List<TextSpan>();
 
     List<String> tagStack = List<String>();
     bool codeTag = false;
     int pos = 0;
+
+    TextStyle _toApplyStyle = DefaultTextStyle.of(context).style;
+    bool _willCallOnTap = false;
     while (pos < content.length) {
       int brkPos = content.indexOf('[', pos);
 
@@ -200,13 +203,16 @@ class DescriptionText extends StatelessWidget {
         pos = brkEnd + 1;
         tagStack.add('font');
       } else {
-        _toRtn.add(TextSpan(text: '['));
+        _toRtn.add(TextSpan(text: '[', style: _toApplyStyle));
+        _toApplyStyle = DefaultTextStyle.of(context).style;
         pos = brkPos + 1;
       }
     }
 
     return _toRtn;
   }
+
+//  static TextSpan TappableTextSpan(String text,)
 
   static LinkType strToLinkType(String input) {
     switch (input.trim()) {
@@ -228,7 +234,7 @@ class DescriptionText extends StatelessWidget {
     return RichText(
       text: TextSpan(
         style: this.style == null ? DefaultTextStyle.of(context).style : style,
-        children: _parseText(),
+        children: _parseText(context),
       ),
     );
   }
