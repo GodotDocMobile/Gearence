@@ -11,7 +11,7 @@ const appUnitId = 'ca-app-pub-3569371273195353/9278184798';
 
 MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
   keywords: <String>['godot', 'game develop', 'document'],
-  contentUrl: 'https://flutter.io',
+//  contentUrl: 'https://flutter.io',
 //  birthday: DateTime.now(),
   childDirected: false,
 //  designedForFamilies: false,
