@@ -82,6 +82,7 @@ class _GCRAppState extends State<GCRApp> {
         return Padding(
           child: child,
           padding: EdgeInsets.only(bottom: 50),
+//          padding: EdgeInsets.all(0),
         );
       },
     );
