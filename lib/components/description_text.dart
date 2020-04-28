@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:godotclassreference/constants/class_list.dart';
 import 'package:godotclassreference/constants/colors.dart';
 import 'package:godotclassreference/constants/tap_event_arg.dart';
+import 'package:xml/xml.dart';
 
 //logic check godot/editor/editor_help.cpp _add_text_to_rt
 
@@ -25,15 +26,15 @@ class DescriptionText extends StatelessWidget {
         super(key: key);
 
   // this is a full implementation of _add_text_to_rt
-  List<TextSpan> _parseText(BuildContext context) {
-    List<TextSpan> _toRtn = List<TextSpan>();
+  List<InlineSpan> _parseText(BuildContext context) {
+    List<InlineSpan> _toRtn = List<InlineSpan>();
 
     List<String> tagStack = List<String>();
     bool codeTag = false;
     int pos = 0;
 
     TextStyle _toApplyStyle = DefaultTextStyle.of(context).style;
-    bool _willCallOnTap = false;
+//    bool _willCallOnTap = false;
     while (pos < content.length) {
       int brkPos = content.indexOf('[', pos);
 
@@ -46,7 +47,8 @@ class DescriptionText extends StatelessWidget {
 //        if (!codeTag) {
 //          text = text.replaceAll('\n', '\n');
 //        }
-        _toRtn.add(TextSpan(text: text));
+        _toRtn.add(TextSpan(text: text, style: _toApplyStyle));
+        _toApplyStyle = DefaultTextStyle.of(context).style;
       }
 
       if (brkPos == content.length) {
@@ -95,52 +97,73 @@ class DescriptionText extends StatelessWidget {
           tag.startsWith('constant ')) {
         String linkTarget = tag.substring(tag.indexOf(' ') + 1, tag.length);
 //        String linkTag = tag.substring(0, tag.indexOf(' ')).padRight(6);
-        _toRtn.add(TextSpan(
+        _toRtn.add(
+          TextSpan(
             text: linkTarget + (tag.startsWith('method ') ? '()' : ''),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
                 TapEventArg args = TapEventArg(
-//                    linkType: strToLinkType(tag.split(pattern)),
-                    className: className,
-                    fieldName: linkTarget);
+                    linkType: linkTypeFromString(tag.split(' ').first),
+                    className: linkTarget.contains('.')
+                        ? linkTarget.split('.').first
+                        : className,
+                    fieldName: linkTarget.contains('.')
+                        ? linkTarget.split('.').last
+                        : linkTarget);
                 this.onLinkTap(args);
-              }));
-//        _toRtn.removeLast();
-//        _toRtn.removeLast();
+              },
+            style: TextStyle(color: godotColor),
+          ),
+        );
         pos = brkEnd + 1;
       } else if (ClassList().getList().contains(tag + '.xml')) {
-        _toRtn.add(TextSpan(text: tag));
-//        _toRtn.removeLast();
-//        _toRtn.removeLast();
+        _toRtn.add(
+          TextSpan(
+            text: tag,
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
+                TapEventArg args = TapEventArg(
+                  linkType: LinkType.Class,
+                  className: tag,
+                  fieldName: '',
+                );
+                this.onLinkTap(args);
+              },
+            style: TextStyle(color: godotColor),
+          ),
+        );
         pos = brkEnd + 1;
       } else if (tag == 'b') {
-        //should set font
+        // bold
         pos = brkEnd + 1;
         tagStack.add(tag);
+        _toApplyStyle = TextStyle(fontWeight: FontWeight.bold);
       } else if (tag == 'i') {
-        //should set font
+        // italic
         pos = brkEnd + 1;
         tagStack.add(tag);
+        _toApplyStyle = TextStyle(fontStyle: FontStyle.italic);
       } else if (tag == 'code' || tag == 'codeblock') {
         //should set font
         codeTag = true;
         pos = brkEnd + 1;
         tagStack.add(tag);
       } else if (tag == 'center') {
-        //set center
         pos = brkEnd + 1;
         tagStack.add(tag);
       } else if (tag == 'br') {
         _toRtn.add(TextSpan(text: '\n'));
         pos = brkEnd + 1;
       } else if (tag == 'u') {
-//        _toRtn.add(TextSpan(text: 'u'));
+        //underline
         pos = brkEnd + 1;
         tagStack.add(tag);
+        _toApplyStyle = TextStyle(decoration: TextDecoration.underline);
       } else if (tag == 's') {
 //        tagStack.add(value)
         pos = brkEnd + 1;
         tagStack.add(tag);
+        _toApplyStyle = TextStyle(decoration: TextDecoration.lineThrough);
       } else if (tag == 'url') {
         int end = content.indexOf('[', brkEnd);
         if (end == -1) {
@@ -195,38 +218,19 @@ class DescriptionText extends StatelessWidget {
         else
           color = Color.fromARGB(1, 0, 0, 0);
 
-//        _toRtn.add(value)
         pos = brkEnd + 1;
         tagStack.add('color');
+        _toApplyStyle = TextStyle(color: color);
       } else if (tag.startsWith('font=')) {
-//        String fnt = tag.substring(5, tag.length);
         pos = brkEnd + 1;
         tagStack.add('font');
       } else {
-        _toRtn.add(TextSpan(text: '[', style: _toApplyStyle));
-        _toApplyStyle = DefaultTextStyle.of(context).style;
+        _toRtn.add(TextSpan(text: '['));
         pos = brkPos + 1;
       }
     }
 
     return _toRtn;
-  }
-
-//  static TextSpan TappableTextSpan(String text,)
-
-  static LinkType strToLinkType(String input) {
-    switch (input.trim()) {
-      case 'method':
-        return LinkType.Method;
-      case 'signal':
-        return LinkType.Signal;
-      case 'member':
-        return LinkType.Member;
-      case 'enum':
-        return LinkType.Enum;
-      default:
-        return null;
-    }
   }
 
   @override
