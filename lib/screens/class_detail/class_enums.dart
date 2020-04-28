@@ -62,7 +62,7 @@ class ClassEnums extends StatelessWidget {
               children: <Widget>[
                 Text(
                   'enum ',
-                  style: TextStyle(color: godotColor, fontSize: 20),
+                  style: TextStyle(color: Colors.grey, fontSize: 20),
                 ),
                 Text(
                   _enums[index],
