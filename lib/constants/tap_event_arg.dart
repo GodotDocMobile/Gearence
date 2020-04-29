@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-enum LinkType { Class, Method, Signal, Enum, Member, Constant }
+enum LinkType { Class, Method, Signal, Enum, Member, Constant, ThemeItem }
 
 class TapEventArg {
   final LinkType linkType;
@@ -22,7 +22,9 @@ String linkTypeToString(LinkType input) {
     case LinkType.Method:
       return 'Methods';
     case LinkType.Signal:
-      return 'Signa';
+      return 'Signals';
+    case LinkType.ThemeItem:
+      return 'Theme Items';
     case LinkType.Class:
     default:
       return 'Info';
@@ -30,7 +32,6 @@ String linkTypeToString(LinkType input) {
 }
 
 LinkType linkTypeFromString(String input) {
-  print(input);
   switch (input.trimRight().trimLeft().toLowerCase()) {
     case 'class':
       return LinkType.Class;
@@ -44,6 +45,8 @@ LinkType linkTypeFromString(String input) {
       return LinkType.Member;
     case 'constant':
       return LinkType.Constant;
+    case 'theme items':
+      return LinkType.ThemeItem;
     default:
       return null;
   }

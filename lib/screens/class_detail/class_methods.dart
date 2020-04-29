@@ -6,32 +6,64 @@ import 'package:godotclassreference/constants/tap_event_arg.dart';
 import 'package:godotclassreference/models/class_content.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-class ClassMethods extends StatelessWidget {
+class ClassMethods extends StatefulWidget {
   final ClassContent clsContent;
   final Function(TapEventArg args) onLinkTap;
+  final Stream<TapEventArg> eventStream;
 
-  final ItemScrollController _scrollController = ItemScrollController();
-  final ItemPositionsListener _itemPositionsListener =
-      ItemPositionsListener.create();
-
-  ClassMethods({Key key, this.clsContent, @required this.onLinkTap})
+  ClassMethods(
+      {Key key, this.clsContent, this.eventStream, @required this.onLinkTap})
       : assert(onLinkTap != null),
         super(key: key);
 
   @override
+  _ClassMethodsState createState() => _ClassMethodsState();
+}
+
+class _ClassMethodsState extends State<ClassMethods> {
+  ItemScrollController _scrollController;
+  ItemPositionsListener _itemPositionsListener;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ItemScrollController();
+    _itemPositionsListener = ItemPositionsListener.create();
+    widget.eventStream.listen((v) {
+      scrollTo(v);
+    });
+  }
+
+  void scrollTo(TapEventArg args) {
+    if (widget.clsContent.name == args.className &&
+        args.linkType == LinkType.Method) {
+      final _targetIndex =
+          widget.clsContent.methods.indexWhere((w) => w.name == args.fieldName);
+      if (_targetIndex != -1) {
+        _scrollController.scrollTo(
+          curve: Curves.easeInOutCubic,
+          index: _targetIndex,
+          duration: Duration(milliseconds: 500),
+        );
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    if (clsContent.methods == null || clsContent.methods.length == 0) {
+    if (widget.clsContent.methods == null ||
+        widget.clsContent.methods.length == 0) {
       return Center(
         child: Text('0 method in this class'),
       );
     }
 
-    final _toRtn = ScrollablePositionedList.builder(
-        itemCount: clsContent.methods.length,
+    return ScrollablePositionedList.builder(
+        itemCount: widget.clsContent.methods.length,
         itemScrollController: _scrollController,
         itemPositionsListener: _itemPositionsListener,
         itemBuilder: (context, index) {
-          final m = clsContent.methods[index];
+          final m = widget.clsContent.methods[index];
           return ListTile(
             leading: Text(
               m.returnValue == null ? 'void' : m.returnValue.type,
@@ -135,15 +167,13 @@ class ClassMethods extends StatelessWidget {
                   ],
                 ),
                 DescriptionText(
-                  className: clsContent.name,
+                  className: widget.clsContent.name,
                   content: m.description,
-                  onLinkTap: onLinkTap,
+                  onLinkTap: widget.onLinkTap,
                 ),
               ],
             ),
           );
         });
-
-    return _toRtn;
   }
 }

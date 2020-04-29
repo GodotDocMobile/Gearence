@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+//import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:godotclassreference/bloc/tap_event_bloc.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:godotclassreference/constants/tap_event_arg.dart';
 import 'package:xml/xml.dart' as xml;
@@ -33,15 +35,26 @@ class _ClassDetailState extends State<ClassDetail>
   Future<ClassContent> _classContent;
   List<ClassTab> _tabs;
 
+  TapEventBloc _bloc;
+
   @override
   void initState() {
     super.initState();
+    _bloc = TapEventBloc();
     _classContent = getClassDetail();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (widget.args != null) {
+        Future.delayed(Duration(milliseconds: 200), () {
+          _bloc.argSink.add(widget.args);
+        });
+      }
+    });
   }
 
   @override
   void dispose() {
     _tabController.dispose();
+    _bloc.dispose();
     super.dispose();
   }
 
@@ -59,14 +72,26 @@ class _ClassDetailState extends State<ClassDetail>
     return ClassContent.fromXml(rootNode);
   }
 
-  void onLinkTap(TapEventArg args) {
+  void onLinkTap(TapEventArg args) async {
+//    _bloc.argSink.add(args);
     if (args.className == widget.className) {
       //navigation within class
       int _toFocusTabIndex =
           _tabs.indexWhere((w) => w.title == linkTypeToString(args.linkType));
-      _tabController.animateTo(_toFocusTabIndex);
+      _tabController.animateTo(_toFocusTabIndex,
+          duration: Duration(milliseconds: 100));
+      Future.delayed(Duration(milliseconds: 100), () {
+        _bloc.argSink.add(args);
+      });
     } else {
-//      Navigator
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ClassDetail(
+              className: args.className,
+              args: args,
+            ),
+          ));
     }
     print(
         args.className + ":" + args.linkType.toString() + ":" + args.fieldName);
@@ -78,15 +103,16 @@ class _ClassDetailState extends State<ClassDetail>
       future: _classContent,
       builder: (BuildContext context, AsyncSnapshot<ClassContent> snapshot) {
         if (snapshot.hasData) {
-          _tabs = getClassTabs(snapshot.data, this.onLinkTap);
+          _tabs = getClassTabs(snapshot.data, _bloc.argStream, this.onLinkTap);
           // append theme item tab if needed
           if (snapshot.data.themeItems != null &&
               snapshot.data.themeItems.length > 0) {
             _tabs.add(ClassTab(
-              title: 'Theme Item',
+              title: 'Theme Items',
               child: ClassThemeItems(
                 clsContent: snapshot.data,
                 onLinkTap: onLinkTap,
+                eventStream: _bloc.argStream,
               ),
               showCnt: true,
               itemCount: snapshot.data.themeItems.length,
@@ -95,13 +121,14 @@ class _ClassDetailState extends State<ClassDetail>
 
           _tabController = TabController(vsync: this, length: _tabs.length);
 
-//          _tabController.animateTo(1);
-
           if (widget.args != null &&
               widget.args.className == snapshot.data.name) {
+//            print(widget.args.linkType);
             int _tabIndex = _tabs.indexWhere(
-                (w) => w.title == linkTypeToString(LinkType.Constant));
-            _tabController.animateTo(_tabIndex);
+                (w) => w.title == linkTypeToString(widget.args.linkType));
+            if (_tabIndex != -1) {
+              _tabController.animateTo(_tabIndex);
+            }
           }
 
           return Scaffold(
@@ -164,7 +191,12 @@ class _ClassDetailState extends State<ClassDetail>
 }
 
 class ClassTab {
-  ClassTab({this.title, this.child, this.itemCount, this.showCnt = false});
+  ClassTab(
+      {this.title,
+      this.child,
+      this.itemCount,
+      this.eventStream,
+      this.showCnt = false});
 
   final String title;
 
@@ -173,10 +205,12 @@ class ClassTab {
   final int itemCount;
 
   final bool showCnt;
+
+  final Stream<TapEventArg> eventStream;
 }
 
-List<ClassTab> getClassTabs(
-    ClassContent clsContent, Function(TapEventArg args) onLinkTap) {
+List<ClassTab> getClassTabs(ClassContent clsContent,
+    Stream<TapEventArg> eventStream, Function(TapEventArg args) onLinkTap) {
   return <ClassTab>[
     ClassTab(
       title: "Info",
@@ -190,6 +224,7 @@ List<ClassTab> getClassTabs(
       child: ClassEnums(
         clsContent: clsContent,
         onLinkTap: onLinkTap,
+        eventStream: eventStream,
       ),
       showCnt: true,
       itemCount: clsContent.constants == null
@@ -201,6 +236,7 @@ List<ClassTab> getClassTabs(
       child: ClassConstants(
         clsContent: clsContent,
         onLinkTap: onLinkTap,
+        eventStream: eventStream,
       ),
       showCnt: true,
       itemCount: clsContent.constants == null
@@ -212,6 +248,7 @@ List<ClassTab> getClassTabs(
       child: ClassMembers(
         clsContent: clsContent,
         onLinkTap: onLinkTap,
+        eventStream: eventStream,
       ),
       showCnt: true,
       itemCount: clsContent.members == null ? 0 : clsContent.members.length,
@@ -221,6 +258,7 @@ List<ClassTab> getClassTabs(
       child: ClassMethods(
         clsContent: clsContent,
         onLinkTap: onLinkTap,
+        eventStream: eventStream,
       ),
       showCnt: true,
       itemCount: clsContent.methods == null ? 0 : clsContent.methods.length,
@@ -230,6 +268,7 @@ List<ClassTab> getClassTabs(
       child: ClassSignals(
         clsContent: clsContent,
         onLinkTap: onLinkTap,
+        eventStream: eventStream,
       ),
       showCnt: true,
       itemCount: clsContent.signals == null ? 0 : clsContent.signals.length,

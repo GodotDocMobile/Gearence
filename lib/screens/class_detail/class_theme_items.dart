@@ -4,32 +4,64 @@ import 'package:godotclassreference/constants/tap_event_arg.dart';
 import 'package:godotclassreference/models/class_content.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-class ClassThemeItems extends StatelessWidget {
+class ClassThemeItems extends StatefulWidget {
   final ClassContent clsContent;
   final Function(TapEventArg args) onLinkTap;
+  final Stream<TapEventArg> eventStream;
 
-  final ItemScrollController _scrollController = ItemScrollController();
-  final ItemPositionsListener _itemPositionsListener =
-      ItemPositionsListener.create();
-
-  ClassThemeItems({Key key, this.clsContent, @required this.onLinkTap})
+  ClassThemeItems(
+      {Key key, this.clsContent, this.eventStream, @required this.onLinkTap})
       : assert(onLinkTap != null),
         super(key: key);
 
   @override
+  _ClassThemeItemsState createState() => _ClassThemeItemsState();
+}
+
+class _ClassThemeItemsState extends State<ClassThemeItems> {
+  ItemScrollController _scrollController;
+  ItemPositionsListener _itemPositionsListener;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ItemScrollController();
+    _itemPositionsListener = ItemPositionsListener.create();
+    widget.eventStream.listen((v) {
+      scrollTo(v);
+    });
+  }
+
+  void scrollTo(TapEventArg args) {
+    if (widget.clsContent.name == args.className &&
+        args.linkType == LinkType.ThemeItem) {
+      final _targetIndex = widget.clsContent.themeItems
+          .indexWhere((w) => w.name == args.fieldName);
+      if (_targetIndex != -1) {
+        _scrollController.scrollTo(
+          curve: Curves.easeInOutCubic,
+          index: _targetIndex,
+          duration: Duration(milliseconds: 500),
+        );
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    if (clsContent.themeItems == null || clsContent.themeItems.length == 0) {
+    if (widget.clsContent.themeItems == null ||
+        widget.clsContent.themeItems.length == 0) {
       return Center(
         child: Text('0 theme item in this class'),
       );
     }
 
     return ScrollablePositionedList.builder(
-      itemCount: clsContent.themeItems.length,
+      itemCount: widget.clsContent.themeItems.length,
       itemScrollController: _scrollController,
       itemPositionsListener: _itemPositionsListener,
       itemBuilder: (context, index) {
-        final t = clsContent.themeItems[index];
+        final t = widget.clsContent.themeItems[index];
         return ListTile(
           leading: Text(t.type),
           title: Text(t.name),
