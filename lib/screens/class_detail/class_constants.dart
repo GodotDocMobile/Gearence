@@ -3,31 +3,65 @@ import 'package:flutter/material.dart';
 import 'package:godotclassreference/components/description_text.dart';
 import 'package:godotclassreference/constants/tap_event_arg.dart';
 import 'package:godotclassreference/models/class_content.dart';
+import 'package:godotclassreference/models/constant.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-class ClassConstants extends StatelessWidget {
+class ClassConstants extends StatefulWidget {
   final ClassContent clsContent;
   final Function(TapEventArg args) onLinkTap;
+  final Stream<TapEventArg> eventStream;
 
-  final ItemScrollController _scrollController = ItemScrollController();
-  final ItemPositionsListener _itemPositionsListener =
-      ItemPositionsListener.create();
-
-  ClassConstants({Key key, this.clsContent, @required this.onLinkTap})
+  ClassConstants(
+      {Key key, this.clsContent, this.eventStream, @required this.onLinkTap})
       : assert(onLinkTap != null),
         super(key: key);
 
   @override
+  _ClassConstantsState createState() => _ClassConstantsState();
+}
+
+class _ClassConstantsState extends State<ClassConstants> {
+  ItemScrollController _scrollController;
+  ItemPositionsListener _itemPositionsListener;
+
+  List<Constant> _onlyConstants = List<Constant>();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ItemScrollController();
+    _itemPositionsListener = ItemPositionsListener.create();
+    _onlyConstants =
+        widget.clsContent.constants.where((w) => w.enumValue == null).toList();
+    widget.eventStream.listen((v) {
+      scrollTo(v);
+    });
+  }
+
+  void scrollTo(TapEventArg args) {
+    if (widget.clsContent.name == args.className &&
+        args.linkType == LinkType.Constant) {
+      final _targetIndex =
+          _onlyConstants.indexWhere((w) => w.name == args.fieldName);
+      if (_targetIndex != -1) {
+        _scrollController.scrollTo(
+          curve: Curves.easeInOutCubic,
+          index: _targetIndex,
+          duration: Duration(milliseconds: 500),
+        );
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    if (clsContent.constants == null ||
-        clsContent.constants.where((w) => w.enumValue == null).length == 0) {
+    if (widget.clsContent.constants == null ||
+        widget.clsContent.constants.where((w) => w.enumValue == null).length ==
+            0) {
       return Center(
         child: Text('0 constant in this class'),
       );
     }
-
-    final _onlyConstants =
-        clsContent.constants.where((w) => w.enumValue == null).toList();
 
     return ScrollablePositionedList.builder(
         itemCount: _onlyConstants.length,
@@ -49,9 +83,9 @@ class ClassConstants extends StatelessWidget {
               ],
             ),
             subtitle: DescriptionText(
-              className: clsContent.name,
+              className: widget.clsContent.name,
               content: c.constantText,
-              onLinkTap: onLinkTap,
+              onLinkTap: widget.onLinkTap,
             ),
           );
         });
