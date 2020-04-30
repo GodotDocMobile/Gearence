@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:godotclassreference/components/description_text.dart';
-import 'package:godotclassreference/constants/tap_event_arg.dart';
+import 'package:godotclassreference/bloc/tap_event_arg.dart';
 import 'package:godotclassreference/models/class_content.dart';
 import 'package:godotclassreference/models/constant.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';

@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-//import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:godotclassreference/bloc/tap_event_bloc.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
-import 'package:godotclassreference/constants/tap_event_arg.dart';
+import 'package:godotclassreference/bloc/tap_event_arg.dart';
 import 'package:xml/xml.dart' as xml;
 
 import 'package:godotclassreference/screens/class_detail/class_constants.dart';

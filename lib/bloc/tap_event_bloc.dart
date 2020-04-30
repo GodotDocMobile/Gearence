@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:godotclassreference/constants/tap_event_arg.dart';
+import 'package:godotclassreference/bloc/tap_event_arg.dart';
 
 class TapEventBloc {
   final _argStateController = StreamController<TapEventArg>.broadcast();
