@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:godotclassreference/components/svg_icon.dart';
 
 import 'package:godotclassreference/constants/class_list.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
@@ -61,16 +62,24 @@ class _ClassSelectState extends State<ClassSelect> {
               ),
               body: ListView(
                   children: snapshot.data
-                      .map((f) => ListTile(
-                          title: Text(f.replaceAll('.xml', '')),
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ClassDetail(
-                                      className: f.replaceAll('.xml', '')),
-                                ));
-                          }))
+                      .map((f) => Card(
+                            child: ListTile(
+                                leading: SvgIcon(
+                                  className: f,
+                                  version:
+                                      StoredValues().prefs.getString('version'),
+                                ),
+                                title: Text(f.replaceAll('.xml', '')),
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => ClassDetail(
+                                            className:
+                                                f.replaceAll('.xml', '')),
+                                      ));
+                                }),
+                          ))
                       .toList()),
             );
           }
