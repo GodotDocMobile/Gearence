@@ -32,7 +32,9 @@ class _ClassMethodsState extends State<ClassMethods> {
     _scrollController = ItemScrollController();
     _itemPositionsListener = ItemPositionsListener.create();
     widget.eventStream.listen((v) {
-      scrollTo(v);
+      try {
+        scrollTo(v);
+      } catch (_) {}
     });
 //    _itemPositionsListener.itemPositions.addListener(() {
 //      if (_scrollIndex !=

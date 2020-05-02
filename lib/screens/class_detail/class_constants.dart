@@ -34,7 +34,9 @@ class _ClassConstantsState extends State<ClassConstants> {
     _onlyConstants =
         widget.clsContent.constants.where((w) => w.enumValue == null).toList();
     widget.eventStream.listen((v) {
-      scrollTo(v);
+      try {
+        scrollTo(v);
+      } catch (_) {}
     });
   }
 

@@ -28,7 +28,9 @@ class _ClassThemeItemsState extends State<ClassThemeItems> {
     _scrollController = ItemScrollController();
     _itemPositionsListener = ItemPositionsListener.create();
     widget.eventStream.listen((v) {
-      scrollTo(v);
+      try {
+        scrollTo(v);
+      } catch (_) {}
     });
   }
 
