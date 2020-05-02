@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+//check godot/editor/icons/SCsub
+
 class SvgIcon extends StatelessWidget {
   final String className;
   final String version;
