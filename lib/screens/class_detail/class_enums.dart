@@ -42,10 +42,12 @@ class _ClassEnumsState extends State<ClassEnums> {
         .toSet()
         .where((w) => w != null)
         .toList();
-    super.initState();
     widget.eventStream.listen((v) {
-      scrollTo(v);
+      try {
+        scrollTo(v);
+      } catch (_) {}
     });
+    super.initState();
   }
 
   void scrollTo(TapEventArg args) {
@@ -73,6 +75,7 @@ class _ClassEnumsState extends State<ClassEnums> {
         child: Text('0 enum in this class'),
       );
     }
+
 //    final _enums
 
     return ScrollablePositionedList.builder(

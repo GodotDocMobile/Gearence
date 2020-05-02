@@ -15,6 +15,8 @@ class TapEventArg {
 
 String linkTypeToString(LinkType input) {
   switch (input) {
+    case LinkType.Enum:
+      return 'Enums';
     case LinkType.Constant:
       return 'Constants';
     case LinkType.Member:

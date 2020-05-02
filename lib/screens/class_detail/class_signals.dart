@@ -30,7 +30,9 @@ class _ClassSignalsState extends State<ClassSignals> {
     _scrollController = ItemScrollController();
     _itemPositionsListener = ItemPositionsListener.create();
     widget.eventStream.listen((v) {
-      scrollTo(v);
+      try {
+        scrollTo(v);
+      } catch (_) {}
     });
   }
 
