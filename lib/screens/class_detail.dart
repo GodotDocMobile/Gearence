@@ -81,7 +81,7 @@ class _ClassDetailState extends State<ClassDetail>
           _tabs.indexWhere((w) => w.title == linkTypeToString(args.linkType));
       _tabController.animateTo(_toFocusTabIndex,
           duration: Duration(milliseconds: 100));
-      Future.delayed(Duration(milliseconds: 100), () {
+      Future.delayed(Duration(milliseconds: 120), () {
         _bloc.argSink.add(args);
       });
     } else {
