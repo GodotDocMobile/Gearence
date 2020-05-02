@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:godotclassreference/components/description_text.dart';
 import 'package:godotclassreference/constants/colors.dart';
 import 'package:godotclassreference/bloc/tap_event_arg.dart';
+import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:godotclassreference/models/class_content.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
@@ -23,6 +24,7 @@ class ClassMethods extends StatefulWidget {
 class _ClassMethodsState extends State<ClassMethods> {
   ItemScrollController _scrollController;
   ItemPositionsListener _itemPositionsListener;
+  int _scrollIndex = 0;
 
   @override
   void initState() {
@@ -32,7 +34,29 @@ class _ClassMethodsState extends State<ClassMethods> {
     widget.eventStream.listen((v) {
       scrollTo(v);
     });
+//    _itemPositionsListener.itemPositions.addListener(() {
+//      if (_scrollIndex !=
+//          _itemPositionsListener.itemPositions.value.first.index) {
+//        _scrollIndex = _itemPositionsListener.itemPositions.value.first.index;
+//
+//        if (StoredValues.scrollIndexes.length > 0) {
+//          StoredValues.scrollIndexes.removeLast();
+//        }
+//
+//        StoredValues.scrollIndexes.add(_scrollIndex);
+//        print(StoredValues.scrollIndexes);
+////        print('scroll index: ' + _scrollIndex.toString());
+//      }
+////      print(_itemPositionsListener.itemPositions.value.first.index);
+//    });
   }
+
+//  @override
+//  void dispose() {
+//    // TODO: implement dispose
+//    print('disposing');
+//    super.dispose();
+//  }
 
   void scrollTo(TapEventArg args) {
     if (widget.clsContent.name == args.className &&

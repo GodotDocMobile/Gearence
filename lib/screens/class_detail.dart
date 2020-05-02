@@ -48,12 +48,14 @@ class _ClassDetailState extends State<ClassDetail>
         });
       }
     });
+//    StoredValues().appendClass(widget.className);
   }
 
   @override
   void dispose() {
     _tabController.dispose();
     _bloc.dispose();
+//    StoredValues().popClass();
     super.dispose();
   }
 
@@ -119,6 +121,10 @@ class _ClassDetailState extends State<ClassDetail>
           }
 
           _tabController = TabController(vsync: this, length: _tabs.length);
+
+          _tabController.addListener(() {
+            print('tab index: ' + _tabController.index.toString());
+          });
 
           if (widget.args != null &&
               widget.args.className == snapshot.data.name) {
