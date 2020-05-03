@@ -32,16 +32,16 @@ BannerAd myBanner = BannerAd(
   },
 );
 
-InterstitialAd myInterstitial = InterstitialAd(
-  // Replace the testAdUnitId with an ad unit id from the AdMob dash.
-  // https://developers.google.com/admob/android/test-ads
-  // https://developers.google.com/admob/ios/test-ads
-  adUnitId: InterstitialAd.testAdUnitId,
-  targetingInfo: targetingInfo,
-  listener: (MobileAdEvent event) {
-    print("InterstitialAd event is $event");
-  },
-);
+//InterstitialAd myInterstitial = InterstitialAd(
+//  // Replace the testAdUnitId with an ad unit id from the AdMob dash.
+//  // https://developers.google.com/admob/android/test-ads
+//  // https://developers.google.com/admob/ios/test-ads
+//  adUnitId: InterstitialAd.testAdUnitId,
+//  targetingInfo: targetingInfo,
+//  listener: (MobileAdEvent event) {
+//    print("InterstitialAd event is $event");
+//  },
+//);
 
 void main() => runApp(GCRApp());
 
@@ -78,13 +78,13 @@ class _GCRAppState extends State<GCRApp> {
         primarySwatch: godotColor,
       ),
       home: ClassSelect(),
-      builder: (BuildContext context, Widget child) {
-        return Padding(
-          child: child,
-          padding: EdgeInsets.only(bottom: 50),
-//          padding: EdgeInsets.all(0),
-        );
-      },
+//      builder: (BuildContext context, Widget child) {
+//        return Padding(
+//          child: child,
+//          padding: EdgeInsets.only(bottom: 50),
+////          padding: EdgeInsets.all(0),
+//        );
+//      },
     );
   }
 }
