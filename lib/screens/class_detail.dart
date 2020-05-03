@@ -94,8 +94,8 @@ class _ClassDetailState extends State<ClassDetail>
             ),
           ));
     }
-    print(
-        args.className + ":" + args.linkType.toString() + ":" + args.fieldName);
+//    print(
+//        args.className + ":" + args.linkType.toString() + ":" + args.fieldName);
   }
 
   @override
@@ -122,9 +122,9 @@ class _ClassDetailState extends State<ClassDetail>
 
           _tabController = TabController(vsync: this, length: _tabs.length);
 
-          _tabController.addListener(() {
-            print('tab index: ' + _tabController.index.toString());
-          });
+//          _tabController.addListener(() {
+//            print('tab index: ' + _tabController.index.toString());
+//          });
 
           if (widget.args != null &&
               widget.args.className == snapshot.data.name) {
@@ -136,51 +136,54 @@ class _ClassDetailState extends State<ClassDetail>
             }
           }
 
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(widget.className),
-              bottom: TabBar(
-                controller: _tabController,
-                isScrollable: true,
-                tabs: _tabs.map((f) {
-                  return Tab(
-                    child: Row(
-                      children: <Widget>[
-                        Text(f.title),
-                        f.showCnt
-                            ? Row(
-                                children: <Widget>[
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(3)),
+          return Padding(
+            padding: const EdgeInsets.only(bottom: 50),
+            child: Scaffold(
+              appBar: AppBar(
+                title: Text(widget.className),
+                bottom: TabBar(
+                  controller: _tabController,
+                  isScrollable: true,
+                  tabs: _tabs.map((f) {
+                    return Tab(
+                      child: Row(
+                        children: <Widget>[
+                          Text(f.title),
+                          f.showCnt
+                              ? Row(
+                                  children: <Widget>[
+                                    SizedBox(
+                                      width: 5,
                                     ),
-                                    height: 20,
-                                    child: Center(
-                                      child: Text(
-                                        " " + f.itemCount.toString() + " ",
-                                        style: TextStyle(color: Colors.black),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(3)),
+                                      ),
+                                      height: 20,
+                                      child: Center(
+                                        child: Text(
+                                          " " + f.itemCount.toString() + " ",
+                                          style: TextStyle(color: Colors.black),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              )
-                            : SizedBox()
-                      ],
-                    ),
-                  );
+                                  ],
+                                )
+                              : SizedBox()
+                        ],
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ),
+              body: TabBarView(
+                controller: _tabController,
+                children: _tabs.map((c) {
+                  return c.child;
                 }).toList(),
               ),
-            ),
-            body: TabBarView(
-              controller: _tabController,
-              children: _tabs.map((c) {
-                return c.child;
-              }).toList(),
             ),
           );
         }
