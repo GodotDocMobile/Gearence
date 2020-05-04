@@ -25,7 +25,7 @@ BannerAd myBanner = BannerAd(
   // https://developers.google.com/admob/android/test-ads
   // https://developers.google.com/admob/ios/test-ads
   adUnitId: appUnitId,
-  size: AdSize.smartBanner,
+  size: AdSize.banner,
   targetingInfo: targetingInfo,
   listener: (MobileAdEvent event) {
     print("BannerAd event is $event");
