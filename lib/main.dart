@@ -10,7 +10,22 @@ const appId = 'ca-app-pub-3569371273195353~4389051701';
 const appUnitId = 'ca-app-pub-3569371273195353/9278184798';
 
 MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
-  keywords: <String>['godot', 'game develop', 'document'],
+  keywords: <String>[
+    'godot',
+    'game develop',
+    'document',
+    'game',
+    'games',
+    'code',
+    'programming',
+    'course',
+    'education',
+    'market',
+    'design',
+    'open source',
+    'learn',
+    'teach',
+  ],
 //  contentUrl: 'https://flutter.io',
 //  birthday: DateTime.now(),
   childDirected: false,
@@ -78,13 +93,12 @@ class _GCRAppState extends State<GCRApp> {
         primarySwatch: godotColor,
       ),
       home: ClassSelect(),
-//      builder: (BuildContext context, Widget child) {
-//        return Padding(
-//          child: child,
-//          padding: EdgeInsets.only(bottom: 50),
-////          padding: EdgeInsets.all(0),
-//        );
-//      },
+      builder: (BuildContext context, Widget child) {
+        return Padding(
+          child: child,
+          padding: EdgeInsets.only(bottom: 50),
+        );
+      },
     );
   }
 }

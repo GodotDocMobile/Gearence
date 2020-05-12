@@ -136,54 +136,51 @@ class _ClassDetailState extends State<ClassDetail>
             }
           }
 
-          return Padding(
-            padding: const EdgeInsets.only(bottom: 50),
-            child: Scaffold(
-              appBar: AppBar(
-                title: Text(widget.className),
-                bottom: TabBar(
-                  controller: _tabController,
-                  isScrollable: true,
-                  tabs: _tabs.map((f) {
-                    return Tab(
-                      child: Row(
-                        children: <Widget>[
-                          Text(f.title),
-                          f.showCnt
-                              ? Row(
-                                  children: <Widget>[
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(3)),
-                                      ),
-                                      height: 20,
-                                      child: Center(
-                                        child: Text(
-                                          " " + f.itemCount.toString() + " ",
-                                          style: TextStyle(color: Colors.black),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              : SizedBox()
-                        ],
-                      ),
-                    );
-                  }).toList(),
-                ),
-              ),
-              body: TabBarView(
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(widget.className),
+              bottom: TabBar(
                 controller: _tabController,
-                children: _tabs.map((c) {
-                  return c.child;
+                isScrollable: true,
+                tabs: _tabs.map((f) {
+                  return Tab(
+                    child: Row(
+                      children: <Widget>[
+                        Text(f.title),
+                        f.showCnt
+                            ? Row(
+                                children: <Widget>[
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(3)),
+                                    ),
+                                    height: 20,
+                                    child: Center(
+                                      child: Text(
+                                        " " + f.itemCount.toString() + " ",
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : SizedBox()
+                      ],
+                    ),
+                  );
                 }).toList(),
               ),
+            ),
+            body: TabBarView(
+              controller: _tabController,
+              children: _tabs.map((c) {
+                return c.child;
+              }).toList(),
             ),
           );
         }

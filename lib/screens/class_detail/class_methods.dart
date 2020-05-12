@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:godotclassreference/components/description_text.dart';
+import 'package:godotclassreference/constants/class_list.dart';
 import 'package:godotclassreference/constants/colors.dart';
 import 'package:godotclassreference/bloc/tap_event_arg.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
@@ -118,13 +119,37 @@ class _ClassMethodsState extends State<ClassMethods> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: m.arguments.map((a) {
-                                        return Text(
-                                          a.type,
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            color: Colors.black,
-                                          ),
-                                        );
+                                        print(ClassList()
+                                            .getList()
+                                            .contains(a.type + '.xml'));
+                                        return ClassList()
+                                                .getList()
+                                                .contains(a.type + '.xml')
+                                            ? InkWell(
+                                                child: Text(
+                                                  a.type,
+                                                  style: TextStyle(
+                                                    fontSize: 15,
+                                                    color: godotColor,
+                                                  ),
+                                                ),
+                                                onTap: () {
+                                                  TapEventArg _arg =
+                                                      TapEventArg(
+                                                          className: a.type,
+                                                          linkType:
+                                                              LinkType.Class,
+                                                          fieldName: '');
+                                                  widget.onLinkTap(_arg);
+                                                },
+                                              )
+                                            : Text(
+                                                a.type,
+                                                style: TextStyle(
+                                                  fontSize: 15,
+                                                  color: Colors.black,
+                                                ),
+                                              );
                                       }).toList(),
                                     ),
                                     SizedBox(

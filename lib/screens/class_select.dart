@@ -52,39 +52,35 @@ class _ClassSelectState extends State<ClassSelect> {
         builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
           if (snapshot.hasData) {
             snapshot.data.sort();
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 50),
-              child: Scaffold(
-                resizeToAvoidBottomPadding: true,
-                drawer: GCRDrawer(),
-                appBar: AppBar(
-                  title: Text("Godot v" +
-                      StoredValues().prefs.getString('version') +
-                      " classes"),
-                ),
-                body: ListView(
-                    children: snapshot.data
-                        .map((f) => Card(
-                              child: ListTile(
-                                  leading: SvgIcon(
-                                    className: f,
-                                    version: StoredValues()
-                                        .prefs
-                                        .getString('version'),
-                                  ),
-                                  title: Text(f.replaceAll('.xml', '')),
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => ClassDetail(
-                                              className:
-                                                  f.replaceAll('.xml', '')),
-                                        ));
-                                  }),
-                            ))
-                        .toList()),
+            return Scaffold(
+              resizeToAvoidBottomPadding: true,
+              drawer: GCRDrawer(),
+              appBar: AppBar(
+                title: Text("Godot v" +
+                    StoredValues().prefs.getString('version') +
+                    " classes"),
               ),
+              body: ListView(
+                  children: snapshot.data
+                      .map((f) => Card(
+                            child: ListTile(
+                                leading: SvgIcon(
+                                  className: f,
+                                  version:
+                                      StoredValues().prefs.getString('version'),
+                                ),
+                                title: Text(f.replaceAll('.xml', '')),
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => ClassDetail(
+                                            className:
+                                                f.replaceAll('.xml', '')),
+                                      ));
+                                }),
+                          ))
+                      .toList()),
             );
           }
 
