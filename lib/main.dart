@@ -20,7 +20,7 @@ MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
     'programming',
     'course',
     'education',
-    'market',
+    'marketing',
     'design',
     'open source',
     'learn',

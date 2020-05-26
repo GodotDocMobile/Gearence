@@ -59,6 +59,19 @@ class _ClassSelectState extends State<ClassSelect> {
                 title: Text("Godot v" +
                     StoredValues().prefs.getString('version') +
                     " classes"),
+                actions: <Widget>[
+                  IconButton(
+                    icon: Icon(
+                      Icons.search,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      showSearch(
+                          context: context,
+                          delegate: ClassSelectSearchDelegate());
+                    },
+                  )
+                ],
               ),
               body: ListView(
                   children: snapshot.data
@@ -88,5 +101,71 @@ class _ClassSelectState extends State<ClassSelect> {
             child: CircularProgressIndicator(),
           );
         });
+  }
+}
+
+class ClassSelectSearchDelegate extends SearchDelegate {
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+        icon: Icon(Icons.clear),
+        onPressed: () {
+          query = '';
+        },
+      )
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+      icon: Icon(Icons.arrow_back),
+      onPressed: () {
+        close(context, null);
+      },
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    if (query.length == 0) {
+      return Container();
+    }
+
+    final _lowerQuery = query.toLowerCase();
+
+    final _resultList = ClassList()
+        .getList()
+        .where((e) => e.toLowerCase().contains(_lowerQuery));
+
+    final _toMapList = _resultList.toList();
+    _toMapList.sort((a, b) => a
+        .toLowerCase()
+        .indexOf(_lowerQuery)
+        .compareTo(b.toLowerCase().indexOf(_lowerQuery)));
+
+    return ListView(
+      children: _toMapList.map((c) {
+        return ListTile(
+          title: Text(
+            c.substring(0, c.length - 4),
+          ),
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      ClassDetail(className: c.replaceAll('.xml', '')),
+                ));
+          },
+        );
+      }).toList(),
+    );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    return Container();
   }
 }
