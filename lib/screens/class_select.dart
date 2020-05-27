@@ -135,9 +135,8 @@ class ClassSelectSearchDelegate extends SearchDelegate {
 
     final _lowerQuery = query.toLowerCase();
 
-    final _resultList = ClassList()
-        .getList()
-        .where((e) => e.toLowerCase().contains(_lowerQuery));
+    final _resultList = ClassList().getList().where(
+        (e) => e.toLowerCase().contains(_lowerQuery.replaceAll(' ', '')));
 
     final _toMapList = _resultList.toList();
     _toMapList.sort((a, b) => a
