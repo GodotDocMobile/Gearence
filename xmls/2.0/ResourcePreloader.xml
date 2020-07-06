@@ -1,4 +1,4 @@
-<class name="ResourcePreloader" inherits="Node" category="Core"><brief_description>
+<class category="Core" inherits="Node" name="ResourcePreloader"><brief_description>
 	Resource Preloader Node.</brief_description><description>
 	Resource Preloader Node. This node is used to preload sub-resources inside a scene, so when the scene is loaded all the resources are ready to use and be retrieved from here.</description><methods><method name="add_resource"><argument index="0" name="name" type="String"></argument><argument index="1" name="resource" type="Object"></argument><description>
 			Add a resource to the preloader. Set the text-id that will be used to identify it (retrieve it/erase it/etc).</description></method><method name="get_resource" qualifiers="const"><return type="Object"></return><argument index="0" name="name" type="String"></argument><description>

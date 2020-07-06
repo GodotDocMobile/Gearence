@@ -1,1 +1,1 @@
-<class name="MaterialShader" inherits="Shader" category="Core"><brief_description></brief_description><description></description><methods></methods><constants></constants></class>
+<class category="Core" inherits="Shader" name="MaterialShader"><brief_description></brief_description><description></description><methods></methods><constants></constants></class>

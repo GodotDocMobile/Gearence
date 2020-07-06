@@ -1,4 +1,4 @@
-<class name="Timer" inherits="Node" category="Core"><brief_description>
+<class category="Core" inherits="Node" name="Timer"><brief_description>
 		A simple Timer node.</brief_description><description>
 		Timer node. This is a simple node that will emit a timeout callback when the timer runs out. It can optionally be set to loop.</description><methods><method name="get_time_left" qualifiers="const"><return type="float"></return><description>
 				Return the time left for timeout in seconds if the timer is active, 0 otherwise.</description></method><method name="get_timer_process_mode" qualifiers="const"><return type="int"></return><description>

@@ -1,4 +1,4 @@
-<class name="Light2D" inherits="Node2D" category="Core"><brief_description>
+<class category="Core" inherits="Node2D" name="Light2D"><brief_description>
 		Node that casts light in a 2D environment.</brief_description><description>
 		Node that casts light in a 2D environment. Light is defined by a (usually grayscale) texture, a color, an energy value, a mode (see constants), and various other parameters (range and shadows-related). Note that Light2D can be used as a mask.</description><methods><method name="get_color" qualifiers="const"><return type="Color"></return><description>
 				Return the color of the Light2D.</description></method><method name="get_energy" qualifiers="const"><return type="float"></return><description>

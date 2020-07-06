@@ -1,1 +1,1 @@
-<class name="VideoStream" inherits="Resource" category="Core"><brief_description></brief_description><description></description><methods></methods><constants></constants></class>
+<class category="Core" inherits="Resource" name="VideoStream"><brief_description></brief_description><description></description><methods></methods><constants></constants></class>

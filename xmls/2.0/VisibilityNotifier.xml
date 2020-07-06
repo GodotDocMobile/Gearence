@@ -1,4 +1,4 @@
-<class name="VisibilityNotifier" inherits="Spatial" category="Core"><brief_description>
+<class category="Core" inherits="Spatial" name="VisibilityNotifier"><brief_description>
 	Detect when the node is visible on screen.</brief_description><description>
 	The VisibilityNotifier is used to notify when its bounding box enters the screen, is visible on the screen, or when it exits the screen.</description><methods><method name="get_aabb" qualifiers="const"><return type="AABB"></return><description>
 			Return the visibility bounding box of the VisibilityNotifier.</description></method><method name="is_on_screen" qualifiers="const"><return type="bool"></return><description>

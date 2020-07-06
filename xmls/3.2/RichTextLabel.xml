@@ -6,7 +6,7 @@
 				If [code]width[/code] or [code]height[/code] is set to 0, the image size will be adjusted in order to keep the original aspect ratio.</description></method><method name="add_text"><return type="void"></return><argument index="0" name="text" type="String"></argument><description>
 				Adds raw non-BBCode-parsed text to the tag stack.</description></method><method name="append_bbcode"><return type="int" enum="Error"></return><argument index="0" name="bbcode" type="String"></argument><description>
 				Parses [code]bbcode[/code] and adds tags to the tag stack as needed. Returns the result of the parsing, [constant OK] if successful.</description></method><method name="clear"><return type="void"></return><description>
-				Clears the tag stack and sets [member bbcode_text] to an empty string.</description></method><method name="get_content_height"><return type="int"></return><description>
+				Clears the tag stack and sets [member bbcode_text] to an empty string.</description></method><method name="get_content_height" qualifiers="const"><return type="int"></return><description>
 				Returns the height of the content.</description></method><method name="get_line_count" qualifiers="const"><return type="int"></return><description>
 				Returns the total number of newlines in the tag stack's text tags. Considers wrapped text as one line.</description></method><method name="get_total_character_count" qualifiers="const"><return type="int"></return><description>
 				Returns the total number of characters from text tags. Does not include BBCodes.</description></method><method name="get_v_scroll"><return type="VScrollBar"></return><description>
@@ -42,7 +42,9 @@
 			The label's text in BBCode format. Is not representative of manual modifications to the internal tag stack. Erases changes made by other methods when edited.
 			[b]Note:[/b] It is unadvised to use [code]+=[/code] operator with [code]bbcode_text[/code] (e.g. [code]bbcode_text += "some string"[/code]) as it replaces the whole text and can cause slowdowns. Use [method append_bbcode] for adding text instead.</member><member name="custom_effects" type="Array" setter="set_effects" getter="get_effects" default="[  ]">
 			The currently installed custom effects. This is an array of [RichTextEffect]s.
-			To add a custom effect, it's more convenient to use [method install_effect].</member><member name="meta_underlined" type="bool" setter="set_meta_underline" getter="is_meta_underlined" default="true">
+			To add a custom effect, it's more convenient to use [method install_effect].</member><member name="fit_content_height" type="bool" setter="set_fit_content_height" getter="is_fit_content_height_enabled" default="false">
+			If [code]true[/code], the label's height will be automatically updated to fit its content.
+			[b]Note:[/b] This property is used as a workaround to fix issues with [RichTextLabel] in [Container]s, but it's unreliable in some cases and will be removed in future versions.</member><member name="meta_underlined" type="bool" setter="set_meta_underline" getter="is_meta_underlined" default="true">
 			If [code]true[/code], the label underlines meta tags such as [code][url]{text}[/url][/code].</member><member name="override_selected_font_color" type="bool" setter="set_override_selected_font_color" getter="is_overriding_selected_font_color" default="false">
 			If [code]true[/code], the label uses the custom font color.</member><member name="percent_visible" type="float" setter="set_percent_visible" getter="get_percent_visible" default="1.0">
 			The range of characters to display, as a [float] between 0.0 and 1.0. When assigned an out of range value, it's the same as assigning 1.0.

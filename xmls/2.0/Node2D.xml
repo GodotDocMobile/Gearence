@@ -1,4 +1,4 @@
-<class name="Node2D" inherits="CanvasItem" category="Core"><brief_description>
+<class category="Core" inherits="CanvasItem" name="Node2D"><brief_description>
 	Base node for 2D system.</brief_description><description>
 	Base node for 2D system. Node2D contains a position, rotation and scale, which is used to position and animate. It can alternatively be used with a custom 2D transform ([Matrix32]). A tree of Node2Ds allows complex hierarchies for animation and positioning.</description><methods><method name="edit_set_pivot"><argument index="0" name="pivot" type="Vector2"></argument><description>
 			Set the pivot position of the 2D node to 'pivot' value. This method is implemented only in some nodes that inherit Node2D.</description></method><method name="get_angle_to" qualifiers="const"><return type="float"></return><argument index="0" name="point" type="Vector2"></argument><description>
@@ -11,8 +11,8 @@
 			Return the Z-index of the 2D node.</description></method><method name="global_translate"><argument index="0" name="offset" type="Vector2"></argument><description>
 			Apply a global translation of 'offset' to the 2D node, starting from its current global position.</description></method><method name="is_z_relative" qualifiers="const"><return type="bool"></return><description>
 			Return true if the Z-index value of this 2D node is relative to its parent's. Else, return false.</description></method><method name="look_at"><argument index="0" name="point" type="Vector2"></argument><description>
-			Rotate the 2d node so it points at 'point' position.</description></method><method name="move_local_x"><argument index="0" name="delta" type="float"></argument><argument index="1" name="scaled" type="bool" default="false"></argument><description>
-			Apply a local translation on X axis to the 2D node according to the 'delta' of the process. If 'scaled' is false, the movement is normalized.</description></method><method name="move_local_y"><argument index="0" name="delta" type="float"></argument><argument index="1" name="scaled" type="bool" default="false"></argument><description>
+			Rotate the 2d node so it points at 'point' position.</description></method><method name="move_local_x"><argument index="0" name="delta" type="float"></argument><argument default="false" index="1" name="scaled" type="bool"></argument><description>
+			Apply a local translation on X axis to the 2D node according to the 'delta' of the process. If 'scaled' is false, the movement is normalized.</description></method><method name="move_local_y"><argument index="0" name="delta" type="float"></argument><argument default="false" index="1" name="scaled" type="bool"></argument><description>
 			Apply a local translation on Y axis to the 2D node according to the 'delta' of the process. If 'scaled' is false, the movement is normalized.</description></method><method name="rotate"><argument index="0" name="radians" type="float"></argument><description>
 			Apply a 'radians' rotation to the 2D node, starting from its current rotation.</description></method><method name="scale"><argument index="0" name="ratio" type="Vector2"></argument><description>
 			Apply the 'ratio' scale to the 2D node, according to its current scale value.</description></method><method name="set_global_pos"><argument index="0" name="pos" type="Vector2"></argument><description>

@@ -1,10 +1,10 @@
-<class name="Popup" inherits="Control" category="Core"><brief_description>
+<class category="Core" inherits="Control" name="Popup"><brief_description>
 	Base container control for popups and dialogs.</brief_description><description>
 	Popup is a base [Control] used to show dialogs and popups. It's a subwindow and modal by default (see [Control]) and has helpers for custom popup behavior.</description><methods><method name="is_exclusive" qualifiers="const"><return type="bool"></return><description>
 			Returns whether the popup will hide other popups when shown on the screen.</description></method><method name="popup"><description>
-			Popup (show the control in modal form).</description></method><method name="popup_centered"><argument index="0" name="size" type="Vector2" default="Vector2(0,0)"></argument><description>
-			Popup (show the control in modal form) in the center of the screen, at the current size, or at a size determined by "size".</description></method><method name="popup_centered_minsize"><argument index="0" name="minsize" type="Vector2" default="Vector2(0,0)"></argument><description>
-			Popup (show the control in modal form) in the center of the screen, ensuring the size is never smaller than [code]minsize[/code].</description></method><method name="popup_centered_ratio"><argument index="0" name="ratio" type="float" default="0.75"></argument><description>
+			Popup (show the control in modal form).</description></method><method name="popup_centered"><argument default="Vector2(0,0)" index="0" name="size" type="Vector2"></argument><description>
+			Popup (show the control in modal form) in the center of the screen, at the current size, or at a size determined by "size".</description></method><method name="popup_centered_minsize"><argument default="Vector2(0,0)" index="0" name="minsize" type="Vector2"></argument><description>
+			Popup (show the control in modal form) in the center of the screen, ensuring the size is never smaller than [code]minsize[/code].</description></method><method name="popup_centered_ratio"><argument default="0.75" index="0" name="ratio" type="float"></argument><description>
 			Popup (show the control in modal form) in the center of the screen, scaled at a ratio of size of the screen.</description></method><method name="set_exclusive"><argument index="0" name="enable" type="bool"></argument><description>
 			Make the popup hide other popups when shown on the screen.</description></method></methods><signals><signal name="about_to_show"><description>
 			This signal is emitted when a popup is about to be shown. (often used in [PopupMenu] for clearing the list of options and creating a new one according to the current context).</description></signal><signal name="popup_hide"><description>

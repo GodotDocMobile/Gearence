@@ -7,7 +7,8 @@
 			The [CameraServer] singleton.</member><member name="ClassDB" type="ClassDB" setter="" getter="">
 			The [ClassDB] singleton.</member><member name="Engine" type="Engine" setter="" getter="">
 			The [Engine] singleton.</member><member name="Geometry" type="Geometry" setter="" getter="">
-			The [Geometry] singleton.</member><member name="IP" type="IP" setter="" getter="">
+			The [Geometry] singleton.</member><member name="GodotSharp" type="GodotSharp" setter="" getter="">
+			The [GodotSharp] singleton.</member><member name="IP" type="IP" setter="" getter="">
 			The [IP] singleton.</member><member name="Input" type="Input" setter="" getter="">
 			The [Input] singleton.</member><member name="InputMap" type="InputMap" setter="" getter="">
 			The [InputMap] singleton.</member><member name="JSON" type="JSON" setter="" getter="">

@@ -1,4 +1,4 @@
-<class name="BoxShape" inherits="Shape" category="Core"><brief_description>
+<class category="Core" inherits="Shape" name="BoxShape"><brief_description>
 		Box shape resource.</brief_description><description>
 		Box shape resource, which can be set into a [PhysicsBody] or area.</description><methods><method name="get_extents" qualifiers="const"><return type="Vector3"></return><description>
 				Return the half extents of the shape.</description></method><method name="set_extents"><argument index="0" name="extents" type="Vector3"></argument><description>

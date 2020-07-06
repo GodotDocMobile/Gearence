@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?><class name="EditorSelection" inherits="Object" version="3.2"><brief_description>
 		Manages the SceneTree selection in the editor.</brief_description><description>
-		This object manages the SceneTree selection in the editor.</description><tutorials></tutorials><methods><method name="add_node"><return type="void"></return><argument index="0" name="node" type="Node"></argument><description>
+		This object manages the SceneTree selection in the editor.
+		[b]Note:[/b] This class shouldn't be instantiated directly. Instead, access the singleton using [method EditorInterface.get_selection].</description><tutorials></tutorials><methods><method name="add_node"><return type="void"></return><argument index="0" name="node" type="Node"></argument><description>
 				Adds a node to the selection.</description></method><method name="clear"><return type="void"></return><description>
 				Clear the selection.</description></method><method name="get_selected_nodes"><return type="Array"></return><description>
 				Gets the list of selected nodes.</description></method><method name="get_transformable_selected_nodes"><return type="Array"></return><description>

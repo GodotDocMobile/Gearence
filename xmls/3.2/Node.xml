@@ -21,13 +21,16 @@
 				Called when there is an input event. The input event propagates up through the node tree until a node consumes it.
 				It is only called if input processing is enabled, which is done automatically if this method is overridden, and can be toggled with [method set_process_input].
 				To consume the input event and stop it propagating further to other nodes, [method SceneTree.set_input_as_handled] can be called.
-				For gameplay input, [method _unhandled_input] and [method _unhandled_key_input] are usually a better fit as they allow the GUI to intercept the events first.</description></method><method name="_physics_process" qualifiers="virtual"><return type="void"></return><argument index="0" name="delta" type="float"></argument><description>
+				For gameplay input, [method _unhandled_input] and [method _unhandled_key_input] are usually a better fit as they allow the GUI to intercept the events first.
+				[b]Note:[/b] This method is only called if the node is present in the scene tree (i.e. if it's not orphan).</description></method><method name="_physics_process" qualifiers="virtual"><return type="void"></return><argument index="0" name="delta" type="float"></argument><description>
 				Called during the physics processing step of the main loop. Physics processing means that the frame rate is synced to the physics, i.e. the [code]delta[/code] variable should be constant.
 				It is only called if physics processing is enabled, which is done automatically if this method is overridden, and can be toggled with [method set_physics_process].
-				Corresponds to the [constant NOTIFICATION_PHYSICS_PROCESS] notification in [method Object._notification].</description></method><method name="_process" qualifiers="virtual"><return type="void"></return><argument index="0" name="delta" type="float"></argument><description>
+				Corresponds to the [constant NOTIFICATION_PHYSICS_PROCESS] notification in [method Object._notification].
+				[b]Note:[/b] This method is only called if the node is present in the scene tree (i.e. if it's not orphan).</description></method><method name="_process" qualifiers="virtual"><return type="void"></return><argument index="0" name="delta" type="float"></argument><description>
 				Called during the processing step of the main loop. Processing happens at every frame and as fast as possible, so the [code]delta[/code] time since the previous frame is not constant.
 				It is only called if processing is enabled, which is done automatically if this method is overridden, and can be toggled with [method set_process].
-				Corresponds to the [constant NOTIFICATION_PROCESS] notification in [method Object._notification].</description></method><method name="_ready" qualifiers="virtual"><return type="void"></return><description>
+				Corresponds to the [constant NOTIFICATION_PROCESS] notification in [method Object._notification].
+				[b]Note:[/b] This method is only called if the node is present in the scene tree (i.e. if it's not orphan).</description></method><method name="_ready" qualifiers="virtual"><return type="void"></return><description>
 				Called when the node is "ready", i.e. when both the node and its children have entered the scene tree. If the node has children, their [method _ready] callbacks get triggered first, and the parent node will receive the ready notification afterwards.
 				Corresponds to the [constant NOTIFICATION_READY] notification in [method Object._notification]. See also the [code]onready[/code] keyword for variables.
 				Usually used for initialization. For even earlier initialization, [method Object._init] may be used. See also [method _enter_tree].
@@ -35,11 +38,13 @@
 				Called when an [InputEvent] hasn't been consumed by [method _input] or any GUI. The input event propagates up through the node tree until a node consumes it.
 				It is only called if unhandled input processing is enabled, which is done automatically if this method is overridden, and can be toggled with [method set_process_unhandled_input].
 				To consume the input event and stop it propagating further to other nodes, [method SceneTree.set_input_as_handled] can be called.
-				For gameplay input, this and [method _unhandled_key_input] are usually a better fit than [method _input] as they allow the GUI to intercept the events first.</description></method><method name="_unhandled_key_input" qualifiers="virtual"><return type="void"></return><argument index="0" name="event" type="InputEventKey"></argument><description>
+				For gameplay input, this and [method _unhandled_key_input] are usually a better fit than [method _input] as they allow the GUI to intercept the events first.
+				[b]Note:[/b] This method is only called if the node is present in the scene tree (i.e. if it's not orphan).</description></method><method name="_unhandled_key_input" qualifiers="virtual"><return type="void"></return><argument index="0" name="event" type="InputEventKey"></argument><description>
 				Called when an [InputEventKey] hasn't been consumed by [method _input] or any GUI. The input event propagates up through the node tree until a node consumes it.
 				It is only called if unhandled key input processing is enabled, which is done automatically if this method is overridden, and can be toggled with [method set_process_unhandled_key_input].
 				To consume the input event and stop it propagating further to other nodes, [method SceneTree.set_input_as_handled] can be called.
-				For gameplay input, this and [method _unhandled_input] are usually a better fit than [method _input] as they allow the GUI to intercept the events first.</description></method><method name="add_child"><return type="void"></return><argument index="0" name="node" type="Node"></argument><argument index="1" name="legible_unique_name" type="bool" default="false"></argument><description>
+				For gameplay input, this and [method _unhandled_input] are usually a better fit than [method _input] as they allow the GUI to intercept the events first.
+				[b]Note:[/b] This method is only called if the node is present in the scene tree (i.e. if it's not orphan).</description></method><method name="add_child"><return type="void"></return><argument index="0" name="node" type="Node"></argument><argument index="1" name="legible_unique_name" type="bool" default="false"></argument><description>
 				Adds a child node. Nodes can have any number of children, but every child must have a unique name. Child nodes are automatically deleted when the parent node is deleted, so an entire scene can be removed by deleting its topmost node.
 				If [code]legible_unique_name[/code] is [code]true[/code], the child node will have an human-readable name based on the name of the node being instanced instead of its type.
 				[b]Note:[/b] If the child node already has a parent, the function will fail. Use [method remove_child] first to remove the node from its current parent. For example:
@@ -98,7 +103,7 @@
 				print(get_node_and_resource("Area2D/CollisionShape2D:shape:extents")) # [[CollisionShape2D:1161], [RectangleShape2D:1156], :extents]
 				[/codeblock]</description></method><method name="get_node_or_null" qualifiers="const"><return type="Node"></return><argument index="0" name="path" type="NodePath"></argument><description>
 				Similar to [method get_node], but does not log an error if [code]path[/code] does not point to a valid [Node].</description></method><method name="get_parent" qualifiers="const"><return type="Node"></return><description>
-				Returns the parent node of the current node, or an empty [Node] if the node lacks a parent.</description></method><method name="get_path" qualifiers="const"><return type="NodePath"></return><description>
+				Returns the parent node of the current node, or a [code]null instance[/code] if the node lacks a parent.</description></method><method name="get_path" qualifiers="const"><return type="NodePath"></return><description>
 				Returns the absolute path of the current node. This only works if the current node is inside the scene tree (see [method is_inside_tree]).</description></method><method name="get_path_to" qualifiers="const"><return type="NodePath"></return><argument index="0" name="node" type="Node"></argument><description>
 				Returns the relative [NodePath] from this node to the specified [code]node[/code]. Both nodes must be in the same scene or the function will fail.</description></method><method name="get_physics_process_delta_time" qualifiers="const"><return type="float"></return><description>
 				Returns the time elapsed since the last physics-bound frame (see [method _physics_process]). This is always a constant value in physics processing unless the frames per second is changed via [member Engine.iterations_per_second].</description></method><method name="get_position_in_parent" qualifiers="const"><return type="int"></return><description>

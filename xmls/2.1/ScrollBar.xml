@@ -1,3 +1,3 @@
-<class name="ScrollBar" inherits="Range" category="Core"><brief_description>
+<class category="Core" inherits="Range" name="ScrollBar"><brief_description>
 		Base class for scroll bars.</brief_description><description>
 		Scrollbars are a [Range] based [Control], that display a draggable area (the size of the page). Horizontal ([HScrollBar]) and Vertical ([VScrollBar]) versions are available.</description><methods><method name="get_custom_step" qualifiers="const"><return type="float"></return><description></description></method><method name="set_custom_step"><argument index="0" name="step" type="float"></argument><description></description></method></methods><constants></constants></class>

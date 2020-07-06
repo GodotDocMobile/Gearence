@@ -1,4 +1,4 @@
-<class name="StringArray" category="Built-In Types"><brief_description>
+<class category="Built-In Types" name="StringArray"><brief_description>
 		String Array.</brief_description><description>
 		String Array. Array of strings. Can only contain strings. Optimized for memory usage, can't fragment the memory.</description><methods><method name="StringArray"><return type="StringArray"></return><argument index="0" name="from" type="Array"></argument><description>
 				Create from a generic array.</description></method><method name="append"><argument index="0" name="string" type="String"></argument><description>

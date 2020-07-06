@@ -1,4 +1,4 @@
-<class name="RectangleShape2D" inherits="Shape2D" category="Core"><brief_description>
+<class category="Core" inherits="Shape2D" name="RectangleShape2D"><brief_description>
 	Rectangle Shape for 2D Physics.</brief_description><description>
 	Rectangle Shape for 2D Physics. This shape is useful for modeling box-like 2D objects.</description><methods><method name="get_extents" qualifiers="const"><return type="Vector2"></return><description>
 			Return the half extents, the actual width and height of this shape is twice the half extents.</description></method><method name="set_extents"><argument index="0" name="extents" type="Vector2"></argument><description>

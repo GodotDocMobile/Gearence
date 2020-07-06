@@ -1,4 +1,4 @@
-<class name="Tree" inherits="Control" category="Core"><brief_description>
+<class category="Core" inherits="Control" name="Tree"><brief_description>
 		Control to show a tree of items.</brief_description><description>
 		This shows a tree of items that can be selected, expanded and collapsed. The tree can have multiple columns with custom controls like text editing, buttons and popups. It can be useful for structural displaying and interactions.
 		Trees are built via code, using [TreeItem] objects to create the structure. They have a single root but multiple root can be simulated if a dummy hidden root is added.
@@ -13,7 +13,7 @@
 		    subchild1.set_text(0, "Subchild1")
 		[/codeblock]</description><methods><method name="are_column_titles_visible" qualifiers="const"><return type="bool"></return><description>
 				Get whether the column titles are being shown.</description></method><method name="clear"><description>
-				Clear the tree. This erases all of the items.</description></method><method name="create_item"><return type="TreeItem"></return><argument index="0" name="parent" type="TreeItem" default="NULL"></argument><description>
+				Clear the tree. This erases all of the items.</description></method><method name="create_item"><return type="TreeItem"></return><argument default="NULL" index="0" name="parent" type="TreeItem"></argument><description>
 				Create an item in the tree and add it as the last child of [code]parent[/code]. If parent is not given, it will be added as the last child of the root, or it'll the be the root itself if the tree is empty.</description></method><method name="ensure_cursor_is_visible"><description>
 				Make the current selected item visible. This will scroll the tree to make sure the selected item is in sight.</description></method><method name="get_allow_rmb_select" qualifiers="const"><return type="bool"></return><description>
 				Get whether a right click can select items.</description></method><method name="get_column_at_pos" qualifiers="const"><return type="int"></return><argument index="0" name="pos" type="Vector2"></argument><description>
@@ -24,7 +24,7 @@
 				Get the rectangle for custom popups. Helper to create custom cell controls that display a popup. See [method TreeItem.set_cell_mode].</description></method><method name="get_drop_mode_flags" qualifiers="const"><return type="int"></return><description>
 				Get the flags of the current drop mode.</description></method><method name="get_edited" qualifiers="const"><return type="TreeItem"></return><description>
 				Get the current edited item. This is only available for custom cell mode.</description></method><method name="get_edited_column" qualifiers="const"><return type="int"></return><description>
-				Get the column of the cell for the current edited icon. This is only available for custom cell mode.</description></method><method name="get_item_area_rect" qualifiers="const"><return type="Rect2"></return><argument index="0" name="item" type="TreeItem"></argument><argument index="1" name="column" type="int" default="-1"></argument><description>
+				Get the column of the cell for the current edited icon. This is only available for custom cell mode.</description></method><method name="get_item_area_rect" qualifiers="const"><return type="Rect2"></return><argument index="0" name="item" type="TreeItem"></argument><argument default="-1" index="1" name="column" type="int"></argument><description>
 				Get the rectangle area of the the specified item. If column is specified, only get the position and size of that column, otherwise get the rectangle containing all columns.</description></method><method name="get_item_at_pos" qualifiers="const"><return type="TreeItem"></return><argument index="0" name="pos" type="Vector2"></argument><description>
 				Get the tree item at the specified position (relative to the tree origin position).</description></method><method name="get_next_selected"><return type="TreeItem"></return><argument index="0" name="from" type="TreeItem"></argument><description>
 				Get the next selected item after the given one.</description></method><method name="get_pressed_button" qualifiers="const"><return type="int"></return><description>

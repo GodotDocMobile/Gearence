@@ -1,3 +1,3 @@
-<class name="AudioStreamSpeex" inherits="AudioStream" category="Core"><brief_description>
+<class category="Core" inherits="AudioStream" name="AudioStreamSpeex"><brief_description>
 		Speex audio stream driver.</brief_description><description>
 		Speex audio stream driver. Speex is very useful for compressed speech. It allows loading a very large amount of speech in memory at little IO/latency cost.</description><methods></methods><constants></constants></class>

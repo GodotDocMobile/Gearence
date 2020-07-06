@@ -1,4 +1,4 @@
-<class name="FileDialog" inherits="ConfirmationDialog" category="Core"><brief_description>
+<class category="Core" inherits="ConfirmationDialog" name="FileDialog"><brief_description>
 		Dialog for selecting files or directories in the filesystem.</brief_description><description>
 		FileDialog is a preset dialog used to choose files and directories in the filesystem. It supports filter masks.</description><methods><method name="add_filter"><argument index="0" name="filter" type="String"></argument><description>
 				Add a custom filter. Filter format is: "mask ; description", example (C++): dialog-&gt;add_filter("*.png ; PNG Images");</description></method><method name="clear_filters"><description>

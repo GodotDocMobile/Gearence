@@ -8,6 +8,6 @@
 				Returns -1 if the group did not match or doesn't exist.</description></method><method name="get_string" qualifiers="const"><return type="String"></return><argument index="0" name="name" type="Variant" default="0"></argument><description>
 				Returns the substring of the match from the source string. Capturing groups can be retrieved by providing its group number as an integer or its string name (if it's a named group). The default value of 0 refers to the whole pattern.
 				Returns an empty string if the group did not match or doesn't exist.</description></method></methods><members><member name="names" type="Dictionary" setter="" getter="get_names" default="{}">
-			A dictionary of named groups and its corresponding group number. Only groups with that were matched are included. If multiple groups have the same name, that name would refer to the first matching one.</member><member name="strings" type="Array" setter="" getter="get_strings" default="[  ]">
+			A dictionary of named groups and its corresponding group number. Only groups that were matched are included. If multiple groups have the same name, that name would refer to the first matching one.</member><member name="strings" type="Array" setter="" getter="get_strings" default="[  ]">
 			An [Array] of the match and its capturing groups.</member><member name="subject" type="String" setter="" getter="get_subject" default="&quot;&quot;">
 			The source string used with the search pattern to find this matching result.</member></members><constants></constants></class>

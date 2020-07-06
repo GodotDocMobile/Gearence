@@ -1,4 +1,4 @@
-<class name="VideoPlayer" inherits="Control" category="Core"><brief_description>
+<class category="Core" inherits="Control" name="VideoPlayer"><brief_description>
 		Control to play video files.</brief_description><description>
 		This control has the ability to play video streams. The only format accepted is the OGV Theora, so any other format must be converted before using in a project.</description><methods><method name="get_audio_track" qualifiers="const"><return type="int"></return><description>
 				Get the selected audio track (for multitrack videos).</description></method><method name="get_buffering_msec" qualifiers="const"><return type="int"></return><description>

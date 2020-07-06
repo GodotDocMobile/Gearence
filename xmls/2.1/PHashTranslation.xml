@@ -1,3 +1,3 @@
-<class name="PHashTranslation" inherits="Translation" category="Core"><brief_description>
+<class category="Core" inherits="Translation" name="PHashTranslation"><brief_description>
 		Optimized translation.</brief_description><description>
 		Optimized translation. Uses real-time compressed translations, which results in very small dictionaries.</description><methods><method name="generate"><argument index="0" name="from" type="Translation"></argument><description></description></method></methods><constants></constants></class>

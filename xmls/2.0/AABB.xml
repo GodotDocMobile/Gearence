@@ -1,4 +1,4 @@
-<class name="AABB" category="Built-In Types"><brief_description>
+<class category="Built-In Types" name="AABB"><brief_description>
 	Axis-Aligned Bounding Box.</brief_description><description>
 	AABB provides an 3D Axis-Aligned Bounding Box. It consists of a position, a size, and several utility functions. It is typically used for simple (fast) overlap tests.</description><methods><method name="AABB"><return type="AABB"></return><argument index="0" name="pos" type="Vector3"></argument><argument index="1" name="size" type="Vector3"></argument><description>
 			Optional constructor, accepts position and size.</description></method><method name="encloses"><return type="bool"></return><argument index="0" name="with" type="AABB"></argument><description>

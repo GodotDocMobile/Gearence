@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?><class name="FileDialog" inherits="ConfirmationDialog" version="3.2"><brief_description>
 		Dialog for selecting files or directories in the filesystem.</brief_description><description>
-		FileDialog is a preset dialog used to choose files and directories in the filesystem. It supports filter masks.</description><tutorials></tutorials><methods><method name="add_filter"><return type="void"></return><argument index="0" name="filter" type="String"></argument><description>
+		FileDialog is a preset dialog used to choose files and directories in the filesystem. It supports filter masks. The FileDialog automatically sets its window title according to the [member mode]. If you want to use a custom title, disable this by setting [member mode_overrides_title] to [code]false[/code].</description><tutorials></tutorials><methods><method name="add_filter"><return type="void"></return><argument index="0" name="filter" type="String"></argument><description>
 				Adds [code]filter[/code] as a custom filter; [code]filter[/code] should be of the form [code]"filename.extension ; Description"[/code]. For example, [code]"*.png ; PNG Images"[/code].</description></method><method name="clear_filters"><return type="void"></return><description>
 				Clear all the added filters in the dialog.</description></method><method name="deselect_items"><return type="void"></return><description>
 				Clear currently selected items in the dialog.</description></method><method name="get_line_edit"><return type="LineEdit"></return><description>
@@ -25,7 +25,9 @@
 			The dialog will warn when a file exists.</constant><constant name="ACCESS_RESOURCES" value="0" enum="Access">
 			The dialog only allows accessing files under the [Resource] path ([code]res://[/code]).</constant><constant name="ACCESS_USERDATA" value="1" enum="Access">
 			The dialog only allows accessing files under user data path ([code]user://[/code]).</constant><constant name="ACCESS_FILESYSTEM" value="2" enum="Access">
-			The dialog allows accessing files on the whole file system.</constant></constants><theme_items><theme_item name="files_disabled" type="Color" default="Color( 0, 0, 0, 0.7 )">
+			The dialog allows accessing files on the whole file system.</constant></constants><theme_items><theme_item name="file" type="Texture">
+			Custom icon for files.</theme_item><theme_item name="file_icon_modulate" type="Color" default="Color( 1, 1, 1, 1 )">
+			The color modulation applied to the file icon.</theme_item><theme_item name="files_disabled" type="Color" default="Color( 0, 0, 0, 0.7 )">
 			The color tint for disabled files (when the [FileDialog] is used in open folder mode).</theme_item><theme_item name="folder" type="Texture">
 			Custom icon for folders.</theme_item><theme_item name="folder_icon_modulate" type="Color" default="Color( 1, 1, 1, 1 )">
 			The color modulation applied to the folder icon.</theme_item><theme_item name="parent_folder" type="Texture">

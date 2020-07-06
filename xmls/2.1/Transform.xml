@@ -1,4 +1,4 @@
-<class name="Transform" category="Built-In Types"><brief_description>
+<class category="Built-In Types" name="Transform"><brief_description>
 		3D Transformation.</brief_description><description>
 		Transform is used to store transformations, including translations. It consists of a Matrix3 "basis" and Vector3 "origin". Transform is used to represent transformations of any object in space. It is similar to a 4x3 matrix.</description><methods><method name="Transform"><return type="Transform"></return><argument index="0" name="x_axis" type="Vector3"></argument><argument index="1" name="y_axis" type="Vector3"></argument><argument index="2" name="z_axis" type="Vector3"></argument><argument index="3" name="origin" type="Vector3"></argument><description>
 				Construct the Transform from four Vector3. Each axis creates the basis.</description></method><method name="Transform"><return type="Transform"></return><argument index="0" name="basis" type="Matrix3"></argument><argument index="1" name="origin" type="Vector3"></argument><description>

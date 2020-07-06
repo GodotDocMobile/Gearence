@@ -1,4 +1,4 @@
-<class name="LightOccluder2D" inherits="Node2D" category="Core"><brief_description>
+<class category="Core" inherits="Node2D" name="LightOccluder2D"><brief_description>
 	Occludes light cast by a Light2D, thus casting shadows.</brief_description><description>
 	Occludes light cast by a Light2D, thus casting shadows. The LightOccluder2D must be provided with a shape (see OccluderPolygon2D) that allows the shadow to be computed. This shape affects the resulting shadow, while the shape of the representating asset shadowed does not actually affect shadows.</description><methods><method name="get_occluder_light_mask" qualifiers="const"><return type="int"></return><description>
 			Return the light mask of the LightOccluder2D.</description></method><method name="get_occluder_polygon" qualifiers="const"><return type="OccluderPolygon2D"></return><description>

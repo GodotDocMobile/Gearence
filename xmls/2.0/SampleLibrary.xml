@@ -1,4 +1,4 @@
-<class name="SampleLibrary" inherits="Resource" category="Core"><brief_description>
+<class category="Core" inherits="Resource" name="SampleLibrary"><brief_description>
 	Library that contains a collection of samples.</brief_description><description>
 	Library that contains a collection of [Sample], each identified by a text ID. This is used as a data container for the majority of the SamplePlayer classes and derivatives.</description><methods><method name="add_sample"><argument index="0" name="name" type="String"></argument><argument index="1" name="sample" type="Sample"></argument><description>
 			Add a sample to the library, with a given text ID.</description></method><method name="get_sample" qualifiers="const"><return type="Sample"></return><argument index="0" name="name" type="String"></argument><description>

@@ -1,4 +1,4 @@
-<class name="Script" inherits="Resource" category="Core"><brief_description>
+<class category="Core" inherits="Resource" name="Script"><brief_description>
 	Base class for scripts.</brief_description><description>
 	Base class for scripts. Any script that is loaded becomes one of these resources, which can then create instances.</description><methods><method name="can_instance" qualifiers="const"><return type="bool"></return><description>
 			Return true if this script can be instance (ie not a library).</description></method><method name="get_source_code" qualifiers="const"><return type="String"></return><description>

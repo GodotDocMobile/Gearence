@@ -1,4 +1,4 @@
-<class name="XMLParser" inherits="Reference" category="Core"><brief_description>
+<class category="Core" inherits="Reference" name="XMLParser"><brief_description>
 		Low-level class for creating parsers for XML files.</brief_description><description>
 		This class can serve as base to make custom XML parsers. Since XML is a very flexible standard, this interface is low level so it can be applied to any possible schema.</description><methods><method name="get_attribute_count" qualifiers="const"><return type="int"></return><description>
 				Get the amount of attributes in the current element.</description></method><method name="get_attribute_name" qualifiers="const"><return type="String"></return><argument index="0" name="idx" type="int"></argument><description>

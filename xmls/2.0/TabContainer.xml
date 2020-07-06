@@ -1,4 +1,4 @@
-<class name="TabContainer" inherits="Control" category="Core"><brief_description>
+<class category="Core" inherits="Control" name="TabContainer"><brief_description>
 	Tabbed Container.</brief_description><description>
 	Tabbed Container. Contains several children controls, but shows only one at the same time. Clicking on the top tabs allows to change the currently visible one.
 	Children controls of this one automatically.</description><methods><method name="are_tabs_visible" qualifiers="const"><return type="bool"></return><description>

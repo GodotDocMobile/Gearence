@@ -1,10 +1,10 @@
-<class name="PacketPeerUDP" inherits="PacketPeer" category="Core"><brief_description>
+<class category="Core" inherits="PacketPeer" name="PacketPeerUDP"><brief_description>
 		UDP packet peer.</brief_description><description>
 		UDP packet peer. Can be used to send raw UDP packets as well as [Variant]\ s.</description><methods><method name="close"><description>
 				Close the UDP socket the [PacketPeerUDP] is currently listening on.</description></method><method name="get_packet_ip" qualifiers="const"><return type="String"></return><description>
 				Return the IP of the remote peer that sent the last packet(that was received with [method get_packet] or [method get_var]).</description></method><method name="get_packet_port" qualifiers="const"><return type="int"></return><description>
 				Return the port of the remote peer that sent the last packet(that was received with [method get_packet] or [method get_var]).</description></method><method name="is_listening" qualifiers="const"><return type="bool"></return><description>
-				Return whether this [PacketPeerUDP] is listening.</description></method><method name="listen"><return type="Error"></return><argument index="0" name="port" type="int"></argument><argument index="1" name="bind_address" type="String" default="&quot;*&quot;"></argument><argument index="2" name="recv_buf_size" type="int" default="65536"></argument><description>
+				Return whether this [PacketPeerUDP] is listening.</description></method><method name="listen"><return type="Error"></return><argument index="0" name="port" type="int"></argument><argument default="&quot;*&quot;" index="1" name="bind_address" type="String"></argument><argument default="65536" index="2" name="recv_buf_size" type="int"></argument><description>
 				Make this [PacketPeerUDP] listen on the "port" binding to "bind_address" with a buffer size "recv_buf_size".
 				If "bind_address" is set as "*" (default), the peer will listen on all available addresses (both IPv4 and IPv6).
 				If "bind_address" is set as "0.0.0.0" (for IPv4) or "::" (for IPv6), the peer will listen on all available addresses matching that IP type.

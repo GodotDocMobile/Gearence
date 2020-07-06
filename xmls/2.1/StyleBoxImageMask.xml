@@ -1,4 +1,4 @@
-<class name="StyleBoxImageMask" inherits="StyleBox" category="Core"><brief_description>
+<class category="Core" inherits="StyleBox" name="StyleBoxImageMask"><brief_description>
 		Image mask based StyleBox, for mask test.</brief_description><description>
 		This StyleBox is similar to [StyleBoxTexture], but only meant to be used for mask testing. It takes an image and applies stretch rules to determine if the point clicked is masked or not.</description><methods><method name="get_expand" qualifiers="const"><return type="bool"></return><description>
 				Return whether the expand property is set(default). When expanding, the image will use the same rules as [StyleBoxTexture] for expand. If not expanding, the image will always be tested at its original size.</description></method><method name="get_expand_margin_size" qualifiers="const"><return type="float"></return><argument index="0" name="margin" type="int"></argument><description>

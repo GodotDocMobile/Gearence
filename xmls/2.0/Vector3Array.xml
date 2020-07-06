@@ -1,4 +1,4 @@
-<class name="Vector3Array" category="Built-In Types"><brief_description>
+<class category="Built-In Types" name="Vector3Array"><brief_description>
 	An Array of Vector3.</brief_description><description>
 	An Array specifically designed to hold Vector3.</description><methods><method name="Vector3Array"><return type="Vector3Array"></return><argument index="0" name="from" type="Array"></argument><description>
 			Construct a new Vector3Array. Optionally, you can pass in an Array that will be converted.</description></method><method name="push_back"><argument index="0" name="vector3" type="Vector3"></argument><description>

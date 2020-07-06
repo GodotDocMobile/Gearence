@@ -1,8 +1,8 @@
-<class name="HTTPClient" inherits="Reference" category="Core"><brief_description>
+<class category="Core" inherits="Reference" name="HTTPClient"><brief_description>
 	Hyper-text transfer protocol client.</brief_description><description>
 	Hyper-text transfer protocol client. Supports SSL and SSL server certificate verification. 
 	Can be reused to connect to different hosts and make many requests.</description><methods><method name="close"><description>
-			Cloces the current connection, allows for reusal of [HTTPClient].</description></method><method name="connect"><return type="Error"></return><argument index="0" name="host" type="String"></argument><argument index="1" name="port" type="int"></argument><argument index="2" name="use_ssl" type="bool" default="false"></argument><argument index="3" name="verify_host" type="bool" default="true"></argument><description>
+			Cloces the current connection, allows for reusal of [HTTPClient].</description></method><method name="connect"><return type="Error"></return><argument index="0" name="host" type="String"></argument><argument index="1" name="port" type="int"></argument><argument default="false" index="2" name="use_ssl" type="bool"></argument><argument default="true" index="3" name="verify_host" type="bool"></argument><description>
 			Connect to a host. This needs to be done before any requests are sent.
 			The host should not have http:// prepended but will strip the protocol identifier if provided.
 			verify_host will check the SSL identity of the host if set to true.</description></method><method name="get_response_body_length" qualifiers="const"><return type="int"></return><description>
@@ -23,7 +23,7 @@ Example: (content-length:12), (Content-Type:application/json; charset=UTF-8)</de
 			String queryString = httpClient.query_string_from_dict(fields)
 			returns:= "username=user&amp;password=pass"
 			[/codeblock]</description></method><method name="read_response_body_chunk"><return type="RawArray"></return><description>
-			Reads one chunk from the response.</description></method><method name="request"><return type="int"></return><argument index="0" name="method" type="int"></argument><argument index="1" name="url" type="String"></argument><argument index="2" name="headers" type="StringArray"></argument><argument index="3" name="body" type="String" default="&quot;&quot;"></argument><description>
+			Reads one chunk from the response.</description></method><method name="request"><return type="int"></return><argument index="0" name="method" type="int"></argument><argument index="1" name="url" type="String"></argument><argument index="2" name="headers" type="StringArray"></argument><argument default="&quot;&quot;" index="3" name="body" type="String"></argument><description>
 			Sends a request to the connected host. The url is what is normally behind the hostname, i.e. in [code]http://somehost.com/index.php[/code], url would be "index.php".
 			Headers are HTTP request headers.
 			To create a POST request with query strings to push to the server, do:

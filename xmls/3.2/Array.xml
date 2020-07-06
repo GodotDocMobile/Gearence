@@ -16,7 +16,7 @@
 		var array2 = [3, "Four"]
 		print(array1 + array2) # ["One", 2, 3, "Four"]
 		[/codeblock]
-		Arrays are always passed by reference.</description><tutorials></tutorials><methods><method name="Array"><return type="Array"></return><argument index="0" name="from" type="PoolColorArray"></argument><description>
+		[b]Note:[/b] Arrays are always passed by reference. To get a copy of an array which can be modified independently of the original array, use [method duplicate].</description><tutorials></tutorials><methods><method name="Array"><return type="Array"></return><argument index="0" name="from" type="PoolColorArray"></argument><description>
 				Constructs an array from a [PoolColorArray].</description></method><method name="Array"><return type="Array"></return><argument index="0" name="from" type="PoolVector3Array"></argument><description>
 				Constructs an array from a [PoolVector3Array].</description></method><method name="Array"><return type="Array"></return><argument index="0" name="from" type="PoolVector2Array"></argument><description>
 				Constructs an array from a [PoolVector2Array].</description></method><method name="Array"><return type="Array"></return><argument index="0" name="from" type="PoolStringArray"></argument><description>
@@ -36,8 +36,8 @@
 				If [code]deep[/code] is [code]true[/code], a deep copy is performed: all nested arrays and dictionaries are duplicated and will not be shared with the original array. If [code]false[/code], a shallow copy is made and references to the original nested arrays and dictionaries are kept, so that modifying a sub-array or dictionary in the copy will also impact those referenced in the source array.</description></method><method name="empty"><return type="bool"></return><description>
 				Returns [code]true[/code] if the array is empty.</description></method><method name="erase"><argument index="0" name="value" type="Variant"></argument><description>
 				Removes the first occurrence of a value from the array.</description></method><method name="find"><return type="int"></return><argument index="0" name="what" type="Variant"></argument><argument index="1" name="from" type="int" default="0"></argument><description>
-				Searches the array for a value and returns its index or -1 if not found. Optionally, the initial search index can be passed.</description></method><method name="find_last"><return type="int"></return><argument index="0" name="value" type="Variant"></argument><description>
-				Searches the array in reverse order for a value and returns its index or -1 if not found.</description></method><method name="front"><return type="Variant"></return><description>
+				Searches the array for a value and returns its index or [code]-1[/code] if not found. Optionally, the initial search index can be passed.</description></method><method name="find_last"><return type="int"></return><argument index="0" name="value" type="Variant"></argument><description>
+				Searches the array in reverse order for a value and returns its index or [code]-1[/code] if not found.</description></method><method name="front"><return type="Variant"></return><description>
 				Returns the first element of the array, or [code]null[/code] if the array is empty.</description></method><method name="has"><return type="bool"></return><argument index="0" name="value" type="Variant"></argument><description>
 				Returns [code]true[/code] if the array contains the given value.
 				[codeblock]
@@ -45,6 +45,12 @@
 				["inside", 7].has("outside") == false
 				["inside", 7].has(7) == true
 				["inside", 7].has("7") == false
+				[/codeblock]
+				[b]Note:[/b] This is equivalent to using the [code]in[/code] operator as follows:
+				[codeblock]
+				# Will evaluate to `true`.
+				if 2 in [2, 4, 6, 8]:
+				    pass
 				[/codeblock]</description></method><method name="hash"><return type="int"></return><description>
 				Returns a hashed integer value representing the array contents.</description></method><method name="insert"><argument index="0" name="position" type="int"></argument><argument index="1" name="value" type="Variant"></argument><description>
 				Inserts a new element at a given position in the array. The position must be valid, or at the end of the array ([code]pos == size()[/code]).</description></method><method name="invert"><description>
