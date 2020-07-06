@@ -19,7 +19,7 @@
 			Sets the absolute maximum of the soundlevel, in dB.</member><member name="max_distance" type="float" setter="set_max_distance" getter="get_max_distance" default="0.0">
 			Sets the distance from which the [member out_of_range_mode] takes effect. Has no effect if set to 0.</member><member name="out_of_range_mode" type="int" setter="set_out_of_range_mode" getter="get_out_of_range_mode" enum="AudioStreamPlayer3D.OutOfRangeMode" default="0">
 			Decides if audio should pause when source is outside of [member max_distance] range.</member><member name="pitch_scale" type="float" setter="set_pitch_scale" getter="get_pitch_scale" default="1.0">
-			Changes the pitch and the tempo of the audio.</member><member name="playing" type="bool" setter="_set_playing" getter="is_playing" default="false">
+			The pitch and the tempo of the audio, as a multiplier of the audio sample's sample rate.</member><member name="playing" type="bool" setter="_set_playing" getter="is_playing" default="false">
 			If [code]true[/code], audio is playing.</member><member name="stream" type="AudioStream" setter="set_stream" getter="get_stream">
 			The [AudioStream] object to be played.</member><member name="stream_paused" type="bool" setter="set_stream_paused" getter="get_stream_paused" default="false">
 			If [code]true[/code], the playback is paused. You can resume it by setting [code]stream_paused[/code] to [code]false[/code].</member><member name="unit_db" type="float" setter="set_unit_db" getter="get_unit_db" default="0.0">

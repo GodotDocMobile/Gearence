@@ -1,4 +1,4 @@
-<class name="Polygon2D" inherits="Node2D" category="Core"><brief_description>
+<class category="Core" inherits="Node2D" name="Polygon2D"><brief_description>
 	2D polygon representation</brief_description><description>
 	A Polygon2D is defined by a set of n vertices connected together by line segments, meaning that the vertex 1 will be connected with vertex 2, vertex 2 with vertex 3 ..., vertex n-1 with vertex n and vertex n with vertex 1 in order to close the loop and define a polygon.</description><methods><method name="get_color" qualifiers="const"><return type="Color"></return><description>
 			Return the polygon fill color.</description></method><method name="get_invert" qualifiers="const"><return type="bool"></return><description>

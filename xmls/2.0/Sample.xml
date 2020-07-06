@@ -1,4 +1,4 @@
-<class name="Sample" inherits="Resource" category="Core"><brief_description>
+<class category="Core" inherits="Resource" name="Sample"><brief_description>
 	Audio sample (sound) class.</brief_description><description>
 	Sample provides an audio sample class, containing audio data, together with some information for playback, such as format, mix rate and loop. It is used by sound playback routines.</description><methods><method name="create"><argument index="0" name="format" type="int"></argument><argument index="1" name="stereo" type="bool"></argument><argument index="2" name="length" type="int"></argument><description>
 			Create new data for the sample, with format (see FORMAT_* constants), stereo hint, and length in samples (not bytes).

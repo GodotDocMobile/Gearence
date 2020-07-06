@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:godotclassreference/constants/class_list.dart';
 import 'package:godotclassreference/constants/colors.dart';
 import 'package:godotclassreference/bloc/tap_event_arg.dart';
-import 'package:xml/xml.dart';
+//import 'package:xml/xml.dart';
 
 //logic check godot/editor/editor_help.cpp _add_text_to_rt
 

@@ -1,4 +1,4 @@
-<class name="InputEvent" category="Built-In Types"><brief_description>
+<class category="Built-In Types" name="InputEvent"><brief_description>
 	Built-in input event data.</brief_description><description>
 	Built-in input event data. InputEvent is a built-in engine datatype, given that it's passed around and used so much. Depending on its type, the members contained can be different, so read the documentation well! Input events can also represent actions (editable from the project settings).</description><methods><method name="is_action"><return type="bool"></return><argument index="0" name="action" type="String"></argument><description>
 			Return if this input event matches a pre-defined action, no matter the type.</description></method><method name="is_action_pressed"><return type="bool"></return><argument index="0" name="action" type="String"></argument><description>

@@ -1,4 +1,4 @@
-<class name="ParallaxBackground" inherits="CanvasLayer" category="Core"><brief_description>
+<class category="Core" inherits="CanvasLayer" name="ParallaxBackground"><brief_description>
 		A node used to create a parallax scrolling background.</brief_description><description>
 		A ParallaxBackground will use one or more [ParallaxLayer] nodes to create a parallax scrolling background. Each [ParallaxLayer] can be set to move at different speeds relative to the camera movement, this can be used to create an illusion of depth in a 2D game.</description><methods><method name="get_limit_begin" qualifiers="const"><return type="Vector2"></return><description>
 				Return the beginning limit.</description></method><method name="get_limit_end" qualifiers="const"><return type="Vector2"></return><description>

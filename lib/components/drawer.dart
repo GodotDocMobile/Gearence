@@ -22,12 +22,15 @@ class GCRDrawerState extends State<GCRDrawer> {
 //  Future<PackageInfo>
   String godotVersion;
   PackageInfo pi;
+  String docDate;
 
   Future<bool> loadAll() async {
 //    await PackageInfo.fromPlatform();
     await StoredValues().readValue();
     pi = await PackageInfo.fromPlatform();
     godotVersion = StoredValues().prefs.getString('version').substring(0);
+    docDate = StoredValues().docDate;
+//    print(StoredValues().docDate);
     return true;
   }
 
@@ -37,7 +40,7 @@ class GCRDrawerState extends State<GCRDrawer> {
     return FutureBuilder<bool>(
       future: loaded,
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-        if (snapshot.hasData) {
+        if (snapshot.hasData && snapshot.data) {
           return Drawer(
             child: ListView(
               padding: EdgeInsets.zero,
@@ -53,8 +56,12 @@ class GCRDrawerState extends State<GCRDrawer> {
                           style: TextStyle(fontSize: 24, color: Colors.white),
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
+                            Text(
+                              'Doc Last Update :' + docDate,
+                              style: TextStyle(color: Colors.white30),
+                            ),
                             Text(
                               "v ${pi.version}",
                               style: TextStyle(color: Colors.white30),
@@ -102,6 +109,9 @@ class GCRDrawerState extends State<GCRDrawer> {
                     },
                   ),
                 ),
+//                ListTile(
+//                  title: Text('Doc Last Update :' + docDate),
+//                ),
 //              ListTile(
 //                leading: Icon(Icons.color_lens),
 //                title: Text("Theme"),

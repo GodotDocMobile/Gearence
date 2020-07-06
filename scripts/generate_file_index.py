@@ -19,7 +19,7 @@ def strip_file(file_path):
     pass
 
 if __name__ == "__main__":
-    onlyfiles = [f for f in listdir("../xmls/3.0") if isfile(join("../xmls/3.0/",f))]
+    # onlyfiles = [f for f in listdir("../xmls/3.0") if isfile(join("../xmls/3.0/",f))]
     for ver in listdir("../xmls"):
         if not isfile(join("../xmls",ver)) :
             print('parsing '+ver+' ...')

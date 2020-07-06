@@ -1,6 +1,7 @@
 name: godotclassreference
 description: Class reference for Godot Engine.
 
+doc_time: 2020-07-07
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
 # followed by an optional build number separated by a +.
@@ -11,7 +12,7 @@ description: Class reference for Godot Engine.
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 0.0.7+12
+version: 0.0.7+13
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -25,7 +26,7 @@ dependencies:
 
   firebase_admob: ^0.9.3+2
   # store values to local
-  shared_preferences: ^0.5.7
+  shared_preferences: ^0.5.7+3
 
   # read package info from code
   package_info: ^0.4.0+16
@@ -78,6 +79,7 @@ flutter:
     - xmls/files_3.0.json
     - xmls/files_3.1.json
     - xmls/files_3.2.json
+    - xmls/conf.json
     - svgs/icon.svg
   # To add assets to your application, add an assets section, like this:
   # assets:

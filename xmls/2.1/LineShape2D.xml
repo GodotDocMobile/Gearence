@@ -1,4 +1,4 @@
-<class name="LineShape2D" inherits="Shape2D" category="Core"><brief_description>
+<class category="Core" inherits="Shape2D" name="LineShape2D"><brief_description>
 		Line shape for 2D collision objects.</brief_description><description>
 		Line shape for 2D collision objects. It works like a 2D plane and will not allow any body to go to the negative side. Not recommended for rigid bodies, and usually not recommended for static bodies either because it forces checks against it on every frame.</description><methods><method name="get_d" qualifiers="const"><return type="float"></return><description>
 				Return the line distance from the origin.</description></method><method name="get_normal" qualifiers="const"><return type="Vector2"></return><description>

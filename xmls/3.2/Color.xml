@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?><class name="Color" version="3.2"><brief_description>
 		Color in RGBA format with some support for ARGB format.</brief_description><description>
 		A color is represented by red, green, and blue [code](r, g, b)[/code] components. Additionally, [code]a[/code] represents the alpha component, often used for transparency. Values are in floating-point and usually range from 0 to 1. Some properties (such as [member CanvasItem.modulate]) may accept values greater than 1.
-		You can also create a color from standardized color names by using [method @GDScript.ColorN] or directly using the color constants defined here. The standardized color set is based on the [url=https://en.wikipedia.org/wiki/X11_color_names]X11 color names[/url].</description><tutorials></tutorials><methods><method name="Color"><return type="Color"></return><argument index="0" name="from" type="String"></argument><description>
+		You can also create a color from standardized color names by using [method @GDScript.ColorN] or directly using the color constants defined here. The standardized color set is based on the [url=https://en.wikipedia.org/wiki/X11_color_names]X11 color names[/url].
+		If you want to supply values in a range of 0 to 255, you should use [method @GDScript.Color8].
+		[b]Note:[/b] In a boolean context, a Color will evaluate to [code]false[/code] if it's equal to [code]Color(0, 0, 0, 1)[/code] (opaque black). Otherwise, a Color will always evaluate to [code]true[/code].</description><tutorials></tutorials><methods><method name="Color"><return type="Color"></return><argument index="0" name="from" type="String"></argument><description>
 				Constructs a color from an HTML hexadecimal color string in ARGB or RGB format. See also [method @GDScript.ColorN].
 				[codeblock]
 				# Each of the following creates the same color RGBA(178, 217, 10, 255).
@@ -112,8 +114,7 @@
 			Red value (range 0 to 1).</member><member name="r8" type="int" setter="" getter="" default="0">
 			Red value (range 0 to 255).</member><member name="s" type="float" setter="" getter="" default="0.0">
 			HSV saturation value (range 0 to 1).</member><member name="v" type="float" setter="" getter="" default="0.0">
-			HSV value (range 0 to 1).</member></members><constants><constant name="gray" value="Color( 0.75, 0.75, 0.75, 1 )">
-			Gray color.</constant><constant name="aliceblue" value="Color( 0.94, 0.97, 1, 1 )">
+			HSV value (range 0 to 1).</member></members><constants><constant name="aliceblue" value="Color( 0.94, 0.97, 1, 1 )">
 			Alice blue color.</constant><constant name="antiquewhite" value="Color( 0.98, 0.92, 0.84, 1 )">
 			Antique white color.</constant><constant name="aqua" value="Color( 0, 1, 1, 1 )">
 			Aqua color.</constant><constant name="aquamarine" value="Color( 0.5, 1, 0.83, 1 )">
@@ -163,7 +164,8 @@
 			Gainsboro color.</constant><constant name="ghostwhite" value="Color( 0.97, 0.97, 1, 1 )">
 			Ghost white color.</constant><constant name="gold" value="Color( 1, 0.84, 0, 1 )">
 			Gold color.</constant><constant name="goldenrod" value="Color( 0.85, 0.65, 0.13, 1 )">
-			Goldenrod color.</constant><constant name="green" value="Color( 0, 1, 0, 1 )">
+			Goldenrod color.</constant><constant name="gray" value="Color( 0.75, 0.75, 0.75, 1 )">
+			Gray color.</constant><constant name="green" value="Color( 0, 1, 0, 1 )">
 			Green color.</constant><constant name="greenyellow" value="Color( 0.68, 1, 0.18, 1 )">
 			Green yellow color.</constant><constant name="honeydew" value="Color( 0.94, 1, 0.94, 1 )">
 			Honeydew color.</constant><constant name="hotpink" value="Color( 1, 0.41, 0.71, 1 )">

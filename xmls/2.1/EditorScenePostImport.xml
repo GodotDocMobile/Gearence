@@ -1,4 +1,4 @@
-<class name="EditorScenePostImport" inherits="Reference" category="Core"><brief_description>
+<class category="Core" inherits="Reference" name="EditorScenePostImport"><brief_description>
 		Base script for post-processing scenes being imported.</brief_description><description>
 		These scripts can modify scenes after being imported by the 3D Scene import option of the Import menu.</description><methods><method name="post_import" qualifiers="virtual"><argument index="0" name="scene" type="Object"></argument><description>
 				This function is called upon import with the imported scene.

@@ -1,4 +1,4 @@
-<class name="EventPlayer" inherits="Node" category="Core"><brief_description>
+<class category="Core" inherits="Node" name="EventPlayer"><brief_description>
 		Class for event stream playback.</brief_description><description>
 		Class for event stream playback. Event streams are music expressed as a series of events (note on, note off, instrument change...), as opposed to audio streams, which are just audio data. Examples of event-based streams are MIDI files, or MOD music.
 		Currently, only MOD, S3M, IT, and XM music is supported.</description><methods><method name="get_channel_last_note_time" qualifiers="const"><return type="float"></return><argument index="0" name="channel" type="int"></argument><description>

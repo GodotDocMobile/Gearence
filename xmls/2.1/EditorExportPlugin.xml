@@ -1,4 +1,4 @@
-<class name="EditorExportPlugin" inherits="Reference" category="Core"><brief_description>
+<class category="Core" inherits="Reference" name="EditorExportPlugin"><brief_description>
 		Editor plugin to control the export process.</brief_description><description>
 		This plugin is added into EditorImportExport and allows to modify the behavior of the export process for individual files.</description><methods><method name="custom_export" qualifiers="virtual"><return type="Variant"></return><argument index="0" name="name" type="String"></argument><argument index="1" name="platform" type="EditorExportPlatform"></argument><description>
 				This function is called for each file exported and depending from the return value one of many things might happen.

@@ -12,7 +12,9 @@
 		    mdt.set_vertex(i, vertex)
 		mesh.surface_remove(0)
 		mdt.commit_to_surface(mesh)
-		[/codeblock]</description><tutorials></tutorials><methods><method name="clear"><return type="void"></return><description>
+		[/codeblock]
+		See also [ArrayMesh], [ImmediateGeometry] and [SurfaceTool] for procedural geometry generation.
+		[b]Note:[/b] Godot uses clockwise [url=https://learnopengl.com/Advanced-OpenGL/Face-culling]winding order[/url] for front faces of triangle primitive modes.</description><tutorials></tutorials><methods><method name="clear"><return type="void"></return><description>
 				Clears all data currently in MeshDataTool.</description></method><method name="commit_to_surface"><return type="int" enum="Error"></return><argument index="0" name="mesh" type="ArrayMesh"></argument><description>
 				Adds a new surface to specified [Mesh] with edited data.</description></method><method name="create_from_surface"><return type="int" enum="Error"></return><argument index="0" name="mesh" type="ArrayMesh"></argument><argument index="1" name="surface" type="int"></argument><description>
 				Uses specified surface of given [Mesh] to populate data for MeshDataTool.

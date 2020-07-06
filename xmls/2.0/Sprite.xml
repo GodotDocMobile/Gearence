@@ -1,4 +1,4 @@
-<class name="Sprite" inherits="Node2D" category="Core"><brief_description>
+<class category="Core" inherits="Node2D" name="Sprite"><brief_description>
 	General purpose Sprite node.</brief_description><description>
 	General purpose Sprite node. This Sprite node can show any texture as a sprite. The texture can be used as a spritesheet for animation, or only a region from a bigger texture can referenced, like an atlas.</description><methods><method name="get_frame" qualifiers="const"><return type="int"></return><description>
 			Return the texture frame for a sprite-sheet, works when vframes or hframes are greater than 1.</description></method><method name="get_hframes" qualifiers="const"><return type="int"></return><description>

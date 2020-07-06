@@ -1,4 +1,4 @@
-<class name="Dictionary" category="Built-In Types"><brief_description>
+<class category="Built-In Types" name="Dictionary"><brief_description>
 	Dictionary type.</brief_description><description>
 	Dictionary type. Associative container which contains values referenced by unique keys. Dictionaries are always passed by reference.</description><methods><method name="clear"><description>
 			Clear the dictionary, removing all key/value pairs.</description></method><method name="empty"><return type="bool"></return><description>

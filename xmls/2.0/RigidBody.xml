@@ -1,4 +1,4 @@
-<class name="RigidBody" inherits="PhysicsBody" category="Core"><brief_description>
+<class category="Core" inherits="PhysicsBody" name="RigidBody"><brief_description>
 	Rigid body node.</brief_description><description>
 	Rigid body node. This node is used for placing rigid bodies in the scene. It can contain a number of shapes, and also shift mode between regular Rigid body, Kinematic, Character or Static.</description><methods><method name="_integrate_forces" qualifiers="virtual"><argument index="0" name="state" type="PhysicsDirectBodyState"></argument><description>
 			Called during physics processing, allowing you to read and safely modify the simulation state for the object. By default it works in addition to the usual physics behavior, but [method set_use_custom_integrator] allows you to disable the default behavior and do fully custom force integration for a body.</description></method><method name="apply_impulse"><argument index="0" name="pos" type="Vector3"></argument><argument index="1" name="impulse" type="Vector3"></argument><description>

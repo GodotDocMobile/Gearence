@@ -1,7 +1,9 @@
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StoredValues {
   SharedPreferences prefs;
+  String docDate;
 
   static final StoredValues _instance = StoredValues._internal();
 
@@ -21,6 +23,7 @@ class StoredValues {
 
   Future<void> readValue() async {
     prefs = await SharedPreferences.getInstance();
+    docDate = await rootBundle.loadString('xmls/conf.json');
 
     int _scrollIndex = prefs.getInt('scrollIndex');
     if (_scrollIndex != null) {

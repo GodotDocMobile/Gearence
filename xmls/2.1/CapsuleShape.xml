@@ -1,4 +1,4 @@
-<class name="CapsuleShape" inherits="Shape" category="Core"><brief_description>
+<class category="Core" inherits="Shape" name="CapsuleShape"><brief_description>
 		Capsule shape resource.</brief_description><description>
 		Capsule shape resource, which can be set into a [PhysicsBody] or area.</description><methods><method name="get_height" qualifiers="const"><return type="float"></return><description>
 				Return the capsule height.</description></method><method name="get_radius" qualifiers="const"><return type="float"></return><description>

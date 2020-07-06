@@ -347,7 +347,9 @@
 				Sets the size of the reflection atlas shared by all reflection probes in this scenario.</description></method><method name="set_boot_image"><return type="void"></return><argument index="0" name="image" type="Image"></argument><argument index="1" name="color" type="Color"></argument><argument index="2" name="scale" type="bool"></argument><argument index="3" name="use_filter" type="bool" default="true"></argument><description>
 				Sets a boot image. The color defines the background color. If [code]scale[/code] is [code]true[/code], the image will be scaled to fit the screen size. If [code]use_filter[/code] is [code]true[/code], the image will be scaled with linear interpolation. If [code]use_filter[/code] is [code]false[/code], the image will be scaled with nearest-neighbor interpolation.</description></method><method name="set_debug_generate_wireframes"><return type="void"></return><argument index="0" name="generate" type="bool"></argument><description>
 				If [code]true[/code], the engine will generate wireframes for use with the wireframe debug mode.</description></method><method name="set_default_clear_color"><return type="void"></return><argument index="0" name="color" type="Color"></argument><description>
-				Sets the default clear color which is used when a specific clear color has not been selected.</description></method><method name="shader_create"><return type="RID"></return><description>
+				Sets the default clear color which is used when a specific clear color has not been selected.</description></method><method name="set_shader_time_scale"><return type="void"></return><argument index="0" name="scale" type="float"></argument><description>
+				Sets the scale to apply to the passage of time for the shaders' [code]TIME[/code] builtin.
+				The default value is [code]1.0[/code], which means [code]TIME[/code] will count the real time as it goes by, without narrowing or stretching it.</description></method><method name="shader_create"><return type="RID"></return><description>
 				Creates an empty shader and adds it to the VisualServer. It can be accessed with the RID that is returned. This RID will be used in all [code]shader_*[/code] VisualServer functions.
 				Once finished with your RID, you will want to free the RID using the VisualServer's [method free_rid] static method.</description></method><method name="shader_get_code" qualifiers="const"><return type="String"></return><argument index="0" name="shader" type="RID"></argument><description>
 				Returns a shader's code.</description></method><method name="shader_get_default_texture_param" qualifiers="const"><return type="RID"></return><argument index="0" name="shader" type="RID"></argument><argument index="1" name="name" type="String"></argument><description>
@@ -432,7 +434,8 @@
 				Sets when the viewport should be updated. See [enum ViewportUpdateMode] constants for options.</description></method><method name="viewport_set_usage"><return type="void"></return><argument index="0" name="viewport" type="RID"></argument><argument index="1" name="usage" type="int" enum="VisualServer.ViewportUsage"></argument><description>
 				Sets the viewport's 2D/3D mode. See [enum ViewportUsage] constants for options.</description></method><method name="viewport_set_use_arvr"><return type="void"></return><argument index="0" name="viewport" type="RID"></argument><argument index="1" name="use_arvr" type="bool"></argument><description>
 				If [code]true[/code], the viewport uses augmented or virtual reality technologies. See [ARVRInterface].</description></method><method name="viewport_set_vflip"><return type="void"></return><argument index="0" name="viewport" type="RID"></argument><argument index="1" name="enabled" type="bool"></argument><description>
-				If [code]true[/code], the viewport's rendering is flipped vertically.</description></method></methods><signals><signal name="frame_post_draw"><description>
+				If [code]true[/code], the viewport's rendering is flipped vertically.</description></method></methods><members><member name="render_loop_enabled" type="bool" setter="set_render_loop_enabled" getter="is_render_loop_enabled">
+			If [code]false[/code], disables rendering completely, but the engine logic is still being processed. You can call [method force_draw] to draw a frame even with rendering disabled.</member></members><signals><signal name="frame_post_draw"><description>
 				Emitted at the end of the frame, after the VisualServer has finished updating all the Viewports.</description></signal><signal name="frame_pre_draw"><description>
 				Emitted at the beginning of the frame, before the VisualServer updates all the Viewports.</description></signal></signals><constants><constant name="NO_INDEX_ARRAY" value="-1">
 			Marks an error that shows that the index array is empty.</constant><constant name="ARRAY_WEIGHTS_SIZE" value="4">
@@ -496,7 +499,7 @@
 			Flag used to mark a compressed index array.</constant><constant name="ARRAY_FLAG_USE_2D_VERTICES" value="262144" enum="ArrayFormat">
 			Flag used to mark that the array contains 2D vertices.</constant><constant name="ARRAY_FLAG_USE_16_BIT_BONES" value="524288" enum="ArrayFormat">
 			Flag used to mark that the array uses 16-bit bones instead of 8-bit.</constant><constant name="ARRAY_COMPRESS_DEFAULT" value="97280" enum="ArrayFormat">
-			Used to set flags [constant ARRAY_COMPRESS_VERTEX], [constant ARRAY_COMPRESS_NORMAL], [constant ARRAY_COMPRESS_TANGENT], [constant ARRAY_COMPRESS_COLOR], [constant ARRAY_COMPRESS_TEX_UV], [constant ARRAY_COMPRESS_TEX_UV2] and [constant ARRAY_COMPRESS_WEIGHTS] quickly.</constant><constant name="PRIMITIVE_POINTS" value="0" enum="PrimitiveType">
+			Used to set flags [constant ARRAY_COMPRESS_NORMAL], [constant ARRAY_COMPRESS_TANGENT], [constant ARRAY_COMPRESS_COLOR], [constant ARRAY_COMPRESS_TEX_UV], [constant ARRAY_COMPRESS_TEX_UV2] and [constant ARRAY_COMPRESS_WEIGHTS] quickly.</constant><constant name="PRIMITIVE_POINTS" value="0" enum="PrimitiveType">
 			Primitive to draw consists of points.</constant><constant name="PRIMITIVE_LINES" value="1" enum="PrimitiveType">
 			Primitive to draw consists of lines.</constant><constant name="PRIMITIVE_LINE_STRIP" value="2" enum="PrimitiveType">
 			Primitive to draw consists of a line strip from start to end.</constant><constant name="PRIMITIVE_LINE_LOOP" value="3" enum="PrimitiveType">
@@ -557,7 +560,9 @@
 			Number of material changes during this frame.</constant><constant name="VIEWPORT_RENDER_INFO_SHADER_CHANGES_IN_FRAME" value="3" enum="ViewportRenderInfo">
 			Number of shader changes during this frame.</constant><constant name="VIEWPORT_RENDER_INFO_SURFACE_CHANGES_IN_FRAME" value="4" enum="ViewportRenderInfo">
 			Number of surface changes during this frame.</constant><constant name="VIEWPORT_RENDER_INFO_DRAW_CALLS_IN_FRAME" value="5" enum="ViewportRenderInfo">
-			Number of draw calls during this frame.</constant><constant name="VIEWPORT_RENDER_INFO_MAX" value="6" enum="ViewportRenderInfo">
+			Number of draw calls during this frame.</constant><constant name="VIEWPORT_RENDER_INFO_2D_ITEMS_IN_FRAME" value="6" enum="ViewportRenderInfo">
+			Number of 2d items drawn this frame.</constant><constant name="VIEWPORT_RENDER_INFO_2D_DRAW_CALLS_IN_FRAME" value="7" enum="ViewportRenderInfo">
+			Number of 2d draw calls during this frame.</constant><constant name="VIEWPORT_RENDER_INFO_MAX" value="8" enum="ViewportRenderInfo">
 			Represents the size of the [enum ViewportRenderInfo] enum.</constant><constant name="VIEWPORT_DEBUG_DRAW_DISABLED" value="0" enum="ViewportDebugDraw">
 			Debug draw is disabled. Default setting.</constant><constant name="VIEWPORT_DEBUG_DRAW_UNSHADED" value="1" enum="ViewportDebugDraw">
 			Debug draw sets objects to unshaded.</constant><constant name="VIEWPORT_DEBUG_DRAW_OVERDRAW" value="2" enum="ViewportDebugDraw">
@@ -606,10 +611,12 @@
 			The amount of modified materials in the frame.</constant><constant name="INFO_SHADER_CHANGES_IN_FRAME" value="3" enum="RenderInfo">
 			The amount of shader rebinds in the frame.</constant><constant name="INFO_SURFACE_CHANGES_IN_FRAME" value="4" enum="RenderInfo">
 			The amount of surface changes in the frame.</constant><constant name="INFO_DRAW_CALLS_IN_FRAME" value="5" enum="RenderInfo">
-			The amount of draw calls in frame.</constant><constant name="INFO_USAGE_VIDEO_MEM_TOTAL" value="6" enum="RenderInfo">
-			Unimplemented in the GLES2 and GLES3 rendering backends, always returns 0.</constant><constant name="INFO_VIDEO_MEM_USED" value="7" enum="RenderInfo">
-			The amount of video memory used, i.e. texture and vertex memory combined.</constant><constant name="INFO_TEXTURE_MEM_USED" value="8" enum="RenderInfo">
-			The amount of texture memory used.</constant><constant name="INFO_VERTEX_MEM_USED" value="9" enum="RenderInfo">
+			The amount of draw calls in frame.</constant><constant name="INFO_2D_ITEMS_IN_FRAME" value="6" enum="RenderInfo">
+			The amount of 2d items in the frame.</constant><constant name="INFO_2D_DRAW_CALLS_IN_FRAME" value="7" enum="RenderInfo">
+			The amount of 2d draw calls in frame.</constant><constant name="INFO_USAGE_VIDEO_MEM_TOTAL" value="8" enum="RenderInfo">
+			Unimplemented in the GLES2 and GLES3 rendering backends, always returns 0.</constant><constant name="INFO_VIDEO_MEM_USED" value="9" enum="RenderInfo">
+			The amount of video memory used, i.e. texture and vertex memory combined.</constant><constant name="INFO_TEXTURE_MEM_USED" value="10" enum="RenderInfo">
+			The amount of texture memory used.</constant><constant name="INFO_VERTEX_MEM_USED" value="11" enum="RenderInfo">
 			The amount of vertex memory used.</constant><constant name="FEATURE_SHADERS" value="0" enum="Features">
 			Hardware supports shaders. This enum is currently unused in Godot 3.x.</constant><constant name="FEATURE_MULTITHREADED" value="1" enum="Features">
 			Hardware supports multithreading. This enum is currently unused in Godot 3.x.</constant><constant name="MULTIMESH_TRANSFORM_2D" value="0" enum="MultimeshTransformFormat">

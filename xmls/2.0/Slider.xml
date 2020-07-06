@@ -1,4 +1,4 @@
-<class name="Slider" inherits="Range" category="Core"><brief_description>
+<class category="Core" inherits="Range" name="Slider"><brief_description>
 	Base class for GUI Sliders.</brief_description><description>
 	Base class for GUI Sliders.</description><methods><method name="get_ticks" qualifiers="const"><return type="int"></return><description>
 			Return amounts of ticks to display on slider.</description></method><method name="get_ticks_on_borders" qualifiers="const"><return type="bool"></return><description>

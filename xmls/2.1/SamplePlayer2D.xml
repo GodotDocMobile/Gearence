@@ -1,10 +1,10 @@
-<class name="SamplePlayer2D" inherits="SoundPlayer2D" category="Core"><brief_description>
+<class category="Core" inherits="SoundPlayer2D" name="SamplePlayer2D"><brief_description>
 		Sample player for positional 2D Sound.</brief_description><description>
 		Sample player for positional 2D Sound. Plays sound samples positionally, left and right depending on the distance/place on the screen.</description><methods><method name="get_polyphony" qualifiers="const"><return type="int"></return><description>
 				Return the polyphony of the player.</description></method><method name="get_random_pitch_scale" qualifiers="const"><return type="float"></return><description>
 				Return the amplitude used for random pitch scale variations.</description></method><method name="get_sample_library" qualifiers="const"><return type="SampleLibrary"></return><description>
 				Return the sample library used by the player.</description></method><method name="is_voice_active" qualifiers="const"><return type="bool"></return><argument index="0" name="voice" type="int"></argument><description>
-				Return whether a voice is still active or has stopped playing.</description></method><method name="play"><return type="int"></return><argument index="0" name="sample" type="String"></argument><argument index="1" name="voice" type="int" default="-2"></argument><description>
+				Return whether a voice is still active or has stopped playing.</description></method><method name="play"><return type="int"></return><argument index="0" name="sample" type="String"></argument><argument default="-2" index="1" name="voice" type="int"></argument><description>
 				Play a sample. An internal polyphony ID can optionally be passed, or defaults to NEXT_VOICE.
 				Return a voice ID which can be used to modify the voice parameters, or INVALID_VOICE if the voice or sample are invalid.</description></method><method name="set_polyphony"><argument index="0" name="max_voices" type="int"></argument><description>
 				Set the polyphony of the player (maximum amount of simultaneous voices).</description></method><method name="set_random_pitch_scale"><argument index="0" name="val" type="float"></argument><description>

@@ -1,4 +1,4 @@
-<class name="Physics2DDirectBodyState" inherits="Object" category="Core"><brief_description>
+<class category="Core" inherits="Object" name="Physics2DDirectBodyState"><brief_description>
 	Direct access object to a physics body in the [Physics2DServer].</brief_description><description>
 	Direct access object to a physics body in the [Physics2DServer]. This object is passed via the direct state callback of rigid/character bodies, and is intended for changing the direct state of that body.</description><methods><method name="get_angular_velocity" qualifiers="const"><return type="float"></return><description>
 			Return the angular velocity of the body.</description></method><method name="get_contact_collider" qualifiers="const"><return type="RID"></return><argument index="0" name="contact_idx" type="int"></argument><description>

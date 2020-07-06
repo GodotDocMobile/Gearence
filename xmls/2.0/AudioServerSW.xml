@@ -1,4 +1,4 @@
-<class name="AudioServerSW" inherits="AudioServer" category="Core"><brief_description>
+<class category="Core" inherits="AudioServer" name="AudioServerSW"><brief_description>
 	Software implementation of [AudioServer].</brief_description><description>
 	This is a software audio server. It does not use any kind of hardware acceleration.
 	This class does not expose any new method.</description><methods></methods><constants></constants></class>

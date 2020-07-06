@@ -1,4 +1,4 @@
-<class name="BoxContainer" inherits="Container" category="Core"><brief_description>
+<class category="Core" inherits="Container" name="BoxContainer"><brief_description>
 	Base class for Box containers.</brief_description><description>
 	Base class for Box containers. It arranges children controls vertically or horizontally, and rearranges them automatically when their minimum size changes.</description><methods><method name="add_spacer"><argument index="0" name="begin" type="bool"></argument><description>
 			Add a control to the box as a spacer.

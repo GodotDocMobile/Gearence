@@ -1,4 +1,4 @@
-<class name="Area2D" inherits="CollisionObject2D" category="Core"><brief_description>
+<class category="Core" inherits="CollisionObject2D" name="Area2D"><brief_description>
 	General purpose area detection and influence for 2D physics.</brief_description><description>
 	General purpose area detection for 2D physics. Areas can be used for detection of objects that enter/exit them, as well as overriding space parameters (changing gravity, damping, etc). For this, use any space override different from AREA_SPACE_OVERRIDE_DISABLE and point gravity at the center of mass.</description><methods><method name="get_angular_damp" qualifiers="const"><return type="float"></return><description>
 			Return the angular damp rate.</description></method><method name="get_collision_mask" qualifiers="const"><return type="int"></return><description>

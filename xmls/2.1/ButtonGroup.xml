@@ -1,4 +1,4 @@
-<class name="ButtonGroup" inherits="BoxContainer" category="Core"><brief_description>
+<class category="Core" inherits="BoxContainer" name="ButtonGroup"><brief_description>
 		Group of Buttons.</brief_description><description>
 		Group of [Button]. All direct and indirect children buttons become radios. Only one allows being pressed.</description><methods><method name="get_button_list" qualifiers="const"><return type="Array"></return><description>
 				Return the list of all the buttons in the group.</description></method><method name="get_focused_button" qualifiers="const"><return type="BaseButton"></return><description>

@@ -1,3 +1,3 @@
-<class name="StyleBoxEmpty" inherits="StyleBox" category="Core"><brief_description>
+<class category="Core" inherits="StyleBox" name="StyleBoxEmpty"><brief_description>
 		Empty stylebox (does not display anything).</brief_description><description>
 		Empty stylebox (really does not display anything).</description><methods></methods><constants></constants></class>

@@ -1,1 +1,1 @@
-<class name="PhysicsDirectBodyStateSW" inherits="PhysicsDirectBodyState" category="Core"><brief_description></brief_description><description></description><methods></methods><constants></constants></class>
+<class category="Core" inherits="PhysicsDirectBodyState" name="PhysicsDirectBodyStateSW"><brief_description></brief_description><description></description><methods></methods><constants></constants></class>

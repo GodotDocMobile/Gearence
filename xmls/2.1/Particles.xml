@@ -1,4 +1,4 @@
-<class name="Particles" inherits="GeometryInstance" category="Core"><brief_description>
+<class category="Core" inherits="GeometryInstance" name="Particles"><brief_description>
 		Particle system 3D Node</brief_description><description>
 		Particles is a particle system 3D [Node] that is used to simulate several types of particle effects, such as explosions, rain, snow, fireflies, or other magical-like shinny sparkles. Particles are drawn using impostors, and given their dynamic behavior, the user must provide a visibility AABB (although helpers to create one automatically exist).</description><methods><method name="get_amount" qualifiers="const"><return type="int"></return><description>
 				Return the total amount of particles in the system.</description></method><method name="get_color_phase_color" qualifiers="const"><return type="Color"></return><argument index="0" name="phase" type="int"></argument><description>

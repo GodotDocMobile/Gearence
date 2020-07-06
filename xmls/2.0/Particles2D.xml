@@ -1,4 +1,4 @@
-<class name="Particles2D" inherits="Node2D" category="Core"><brief_description>
+<class category="Core" inherits="Node2D" name="Particles2D"><brief_description>
 	2D Particle emitter</brief_description><description>
 	Particles2D is a particle system 2D [Node] that is used to simulate several types of particle effects, such as explosions, rain, snow, fireflies, or other magical-like shinny sparkles. Particles are drawn using impostors, and given their dynamic behavior, the user must provide a visibility AABB (although helpers to create one automatically exist).</description><methods><method name="get_amount" qualifiers="const"><return type="int"></return><description>
 			Returns the amount of particles spawned at each emission</description></method><method name="get_color" qualifiers="const"><return type="Color"></return><description>

@@ -1,4 +1,4 @@
-<class name="AnimatedSprite" inherits="Node2D" category="Core"><brief_description>
+<class category="Core" inherits="Node2D" name="AnimatedSprite"><brief_description>
 		Sprite node that can use multiple textures for animation.</brief_description><description>
 		Sprite node that can use multiple textures for animation.</description><methods><method name="get_animation" qualifiers="const"><return type="String"></return><description>
 				Return the name of the current animation set to the node.</description></method><method name="get_frame" qualifiers="const"><return type="int"></return><description>
@@ -9,7 +9,7 @@
 				Return true when centered. See [method set_centered].</description></method><method name="is_flipped_h" qualifiers="const"><return type="bool"></return><description>
 				Return true if sprite is flipped horizontally.</description></method><method name="is_flipped_v" qualifiers="const"><return type="bool"></return><description>
 				Return true if sprite is flipped vertically.</description></method><method name="is_playing" qualifiers="const"><return type="bool"></return><description>
-				Return true if an animation if currently being played.</description></method><method name="play"><argument index="0" name="anim" type="String" default="&quot;&quot;"></argument><description>
+				Return true if an animation if currently being played.</description></method><method name="play"><argument default="&quot;&quot;" index="0" name="anim" type="String"></argument><description>
 				Play the animation set in parameter. If no parameter is provided, the current animation is played.</description></method><method name="set_animation"><argument index="0" name="animation" type="String"></argument><description>
 				Set the current animation of the node and reinits the frame counter of the animation.</description></method><method name="set_centered"><argument index="0" name="centered" type="bool"></argument><description>
 				When turned on, offset at (0,0) is the center of the sprite, when off, the top-left corner is.</description></method><method name="set_flip_h"><argument index="0" name="flip_h" type="bool"></argument><description>

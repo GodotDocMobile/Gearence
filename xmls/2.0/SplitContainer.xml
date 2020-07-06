@@ -1,4 +1,4 @@
-<class name="SplitContainer" inherits="Container" category="Core"><brief_description>
+<class category="Core" inherits="Container" name="SplitContainer"><brief_description>
 	Container for splitting and adjusting.</brief_description><description>
 	Container for splitting two controls vertically or horizontally, with a grabber that allows adjusting the split offset or ratio.</description><methods><method name="get_dragger_visibility" qualifiers="const"><return type="int"></return><description>
 			Return visibility of the split dragger(One of [DRAGGER_VISIBLE], [DRAGGER_HIDDEN] or [DRAGGER_HIDDEN_COLLAPSED]).</description></method><method name="get_split_offset" qualifiers="const"><return type="int"></return><description>

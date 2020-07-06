@@ -68,7 +68,7 @@
 			The amount of restitution on the axes' movement. The lower, the more momentum gets lost.</constant><constant name="PARAM_LINEAR_DAMPING" value="4" enum="Param">
 			The amount of damping that happens at the linear motion across the axes.</constant><constant name="PARAM_LINEAR_MOTOR_TARGET_VELOCITY" value="5" enum="Param">
 			The velocity the linear motor will try to reach.</constant><constant name="PARAM_LINEAR_MOTOR_FORCE_LIMIT" value="6" enum="Param">
-			The maximum force the linear motor will apply while trying to reach the velocity target.</constant><constant name="PARAM_ANGULAR_LOWER_LIMIT" value="10" enum="Param">
+			The maximum force the linear motor will apply while trying to reach the velocity target.</constant><constant name="PARAM_LINEAR_SPRING_STIFFNESS" value="7" enum="Param"></constant><constant name="PARAM_LINEAR_SPRING_DAMPING" value="8" enum="Param"></constant><constant name="PARAM_LINEAR_SPRING_EQUILIBRIUM_POINT" value="9" enum="Param"></constant><constant name="PARAM_ANGULAR_LOWER_LIMIT" value="10" enum="Param">
 			The minimum rotation in negative direction to break loose and rotate around the axes.</constant><constant name="PARAM_ANGULAR_UPPER_LIMIT" value="11" enum="Param">
 			The minimum rotation in positive direction to break loose and rotate around the axes.</constant><constant name="PARAM_ANGULAR_LIMIT_SOFTNESS" value="12" enum="Param">
 			The speed of all rotations across the axes.</constant><constant name="PARAM_ANGULAR_DAMPING" value="13" enum="Param">
@@ -77,7 +77,7 @@
 			The maximum amount of force that can occur, when rotating around the axes.</constant><constant name="PARAM_ANGULAR_ERP" value="16" enum="Param">
 			When rotating across the axes, this error tolerance factor defines how much the correction gets slowed down. The lower, the slower.</constant><constant name="PARAM_ANGULAR_MOTOR_TARGET_VELOCITY" value="17" enum="Param">
 			Target speed for the motor at the axes.</constant><constant name="PARAM_ANGULAR_MOTOR_FORCE_LIMIT" value="18" enum="Param">
-			Maximum acceleration for the motor at the axes.</constant><constant name="PARAM_MAX" value="22" enum="Param">
+			Maximum acceleration for the motor at the axes.</constant><constant name="PARAM_ANGULAR_SPRING_STIFFNESS" value="19" enum="Param"></constant><constant name="PARAM_ANGULAR_SPRING_DAMPING" value="20" enum="Param"></constant><constant name="PARAM_ANGULAR_SPRING_EQUILIBRIUM_POINT" value="21" enum="Param"></constant><constant name="PARAM_MAX" value="22" enum="Param">
 			Represents the size of the [enum Param] enum.</constant><constant name="FLAG_ENABLE_LINEAR_LIMIT" value="0" enum="Flag">
 			If enabled, linear motion is possible within the given limits.</constant><constant name="FLAG_ENABLE_ANGULAR_LIMIT" value="1" enum="Flag">
 			If enabled, rotational motion is possible within the given limits.</constant><constant name="FLAG_ENABLE_LINEAR_SPRING" value="3" enum="Flag"></constant><constant name="FLAG_ENABLE_ANGULAR_SPRING" value="2" enum="Flag"></constant><constant name="FLAG_ENABLE_MOTOR" value="4" enum="Flag">

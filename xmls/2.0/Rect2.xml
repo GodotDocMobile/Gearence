@@ -1,4 +1,4 @@
-<class name="Rect2" category="Built-In Types"><brief_description>
+<class category="Built-In Types" name="Rect2"><brief_description>
 	2D Axis-aligned bounding box.</brief_description><description>
 	Rect2 provides an 2D Axis-Aligned Bounding Box. It consists of a position, a size, and several utility functions. It is typically used for fast overlap tests.</description><methods><method name="Rect2"><return type="Rect2"></return><argument index="0" name="pos" type="Vector2"></argument><argument index="1" name="size" type="Vector2"></argument><description>
 			Construct a [Rect2] by position and size.</description></method><method name="Rect2"><return type="Rect2"></return><argument index="0" name="x" type="float"></argument><argument index="1" name="y" type="float"></argument><argument index="2" name="width" type="float"></argument><argument index="3" name="height" type="float"></argument><description>

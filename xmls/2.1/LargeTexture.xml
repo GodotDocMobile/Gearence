@@ -1,4 +1,4 @@
-<class name="LargeTexture" inherits="Texture" category="Core"><brief_description>
+<class category="Core" inherits="Texture" name="LargeTexture"><brief_description>
 		A Texture capable of storing many smaller Textures with offsets.</brief_description><description>
 		A Texture capable of storing many smaller Textures with offsets.
 		You can dynamically add pieces(Textures) to this fLargeTexture] using different offsets.</description><methods><method name="add_piece"><return type="int"></return><argument index="0" name="ofs" type="Vector2"></argument><argument index="1" name="texture" type="Texture"></argument><description>

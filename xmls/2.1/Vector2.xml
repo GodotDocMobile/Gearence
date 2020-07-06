@@ -1,4 +1,4 @@
-<class name="Vector2" category="Built-In Types"><brief_description>
+<class category="Built-In Types" name="Vector2"><brief_description>
 		Vector used for 2D Math.</brief_description><description>
 		2-element structure that can be used to represent positions in 2d-space, or any other pair of numeric values.</description><methods><method name="Vector2"><return type="Vector2"></return><argument index="0" name="x" type="float"></argument><argument index="1" name="y" type="float"></argument><description>
 				Constructs a new Vector2 from the given x and y.</description></method><method name="abs"><return type="Vector2"></return><description>

@@ -1,4 +1,4 @@
-<class name="Joint2D" inherits="Node2D" category="Core"><brief_description>
+<class category="Core" inherits="Node2D" name="Joint2D"><brief_description>
 	Base node for all joint constraints in 2D physics.</brief_description><description>
 	Base node for all joint constraints in 2D physics. Joints take 2 bodies and apply a custom constraint.</description><methods><method name="get_bias" qualifiers="const"><return type="float"></return><description></description></method><method name="get_exclude_nodes_from_collision" qualifiers="const"><return type="bool"></return><description></description></method><method name="get_node_a" qualifiers="const"><return type="NodePath"></return><description>
 			Return the path to the A node for the joint.</description></method><method name="get_node_b" qualifiers="const"><return type="NodePath"></return><description>
