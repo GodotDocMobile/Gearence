@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
@@ -8,6 +10,9 @@ import 'constants/colors.dart';
 
 const appId = 'ca-app-pub-3569371273195353~4389051701';
 const appUnitId = 'ca-app-pub-3569371273195353/9278184798';
+
+const iosAppId = 'ca-app-pub-3569371273195353~4067882844';
+const iosUnitId = 'ca-app-pub-3569371273195353/7046427649';
 
 MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
   keywords: <String>[
@@ -39,7 +44,7 @@ BannerAd myBanner = BannerAd(
   // Replace the testAdUnitId with an ad unit id from the AdMob dash.
   // https://developers.google.com/admob/android/test-ads
   // https://developers.google.com/admob/ios/test-ads
-  adUnitId: appUnitId,
+  adUnitId: Platform.isIOS?iosUnitId: appUnitId,
   size: AdSize.banner,
   targetingInfo: targetingInfo,
   listener: (MobileAdEvent event) {
@@ -68,7 +73,7 @@ class GCRApp extends StatefulWidget {
 class _GCRAppState extends State<GCRApp> {
   @override
   void initState() {
-    FirebaseAdMob.instance.initialize(appId: appId);
+    FirebaseAdMob.instance.initialize(appId: Platform.isIOS?iosAppId: appId);
     super.initState();
   }
 

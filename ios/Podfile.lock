@@ -1,0 +1,164 @@
+PODS:
+  - Firebase/AdMob (6.24.0):
+    - Firebase/CoreOnly
+    - Google-Mobile-Ads-SDK (~> 7.50)
+  - Firebase/Analytics (6.24.0):
+    - Firebase/Core
+  - Firebase/Core (6.24.0):
+    - Firebase/CoreOnly
+    - FirebaseAnalytics (= 6.5.0)
+  - Firebase/CoreOnly (6.24.0):
+    - FirebaseCore (= 6.7.0)
+  - firebase_admob (0.0.1):
+    - Firebase/AdMob
+    - Firebase/Core
+    - Flutter
+  - firebase_core (0.0.1):
+    - Firebase/Core
+    - Flutter
+  - firebase_core_web (0.1.0):
+    - Flutter
+  - FirebaseAnalytics (6.5.0):
+    - FirebaseCore (~> 6.7)
+    - FirebaseInstallations (~> 1.2)
+    - GoogleAppMeasurement (= 6.5.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
+    - GoogleUtilities/MethodSwizzler (~> 6.0)
+    - GoogleUtilities/Network (~> 6.0)
+    - "GoogleUtilities/NSData+zlib (~> 6.0)"
+    - nanopb (~> 1.30905.0)
+  - FirebaseCore (6.7.0):
+    - FirebaseCoreDiagnostics (~> 1.3)
+    - FirebaseCoreDiagnosticsInterop (~> 1.2)
+    - GoogleUtilities/Environment (~> 6.5)
+    - GoogleUtilities/Logger (~> 6.5)
+  - FirebaseCoreDiagnostics (1.4.0):
+    - GoogleDataTransportCCTSupport (~> 3.1)
+    - GoogleUtilities/Environment (~> 6.5)
+    - GoogleUtilities/Logger (~> 6.5)
+    - nanopb (~> 1.30905.0)
+  - FirebaseCoreDiagnosticsInterop (1.2.0)
+  - FirebaseInstallations (1.3.0):
+    - FirebaseCore (~> 6.6)
+    - GoogleUtilities/Environment (~> 6.6)
+    - GoogleUtilities/UserDefaults (~> 6.6)
+    - PromisesObjC (~> 1.2)
+  - Flutter (1.0.0)
+  - Google-Mobile-Ads-SDK (7.61.0):
+    - GoogleAppMeasurement (~> 6.0)
+  - GoogleAppMeasurement (6.5.0):
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
+    - GoogleUtilities/MethodSwizzler (~> 6.0)
+    - GoogleUtilities/Network (~> 6.0)
+    - "GoogleUtilities/NSData+zlib (~> 6.0)"
+    - nanopb (~> 1.30905.0)
+  - GoogleDataTransport (6.2.1)
+  - GoogleDataTransportCCTSupport (3.2.0):
+    - GoogleDataTransport (~> 6.1)
+    - nanopb (~> 1.30905.0)
+  - GoogleUtilities/AppDelegateSwizzler (6.6.0):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
+  - GoogleUtilities/Environment (6.6.0):
+    - PromisesObjC (~> 1.2)
+  - GoogleUtilities/Logger (6.6.0):
+    - GoogleUtilities/Environment
+  - GoogleUtilities/MethodSwizzler (6.6.0):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/Network (6.6.0):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Reachability
+  - "GoogleUtilities/NSData+zlib (6.6.0)"
+  - GoogleUtilities/Reachability (6.6.0):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/UserDefaults (6.6.0):
+    - GoogleUtilities/Logger
+  - nanopb (1.30905.0):
+    - nanopb/decode (= 1.30905.0)
+    - nanopb/encode (= 1.30905.0)
+  - nanopb/decode (1.30905.0)
+  - nanopb/encode (1.30905.0)
+  - package_info (0.0.1):
+    - Flutter
+  - PromisesObjC (1.2.9)
+  - shared_preferences (0.0.1):
+    - Flutter
+  - shared_preferences_macos (0.0.1):
+    - Flutter
+  - shared_preferences_web (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - Firebase/Analytics
+  - firebase_admob (from `.symlinks/plugins/firebase_admob/ios`)
+  - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
+  - firebase_core_web (from `.symlinks/plugins/firebase_core_web/ios`)
+  - Flutter (from `Flutter`)
+  - Google-Mobile-Ads-SDK
+  - package_info (from `.symlinks/plugins/package_info/ios`)
+  - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
+  - shared_preferences_macos (from `.symlinks/plugins/shared_preferences_macos/ios`)
+  - shared_preferences_web (from `.symlinks/plugins/shared_preferences_web/ios`)
+
+SPEC REPOS:
+  trunk:
+    - Firebase
+    - FirebaseAnalytics
+    - FirebaseCore
+    - FirebaseCoreDiagnostics
+    - FirebaseCoreDiagnosticsInterop
+    - FirebaseInstallations
+    - Google-Mobile-Ads-SDK
+    - GoogleAppMeasurement
+    - GoogleDataTransport
+    - GoogleDataTransportCCTSupport
+    - GoogleUtilities
+    - nanopb
+    - PromisesObjC
+
+EXTERNAL SOURCES:
+  firebase_admob:
+    :path: ".symlinks/plugins/firebase_admob/ios"
+  firebase_core:
+    :path: ".symlinks/plugins/firebase_core/ios"
+  firebase_core_web:
+    :path: ".symlinks/plugins/firebase_core_web/ios"
+  Flutter:
+    :path: Flutter
+  package_info:
+    :path: ".symlinks/plugins/package_info/ios"
+  shared_preferences:
+    :path: ".symlinks/plugins/shared_preferences/ios"
+  shared_preferences_macos:
+    :path: ".symlinks/plugins/shared_preferences_macos/ios"
+  shared_preferences_web:
+    :path: ".symlinks/plugins/shared_preferences_web/ios"
+
+SPEC CHECKSUMS:
+  Firebase: b28e55c60efd98963cd9011fe2fac5a10c2ba124
+  firebase_admob: d8c2bc95b5e0069406280ce6adb816cdee6aa595
+  firebase_core: 0d8be0e0d14c4902953aeb5ac5d7316d1fe4b978
+  firebase_core_web: d501d8b946b60c8af265428ce483b0fff5ad52d1
+  FirebaseAnalytics: 7386fc2176e3f93ad8ef34b5b1f2b33a891e4962
+  FirebaseCore: e610482f64097b0e9f056cd97bc6b33dfabcbb6a
+  FirebaseCoreDiagnostics: 4505e4d4009b1d93f605088ee7d7764d5f0d1c84
+  FirebaseCoreDiagnosticsInterop: 296e2c5f5314500a850ad0b83e9e7c10b011a850
+  FirebaseInstallations: 6f5f680e65dc374397a483c32d1799ba822a395b
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  Google-Mobile-Ads-SDK: 4c3b24b04293b4bb370b2cb392cdd3ee97c87752
+  GoogleAppMeasurement: 4c644d86835d827bab30ab6aabb9ecaf1f500735
+  GoogleDataTransport: 9a8a16f79feffc7f42096743de2a7c4815e84020
+  GoogleDataTransportCCTSupport: 489c1265d2c85b68187a83a911913d190012158d
+  GoogleUtilities: 39530bc0ad980530298e9c4af8549e991fd033b1
+  nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
+  package_info: 48b108e75b8802c2d5e126f208ef540561c98aef
+  PromisesObjC: b48e0338dbbac2207e611750777895f7a5811b75
+  shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
+  shared_preferences_macos: f3f29b71ccbb56bf40c9dd6396c9acf15e214087
+  shared_preferences_web: 141cce0c3ed1a1c5bf2a0e44f52d31eeb66e5ea9
+
+PODFILE CHECKSUM: e3243f960dac8dd0752ba9775111bdfad8520f1a
+
+COCOAPODS: 1.9.1
