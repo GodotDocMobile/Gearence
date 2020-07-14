@@ -93,6 +93,7 @@ class _GCRAppState extends State<GCRApp> {
       );
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
 //      title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: godotColor,
@@ -101,7 +102,7 @@ class _GCRAppState extends State<GCRApp> {
       builder: (BuildContext context, Widget child) {
         return Padding(
           child: child,
-          padding: EdgeInsets.only(bottom: 50),
+          padding: EdgeInsets.only(bottom: 50+MediaQuery.of(context).padding.bottom),
         );
       },
     );
