@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:godotclassreference/components/svg_icon.dart';
@@ -10,9 +9,7 @@ import 'package:godotclassreference/constants/class_list.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:godotclassreference/screens/class_detail.dart';
 import 'package:godotclassreference/components/drawer.dart';
-
-const appId = 'ca-app-pub-3569371273195353~4389051701';
-const appUnitId = 'ca-app-pub-3569371273195353/9278184798';
+import 'package:godotclassreference/screens/search.dart';
 
 class ClassSelect extends StatefulWidget {
   static Future<List<String>> getXmlFiles() async {
@@ -22,7 +19,7 @@ class ClassSelect extends StatefulWidget {
 //    print(version);
     if (version == null || version.length == 0) {
       version = '3.0';
-      await StoredValues().prefs.setString('version', '3.0');
+      await StoredValues().prefs.setString('version', '3.2');
     }
 
     final file = await rootBundle.loadString('xmls/files_' + version + '.json');
@@ -39,7 +36,6 @@ class ClassSelect extends StatefulWidget {
 class _ClassSelectState extends State<ClassSelect> {
   @override
   void initState() {
-    FirebaseAdMob.instance.initialize(appId: appId);
     super.initState();
   }
 
@@ -66,6 +62,11 @@ class _ClassSelectState extends State<ClassSelect> {
                       color: Colors.white,
                     ),
                     onPressed: () {
+//                      Navigator.push(
+//                          context,
+//                          MaterialPageRoute(
+//                              builder: (context) => SearchScreen()));
+
                       showSearch(
                           context: context,
                           delegate: ClassSelectSearchDelegate());
