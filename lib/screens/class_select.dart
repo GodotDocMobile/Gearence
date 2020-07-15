@@ -18,8 +18,8 @@ class ClassSelect extends StatefulWidget {
     String version = StoredValues().prefs.getString('version');
 //    print(version);
     if (version == null || version.length == 0) {
-      version = '3.0';
-      await StoredValues().prefs.setString('version', '3.2');
+      version = '3.2';
+      await StoredValues().prefs.setString('version', version);
     }
 
     final file = await rootBundle.loadString('xmls/files_' + version + '.json');
