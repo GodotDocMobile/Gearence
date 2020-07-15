@@ -44,7 +44,7 @@ BannerAd myBanner = BannerAd(
   // Replace the testAdUnitId with an ad unit id from the AdMob dash.
   // https://developers.google.com/admob/android/test-ads
   // https://developers.google.com/admob/ios/test-ads
-  adUnitId: Platform.isIOS?iosUnitId: appUnitId,
+  adUnitId: Platform.isIOS ? iosUnitId : appUnitId,
   size: AdSize.banner,
   targetingInfo: targetingInfo,
   listener: (MobileAdEvent event) {
@@ -73,7 +73,7 @@ class GCRApp extends StatefulWidget {
 class _GCRAppState extends State<GCRApp> {
   @override
   void initState() {
-    FirebaseAdMob.instance.initialize(appId: Platform.isIOS?iosAppId: appId);
+    FirebaseAdMob.instance.initialize(appId: Platform.isIOS ? iosAppId : appId);
     super.initState();
   }
 
@@ -93,6 +93,7 @@ class _GCRAppState extends State<GCRApp> {
       );
 
     return MaterialApp(
+      //hide debug banner
       debugShowCheckedModeBanner: false,
 //      title: 'Flutter Demo',
       theme: ThemeData(
