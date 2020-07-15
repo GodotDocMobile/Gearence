@@ -103,6 +103,7 @@ class _GCRAppState extends State<GCRApp> {
         return Padding(
           child: child,
           padding: EdgeInsets.only(bottom: 50+MediaQuery.of(context).padding.bottom),
+//          padding: EdgeInsets.only(bottom: 0),
         );
       },
     );
