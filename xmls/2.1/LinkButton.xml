@@ -1,4 +1,4 @@
-<class category="Core" inherits="BaseButton" name="LinkButton"><brief_description>
+<class name="LinkButton" inherits="BaseButton" category="Core"><brief_description>
 		Simple button used to represent a link to some resource</brief_description><description>
 		This kind of buttons are primarily used when the interaction with the button causes a context change (like linking to a web page).</description><methods><method name="get_text" qualifiers="const"><return type="String"></return><description>
 				Returns the text of the button.</description></method><method name="get_underline_mode" qualifiers="const"><return type="int"></return><description>

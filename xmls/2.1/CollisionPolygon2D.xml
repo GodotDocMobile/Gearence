@@ -1,4 +1,4 @@
-<class category="Core" inherits="Node2D" name="CollisionPolygon2D"><brief_description>
+<class name="CollisionPolygon2D" inherits="Node2D" category="Core"><brief_description>
 		Editor-only class for easy editing of collision polygons.</brief_description><description>
 		Editor-only class. This is not present when running the game. It's used in the editor to properly edit and position collision shapes in [CollisionObject2D]. This is not accessible from regular code. This class is for editing custom shape polygons.</description><methods><method name="get_build_mode" qualifiers="const"><return type="int"></return><description>
 				Return whether the polygon is a [ConvexPolygonShape2D] ([code]build_mode==0[/code]), or a [ConcavePolygonShape2D] ([code]build_mode==1[/code]).</description></method><method name="get_collision_object_first_shape" qualifiers="const"><return type="int"></return><description>

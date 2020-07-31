@@ -1,3 +1,3 @@
-<class category="Core" inherits="Joint2D" name="PinJoint2D"><brief_description>
+<class name="PinJoint2D" inherits="Joint2D" category="Core"><brief_description>
 	Pin Joint for 2D Shapes.</brief_description><description>
 	Pin Joint for 2D Rigid Bodies. It pins 2 bodies (rigid or static) together, or a single body to a fixed position in space.</description><methods><method name="get_softness" qualifiers="const"><return type="float"></return><description></description></method><method name="set_softness"><argument index="0" name="softness" type="float"></argument><description></description></method></methods><constants></constants></class>

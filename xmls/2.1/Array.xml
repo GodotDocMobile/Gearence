@@ -1,4 +1,4 @@
-<class category="Built-In Types" name="Array"><brief_description>
+<class name="Array" category="Built-In Types"><brief_description>
 		Generic array datatype.</brief_description><description>
 		Generic array, contains several elements of any type, accessible by numerical index starting at 0. Negative indices can be used to count from the right, like in Python. Arrays are always passed by reference.</description><methods><method name="Array"><return type="Array"></return><argument index="0" name="from" type="ColorArray"></argument><description>
 				Construct an array from a [RawArray].</description></method><method name="Array"><return type="Array"></return><argument index="0" name="from" type="Vector3Array"></argument><description>
@@ -13,7 +13,7 @@
 				Clear the array (resize to 0).</description></method><method name="count"><return type="int"></return><argument index="0" name="value" type="var"></argument><description>
 				Return the amount of times an element is in the array.</description></method><method name="empty"><return type="bool"></return><description>
 				Return true if the array is empty (size==0).</description></method><method name="erase"><argument index="0" name="value" type="var"></argument><description>
-				Remove the first occurrence of a value from the array.</description></method><method name="find"><return type="int"></return><argument index="0" name="what" type="var"></argument><argument default="0" index="1" name="from" type="int"></argument><description>
+				Remove the first occurrence of a value from the array.</description></method><method name="find"><return type="int"></return><argument index="0" name="what" type="var"></argument><argument index="1" name="from" type="int" default="0"></argument><description>
 				Searches the array for a value and returns its index or -1 if not found. Optionally, the initial search index can be passed.</description></method><method name="find_last"><return type="int"></return><argument index="0" name="value" type="var"></argument><description>
 				Searches the array in reverse order for a value and returns its index or -1 if not found.</description></method><method name="front"><description>
 				Returns the first element of the array if the array is not empty (size&gt;0).</description></method><method name="has"><return type="bool"></return><argument index="0" name="value" type="var"></argument><description>
@@ -33,7 +33,7 @@
 				Append an element at the end of the array.</description></method><method name="push_front"><argument index="0" name="value" type="var"></argument><description>
 				Add an element at the beginning of the array.</description></method><method name="remove"><argument index="0" name="pos" type="int"></argument><description>
 				Remove an element from the array by index.</description></method><method name="resize"><argument index="0" name="pos" type="int"></argument><description>
-				Resize the array to contain a different number of elements. If the array size is smaller, elements are cleared, if bigger, new elements are Null.</description></method><method name="rfind"><return type="int"></return><argument index="0" name="what" type="var"></argument><argument default="-1" index="1" name="from" type="int"></argument><description>
+				Resize the array to contain a different number of elements. If the array size is smaller, elements are cleared, if bigger, new elements are Null.</description></method><method name="rfind"><return type="int"></return><argument index="0" name="what" type="var"></argument><argument index="1" name="from" type="int" default="-1"></argument><description>
 				Searches the array in reverse order. Optionally, a start search index can be passed. If negative, the start index is considered relative to the end of the array.</description></method><method name="size"><return type="int"></return><description>
 				Return the amount of elements in the array.</description></method><method name="sort"><description>
 				Sort the array using natural order.</description></method><method name="sort_custom"><argument index="0" name="obj" type="Object"></argument><argument index="1" name="func" type="String"></argument><description>

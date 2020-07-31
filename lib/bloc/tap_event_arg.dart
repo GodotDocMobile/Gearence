@@ -11,6 +11,15 @@ class TapEventArg {
       {this.linkType, @required this.className, @required this.fieldName})
       : assert(className != null),
         assert(fieldName != null);
+
+  String toString() {
+    return 'class:' +
+        className +
+        ',type:' +
+        linkType.toString() +
+        ',field:' +
+        fieldName;
+  }
 }
 
 String linkTypeToString(LinkType input) {

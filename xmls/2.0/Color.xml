@@ -1,4 +1,4 @@
-<class category="Built-In Types" name="Color"><brief_description>
+<class name="Color" category="Built-In Types"><brief_description>
 	Color in RGBA format.</brief_description><description>
 	A color is represented as red, green and blue (r,g,b) components. Additionally, "a" represents the alpha component, often used for transparency. Values are in floating point and usually range from 0 to 1.  Some methods (such as set_modulate() ) may accept values &gt; 1.</description><methods><method name="Color"><return type="Color"></return><argument index="0" name="r" type="float"></argument><argument index="1" name="g" type="float"></argument><argument index="2" name="b" type="float"></argument><argument index="3" name="a" type="float"></argument><description>
 			Construct the color from an RGBA profile.</description></method><method name="Color"><return type="Color"></return><argument index="0" name="r" type="float"></argument><argument index="1" name="g" type="float"></argument><argument index="2" name="b" type="float"></argument><description>
@@ -11,7 +11,7 @@
 			Return the inverted color (1-r, 1-g, 1-b, 1-a).</description></method><method name="linear_interpolate"><return type="Color"></return><argument index="0" name="b" type="Color"></argument><argument index="1" name="t" type="float"></argument><description>
 			Return the linear interpolation with another color.</description></method><method name="to_32"><return type="int"></return><description>
 			Convert the color to a 32 its integer (each byte represents a RGBA).</description></method><method name="to_ARGB32"><return type="int"></return><description>
-			Convert color to ARGB32, more compatible with DirectX.</description></method><method name="to_html"><return type="String"></return><argument default="True" index="0" name="with_alpha" type="bool"></argument><description>
+			Convert color to ARGB32, more compatible with DirectX.</description></method><method name="to_html"><return type="String"></return><argument index="0" name="with_alpha" type="bool" default="True"></argument><description>
 			Return the HTML hexadecimal color string.</description></method></methods><members><member name="a" type="float">
 			Alpha (0 to 1)</member><member name="a8" type="int">
 			Alpha (0 to 255)</member><member name="b" type="float">

@@ -1,3 +1,3 @@
-<class category="Core" inherits="AudioStream" name="AudioStreamMPC"><brief_description>
+<class name="AudioStreamMPC" inherits="AudioStream" category="Core"><brief_description>
 		MusePack audio stream driver.</brief_description><description>
 		MusePack audio stream driver.</description><methods></methods><constants></constants></class>

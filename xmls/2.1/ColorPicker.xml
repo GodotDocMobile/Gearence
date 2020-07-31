@@ -1,4 +1,4 @@
-<class category="Core" inherits="BoxContainer" name="ColorPicker"><brief_description>
+<class name="ColorPicker" inherits="BoxContainer" category="Core"><brief_description>
 		Color picker control.</brief_description><description>
 		This is a simple color picker [Control]. It's useful for selecting a color from an RGB/RGBA colorspace.</description><methods><method name="add_preset"><argument index="0" name="arg0" type="Color"></argument><description>
 				Adds the current selected to color to a list of colors (presets), the presets will be displayed in the color picker and the user will be able to select them, notice that the presets list is only for this color picker.</description></method><method name="get_color" qualifiers="const"><return type="Color"></return><description>

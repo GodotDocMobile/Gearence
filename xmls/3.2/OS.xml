@@ -37,7 +37,18 @@
 				Returns the scancode of the given string (e.g. "Escape").</description></method><method name="get_audio_driver_count" qualifiers="const"><return type="int"></return><description>
 				Returns the total number of available audio drivers.</description></method><method name="get_audio_driver_name" qualifiers="const"><return type="String"></return><argument index="0" name="driver" type="int"></argument><description>
 				Returns the audio driver name for the given index.</description></method><method name="get_cmdline_args"><return type="PoolStringArray"></return><description>
-				Returns the command line arguments passed to the engine.</description></method><method name="get_connected_midi_inputs"><return type="PoolStringArray"></return><description>
+				Returns the command-line arguments passed to the engine.
+				Command-line arguments can be written in any form, including both [code]--key value[/code] and [code]--key=value[/code] forms so they can be properly parsed, as long as custom command-line arguments do not conflict with engine arguments.
+				You can also incorporate environment variables using the [method get_environment] method.
+				You can set [code]editor/main_run_args[/code] in the Project Settings to define command-line arguments to be passed by the editor when running the project.
+				Here's a minimal example on how to parse command-line arguments into a dictionary using the [code]--key=value[/code] form for arguments:
+				[codeblock]
+				var arguments = {}
+				for argument in OS.get_cmdline_args():
+				    if argument.find("=") &gt; -1:
+				        var key_value = argument.split("=")
+				        arguments[key_value[0].lstrip("--")] = key_value[1]
+				[/codeblock]</description></method><method name="get_connected_midi_inputs"><return type="PoolStringArray"></return><description>
 				Returns an array of MIDI device names.
 				The returned array will be empty if the system MIDI driver has not previously been initialised with [method open_midi_inputs].
 				[b]Note:[/b] This method is implemented on Linux, macOS and Windows.</description></method><method name="get_current_video_driver" qualifiers="const"><return type="int" enum="OS.VideoDriver"></return><description>
@@ -87,8 +98,14 @@
 				 xxhdpi - 480 dpi
 				xxxhdpi - 640 dpi
 				[/codeblock]
-				[b]Note:[/b] This method is implemented on Android, Linux, macOS and Windows. Returns [code]72[/code] on unsupported platforms.</description></method><method name="get_screen_position" qualifiers="const"><return type="Vector2"></return><argument index="0" name="screen" type="int" default="-1"></argument><description>
-				Returns the position of the specified screen by index. If [code]screen[/code] is [/code]-1[/code] (the default value), the current screen will be used.</description></method><method name="get_screen_size" qualifiers="const"><return type="Vector2"></return><argument index="0" name="screen" type="int" default="-1"></argument><description>
+				[b]Note:[/b] This method is implemented on Android, Linux, macOS and Windows. Returns [code]72[/code] on unsupported platforms.</description></method><method name="get_screen_max_scale" qualifiers="const"><return type="float"></return><description>
+				Return the greatest scale factor of all screens.
+				[b]Note:[/b] On macOS returned value is [code]2.0[/code] if there is at least one hiDPI (Retina) screen in the system, and [code]1.0[/code] in all other cases.
+				[b]Note:[/b] This method is implemented on macOS.</description></method><method name="get_screen_position" qualifiers="const"><return type="Vector2"></return><argument index="0" name="screen" type="int" default="-1"></argument><description>
+				Returns the position of the specified screen by index. If [code]screen[/code] is [/code]-1[/code] (the default value), the current screen will be used.</description></method><method name="get_screen_scale" qualifiers="const"><return type="float"></return><argument index="0" name="screen" type="int" default="-1"></argument><description>
+				Return the scale factor of the specified screen by index. If [code]screen[/code] is [/code]-1[/code] (the default value), the current screen will be used.
+				[b]Note:[/b] On macOS returned value is [code]2.0[/code] for hiDPI (Retina) screen, and [code]1.0[/code] for all other cases.
+				[b]Note:[/b] This method is implemented on macOS.</description></method><method name="get_screen_size" qualifiers="const"><return type="Vector2"></return><argument index="0" name="screen" type="int" default="-1"></argument><description>
 				Returns the dimensions in pixels of the specified screen. If [code]screen[/code] is [/code]-1[/code] (the default value), the current screen will be used.</description></method><method name="get_splash_tick_msec" qualifiers="const"><return type="int"></return><description>
 				Returns the amount of time in milliseconds it took for the boot logo to appear.</description></method><method name="get_static_memory_peak_usage" qualifiers="const"><return type="int"></return><description>
 				Returns the maximum amount of static memory used (only works in debug).</description></method><method name="get_static_memory_usage" qualifiers="const"><return type="int"></return><description>
@@ -205,8 +222,10 @@
 				- [code]OS.shell_open("https://godotengine.org")[/code] opens the default web browser on the official Godot website.
 				- [code]OS.shell_open("mailto:example@example.com")[/code] opens the default email client with the "To" field set to [code]example@example.com[/code]. See [url=https://blog.escapecreative.com/customizing-mailto-links/]Customizing [code]mailto:[/code] Links[/url] for a list of fields that can be added.
 				Use [method ProjectSettings.globalize_path] to convert a [code]res://[/code] or [code]user://[/code] path into a system path for use with this method.
-				[b]Note:[/b] This method is implemented on Android, iOS, HTML5, Linux, macOS and Windows.</description></method><method name="show_virtual_keyboard"><return type="void"></return><argument index="0" name="existing_text" type="String" default="&quot;&quot;"></argument><description>
-				Shows the virtual keyboard if the platform has one. The [code]existing_text[/code] parameter is useful for implementing your own LineEdit, as it tells the virtual keyboard what text has already been typed (the virtual keyboard uses it for auto-correct and predictions).
+				[b]Note:[/b] This method is implemented on Android, iOS, HTML5, Linux, macOS and Windows.</description></method><method name="show_virtual_keyboard"><return type="void"></return><argument index="0" name="existing_text" type="String" default="&quot;&quot;"></argument><argument index="1" name="multiline" type="bool" default="false"></argument><description>
+				Shows the virtual keyboard if the platform has one.
+				The [code]existing_text[/code] parameter is useful for implementing your own [LineEdit] or [TextEdit], as it tells the virtual keyboard what text has already been typed (the virtual keyboard uses it for auto-correct and predictions).
+				The [code]multiline[/code] parameter needs to be set to [code]true[/code] to be able to enter multiple lines of text, as in [TextEdit].
 				[b]Note:[/b] This method is implemented on Android, iOS and UWP.</description></method></methods><members><member name="clipboard" type="String" setter="set_clipboard" getter="get_clipboard" default="&quot;&quot;">
 			The clipboard from the host OS. Might be unavailable on some platforms.</member><member name="current_screen" type="int" setter="set_current_screen" getter="get_current_screen" default="0">
 			The current screen index (starting from 0).</member><member name="exit_code" type="int" setter="set_exit_code" getter="get_exit_code" default="0">

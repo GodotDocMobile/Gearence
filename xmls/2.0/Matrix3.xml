@@ -1,4 +1,4 @@
-<class category="Built-In Types" name="Matrix3"><brief_description>
+<class name="Matrix3" category="Built-In Types"><brief_description>
 	3x3 matrix datatype.</brief_description><description>
 	3x3 matrix used for 3D rotation and scale. Contains 3 vector fields x,y and z. Can also be accessed as array of 3D vectors. Almost always used as orthogonal basis for a [Transform].</description><methods><method name="Matrix3"><return type="Matrix3"></return><argument index="0" name="from" type="Quat"></argument><description>
 			Create a matrix from a quaternion.</description></method><method name="Matrix3"><return type="Matrix3"></return><argument index="0" name="axis" type="Vector3"></argument><argument index="1" name="phi" type="float"></argument><description>

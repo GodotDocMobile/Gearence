@@ -1,4 +1,4 @@
-<class category="Core" inherits="Node2D" name="RayCast2D"><brief_description>
+<class name="RayCast2D" inherits="Node2D" category="Core"><brief_description>
 		Query the closest object intersecting a ray.</brief_description><description>
 		A RayCast2D represents a line from its origin to its destination position [code]cast_to[/code], it is used to query the 2D space in order to find the closest object intersecting with the ray.
 

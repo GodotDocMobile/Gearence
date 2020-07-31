@@ -310,7 +310,8 @@
 			Right mouse button mask.</constant><constant name="BUTTON_MASK_MIDDLE" value="4" enum="ButtonList">
 			Middle mouse button mask.</constant><constant name="BUTTON_MASK_XBUTTON1" value="128" enum="ButtonList">
 			Extra mouse button 1 mask.</constant><constant name="BUTTON_MASK_XBUTTON2" value="256" enum="ButtonList">
-			Extra mouse button 2 mask.</constant><constant name="JOY_BUTTON_0" value="0" enum="JoystickList">
+			Extra mouse button 2 mask.</constant><constant name="JOY_INVALID_OPTION" value="-1" enum="JoystickList">
+			Invalid button or axis.</constant><constant name="JOY_BUTTON_0" value="0" enum="JoystickList">
 			Gamepad button 0.</constant><constant name="JOY_BUTTON_1" value="1" enum="JoystickList">
 			Gamepad button 1.</constant><constant name="JOY_BUTTON_2" value="2" enum="JoystickList">
 			Gamepad button 2.</constant><constant name="JOY_BUTTON_3" value="3" enum="JoystickList">

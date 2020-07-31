@@ -1,4 +1,4 @@
-<class category="Core" inherits="Reference" name="EditorImportPlugin"><brief_description>
+<class name="EditorImportPlugin" inherits="Reference" category="Core"><brief_description>
 		Import plugin for editor</brief_description><description>
 		Import plugins make it easy to handle importing of external assets into a project. They way they work is not that obvious though, so please make sure to read the documentation, tutorials and examples.</description><methods><method name="can_reimport_multiple_files" qualifiers="virtual"><return type="bool"></return><description></description></method><method name="custom_export" qualifiers="virtual"><return type="RawArray"></return><argument index="0" name="path" type="String"></argument><argument index="1" name="platform" type="EditorExportPlatform"></argument><description>
 				Generally, files that are imported stay the same when exported. The only exception is in some cases when the file must be re-imported for different platforms (ie. texture compression).

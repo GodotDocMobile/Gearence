@@ -1,4 +1,4 @@
-<class category="Built-In Types" name="Array"><brief_description>
+<class name="Array" category="Built-In Types"><brief_description>
 	Generic array datatype.</brief_description><description>
 	Generic array, contains several elements of any type, accessible by numerical index starting at 0. Arrays are always passed by reference.</description><methods><method name="Array"><return type="Array"></return><argument index="0" name="from" type="ColorArray"></argument><description>
 			Construct an array from a [RawArray].</description></method><method name="Array"><return type="Array"></return><argument index="0" name="from" type="Vector3Array"></argument><description>

@@ -1,3 +1,3 @@
-<class category="Core" inherits="Control" name="Separator"><brief_description>
+<class name="Separator" inherits="Control" category="Core"><brief_description>
 		Base class for separators.</brief_description><description>
 		Separator is a [Control] used for separating other controls. It's purely a visual decoration. Horizontal ([HSeparator]) and Vertical ([VSeparator]) versions are available.</description><methods></methods><constants></constants></class>

@@ -1,4 +1,4 @@
-<class category="Core" inherits="Control" name="Label"><brief_description>
+<class name="Label" inherits="Control" category="Core"><brief_description>
 	Control that displays formatted text.</brief_description><description>
 	Label is a control that displays formatted text, optionally autowrapping it to the [Control] area. It inherits from range to be able to scroll wrapped text vertically.</description><methods><method name="get_align" qualifiers="const"><return type="int"></return><description>
 			Return the alignment mode (any of the ALIGN_* enumeration values).</description></method><method name="get_line_count" qualifiers="const"><return type="int"></return><description>

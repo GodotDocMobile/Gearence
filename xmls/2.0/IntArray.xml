@@ -1,4 +1,4 @@
-<class category="Built-In Types" name="IntArray"><brief_description>
+<class name="IntArray" category="Built-In Types"><brief_description>
 	Integer Array.</brief_description><description>
 	Integer Array. Array of integers. Can only contain integers. Optimized for memory usage, can't fragment the memory.</description><methods><method name="IntArray"><return type="IntArray"></return><argument index="0" name="from" type="Array"></argument><description>
 			Create from a generic array.</description></method><method name="push_back"><argument index="0" name="integer" type="int"></argument><description>

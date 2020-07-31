@@ -1,4 +1,4 @@
-<class category="Core" inherits="Node" name="CanvasLayer"><brief_description>
+<class name="CanvasLayer" inherits="Node" category="Core"><brief_description>
 	Canvas Item layer.</brief_description><description>
 	Canvas Item layer. [CanvasItem] nodes that are direct or indirect children of a [CanvasLayer] will be drawn in that layer. The layer is a numeric index that defines the draw order. The default 2D scene renders with index 0, so a [CanvasLayer] with index -1 will be drawn below, and one with index 1 will be drawn above. This is very useful for HUDs (in layer 1+ or above), or backgrounds (in layer -1 or below).</description><methods><method name="get_layer" qualifiers="const"><return type="int"></return><description>
 			Return the layer index, determines the draw order, a lower value will be below a higher one.</description></method><method name="get_offset" qualifiers="const"><return type="Vector2"></return><description>

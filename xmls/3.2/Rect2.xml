@@ -17,6 +17,7 @@
 				If [code]include_borders[/code] is [code]true[/code], they will also be considered overlapping if their borders touch, even without intersection.</description></method><method name="is_equal_approx"><return type="bool"></return><argument index="0" name="rect" type="Rect2"></argument><description>
 				Returns [code]true[/code] if this [Rect2] and [code]rect[/code] are approximately equal, by calling [code]is_equal_approx[/code] on each component.</description></method><method name="merge"><return type="Rect2"></return><argument index="0" name="b" type="Rect2"></argument><description>
 				Returns a larger [Rect2] that contains this [Rect2] and [code]b[/code].</description></method></methods><members><member name="end" type="Vector2" setter="" getter="" default="Vector2( 0, 0 )">
-			Ending corner.</member><member name="position" type="Vector2" setter="" getter="" default="Vector2( 0, 0 )">
-			Position (starting corner).</member><member name="size" type="Vector2" setter="" getter="" default="Vector2( 0, 0 )">
-			Size from position to end.</member></members><constants></constants></class>
+			Ending corner. This is calculated as [code]position + size[/code]. Setting this value will change the size.</member><member name="position" type="Vector2" setter="" getter="" default="Vector2( 0, 0 )">
+			Beginning corner. Typically has values lower than [member end].</member><member name="size" type="Vector2" setter="" getter="" default="Vector2( 0, 0 )">
+			Size from [member position] to [member end]. Typically all components are positive.
+			If the size is negative, you can use [method abs] to fix it.</member></members><constants></constants></class>

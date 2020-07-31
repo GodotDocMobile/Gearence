@@ -1,4 +1,4 @@
-<class category="Core" inherits="Reference" name="Physics2DShapeQueryParameters"><brief_description>
+<class name="Physics2DShapeQueryParameters" inherits="Reference" category="Core"><brief_description>
 		Parameters to be sent to a 2D shape physics query.</brief_description><description>
 		This class contains the shape and other parameters for intersection/collision queries.</description><methods><method name="get_exclude" qualifiers="const"><return type="Array"></return><description>
 				Return the list of objects, or object [RID]\ s, that will be excluded from collisions.</description></method><method name="get_layer_mask" qualifiers="const"><return type="int"></return><description>

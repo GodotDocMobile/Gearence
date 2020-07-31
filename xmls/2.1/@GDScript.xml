@@ -1,4 +1,4 @@
-<class category="Core" name="@GDScript"><brief_description>
+<class name="@GDScript" category="Core"><brief_description>
 		Built-in GDScript functions.</brief_description><description>
 		This contains the list of built-in gdscript functions. Mostly math functions and other utilities. Everything else is expanded by objects.</description><methods><method name="Color8"><return type="Color"></return><argument index="0" name="r8" type="int"></argument><argument index="1" name="g8" type="int"></argument><argument index="2" name="b8" type="int"></argument><argument index="3" name="a8" type="int"></argument><description>
 				Make a color from red, green, blue and alpha. Arguments can range from 0 to 255.</description></method><method name="ColorN"><return type="Color"></return><argument index="0" name="name" type="String"></argument><argument index="1" name="alpha" type="float"></argument><description></description></method><method name="abs"><return type="float"></return><argument index="0" name="s" type="float"></argument><description>

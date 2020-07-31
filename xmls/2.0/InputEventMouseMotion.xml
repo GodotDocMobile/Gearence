@@ -1,4 +1,4 @@
-<class category="Built-In Types" name="InputEventMouseMotion"><brief_description>
+<class name="InputEventMouseMotion" category="Built-In Types"><brief_description>
 	Built-in input event type for mouse motion events.</brief_description><description>
 	Input event type for mouse motion events that extends the global [InputEvent] type.</description><methods><method name="is_action"><return type="bool"></return><argument index="0" name="action" type="String"></argument><description>
 			Return if this input event matches a pre-defined action.</description></method><method name="is_action_pressed"><return type="bool"></return><argument index="0" name="action" type="String"></argument><description>

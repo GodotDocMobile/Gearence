@@ -1,4 +1,4 @@
-<class category="Built-In Types" name="bool"><brief_description>
+<class name="bool" category="Built-In Types"><brief_description>
 		Boolean built-in type</brief_description><description>
 		Boolean built-in type.</description><methods><method name="bool"><return type="bool"></return><argument index="0" name="from" type="int"></argument><description>
 				Cast an [int] value to a boolean value, this method will return true if called with an integer value different to 0 and false in other case.</description></method><method name="bool"><return type="bool"></return><argument index="0" name="from" type="float"></argument><description>

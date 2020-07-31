@@ -1,4 +1,4 @@
-<class category="Core" inherits="Reference" name="StreamPeer"><brief_description>
+<class name="StreamPeer" inherits="Reference" category="Core"><brief_description>
 		Abstraction and base class for stream-based protocols.</brief_description><description>
 		StreamPeer is an abstraction and base class for stream-based protocols (such as TCP or Unix Sockets). It provides an API for sending and receiving data through streams as raw data or strings.</description><methods><method name="get_16"><return type="int"></return><description>
 				Get a signed 16 bit value from the stream.</description></method><method name="get_32"><return type="int"></return><description>

@@ -52,7 +52,8 @@
 			If [code]false[/code], it's impossible to select the text using mouse nor keyboard.</member><member name="shortcut_keys_enabled" type="bool" setter="set_shortcut_keys_enabled" getter="is_shortcut_keys_enabled" default="true">
 			If [code]false[/code], using shortcuts will be disabled.</member><member name="text" type="String" setter="set_text" getter="get_text" default="&quot;&quot;">
 			String value of the [LineEdit].
-			[b]Note:[/b] Changing text using this property won't emit the [signal text_changed] signal.</member></members><signals><signal name="text_change_rejected"><description>
+			[b]Note:[/b] Changing text using this property won't emit the [signal text_changed] signal.</member><member name="virtual_keyboard_enabled" type="bool" setter="set_virtual_keyboard_enabled" getter="is_virtual_keyboard_enabled" default="true">
+			If [code]true[/code], the native virtual keyboard is shown when focused on platforms that support it.</member></members><signals><signal name="text_change_rejected"><description>
 				Emitted when trying to append text that would overflow the [member max_length].</description></signal><signal name="text_changed"><argument index="0" name="new_text" type="String"></argument><description>
 				Emitted when the text changes.</description></signal><signal name="text_entered"><argument index="0" name="new_text" type="String"></argument><description>
 				Emitted when the user presses [constant KEY_ENTER] on the [LineEdit].</description></signal></signals><constants><constant name="ALIGN_LEFT" value="0" enum="Align">

@@ -1,4 +1,4 @@
-<class category="Core" inherits="Node" name="EditorPlugin"><brief_description>
+<class name="EditorPlugin" inherits="Node" category="Core"><brief_description>
 		Used by the editor to extend its functionality.</brief_description><description>
 		Plugins are used by the editor to extend functionality. The most common types of plugins are those which edit a given node or resource type, import plugins and export plugins.</description><methods><method name="add_control_to_bottom_panel"><return type="ToolButton"></return><argument index="0" name="control" type="Control"></argument><argument index="1" name="title" type="String"></argument><description>
 				Add a control to the bottom panel (together with Output, Debug, Animation, etc). Returns a reference to the button added. It's up to you to hide/show the button when needed. If your plugin is being removed, also make sure to remove your control by calling [method remove_control_from_bottom_panel].</description></method><method name="add_control_to_container"><argument index="0" name="container" type="int"></argument><argument index="1" name="control" type="Control"></argument><description>

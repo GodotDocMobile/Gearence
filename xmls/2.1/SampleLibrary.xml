@@ -1,4 +1,4 @@
-<class category="Core" inherits="Resource" name="SampleLibrary"><brief_description>
+<class name="SampleLibrary" inherits="Resource" category="Core"><brief_description>
 		Library that contains a collection of samples.</brief_description><description>
 		Library that contains a collection of [Sample], each identified by a text ID. This is used as a data container for the majority of the SamplePlayer classes and derivatives.
 		Sample players will never yield an active (currently playing) voice for a new playback request when there are no inactive voices available if the priority of the sample requested to be played is lower than that of every currently played samples.</description><methods><method name="add_sample"><argument index="0" name="name" type="String"></argument><argument index="1" name="sample" type="Sample"></argument><description>

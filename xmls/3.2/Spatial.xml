@@ -14,7 +14,7 @@
 				Returns whether this node uses a scale of [code](1, 1, 1)[/code] or its local transformation scale.</description></method><method name="is_set_as_toplevel" qualifiers="const"><return type="bool"></return><description>
 				Returns whether this node is set as Toplevel, that is whether it ignores its parent nodes transformations.</description></method><method name="is_transform_notification_enabled" qualifiers="const"><return type="bool"></return><description>
 				Returns whether the node notifies about its global and local transformation changes. [Spatial] will not propagate this by default.</description></method><method name="is_visible_in_tree" qualifiers="const"><return type="bool"></return><description>
-				Returns whether the node is visible, taking into consideration that its parents visibility.</description></method><method name="look_at"><return type="void"></return><argument index="0" name="target" type="Vector3"></argument><argument index="1" name="up" type="Vector3"></argument><description>
+				Returns [code]true[/code] if the node is present in the [SceneTree], its [member visible] property is [code]true[/code] and all its antecedents are also visible. If any antecedent is hidden, this node will not be visible in the scene tree.</description></method><method name="look_at"><return type="void"></return><argument index="0" name="target" type="Vector3"></argument><argument index="1" name="up" type="Vector3"></argument><description>
 				Rotates itself so that the local -Z axis points towards the [code]target[/code] position.
 				The transform will first be rotated around the given [code]up[/code] vector, and then fully aligned to the target by a further rotation around an axis perpendicular to both the [code]target[/code] and [code]up[/code] vectors.
 				Operations take place in global space.</description></method><method name="look_at_from_position"><return type="void"></return><argument index="0" name="position" type="Vector3"></argument><argument index="1" name="target" type="Vector3"></argument><argument index="2" name="up" type="Vector3"></argument><description>
@@ -47,7 +47,7 @@
 			Scale part of the local transformation.</member><member name="transform" type="Transform" setter="set_transform" getter="get_transform" default="Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )">
 			Local space [Transform] of this node, with respect to the parent node.</member><member name="translation" type="Vector3" setter="set_translation" getter="get_translation" default="Vector3( 0, 0, 0 )">
 			Local translation of this node.</member><member name="visible" type="bool" setter="set_visible" getter="is_visible" default="true">
-			If [code]true[/code], this node is drawn.</member></members><signals><signal name="visibility_changed"><description>
+			If [code]true[/code], this node is drawn. The node is only visible if all of its antecedents are visible as well (in other words, [method is_visible_in_tree] must return [code]true[/code]).</member></members><signals><signal name="visibility_changed"><description>
 				Emitted when node visibility changes.</description></signal></signals><constants><constant name="NOTIFICATION_TRANSFORM_CHANGED" value="2000">
 			Spatial nodes receives this notification when their global transform changes. This means that either the current or a parent node changed its transform.
 			In order for [constant NOTIFICATION_TRANSFORM_CHANGED] to work, users first need to ask for it, with [method set_notify_transform].</constant><constant name="NOTIFICATION_ENTER_WORLD" value="41">

@@ -1,4 +1,4 @@
-<class category="Core" inherits="CollisionObject2D" name="PhysicsBody2D"><brief_description>
+<class name="PhysicsBody2D" inherits="CollisionObject2D" category="Core"><brief_description>
 		Base class for all objects affected by physics.</brief_description><description>
 		PhysicsBody2D is an abstract base class for implementing a physics body. All *Body2D types inherit from it.</description><methods><method name="add_collision_exception_with"><argument index="0" name="body" type="PhysicsBody2D"></argument><description>
 				Adds a body to the collision exception list. This list contains bodies that this body will not collide with.</description></method><method name="get_collision_mask" qualifiers="const"><return type="int"></return><description>

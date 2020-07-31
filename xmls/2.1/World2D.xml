@@ -1,4 +1,4 @@
-<class category="Core" inherits="Resource" name="World2D"><brief_description>
+<class name="World2D" inherits="Resource" category="Core"><brief_description>
 		Class that has everything pertaining to a 2D world.</brief_description><description>
 		Class that has everything pertaining to a 2D world. A physics space, a visual scenario and a sound space. 2D nodes register their resources into the current 2D world.</description><methods><method name="get_canvas"><return type="RID"></return><description>
 				Retrieve the [RID] of this world's canvas resource. Used by the [VisualServer] for 2D drawing.</description></method><method name="get_direct_space_state"><return type="Physics2DDirectSpaceState"></return><description>

@@ -1,1 +1,1 @@
-<class category="Core" inherits="Object" name="SpatialSoundServer"><brief_description></brief_description><description></description><methods></methods><constants></constants></class>
+<class name="SpatialSoundServer" inherits="Object" category="Core"><brief_description></brief_description><description></description><methods></methods><constants></constants></class>

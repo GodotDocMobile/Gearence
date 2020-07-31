@@ -1,4 +1,4 @@
-<class category="Built-In Types" name="InputEventJoystickMotion"><brief_description>
+<class name="InputEventJoystickMotion" category="Built-In Types"><brief_description>
 	Built-in input event type for joystick motion/axis events.</brief_description><description>
 	Input event type for joystick motion/axis events that extends the global [InputEvent] type.</description><methods><method name="is_action"><return type="bool"></return><argument index="0" name="action" type="String"></argument><description></description></method><method name="is_action_pressed"><return type="bool"></return><argument index="0" name="action" type="String"></argument><description>
 			Return whether the given action is being pressed.</description></method><method name="is_action_released"><return type="bool"></return><argument index="0" name="action" type="String"></argument><description>

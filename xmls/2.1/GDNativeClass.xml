@@ -1,1 +1,1 @@
-<class category="Core" inherits="Reference" name="GDNativeClass"><brief_description></brief_description><description></description><methods><method name="new"><description></description></method></methods><constants></constants></class>
+<class name="GDNativeClass" inherits="Reference" category="Core"><brief_description></brief_description><description></description><methods><method name="new"><description></description></method></methods><constants></constants></class>

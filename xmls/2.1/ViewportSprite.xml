@@ -1,4 +1,4 @@
-<class category="Core" inherits="Node2D" name="ViewportSprite"><brief_description>
+<class name="ViewportSprite" inherits="Node2D" category="Core"><brief_description>
 		Displays a viewport as a sprite.</brief_description><description>
 		Used to display a [Viewport] node at some position in the world, without having to mess with [RenderTargetTexture]\ s.</description><methods><method name="get_modulate" qualifiers="const"><return type="Color"></return><description>
 				Get color modulation for the texture. All texture pixels are multiplied by this color.</description></method><method name="get_offset" qualifiers="const"><return type="Vector2"></return><description>
