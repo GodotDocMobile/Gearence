@@ -1,3 +1,3 @@
-<class category="Core" inherits="Reference" name="EditorScript"><brief_description>
+<class name="EditorScript" inherits="Reference" category="Core"><brief_description>
 		Simple script to perform changes in the currently edited scene.</brief_description><description>
 		This script can be run from the Scene -&gt; Run Script menu option.</description><methods><method name="_run" qualifiers="virtual"><description></description></method><method name="add_root_node"><argument index="0" name="node" type="Object"></argument><description></description></method><method name="get_scene"><return type="Object"></return><description></description></method></methods><constants></constants></class>

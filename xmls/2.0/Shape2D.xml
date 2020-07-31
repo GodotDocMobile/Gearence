@@ -1,4 +1,4 @@
-<class category="Core" inherits="Resource" name="Shape2D"><brief_description>
+<class name="Shape2D" inherits="Resource" category="Core"><brief_description>
 	Base class for all 2D Shapes.</brief_description><description>
 	Base class for all 2D Shapes. All 2D shape types inherit from this.</description><methods><method name="collide"><return type="bool"></return><argument index="0" name="local_xform" type="Matrix32"></argument><argument index="1" name="with_shape" type="Shape2D"></argument><argument index="2" name="shape_xform" type="Matrix32"></argument><description>
 			Return whether this shape is colliding with another.

@@ -1,9 +1,9 @@
-<class category="Core" inherits="Texture" name="ImageTexture"><brief_description>
+<class name="ImageTexture" inherits="Texture" category="Core"><brief_description>
 		A [Texture] based on an [Image].</brief_description><description>
-		A [Texture] based on an [Image]. Can be created from an [Image].</description><methods><method name="create"><argument index="0" name="width" type="int"></argument><argument index="1" name="height" type="int"></argument><argument index="2" name="format" type="int"></argument><argument default="7" index="3" name="flags" type="int"></argument><description>
+		A [Texture] based on an [Image]. Can be created from an [Image].</description><methods><method name="create"><argument index="0" name="width" type="int"></argument><argument index="1" name="height" type="int"></argument><argument index="2" name="format" type="int"></argument><argument index="3" name="flags" type="int" default="7"></argument><description>
 				Create a new [ImageTexture] with "width" and "height".
 				"format" one of [Image].FORMAT_*.
-				"flags" one or more of [Texture].FLAG_*.</description></method><method name="create_from_image"><argument index="0" name="image" type="Image"></argument><argument default="7" index="1" name="flags" type="int"></argument><description>
+				"flags" one or more of [Texture].FLAG_*.</description></method><method name="create_from_image"><argument index="0" name="image" type="Image"></argument><argument index="1" name="flags" type="int" default="7"></argument><description>
 				Create a new [ImageTexture] from an [Image] with "flags" from [Texture].FLAG_*.</description></method><method name="fix_alpha_edges"><description></description></method><method name="get_data" qualifiers="const"><return type="Image"></return><description>
 				Return the [Image] of this [ImageTexture].</description></method><method name="get_format" qualifiers="const"><return type="int"></return><description>
 				Return the format of the [ImageTexture], one of [Image].FORMAT_*.</description></method><method name="get_lossy_storage_quality" qualifiers="const"><return type="float"></return><description>

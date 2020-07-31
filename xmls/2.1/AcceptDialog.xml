@@ -1,6 +1,6 @@
-<class category="Core" inherits="WindowDialog" name="AcceptDialog"><brief_description>
+<class name="AcceptDialog" inherits="WindowDialog" category="Core"><brief_description>
 		Base dialog for user notification.</brief_description><description>
-		This dialog is useful for small notifications to the user about an event. It can only be accepted or closed, with the same result.</description><methods><method name="add_button"><return type="Button"></return><argument index="0" name="text" type="String"></argument><argument default="false" index="1" name="right" type="bool"></argument><argument default="&quot;&quot;" index="2" name="action" type="String"></argument><description>
+		This dialog is useful for small notifications to the user about an event. It can only be accepted or closed, with the same result.</description><methods><method name="add_button"><return type="Button"></return><argument index="0" name="text" type="String"></argument><argument index="1" name="right" type="bool" default="false"></argument><argument index="2" name="action" type="String" default="&quot;&quot;"></argument><description>
 				Add custom button to the dialog and return the created button.
 				The button titled with [i]text[/i] and the [i]action[/i] will be passed to [custom_action] signal when it is pressed.</description></method><method name="add_cancel"><return type="Button"></return><argument index="0" name="name" type="String"></argument><description>
 				Add custom cancel button to the dialog and return the created button.</description></method><method name="get_hide_on_ok" qualifiers="const"><return type="bool"></return><description>

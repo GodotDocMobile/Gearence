@@ -12,7 +12,8 @@
 		print("other_property" in n) # Prints "False".
 		[/codeblock]
 		The [code]in[/code] operator will evaluate to [code]true[/code] as long as the key exists, even if the value is [code]null[/code].
-		Objects also receive notifications. Notifications are a simple way to notify the object about different events, so they can all be handled together. See [method _notification].</description><tutorials></tutorials><methods><method name="_get" qualifiers="virtual"><return type="Variant"></return><argument index="0" name="property" type="String"></argument><description>
+		Objects also receive notifications. Notifications are a simple way to notify the object about different events, so they can all be handled together. See [method _notification].
+		[b]Note:[/b] Unlike references to a [Reference], references to an Object stored in a variable can become invalid without warning. Therefore, it's recommended to use [Reference] for data classes instead of [Object].</description><tutorials><link title="When and how to avoid using nodes for everything">https://docs.godotengine.org/en/latest/getting_started/workflow/best_practices/node_alternatives.html</link></tutorials><methods><method name="_get" qualifiers="virtual"><return type="Variant"></return><argument index="0" name="property" type="String"></argument><description>
 				Virtual method which can be overridden to customize the return value of [method get].
 				Returns the given property. Returns [code]null[/code] if the [code]property[/code] does not exist.</description></method><method name="_get_property_list" qualifiers="virtual"><return type="Array"></return><description>
 				Virtual method which can be overridden to customize the return value of [method get_property_list].
@@ -28,11 +29,13 @@
 				Calls the [code]method[/code] on the object and returns the result. This method supports a variable number of arguments, so parameters are passed as a comma separated list. Example:
 				[codeblock]
 				call("set", "position", Vector2(42.0, 0.0))
-				[/codeblock]</description></method><method name="call_deferred" qualifiers="vararg"><return type="void"></return><argument index="0" name="method" type="String"></argument><description>
+				[/codeblock]
+				[b]Note:[/b] In C#, the method name must be specified as snake_case if it is defined by a built-in Godot node. This doesn't apply to user-defined methods where you should use the same convention as in the C# source (typically PascalCase).</description></method><method name="call_deferred" qualifiers="vararg"><return type="void"></return><argument index="0" name="method" type="String"></argument><description>
 				Calls the [code]method[/code] on the object during idle time. This method supports a variable number of arguments, so parameters are passed as a comma separated list. Example:
 				[codeblock]
 				call_deferred("set", "position", Vector2(42.0, 0.0))
-				[/codeblock]</description></method><method name="callv"><return type="Variant"></return><argument index="0" name="method" type="String"></argument><argument index="1" name="arg_array" type="Array"></argument><description>
+				[/codeblock]
+				[b]Note:[/b] In C#, the method name must be specified as snake_case if it is defined by a built-in Godot node. This doesn't apply to user-defined methods where you should use the same convention as in the C# source (typically PascalCase).</description></method><method name="callv"><return type="Variant"></return><argument index="0" name="method" type="String"></argument><argument index="1" name="arg_array" type="Array"></argument><description>
 				Calls the [code]method[/code] on the object and returns the result. Contrarily to [method call], this method does not support a variable number of arguments but expects all parameters to be via a single [Array].
 				[codeblock]
 				callv("set", [ "position", Vector2(42.0, 0.0) ])
@@ -62,7 +65,8 @@
 				emit_signal("game_over")
 				[/codeblock]</description></method><method name="free"><return type="void"></return><description>
 				Deletes the object from memory. Any pre-existing reference to the freed object will become invalid, e.g. [code]is_instance_valid(object)[/code] will return [code]false[/code].</description></method><method name="get" qualifiers="const"><return type="Variant"></return><argument index="0" name="property" type="String"></argument><description>
-				Returns the [Variant] value of the given [code]property[/code]. If the [code]property[/code] doesn't exist, this will return [code]null[/code].</description></method><method name="get_class" qualifiers="const"><return type="String"></return><description>
+				Returns the [Variant] value of the given [code]property[/code]. If the [code]property[/code] doesn't exist, this will return [code]null[/code].
+				[b]Note:[/b] In C#, the property name must be specified as snake_case if it is defined by a built-in Godot node. This doesn't apply to user-defined properties where you should use the same convention as in the C# source (typically PascalCase).</description></method><method name="get_class" qualifiers="const"><return type="String"></return><description>
 				Returns the object's class as a [String].</description></method><method name="get_incoming_connections" qualifiers="const"><return type="Array"></return><description>
 				Returns an [Array] of dictionaries with information about signals that are connected to the object.
 				Each [Dictionary] contains three String entries:
@@ -92,9 +96,11 @@
 				If [code]reversed[/code] is [code]true[/code], [method _notification] is called first on the object's own class, and then up to its successive parent classes. If [code]reversed[/code] is [code]false[/code], [method _notification] is called first on the highest ancestor ([Object] itself), and then down to its successive inheriting classes.</description></method><method name="property_list_changed_notify"><return type="void"></return><description>
 				Notify the editor that the property list has changed, so that editor plugins can take the new values into account. Does nothing on export builds.</description></method><method name="remove_meta"><return type="void"></return><argument index="0" name="name" type="String"></argument><description>
 				Removes a given entry from the object's metadata.</description></method><method name="set"><return type="void"></return><argument index="0" name="property" type="String"></argument><argument index="1" name="value" type="Variant"></argument><description>
-				Assigns a new value to the given property. If the [code]property[/code] does not exist, nothing will happen.</description></method><method name="set_block_signals"><return type="void"></return><argument index="0" name="enable" type="bool"></argument><description>
+				Assigns a new value to the given property. If the [code]property[/code] does not exist, nothing will happen.
+				[b]Note:[/b] In C#, the property name must be specified as snake_case if it is defined by a built-in Godot node. This doesn't apply to user-defined properties where you should use the same convention as in the C# source (typically PascalCase).</description></method><method name="set_block_signals"><return type="void"></return><argument index="0" name="enable" type="bool"></argument><description>
 				If set to [code]true[/code], signal emission is blocked.</description></method><method name="set_deferred"><return type="void"></return><argument index="0" name="property" type="String"></argument><argument index="1" name="value" type="Variant"></argument><description>
-				Assigns a new value to the given property, after the current frame's physics step. This is equivalent to calling [method set] via [method call_deferred], i.e. [code]call_deferred("set", property, value)[/code].</description></method><method name="set_indexed"><return type="void"></return><argument index="0" name="property" type="NodePath"></argument><argument index="1" name="value" type="Variant"></argument><description>
+				Assigns a new value to the given property, after the current frame's physics step. This is equivalent to calling [method set] via [method call_deferred], i.e. [code]call_deferred("set", property, value)[/code].
+				[b]Note:[/b] In C#, the property name must be specified as snake_case if it is defined by a built-in Godot node. This doesn't apply to user-defined properties where you should use the same convention as in the C# source (typically PascalCase).</description></method><method name="set_indexed"><return type="void"></return><argument index="0" name="property" type="NodePath"></argument><argument index="1" name="value" type="Variant"></argument><description>
 				Assigns a new value to the property identified by the [NodePath]. The node path should be relative to the current object and can use the colon character ([code]:[/code]) to access nested properties. Example:
 				[codeblock]
 				set_indexed("position", Vector2(42, 0))
@@ -115,4 +121,4 @@
 			Connects a signal in deferred mode. This way, signal emissions are stored in a queue, then set on idle time.</constant><constant name="CONNECT_PERSIST" value="2" enum="ConnectFlags">
 			Persisting connections are saved when the object is serialized to file.</constant><constant name="CONNECT_ONESHOT" value="4" enum="ConnectFlags">
 			One-shot connections disconnect themselves after emission.</constant><constant name="CONNECT_REFERENCE_COUNTED" value="8" enum="ConnectFlags">
-			Connect a signal as reference counted. This means that a given signal can be connected several times to the same target, and will only be fully disconnected once no references are left.</constant></constants></class>
+			Connect a signal as reference-counted. This means that a given signal can be connected several times to the same target, and will only be fully disconnected once no references are left.</constant></constants></class>

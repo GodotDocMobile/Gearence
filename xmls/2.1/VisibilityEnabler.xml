@@ -1,4 +1,4 @@
-<class category="Core" inherits="VisibilityNotifier" name="VisibilityEnabler"><brief_description>
+<class name="VisibilityEnabler" inherits="VisibilityNotifier" category="Core"><brief_description>
 		Enable certain nodes only when visible.</brief_description><description>
 		The VisibilityEnabler will disable [RigidBody] and [AnimationPlayer] nodes when they are not visible. It will only affect other nodes within the same scene as the VisibilityEnabler itself.</description><methods><method name="is_enabler_enabled" qualifiers="const"><return type="bool"></return><argument index="0" name="enabler" type="int"></argument><description>
 				Returns whether the specified enabler was set to true or not.</description></method><method name="set_enabler"><argument index="0" name="enabler" type="int"></argument><argument index="1" name="enabled" type="bool"></argument><description>

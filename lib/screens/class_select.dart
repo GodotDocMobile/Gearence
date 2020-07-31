@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:godotclassreference/components/svg_icon.dart';
+import 'package:godotclassreference/constants/class_db.dart';
 
 import 'package:godotclassreference/constants/class_list.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
@@ -26,6 +27,7 @@ class ClassSelect extends StatefulWidget {
     final decoded = json.decode(file);
     final parsedList = List<String>.from(decoded);
     ClassList().updateList(parsedList);
+    ClassDB().updateDB(version);
     return parsedList;
   }
 
@@ -62,14 +64,14 @@ class _ClassSelectState extends State<ClassSelect> {
                       color: Colors.white,
                     ),
                     onPressed: () {
-//                      Navigator.push(
-//                          context,
-//                          MaterialPageRoute(
-//                              builder: (context) => SearchScreen()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SearchScreen()));
 
-                      showSearch(
-                          context: context,
-                          delegate: ClassSelectSearchDelegate());
+//                      showSearch(
+//                          context: context,
+//                          delegate: ClassSelectSearchDelegate());
                     },
                   )
                 ],

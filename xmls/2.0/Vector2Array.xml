@@ -1,4 +1,4 @@
-<class category="Built-In Types" name="Vector2Array"><brief_description>
+<class name="Vector2Array" category="Built-In Types"><brief_description>
 	An Array of Vector2.</brief_description><description>
 	An Array specifically designed to hold Vector2.</description><methods><method name="Vector2Array"><return type="Vector2Array"></return><argument index="0" name="from" type="Array"></argument><description>
 			Construct a new [Vector2Array]. Optionally, you can pass in an Array that will be converted.</description></method><method name="push_back"><argument index="0" name="vector2" type="Vector2"></argument><description>

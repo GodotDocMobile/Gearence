@@ -1,8 +1,8 @@
-<class category="Core" inherits="Control" name="ButtonArray"><brief_description>
+<class name="ButtonArray" inherits="Control" category="Core"><brief_description>
 		Array of Buttons.</brief_description><description>
 		Array of Buttons. A ButtonArray is useful to have an array of buttons laid out vertically or horizontally. Only one button can be selected, and is referenced by its index in the array (first button is 0, second button is 1, etc.).
-		This is useful [i]e.g.[/i] for joypad-friendly interfaces and option menus.</description><methods><method name="add_button"><argument index="0" name="text" type="String"></argument><argument default="&quot;&quot;" index="1" name="tooltip" type="String"></argument><description>
-				Append a new button to the array, with the specified text.</description></method><method name="add_icon_button"><argument index="0" name="icon" type="Texture"></argument><argument default="&quot;&quot;" index="1" name="text" type="String"></argument><argument default="&quot;&quot;" index="2" name="tooltip" type="String"></argument><description>
+		This is useful [i]e.g.[/i] for joypad-friendly interfaces and option menus.</description><methods><method name="add_button"><argument index="0" name="text" type="String"></argument><argument index="1" name="tooltip" type="String" default="&quot;&quot;"></argument><description>
+				Append a new button to the array, with the specified text.</description></method><method name="add_icon_button"><argument index="0" name="icon" type="Texture"></argument><argument index="1" name="text" type="String" default="&quot;&quot;"></argument><argument index="2" name="tooltip" type="String" default="&quot;&quot;"></argument><description>
 				Append a new button to the array, with the specified icon and text.</description></method><method name="clear"><description>
 				Remove all buttons from the array.</description></method><method name="erase_button"><argument index="0" name="button_idx" type="int"></argument><description>
 				Remove the specified button in the array.</description></method><method name="get_button_count" qualifiers="const"><return type="int"></return><description>

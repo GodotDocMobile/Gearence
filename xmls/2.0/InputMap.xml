@@ -1,4 +1,4 @@
-<class category="Core" inherits="Object" name="InputMap"><brief_description>
+<class name="InputMap" inherits="Object" category="Core"><brief_description>
 	Singleton that manages actions.</brief_description><description>
 	Singleton that manages actions. InputMap has a list of the actions used in InputEvent, which can be modified.</description><methods><method name="action_add_event"><argument index="0" name="action" type="String"></argument><argument index="1" name="event" type="InputEvent"></argument><description>
 			Add an [InputEvent] to an action. This [InputEvent] will trigger the action.</description></method><method name="action_erase_event"><argument index="0" name="action" type="String"></argument><argument index="1" name="event" type="InputEvent"></argument><description>

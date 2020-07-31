@@ -1,4 +1,4 @@
-<class category="Core" inherits="EventStream" name="EventStreamChibi"><brief_description>
+<class name="EventStreamChibi" inherits="EventStream" category="Core"><brief_description>
 	Driver for MOD playback.</brief_description><description>
 	This driver plays MOD music. MOD music, as all event-based streams, is a music format defined by note events occurring at defined moments, instead of a stream of audio samples.
 	Currently, this driver supports the MOD, S3M, IT, and XM formats.

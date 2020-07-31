@@ -1,4 +1,4 @@
-<class category="Core" inherits="Resource" name="Translation"><brief_description>
+<class name="Translation" inherits="Resource" category="Core"><brief_description>
 	Language Translation.</brief_description><description>
 	Translations are resources that can be loaded/unloaded on demand. They map a string to another string.</description><methods><method name="add_message"><argument index="0" name="src_message" type="String"></argument><argument index="1" name="xlated_message" type="String"></argument><description>
 			Add a message for translation.</description></method><method name="erase_message"><argument index="0" name="src_message" type="String"></argument><description>

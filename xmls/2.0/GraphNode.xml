@@ -1,4 +1,4 @@
-<class category="Core" inherits="Container" name="GraphNode"><brief_description>
+<class name="GraphNode" inherits="Container" category="Core"><brief_description>
 	A GraphNode is a container with several input and output slots allowing connections between GraphNodes. Slots can have different, incompatible types.</brief_description><description>
 	A GraphNode is a container defined by a title. It can have 1 or more input and output slots, which can be enabled (shown) or disabled (not shown) and have different (incompatible) types. Colors can also be assigned to slots. A tuple of input and output slots is defined for each GUI element included in the GraphNode. Input and output connections are left and right slots, but only enabled slots are counted as connections.</description><methods><method name="clear_all_slots"><description>
 			Disable all input and output slots of the GraphNode.</description></method><method name="clear_slot"><argument index="0" name="idx" type="int"></argument><description>

@@ -15,7 +15,8 @@
 		    var content = file.get_as_text()
 		    file.close()
 		    return content
-		[/codeblock]</description><tutorials><link>https://docs.godotengine.org/en/latest/getting_started/step_by_step/filesystem.html</link></tutorials><methods><method name="close"><return type="void"></return><description>
+		[/codeblock]
+		In the example above, the file will be saved in the user data folder as specified in the [url=https://docs.godotengine.org/en/latest/tutorials/io/data_paths.html]Data paths[/url] documentation.</description><tutorials><link>https://docs.godotengine.org/en/latest/getting_started/step_by_step/filesystem.html</link></tutorials><methods><method name="close"><return type="void"></return><description>
 				Closes the currently opened file.</description></method><method name="eof_reached" qualifiers="const"><return type="bool"></return><description>
 				Returns [code]true[/code] if the file cursor has read past the end of the file.
 				[b]Note:[/b] This function will still return [code]false[/code] while at the end of the file and only activates when reading past it. This can be confusing but it conforms to how low-level file access works in all operating systems. There is always [method get_len] and [method get_position] to implement a custom logic.</description></method><method name="file_exists" qualifiers="const"><return type="bool"></return><argument index="0" name="path" type="String"></argument><description>

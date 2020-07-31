@@ -1,4 +1,4 @@
-<class category="Built-In Types" name="float"><brief_description>
+<class name="float" category="Built-In Types"><brief_description>
 		Float built-in type</brief_description><description>
 		Float built-in type.</description><methods><method name="float"><return type="float"></return><argument index="0" name="from" type="bool"></argument><description>
 				Cast a [bool] value to a floating point value, [code]float(true)[/code] will be equals to 1.0 and [code]float(false)[/code] will be equals to 0.0.</description></method><method name="float"><return type="float"></return><argument index="0" name="from" type="int"></argument><description>

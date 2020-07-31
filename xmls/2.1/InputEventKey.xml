@@ -1,4 +1,4 @@
-<class category="Built-In Types" name="InputEventKey"><brief_description>
+<class name="InputEventKey" category="Built-In Types"><brief_description>
 		Built-in input event type for keyboard events.</brief_description><description>
 		Input event type for keyboard events that extends the global [InputEvent] type.</description><methods><method name="is_action"><return type="bool"></return><argument index="0" name="action" type="String"></argument><description>
 				Return if this input event matches a pre-defined action.</description></method><method name="is_action_pressed"><return type="bool"></return><argument index="0" name="action" type="String"></argument><description>

@@ -1,4 +1,4 @@
-<class category="Core" inherits="Node" name="HTTPRequest"><brief_description>
+<class name="HTTPRequest" inherits="Node" category="Core"><brief_description>
 		A Node with the ability to send HTTP requests.</brief_description><description>
 		A Node with the ability to send HTTP requests. Uses a [HTTPClient] internally, supports HTTPS.
 		Can be used to make HTTP requests or download files via HTTP.</description><methods><method name="cancel_request"><description>
@@ -9,7 +9,7 @@
 				Return the amount of bytes this HTTPRequest downloaded.</description></method><method name="get_http_client_status" qualifiers="const"><return type="int"></return><description>
 				Return the current status of the underlying [HTTPClient].</description></method><method name="get_max_redirects" qualifiers="const"><return type="int"></return><description>
 				Return the maximum amount of redirects that will be followed.</description></method><method name="is_using_threads" qualifiers="const"><return type="bool"></return><description>
-				Whether this request is using threads.</description></method><method name="request"><return type="int"></return><argument index="0" name="url" type="String"></argument><argument default="StringArray([])" index="1" name="custom_headers" type="StringArray"></argument><argument default="true" index="2" name="ssl_validate_domain" type="bool"></argument><argument default="0" index="3" name="method" type="int"></argument><argument default="&quot;&quot;" index="4" name="request_data" type="String"></argument><description>
+				Whether this request is using threads.</description></method><method name="request"><return type="int"></return><argument index="0" name="url" type="String"></argument><argument index="1" name="custom_headers" type="StringArray" default="StringArray([])"></argument><argument index="2" name="ssl_validate_domain" type="bool" default="true"></argument><argument index="3" name="method" type="int" default="0"></argument><argument index="4" name="request_data" type="String" default="&quot;&quot;"></argument><description>
 				Make a HTTP request (by default GET, unless specified otherwise as method). The url is the complete url including "http://" or "https://" which will be parsed for a host and a port.
 				The custom_headers are HTTP request headers which will be used. If User-Agent is not specified a Godot specific will be used.
 				The ssl_validate_domain specifies if in case of HTTPS the server certificate should be verified.</description></method><method name="set_body_size_limit"><argument index="0" name="bytes" type="int"></argument><description>

@@ -1,4 +1,4 @@
-<class category="Core" inherits="BaseButton" name="Button"><brief_description>
+<class name="Button" inherits="BaseButton" category="Core"><brief_description>
 	Standard themed Button.</brief_description><description>
 	Button is the standard themed button. It can contain text and an icon, and will display them according to the current [Theme].</description><methods><method name="get_button_icon" qualifiers="const"><return type="Texture"></return><description>
 			Return the button icon.</description></method><method name="get_clip_text" qualifiers="const"><return type="bool"></return><description>

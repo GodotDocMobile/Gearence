@@ -1,7 +1,7 @@
-<class category="Core" inherits="Reference" name="TCP_Server"><brief_description>
+<class name="TCP_Server" inherits="Reference" category="Core"><brief_description>
 		TCP Server.</brief_description><description>
 		TCP Server class. Listens to connections on a port and returns a [StreamPeerTCP] when got a connection.</description><methods><method name="is_connection_available" qualifiers="const"><return type="bool"></return><description>
-				Return true if a connection is available for taking.</description></method><method name="listen"><return type="int"></return><argument index="0" name="port" type="int"></argument><argument default="&quot;*&quot;" index="1" name="bind_address" type="String"></argument><description>
+				Return true if a connection is available for taking.</description></method><method name="listen"><return type="int"></return><argument index="0" name="port" type="int"></argument><argument index="1" name="bind_address" type="String" default="&quot;*&quot;"></argument><description>
 				Listen on the "port" binding to "bind_address".
 				If "bind_address" is set as "*" (default), the server will listen on all available addresses (both IPv4 and IPv6).
 				If "bind_address" is set as "0.0.0.0" (for IPv4) or "::" (for IPv6), the server will listen on all available addresses matching that IP type.

@@ -1,4 +1,4 @@
-<class category="Core" inherits="Shape2D" name="CircleShape2D"><brief_description>
+<class name="CircleShape2D" inherits="Shape2D" category="Core"><brief_description>
 	Circular Shape for 2D Physics.</brief_description><description>
 	Circular Shape for 2D Physics. This shape is useful for modeling balls or small characters and it's collision detection with everything else is very fast.</description><methods><method name="get_radius" qualifiers="const"><return type="float"></return><description>
 			Return the radius of the circle shape.</description></method><method name="set_radius"><argument index="0" name="radius" type="float"></argument><description>

@@ -1,4 +1,4 @@
-<class category="Core" inherits="Node2D" name="ParallaxLayer"><brief_description>
+<class name="ParallaxLayer" inherits="Node2D" category="Core"><brief_description>
 		A parallax scrolling layer to be used with [ParallaxBackground].</brief_description><description>
 		A ParallaxLayer must be the child of a [ParallaxBackground] node. All child nodes will be affected by the parallax scrolling of this layer.</description><methods><method name="get_mirroring" qualifiers="const"><return type="Vector2"></return><description>
 				Return the mirroring of the ParallaxLayer.</description></method><method name="get_motion_offset" qualifiers="const"><return type="Vector2"></return><description></description></method><method name="get_motion_scale" qualifiers="const"><return type="Vector2"></return><description>

@@ -53,10 +53,10 @@ class _ClassDetailState extends State<ClassDetail>
 
   @override
   void dispose() {
+    super.dispose();
     _tabController.dispose();
     _bloc.dispose();
 //    StoredValues().popClass();
-    super.dispose();
   }
 
   Future<ClassContent> getClassDetail() async {

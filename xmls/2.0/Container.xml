@@ -1,4 +1,4 @@
-<class category="Core" inherits="Control" name="Container"><brief_description>
+<class name="Container" inherits="Control" category="Core"><brief_description>
 	Base node for containers.</brief_description><description>
 	Base node for containers. A [Container] contains other controls and automatically arranges them in a certain way.
 	A Control can inherit this to create custom container classes.</description><methods><method name="fit_child_in_rect"><argument index="0" name="child" type="Control"></argument><argument index="1" name="rect" type="Rect2"></argument><description>

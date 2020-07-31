@@ -1,4 +1,4 @@
-<class category="Core" inherits="Node" name="Spatial"><brief_description>
+<class name="Spatial" inherits="Node" category="Core"><brief_description>
 		Base class for all 3D nodes.</brief_description><description>
 		Spatial is the base for every type of 3D [Node]. It contains a 3D [Transform] which can be set or get as local or global. If a Spatial [Node] has Spatial children, their transforms will be relative to the parent.</description><methods><method name="get_gizmo" qualifiers="const"><return type="SpatialGizmo"></return><description></description></method><method name="get_global_transform" qualifiers="const"><return type="Transform"></return><description>
 				Return the global transform, relative to worldspace.</description></method><method name="get_parent_spatial" qualifiers="const"><return type="Object"></return><description>

@@ -1,4 +1,4 @@
-<class category="Core" inherits="Resource" name="TileSet"><brief_description>
+<class name="TileSet" inherits="Resource" category="Core"><brief_description>
 	Tile library for tilemaps.</brief_description><description>
 	A TileSet is a library of tiles for a [TileMap]. It contains a list of tiles, each consisting of a sprite and optional collision shapes.
 	Tiles are referenced by a unique integer ID.</description><methods><method name="clear"><description>

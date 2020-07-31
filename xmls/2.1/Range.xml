@@ -1,4 +1,4 @@
-<class category="Core" inherits="Control" name="Range"><brief_description>
+<class name="Range" inherits="Control" category="Core"><brief_description>
 		Abstract base class for range-based controls.</brief_description><description>
 		Range is a base class for [Control] nodes that change a floating point [i]value[/i] between a [i]minimum[/i] and a [i]maximum[/i], using [i]step[/i] and [i]page[/i], for example a [ScrollBar].</description><methods><method name="get_max" qualifiers="const"><return type="float"></return><description>
 				Return the maximum value.</description></method><method name="get_min" qualifiers="const"><return type="float"></return><description>

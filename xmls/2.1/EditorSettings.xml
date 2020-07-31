@@ -1,4 +1,4 @@
-<class category="Core" inherits="Resource" name="EditorSettings"><brief_description>
+<class name="EditorSettings" inherits="Resource" category="Core"><brief_description>
 		Object that holds the project-independent editor settings.</brief_description><description>
 		Object that holds the project-independent editor settings. These settings are generally visible in the Editor Settings menu.
 		Accessing the settings is done by using the regular [Object] API, such as:

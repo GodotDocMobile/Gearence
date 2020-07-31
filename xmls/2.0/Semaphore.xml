@@ -1,4 +1,4 @@
-<class category="Core" inherits="Reference" name="Semaphore"><brief_description>
+<class name="Semaphore" inherits="Reference" category="Core"><brief_description>
 	A synchronization Semaphore.</brief_description><description>
 	A synchronization Semaphore. Element used in multi-threadding. Initialized to zero on creation.</description><methods><method name="post"><return type="Error"></return><description>
 			Lowers the [Semaphore], allowing one more thread in.</description></method><method name="wait"><return type="Error"></return><description>

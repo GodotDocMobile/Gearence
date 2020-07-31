@@ -1,4 +1,4 @@
-<class category="Built-In Types" name="RealArray"><brief_description>
+<class name="RealArray" category="Built-In Types"><brief_description>
 	Real Array .</brief_description><description>
 	Real Array. Array of floating point values. Can only contain floats. Optimized for memory usage, can't fragment the memory.</description><methods><method name="RealArray"><return type="RealArray"></return><argument index="0" name="from" type="Array"></argument><description>
 			Create from a generic array.</description></method><method name="push_back"><argument index="0" name="value" type="float"></argument><description>

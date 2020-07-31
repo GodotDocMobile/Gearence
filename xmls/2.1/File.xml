@@ -1,4 +1,4 @@
-<class category="Core" inherits="Reference" name="File"><brief_description>
+<class name="File" inherits="Reference" category="Core"><brief_description>
 		Type to handle file reading and writing operations.</brief_description><description>
 		File type. This is used to permanently store data into the user device's file system and to read from it. This can be used to store game save data or player configuration files, for example.
 		Here's a sample on how to write and read from a file:
@@ -24,7 +24,7 @@
 				Get the next 64 bits from the file as an integer.</description></method><method name="get_8" qualifiers="const"><return type="int"></return><description>
 				Get the next 8 bits from the file as an integer.</description></method><method name="get_as_text" qualifiers="const"><return type="String"></return><description>
 				Get the whole file as a [String].</description></method><method name="get_buffer" qualifiers="const"><return type="RawArray"></return><argument index="0" name="len" type="int"></argument><description>
-				Get next len bytes of the file as a [RawArray].</description></method><method name="get_csv_line" qualifiers="const"><return type="StringArray"></return><argument default="&quot;,&quot;" index="0" name="delim" type="String"></argument><description>
+				Get next len bytes of the file as a [RawArray].</description></method><method name="get_csv_line" qualifiers="const"><return type="StringArray"></return><argument index="0" name="delim" type="String" default="&quot;,&quot;"></argument><description>
 				Get the next value of the file in CSV (Comma Separated Values) format. You can pass a different delimiter to use other than the default "," (comma).</description></method><method name="get_double" qualifiers="const"><return type="float"></return><description>
 				Get the next 64 bits from the file as a floating point number.</description></method><method name="get_endian_swap"><return type="bool"></return><description>
 				Get whether endian swap is enabled for this file.</description></method><method name="get_error" qualifiers="const"><return type="Error"></return><description>
@@ -42,7 +42,7 @@
 				Open the file for writing or reading, depending on the flags.</description></method><method name="open_encrypted"><return type="int"></return><argument index="0" name="path" type="String"></argument><argument index="1" name="mode_flags" type="int"></argument><argument index="2" name="key" type="RawArray"></argument><description>
 				Open an encrypted file in write or read mode. You need to pass a binary key to encrypt/decrypt it.</description></method><method name="open_encrypted_with_pass"><return type="int"></return><argument index="0" name="path" type="String"></argument><argument index="1" name="mode_flags" type="int"></argument><argument index="2" name="pass" type="String"></argument><description>
 				Open an encrypted file in write or read mode. You need to pass a password to encrypt/decrypt it.</description></method><method name="seek"><argument index="0" name="pos" type="int"></argument><description>
-				Change the file reading/writing cursor to the specified position (in bytes from the beginning of the file).</description></method><method name="seek_end"><argument default="0" index="0" name="pos" type="int"></argument><description>
+				Change the file reading/writing cursor to the specified position (in bytes from the beginning of the file).</description></method><method name="seek_end"><argument index="0" name="pos" type="int" default="0"></argument><description>
 				Change the file reading/writing cursor to the specified position (in bytes from the end of the file). Note that this is an offset, so you should use negative numbers or the cursor will be at the end of the file.</description></method><method name="set_endian_swap"><argument index="0" name="enable" type="bool"></argument><description>
 				Set whether to swap the endianess of the file. Enable this if you're dealing with files written in big endian machines.
 				Note that this is about the file format, not CPU type. This is always reseted to [code]false[/code] whenever you open the file.</description></method><method name="store_16"><argument index="0" name="value" type="int"></argument><description>
