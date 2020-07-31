@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
+import 'package:godotclassreference/bloc/tap_event_bloc.dart';
+import 'package:godotclassreference/constants/class_db.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
 
 import 'screens/class_select.dart';
@@ -21,6 +23,13 @@ MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
     'document',
     'game',
     'games',
+    'gaming',
+    'reference',
+    'game engine',
+    'unity',
+    'unity 3d',
+    'graphics',
+    'design',
     'code',
     'programming',
     'course',
@@ -52,16 +61,16 @@ BannerAd myBanner = BannerAd(
   },
 );
 
-//InterstitialAd myInterstitial = InterstitialAd(
-//  // Replace the testAdUnitId with an ad unit id from the AdMob dash.
-//  // https://developers.google.com/admob/android/test-ads
-//  // https://developers.google.com/admob/ios/test-ads
-//  adUnitId: InterstitialAd.testAdUnitId,
-//  targetingInfo: targetingInfo,
-//  listener: (MobileAdEvent event) {
-//    print("InterstitialAd event is $event");
-//  },
-//);
+InterstitialAd myInterstitial = InterstitialAd(
+  // Replace the testAdUnitId with an ad unit id from the AdMob dash.
+  // https://developers.google.com/admob/android/test-ads
+  // https://developers.google.com/admob/ios/test-ads
+  adUnitId: InterstitialAd.testAdUnitId,
+  targetingInfo: targetingInfo,
+  listener: (MobileAdEvent event) {
+    print("InterstitialAd event is $event");
+  },
+);
 
 void main() => runApp(GCRApp());
 
@@ -75,6 +84,14 @@ class _GCRAppState extends State<GCRApp> {
   void initState() {
     FirebaseAdMob.instance.initialize(appId: Platform.isIOS ? iosAppId : appId);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    ClassDB().dispose();
+    TapEventBloc().dispose();
+    super.dispose();
   }
 
   @override
@@ -103,7 +120,8 @@ class _GCRAppState extends State<GCRApp> {
       builder: (BuildContext context, Widget child) {
         return Padding(
           child: child,
-          padding: EdgeInsets.only(bottom: 50+MediaQuery.of(context).padding.bottom),
+          padding: EdgeInsets.only(
+              bottom: 50 + MediaQuery.of(context).padding.bottom),
 //          padding: EdgeInsets.only(bottom: 0),
         );
       },
