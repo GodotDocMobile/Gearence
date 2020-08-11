@@ -158,14 +158,14 @@ if __name__ == "__main__":
         pass
     
     _doc_date = datetime.date.today()
-    if _find_time_line:
-        _config_content[_time_line] = 'doc_time: {}\n'.format(_doc_date)
-    else:
-        _config_content.append('doc_time: {}\n'.format(_doc_date))
+    # if _find_time_line:
+    #     _config_content[_time_line] = 'doc_time: {}\n'.format(_doc_date)
+    # else:
+    #     _config_content.append('doc_time: {}\n'.format(_doc_date))
         
-    _config_file = open("../pubspec.yaml",'w')
-    _config_file.write("".join(_config_content))
-    _config_file.close()
+    # _config_file = open("../pubspec.yaml",'w')
+    # _config_file.write("".join(_config_content))
+    # _config_file.close()
 
     _update_doc_file = open("../xmls/conf.json","w")
     _update_doc_file.write("{}".format(_doc_date))
