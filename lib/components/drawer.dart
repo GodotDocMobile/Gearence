@@ -23,12 +23,16 @@ class GCRDrawerState extends State<GCRDrawer> {
   String godotVersion;
   PackageInfo pi;
   String docDate;
+  bool darkTheme;
 
   Future<bool> loadAll() async {
 //    await PackageInfo.fromPlatform();
-    await StoredValues().readValue();
+//    await StoredValues().readValue();
     pi = await PackageInfo.fromPlatform();
     godotVersion = StoredValues().prefs.getString('version').substring(0);
+    darkTheme = StoredValues().prefs.getBool('darkTheme') == null
+        ? false
+        : StoredValues().prefs.getBool('darkTheme');
     docDate = StoredValues().docDate;
 //    print(StoredValues().docDate);
     return true;
@@ -109,6 +113,17 @@ class GCRDrawerState extends State<GCRDrawer> {
                     },
                   ),
                 ),
+                ListTile(
+                  leading: Icon(Icons.brightness_6),
+                  title: Text('Dark Theme'),
+                  trailing: Switch(
+                    value: darkTheme,
+                    onChanged: (v) {
+                      StoredValues().prefs.setBool('darkTheme', v);
+                      StoredValues().themeChange.switchTheme(v);
+                    },
+                  ),
+                )
 //                ListTile(
 //                  title: Text('Doc Last Update :' + docDate),
 //                ),

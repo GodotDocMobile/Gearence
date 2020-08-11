@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:godotclassreference/bloc/tap_event_bloc.dart';
+import 'package:godotclassreference/bloc/theme_bloc.dart';
 import 'package:godotclassreference/constants/class_db.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
+import 'package:godotclassreference/theme/themes.dart';
 
 import 'screens/class_select.dart';
 
@@ -18,26 +20,48 @@ const iosUnitId = 'ca-app-pub-3569371273195353/7046427649';
 
 MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
   keywords: <String>[
+    '3d games',
+    //
+    'blender',
+    //
+    'code',
+    'course',
+    //
+    'document',
+    'design',
+    'design',
+    'developer',
+    //
+    'e sports',
+    'education',
+    //
     'godot',
     'game develop',
-    'document',
     'game',
     'games',
     'gaming',
-    'reference',
     'game engine',
+    'graphics',
+    //
+    'reference',
+    //
     'unity',
     'unity 3d',
-    'graphics',
-    'design',
-    'code',
+    'unreal',
+    //
     'programming',
-    'course',
-    'education',
+    'project manage',
+    //
     'marketing',
-    'design',
+    'music',
+    //
+    'song',
+
+    //
     'open source',
+    //
     'learn',
+    //
     'teach',
   ],
 //  contentUrl: 'https://flutter.io',
@@ -96,7 +120,6 @@ class _GCRAppState extends State<GCRApp> {
 
   @override
   Widget build(BuildContext context) {
-    StoredValues().readValue();
     myBanner
       // typically this happens well before the ad is shown
       ..load()
@@ -109,21 +132,38 @@ class _GCRAppState extends State<GCRApp> {
         anchorType: AnchorType.bottom,
       );
 
-    return MaterialApp(
-      //hide debug banner
-      debugShowCheckedModeBanner: false,
+    return FutureBuilder<bool>(
+      future: StoredValues().readValue(),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        if (snapshot.hasData) {
+          if (!StoredValues().themeChange.isListened()) {
+            StoredValues().themeChange.addListener(() {
+              setState(() {});
+            });
+          }
+
+          return MaterialApp(
+            //hide debug banner
+            debugShowCheckedModeBanner: false,
 //      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: godotColor,
-      ),
-      home: ClassSelect(),
-      builder: (BuildContext context, Widget child) {
-        return Padding(
-          child: child,
-          padding: EdgeInsets.only(
-              bottom: 50 + MediaQuery.of(context).padding.bottom),
+            theme: lightTheme,
+            darkTheme: darkTheme,
+            themeMode: StoredValues().themeChange.currentTheme(),
+            home: ClassSelect(),
+            builder: (BuildContext context, Widget child) {
+              return Padding(
+                child: child,
+                padding: EdgeInsets.only(
+                    bottom: 50 + MediaQuery.of(context).padding.bottom),
 //          padding: EdgeInsets.only(bottom: 0),
-        );
+              );
+            },
+          );
+        } else {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
       },
     );
   }

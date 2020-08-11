@@ -85,7 +85,8 @@
 			If [code]true[/code], sets the [code]step[/code] of the scrollbars to [code]0.25[/code] which results in smoother scrolling.</member><member name="syntax_highlighting" type="bool" setter="set_syntax_coloring" getter="is_syntax_coloring_enabled" default="false">
 			If [code]true[/code], any custom color properties that have been set for this [TextEdit] will be visible.</member><member name="text" type="String" setter="set_text" getter="get_text" default="&quot;&quot;">
 			String value of the [TextEdit].</member><member name="v_scroll_speed" type="float" setter="set_v_scroll_speed" getter="get_v_scroll_speed" default="80.0">
-			Vertical scroll sensitivity.</member><member name="wrap_enabled" type="bool" setter="set_wrap_enabled" getter="is_wrap_enabled" default="false">
+			Vertical scroll sensitivity.</member><member name="virtual_keyboard_enabled" type="bool" setter="set_virtual_keyboard_enabled" getter="is_virtual_keyboard_enabled" default="true">
+			If [code]true[/code], the native virtual keyboard is shown when focused on platforms that support it.</member><member name="wrap_enabled" type="bool" setter="set_wrap_enabled" getter="is_wrap_enabled" default="false">
 			If [code]true[/code], enables text wrapping when it goes beyond the edge of what is visible.</member></members><signals><signal name="breakpoint_toggled"><argument index="0" name="row" type="int"></argument><description>
 				Emitted when a breakpoint is placed via the breakpoint gutter.</description></signal><signal name="cursor_changed"><description>
 				Emitted when the cursor changes.</description></signal><signal name="info_clicked"><argument index="0" name="row" type="int"></argument><argument index="1" name="info" type="String"></argument><description>

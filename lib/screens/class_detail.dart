@@ -30,11 +30,19 @@ class ClassDetail extends StatefulWidget {
 
 class _ClassDetailState extends State<ClassDetail>
     with TickerProviderStateMixin {
+  int resumeIndex = 0;
   TabController _tabController;
   Future<ClassContent> _classContent;
   List<ClassTab> _tabs;
 
   TapEventBloc _bloc;
+
+  @override
+  void reassemble() {
+    // TODO: implement reassemble
+    super.reassemble();
+    print("reassemble");
+  }
 
   @override
   void initState() {
@@ -104,6 +112,7 @@ class _ClassDetailState extends State<ClassDetail>
       future: _classContent,
       builder: (BuildContext context, AsyncSnapshot<ClassContent> snapshot) {
         if (snapshot.hasData) {
+//          print("building detail");
           _tabs = getClassTabs(snapshot.data, _bloc.argStream, this.onLinkTap);
           // append theme item tab if needed
           if (snapshot.data.themeItems != null &&
@@ -120,8 +129,12 @@ class _ClassDetailState extends State<ClassDetail>
             ));
           }
 
-          _tabController = TabController(vsync: this, length: _tabs.length);
-
+          _tabController = TabController(
+              vsync: this, length: _tabs.length, initialIndex: resumeIndex);
+          _tabController.addListener(() {
+            resumeIndex = _tabController.index;
+//            print(_tabController.index);
+          });
 //          _tabController.addListener(() {
 //            print('tab index: ' + _tabController.index.toString());
 //          });

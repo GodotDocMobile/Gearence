@@ -14,7 +14,7 @@ import 'package:godotclassreference/screens/search.dart';
 
 class ClassSelect extends StatefulWidget {
   static Future<List<String>> getXmlFiles() async {
-    await StoredValues().readValue();
+//    await StoredValues().readValue();
 
     String version = StoredValues().prefs.getString('version');
 //    print(version);

@@ -1,9 +1,11 @@
 import 'package:flutter/services.dart';
+import 'package:godotclassreference/bloc/theme_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StoredValues {
   SharedPreferences prefs;
   String docDate;
+  ThemeChange themeChange;
 
   static final StoredValues _instance = StoredValues._internal();
 
@@ -21,9 +23,10 @@ class StoredValues {
 
   StoredValues._internal();
 
-  Future<void> readValue() async {
+  Future<bool> readValue() async {
     prefs = await SharedPreferences.getInstance();
     docDate = await rootBundle.loadString('xmls/conf.json');
+    themeChange = ThemeChange(prefs.getBool('darkTheme') == true);
 
     int _scrollIndex = prefs.getInt('scrollIndex');
     if (_scrollIndex != null) {
@@ -39,5 +42,6 @@ class StoredValues {
     if (_className != null && _className.length > 0) {
       classes.add(_className);
     }
+    return true;
   }
 }
