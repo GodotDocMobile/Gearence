@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:godotclassreference/components/description_text.dart';
+import 'package:godotclassreference/constants/class_list.dart';
 import 'package:godotclassreference/constants/colors.dart';
 import 'package:godotclassreference/bloc/tap_event_arg.dart';
+import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:godotclassreference/models/class_content.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
@@ -24,9 +26,12 @@ class _ClassMembersState extends State<ClassMembers> {
   ItemScrollController _scrollController;
   ItemPositionsListener _itemPositionsListener;
 
+  bool _isDarkMode;
+
   @override
   void initState() {
     super.initState();
+    _isDarkMode = StoredValues().themeChange.isDark;
     _scrollController = ItemScrollController();
     _itemPositionsListener = ItemPositionsListener.create();
     widget.eventStream.listen((v) {
@@ -69,10 +74,36 @@ class _ClassMembersState extends State<ClassMembers> {
           return Column(
             children: <Widget>[
               ListTile(
-                leading: Text(m.type),
+                leading: ClassList().getList().contains(m.type + '.xml')
+                    ? InkWell(
+                        child: Text(
+                          m.type,
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: godotColor,
+                          ),
+                        ),
+                        onTap: () {
+                          TapEventArg _arg = TapEventArg(
+                              className: m.type,
+                              linkType: LinkType.Class,
+                              fieldName: '');
+                          widget.onLinkTap(_arg);
+                        },
+                      )
+                    : Text(
+                        m.type,
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.black,
+                        ),
+                      ),
                 title: Text(
                   m.name,
-                  style: TextStyle(fontSize: 25, color: godotColor),
+                  style: TextStyle(
+                    fontSize: 25,
+//                    color: godotColor,
+                  ),
                 ),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,7 +121,10 @@ class _ClassMembersState extends State<ClassMembers> {
                                 padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                                 child: Text(
                                   m.setter + "(value)",
-                                  style: TextStyle(color: Colors.black),
+                                  style: TextStyle(
+                                      color: _isDarkMode
+                                          ? Colors.white
+                                          : Colors.black),
                                 ),
                               ),
                             ],
@@ -108,7 +142,10 @@ class _ClassMembersState extends State<ClassMembers> {
                                 padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                                 child: Text(
                                   m.getter + "()",
-                                  style: TextStyle(color: Colors.black),
+                                  style: TextStyle(
+                                      color: _isDarkMode
+                                          ? Colors.white
+                                          : Colors.black),
                                 ),
                               ),
                             ],
