@@ -282,16 +282,17 @@
 				a = ord("€") # a is 8364
 				[/codeblock]
 				This is the inverse of [method char].</description></method><method name="parse_json"><return type="Variant"></return><argument index="0" name="json" type="String"></argument><description>
-				Parse JSON text to a Variant (use [method typeof] to check if it is what you expect).
-				Be aware that the JSON specification does not define integer or float types, but only a number type. Therefore, parsing a JSON text will convert all numerical values to [float] types.
-				Note that JSON objects do not preserve key order like Godot dictionaries, thus you should not rely on keys being in a certain order if a dictionary is constructed from JSON. In contrast, JSON arrays retain the order of their elements:
+				Parse JSON text to a Variant. (Use [method typeof] to check if the Variant's type is what you expect.)
+				[b]Note:[/b] The JSON specification does not define integer or float types, but only a [i]number[/i] type. Therefore, parsing a JSON text will convert all numerical values to [float] types.
+				[b]Note:[/b] JSON objects do not preserve key order like Godot dictionaries, thus, you should not rely on keys being in a certain order if a dictionary is constructed from JSON. In contrast, JSON arrays retain the order of their elements:
 				[codeblock]
-				p = parse_json('["a", "b", "c"]')
-				if typeof(p) == TYPE_ARRAY:
-				    print(p[0]) # Prints a
+				var p = JSON.parse('["hello", "world", "!"]')
+				if typeof(p.result) == TYPE_ARRAY:
+				    print(p.result[0]) # Prints "hello"
 				else:
-				    print("unexpected results")
-				[/codeblock]</description></method><method name="polar2cartesian"><return type="Vector2"></return><argument index="0" name="r" type="float"></argument><argument index="1" name="th" type="float"></argument><description>
+				    push_error("Unexpected results.")
+				[/codeblock]
+				See also [JSON] for an alternative way to parse JSON text.</description></method><method name="polar2cartesian"><return type="Vector2"></return><argument index="0" name="r" type="float"></argument><argument index="1" name="th" type="float"></argument><description>
 				Converts a 2D point expressed in the polar coordinate system (a distance from the origin [code]r[/code] and an angle [code]th[/code]) to the cartesian coordinate system (X and Y axis).</description></method><method name="posmod"><return type="int"></return><argument index="0" name="a" type="int"></argument><argument index="1" name="b" type="int"></argument><description>
 				Returns the integer modulus of [code]a/b[/code] that wraps equally in positive and negative.
 				[codeblock]
@@ -486,12 +487,16 @@
 				a = log(2.0) # Returns 0.693147
 				tanh(a)      # Returns 0.6
 				[/codeblock]</description></method><method name="to_json"><return type="String"></return><argument index="0" name="var" type="Variant"></argument><description>
-				Converts a Variant [code]var[/code] to JSON text and return the result. Useful for serializing data to store or send over the network.
+				Converts a [Variant] [code]var[/code] to JSON text and return the result. Useful for serializing data to store or send over the network.
 				[codeblock]
+				# Both numbers below are integers.
 				a = { "a": 1, "b": 2 }
 				b = to_json(a)
 				print(b) # {"a":1, "b":2}
-				[/codeblock]</description></method><method name="type_exists"><return type="bool"></return><argument index="0" name="type" type="String"></argument><description>
+				# Both numbers above are floats, even if they display without any decimal places.
+				[/codeblock]
+				[b]Note:[/b] The JSON specification does not define integer or float types, but only a [i]number[/i] type. Therefore, converting a [Variant] to JSON text will convert all numerical values to [float] types.
+				See also [JSON] for an alternative way to convert a [Variant] to JSON text.</description></method><method name="type_exists"><return type="bool"></return><argument index="0" name="type" type="String"></argument><description>
 				Returns whether the given class exists in [ClassDB].
 				[codeblock]
 				type_exists("Sprite") # Returns true
@@ -510,9 +515,9 @@
 				j = to_json([1, 2, 3])
 				v = validate_json(j)
 				if not v:
-				    print("valid")
+				    print("Valid JSON.")
 				else:
-				    prints("invalid", v)
+				    push_error("Invalid JSON: " + v)
 				[/codeblock]</description></method><method name="var2bytes"><return type="PoolByteArray"></return><argument index="0" name="var" type="Variant"></argument><argument index="1" name="full_objects" type="bool" default="false"></argument><description>
 				Encodes a variable value to a byte array. When [code]full_objects[/code] is [code]true[/code] encoding objects is allowed (and can potentially include code).</description></method><method name="var2str"><return type="String"></return><argument index="0" name="var" type="Variant"></argument><description>
 				Converts a Variant [code]var[/code] to a formatted string that can later be parsed using [method str2var].

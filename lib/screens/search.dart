@@ -9,6 +9,7 @@ import 'package:godotclassreference/constants/class_db.dart';
 import 'package:godotclassreference/constants/class_list.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:godotclassreference/models/class_content.dart';
+import 'package:godotclassreference/theme/themes.dart';
 import 'package:xml/xml.dart' as xml;
 
 import 'class_detail.dart';
@@ -47,9 +48,17 @@ class _SearchScreenState extends State<SearchScreen> {
   bool _searchSignal = true;
   bool _searchThemeItem = true;
 
+  bool _isDarkTheme;
+
   @override
   void initState() {
     super.initState();
+    _searchBloc.argStream.listen((event) {
+      setState(() {
+        _argList.add(event);
+      });
+    });
+    _isDarkTheme = StoredValues().themeChange.isDark;
   }
 
   @override
@@ -238,16 +247,12 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    _searchBloc.argStream.listen((event) {
-      setState(() {
-        _argList.add(event);
-      });
-    });
-
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.black),
+        backgroundColor:
+            _isDarkTheme ? darkTheme.backgroundColor : Colors.white,
+        iconTheme: IconThemeData(
+            color: _isDarkTheme ? darkTheme.iconTheme.color : Colors.black),
         title: TextField(
           autofocus: true,
           controller: _controller,

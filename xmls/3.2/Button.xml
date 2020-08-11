@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?><class name="Button" inherits="BaseButton" version="3.2"><brief_description>
 		Standard themed Button.</brief_description><description>
-		Button is the standard themed button. It can contain text and an icon, and will display them according to the current [Theme].</description><tutorials></tutorials><methods></methods><members><member name="align" type="int" setter="set_text_align" getter="get_text_align" enum="Button.TextAlign" default="1">
+		Button is the standard themed button. It can contain text and an icon, and will display them according to the current [Theme].
+		[b]Example of creating a button and assigning an action when pressed by code:[/b]
+		[codeblock]
+		func _ready():
+		    var button = Button.new()
+		    button.text = "Click me"
+		    button.connect("pressed", self, "_button_pressed")
+		    add_child(button)
+
+		func _button_pressed():
+		    print("Hello world!")
+		[/codeblock]
+		Buttons (like all Control nodes) can also be created in the editor, but some situations may require creating them from code.</description><tutorials></tutorials><methods></methods><members><member name="align" type="int" setter="set_text_align" getter="get_text_align" enum="Button.TextAlign" default="1">
 			Text alignment policy for the button's text, use one of the [enum TextAlign] constants.</member><member name="clip_text" type="bool" setter="set_clip_text" getter="get_clip_text" default="false">
 			When this property is enabled, text that is too large to fit the button is clipped, when disabled the Button will always be wide enough to hold the text.</member><member name="expand_icon" type="bool" setter="set_expand_icon" getter="is_expand_icon" default="false">
 			When enabled, the button's icon will expand/shrink to fit the button's size while keeping its aspect.</member><member name="flat" type="bool" setter="set_flat" getter="is_flat" default="false">

@@ -27,9 +27,12 @@ class _ClassMethodsState extends State<ClassMethods> {
   ItemPositionsListener _itemPositionsListener;
   int _scrollIndex = 0;
 
+  bool _isDarkMode;
+
   @override
   void initState() {
     super.initState();
+    _isDarkMode = StoredValues().themeChange.isDark;
     _scrollController = ItemScrollController();
     _itemPositionsListener = ItemPositionsListener.create();
     widget.eventStream.listen((v) {
@@ -92,13 +95,39 @@ class _ClassMethodsState extends State<ClassMethods> {
         itemBuilder: (context, index) {
           final m = widget.clsContent.methods[index];
           return ListTile(
-            leading: Text(
-              m.returnValue == null ? 'void' : m.returnValue.type,
-            ),
+            leading: m.returnValue == null
+                ? Text('void')
+                : ClassList().getList().contains(m.returnValue.type + '.xml')
+                    ? InkWell(
+                        child: Text(
+                          m.returnValue.type,
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: godotColor,
+                          ),
+                        ),
+                        onTap: () {
+                          TapEventArg _arg = TapEventArg(
+                              className: m.returnValue.type,
+                              linkType: LinkType.Class,
+                              fieldName: '');
+                          widget.onLinkTap(_arg);
+                        },
+                      )
+                    : Text(
+                        m.returnValue.type,
+                        style: TextStyle(
+                          fontSize: 15,
+//                          color: Colors.black,
+                        ),
+                      ),
             title: Text(
               m.name,
               softWrap: true,
-              style: TextStyle(fontSize: 25, color: godotColor),
+              style: TextStyle(
+                fontSize: 25,
+//                color: godotColor,
+              ),
             ),
             subtitle: Column(
               children: <Widget>[
@@ -119,9 +148,9 @@ class _ClassMethodsState extends State<ClassMethods> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: m.arguments.map((a) {
-                                        print(ClassList()
-                                            .getList()
-                                            .contains(a.type + '.xml'));
+//                                        print(ClassList()
+//                                            .getList()
+//                                            .contains(a.type + '.xml'));
                                         return ClassList()
                                                 .getList()
                                                 .contains(a.type + '.xml')
@@ -147,7 +176,7 @@ class _ClassMethodsState extends State<ClassMethods> {
                                                 a.type,
                                                 style: TextStyle(
                                                   fontSize: 15,
-                                                  color: Colors.black,
+//                                                  color: Colors.black,
                                                 ),
                                               );
                                       }).toList(),
@@ -163,7 +192,9 @@ class _ClassMethodsState extends State<ClassMethods> {
                                           a.name,
                                           style: TextStyle(
                                             fontSize: 15,
-                                            color: Colors.black,
+                                            color: _isDarkMode
+                                                ? Colors.white
+                                                : Colors.black,
                                           ),
                                         );
                                       }).toList(),
@@ -185,7 +216,9 @@ class _ClassMethodsState extends State<ClassMethods> {
                                                   Text(
                                                     a.defaultValue,
                                                     style: TextStyle(
-                                                      color: Colors.black,
+                                                      color: _isDarkMode
+                                                          ? Colors.white
+                                                          : Colors.black,
                                                     ),
                                                   )
                                                 ],
@@ -209,7 +242,10 @@ class _ClassMethodsState extends State<ClassMethods> {
                                   ),
                                   Text(
                                     m.qualifiers,
-                                    style: TextStyle(color: Colors.black),
+                                    style: TextStyle(
+                                        color: _isDarkMode
+                                            ? Colors.white
+                                            : Colors.black),
                                   ),
                                 ],
                               ),
