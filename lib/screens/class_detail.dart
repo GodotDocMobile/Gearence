@@ -37,6 +37,8 @@ class _ClassDetailState extends State<ClassDetail>
 
   TapEventBloc _bloc;
 
+  String className = '';
+
   @override
   void reassemble() {
     // TODO: implement reassemble
@@ -64,6 +66,7 @@ class _ClassDetailState extends State<ClassDetail>
     super.dispose();
     _tabController.dispose();
     _bloc.dispose();
+//    print("$className disposed");
 //    StoredValues().popClass();
   }
 
@@ -129,12 +132,19 @@ class _ClassDetailState extends State<ClassDetail>
             ));
           }
 
+          className = snapshot.data.name;
+          print('$className : $resumeIndex');
           _tabController = TabController(
-              vsync: this, length: _tabs.length, initialIndex: resumeIndex);
-          _tabController.addListener(() {
-            resumeIndex = _tabController.index;
+            vsync: this,
+            length: _tabs.length,
+            initialIndex: resumeIndex,
+          );
+          if (!_tabController.hasListeners) {
+            _tabController.addListener(() {
+              resumeIndex = _tabController.index;
 //            print(_tabController.index);
-          });
+            });
+          }
 //          _tabController.addListener(() {
 //            print('tab index: ' + _tabController.index.toString());
 //          });
