@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:godotclassreference/bloc/tap_event_bloc.dart';
+import 'package:godotclassreference/bloc/theme_bloc.dart';
+import 'package:godotclassreference/constants/class_db.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:godotclassreference/bloc/tap_event_arg.dart';
 import 'package:xml/xml.dart' as xml;
@@ -29,9 +31,8 @@ class ClassDetail extends StatefulWidget {
 }
 
 class _ClassDetailState extends State<ClassDetail>
-    with TickerProviderStateMixin {
-  int resumeIndex = 0;
-  TabController _tabController;
+    with SingleTickerProviderStateMixin {
+  TabController tabController;
   Future<ClassContent> _classContent;
   List<ClassTab> _tabs;
 
@@ -40,15 +41,9 @@ class _ClassDetailState extends State<ClassDetail>
   String className = '';
 
   @override
-  void reassemble() {
-    // TODO: implement reassemble
-    super.reassemble();
-    print("reassemble");
-  }
-
-  @override
   void initState() {
     super.initState();
+    className = widget.className;
     _bloc = TapEventBloc();
     _classContent = getClassDetail();
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -58,30 +53,22 @@ class _ClassDetailState extends State<ClassDetail>
         });
       }
     });
+    print("$className init");
 //    StoredValues().appendClass(widget.className);
   }
 
   @override
   void dispose() {
     super.dispose();
-    _tabController.dispose();
+    tabController.dispose();
     _bloc.dispose();
-//    print("$className disposed");
-//    StoredValues().popClass();
+    print("$className disposed");
   }
 
   Future<ClassContent> getClassDetail() async {
     final version = StoredValues().prefs.getString('version');
 
-    final file = await rootBundle
-        .loadString('xmls/' + version + '/' + widget.className + '.xml');
-
-    final rootNode = xml
-        .parse(file)
-        .root
-        .children
-        .lastWhere((w) => w.nodeType != xml.XmlNodeType.TEXT);
-    return ClassContent.fromXml(rootNode);
+    return await ClassDB().getSingle(version, widget.className + '.xml');
   }
 
   void onLinkTap(TapEventArg args) async {
@@ -90,7 +77,7 @@ class _ClassDetailState extends State<ClassDetail>
       //navigation within class
       int _toFocusTabIndex =
           _tabs.indexWhere((w) => w.title == linkTypeToString(args.linkType));
-      _tabController.animateTo(_toFocusTabIndex,
+      tabController.animateTo(_toFocusTabIndex,
           duration: Duration(milliseconds: 100));
       Future.delayed(Duration(milliseconds: 120), () {
         _bloc.argSink.add(args);
@@ -115,7 +102,6 @@ class _ClassDetailState extends State<ClassDetail>
       future: _classContent,
       builder: (BuildContext context, AsyncSnapshot<ClassContent> snapshot) {
         if (snapshot.hasData) {
-//          print("building detail");
           _tabs = getClassTabs(snapshot.data, _bloc.argStream, this.onLinkTap);
           // append theme item tab if needed
           if (snapshot.data.themeItems != null &&
@@ -132,30 +118,20 @@ class _ClassDetailState extends State<ClassDetail>
             ));
           }
 
-          className = snapshot.data.name;
-          print('$className : $resumeIndex');
-          _tabController = TabController(
-            vsync: this,
-            length: _tabs.length,
-            initialIndex: resumeIndex,
-          );
-          if (!_tabController.hasListeners) {
-            _tabController.addListener(() {
-              resumeIndex = _tabController.index;
-//            print(_tabController.index);
-            });
+          if (tabController == null) {
+//            print("$className  null");
+            tabController = TabController(
+              vsync: this,
+              length: _tabs.length,
+            );
           }
-//          _tabController.addListener(() {
-//            print('tab index: ' + _tabController.index.toString());
-//          });
 
           if (widget.args != null &&
               widget.args.className == snapshot.data.name) {
-//            print(widget.args.linkType);
             int _tabIndex = _tabs.indexWhere(
                 (w) => w.title == linkTypeToString(widget.args.linkType));
             if (_tabIndex != -1) {
-              _tabController.animateTo(_tabIndex);
+              tabController.animateTo(_tabIndex);
             }
           }
 
@@ -163,7 +139,7 @@ class _ClassDetailState extends State<ClassDetail>
             appBar: AppBar(
               title: Text(widget.className),
               bottom: TabBar(
-                controller: _tabController,
+                controller: tabController,
                 isScrollable: true,
                 tabs: _tabs.map((f) {
                   return Tab(
@@ -200,7 +176,7 @@ class _ClassDetailState extends State<ClassDetail>
               ),
             ),
             body: TabBarView(
-              controller: _tabController,
+              controller: tabController,
               children: _tabs.map((c) {
                 return c.child;
               }).toList(),
@@ -208,7 +184,8 @@ class _ClassDetailState extends State<ClassDetail>
           );
         }
         return Container(
-          color: Colors.white,
+          color:
+              StoredValues().themeChange.isDark ? Colors.black : Colors.white,
           child: Center(
             child: CircularProgressIndicator(),
           ),
