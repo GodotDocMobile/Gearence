@@ -21,6 +21,7 @@ const iosUnitId = 'ca-app-pub-3569371273195353/7046427649';
 MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
   keywords: <String>[
     '3d games',
+    '2d games',
     //
     'blender',
     //
@@ -120,6 +121,7 @@ class _GCRAppState extends State<GCRApp> {
 
   @override
   Widget build(BuildContext context) {
+//    print("build");
     myBanner
       // typically this happens well before the ad is shown
       ..load()
@@ -160,8 +162,12 @@ class _GCRAppState extends State<GCRApp> {
             },
           );
         } else {
-          return Center(
-            child: CircularProgressIndicator(),
+          return Container(
+            color:
+                StoredValues().themeChange.isDark ? Colors.black : Colors.white,
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
           );
         }
       },
