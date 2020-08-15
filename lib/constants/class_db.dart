@@ -88,17 +88,11 @@ class ClassDB {
   }
 
   Future<ClassContent> getSingle(String version, String classFileName) async {
-    ClassContent _toReturn;
+//    ClassContent _toReturn;
     final _className = classFileName.replaceAll('.xml', '');
-    if (classFileName == _loadingClass) {
-      StreamSubscription<ClassContent> _sub;
-      _sub = argStream.listen((event) {
-        if (event.name == _className) {
-          _toReturn = event;
-          _sub.cancel();
-        }
-      });
-      return _toReturn;
+
+    if (_classContent.any((element) => element.name == _className)) {
+      return _classContent.firstWhere((element) => element.name == _className);
     }
 
     return await _loadSingle(version, classFileName, skipCheck: false);

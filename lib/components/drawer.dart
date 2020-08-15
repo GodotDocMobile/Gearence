@@ -135,8 +135,12 @@ class GCRDrawerState extends State<GCRDrawer> {
             ),
           );
         }
-        return Center(
-          child: CircularProgressIndicator(),
+        return Container(
+          color:
+              StoredValues().themeChange.isDark ? Colors.black : Colors.white,
+          child: Center(
+            child: CircularProgressIndicator(),
+          ),
         );
       },
     );

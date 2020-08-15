@@ -100,8 +100,12 @@ class _ClassSelectState extends State<ClassSelect> {
             );
           }
 
-          return Center(
-            child: CircularProgressIndicator(),
+          return Container(
+            color:
+                StoredValues().themeChange.isDark ? Colors.black : Colors.white,
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
           );
         });
   }
