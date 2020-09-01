@@ -86,17 +86,6 @@ BannerAd myBanner = BannerAd(
   },
 );
 
-InterstitialAd myInterstitial = InterstitialAd(
-  // Replace the testAdUnitId with an ad unit id from the AdMob dash.
-  // https://developers.google.com/admob/android/test-ads
-  // https://developers.google.com/admob/ios/test-ads
-  adUnitId: InterstitialAd.testAdUnitId,
-  targetingInfo: targetingInfo,
-  listener: (MobileAdEvent event) {
-    print("InterstitialAd event is $event");
-  },
-);
-
 void main() => runApp(GCRApp());
 
 class GCRApp extends StatefulWidget {
@@ -163,8 +152,7 @@ class _GCRAppState extends State<GCRApp> {
           );
         } else {
           return Container(
-            color:
-                StoredValues().themeChange.isDark ? Colors.black : Colors.white,
+            color: Colors.black,
             child: Center(
               child: CircularProgressIndicator(),
             ),

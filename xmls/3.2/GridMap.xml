@@ -29,7 +29,7 @@
 			This does not affect the size of the meshes. See [member cell_scale].</member><member name="collision_layer" type="int" setter="set_collision_layer" getter="get_collision_layer" default="1">
 			The physics layers this GridMap is in.
 			GridMaps act as static bodies, meaning they aren't affected by gravity or other forces. They only affect other physics bodies that collide with them.</member><member name="collision_mask" type="int" setter="set_collision_mask" getter="get_collision_mask" default="1">
-			The physics layers this GridMap detects collisions in.</member><member name="mesh_library" type="MeshLibrary" setter="set_mesh_library" getter="get_mesh_library">
+			The physics layers this GridMap detects collisions in. See [url=https://docs.godotengine.org/en/latest/tutorials/physics/physics_introduction.html#collision-layers-and-masks]Collision layers and masks[/url] in the documentation for more information.</member><member name="mesh_library" type="MeshLibrary" setter="set_mesh_library" getter="get_mesh_library">
 			The assigned [MeshLibrary].</member></members><signals><signal name="cell_size_changed"><argument index="0" name="cell_size" type="Vector3"></argument><description>
 				Emitted when [member cell_size] changes.</description></signal></signals><constants><constant name="INVALID_CELL_ITEM" value="-1">
 			Invalid cell item that can be used in [method set_cell_item] to clear cells (or represent an empty cell in [method get_cell_item]).</constant></constants></class>
