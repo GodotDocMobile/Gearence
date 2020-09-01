@@ -8,7 +8,7 @@
 			The horizontal offset of the close button.</theme_item><theme_item name="close_highlight" type="Texture">
 			The icon used for the close button when it's hovered with the mouse cursor.</theme_item><theme_item name="close_v_ofs" type="int" default="18">
 			The vertical offset of the close button.</theme_item><theme_item name="panel" type="StyleBox">
-			The style for both the content background of the [WindowDialog] and the title bar.</theme_item><theme_item name="scaleborder_size" type="int" default="4">
+			The style for both the content background of the [WindowDialog] and the title bar. The title bar is created with a top border and an expand margin using the [code]panel[/code] stylebox.</theme_item><theme_item name="scaleborder_size" type="int" default="4">
 			The thickness of the border that can be dragged when scaling the window (if [member resizable] is enabled).</theme_item><theme_item name="title_color" type="Color" default="Color( 0, 0, 0, 1 )">
 			The color of the title text.</theme_item><theme_item name="title_font" type="Font">
 			The font used to draw the title.</theme_item><theme_item name="title_height" type="int" default="20">

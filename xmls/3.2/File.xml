@@ -101,10 +101,10 @@
 				Stores any Variant value in the file. If [code]full_objects[/code] is [code]true[/code], encoding objects is allowed (and can potentially include code).</description></method></methods><members><member name="endian_swap" type="bool" setter="set_endian_swap" getter="get_endian_swap" default="false">
 			If [code]true[/code], the file's endianness is swapped. Use this if you're dealing with files written on big-endian machines.
 			[b]Note:[/b] This is about the file format, not CPU type. This is always reset to [code]false[/code] whenever you open the file.</member></members><constants><constant name="READ" value="1" enum="ModeFlags">
-			Opens the file for read operations.</constant><constant name="WRITE" value="2" enum="ModeFlags">
-			Opens the file for write operations. Create it if the file does not exist and truncate if it exists.</constant><constant name="READ_WRITE" value="3" enum="ModeFlags">
-			Opens the file for read and write operations. Does not truncate the file.</constant><constant name="WRITE_READ" value="7" enum="ModeFlags">
-			Opens the file for read and write operations. Create it if the file does not exist and truncate if it exists.</constant><constant name="COMPRESSION_FASTLZ" value="0" enum="CompressionMode">
+			Opens the file for read operations. The cursor is positioned at the beginning of the file.</constant><constant name="WRITE" value="2" enum="ModeFlags">
+			Opens the file for write operations. The file is created if it does not exist, and truncated if it does.</constant><constant name="READ_WRITE" value="3" enum="ModeFlags">
+			Opens the file for read and write operations. Does not truncate the file. The cursor is positioned at the beginning of the file.</constant><constant name="WRITE_READ" value="7" enum="ModeFlags">
+			Opens the file for read and write operations. The file is created if it does not exist, and truncated if it does. The cursor is positioned at the beginning of the file.</constant><constant name="COMPRESSION_FASTLZ" value="0" enum="CompressionMode">
 			Uses the [url=http://fastlz.org/]FastLZ[/url] compression method.</constant><constant name="COMPRESSION_DEFLATE" value="1" enum="CompressionMode">
 			Uses the [url=https://en.wikipedia.org/wiki/DEFLATE]DEFLATE[/url] compression method.</constant><constant name="COMPRESSION_ZSTD" value="2" enum="CompressionMode">
 			Uses the [url=https://facebook.github.io/zstd/]Zstandard[/url] compression method.</constant><constant name="COMPRESSION_GZIP" value="3" enum="CompressionMode">

@@ -13,7 +13,7 @@
 				[b]Note:[/b] Bit indices range from 0-19.</description></method></methods><members><member name="clip_to_areas" type="bool" setter="set_clip_to_areas" getter="is_clip_to_areas_enabled" default="false">
 			If [code]true[/code], the camera stops on contact with [Area]s.</member><member name="clip_to_bodies" type="bool" setter="set_clip_to_bodies" getter="is_clip_to_bodies_enabled" default="true">
 			If [code]true[/code], the camera stops on contact with [PhysicsBody]s.</member><member name="collision_mask" type="int" setter="set_collision_mask" getter="get_collision_mask" default="1">
-			The camera's collision mask. Only objects in at least one collision layer matching the mask will be detected.</member><member name="margin" type="float" setter="set_margin" getter="get_margin" default="0.0">
+			The camera's collision mask. Only objects in at least one collision layer matching the mask will be detected. See [url=https://docs.godotengine.org/en/latest/tutorials/physics/physics_introduction.html#collision-layers-and-masks]Collision layers and masks[/url] in the documentation for more information.</member><member name="margin" type="float" setter="set_margin" getter="get_margin" default="0.0">
 			The camera's collision margin. The camera can't get closer than this distance to a colliding object.</member><member name="process_mode" type="int" setter="set_process_mode" getter="get_process_mode" enum="ClippedCamera.ProcessMode" default="0">
 			The camera's process callback. See [enum ProcessMode].</member></members><constants><constant name="CLIP_PROCESS_PHYSICS" value="0" enum="ProcessMode">
 			The camera updates with the [code]_physics_process[/code] callback.</constant><constant name="CLIP_PROCESS_IDLE" value="1" enum="ProcessMode">
