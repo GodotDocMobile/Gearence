@@ -89,7 +89,8 @@
 				See also [member InputEventKey.scancode] and [method InputEventKey.get_scancode_with_modifiers].</description></method><method name="get_screen_count" qualifiers="const"><return type="int"></return><description>
 				Returns the number of displays attached to the host machine.</description></method><method name="get_screen_dpi" qualifiers="const"><return type="int"></return><argument index="0" name="screen" type="int" default="-1"></argument><description>
 				Returns the dots per inch density of the specified screen. If [code]screen[/code] is [/code]-1[/code] (the default value), the current screen will be used.
-				On Android devices, the actual screen densities are grouped into six generalized densities:
+				[b]Note:[/b] On macOS, returned value is inaccurate if fractional display scaling mode is used.
+				[b]Note:[/b] On Android devices, the actual screen densities are grouped into six generalized densities:
 				[codeblock]
 				   ldpi - 120 dpi
 				   mdpi - 160 dpi
@@ -213,6 +214,20 @@
 				Sets the name of the current thread.</description></method><method name="set_use_file_access_save_and_swap"><return type="void"></return><argument index="0" name="enabled" type="bool"></argument><description>
 				Enables backup saves if [code]enabled[/code] is [code]true[/code].</description></method><method name="set_window_always_on_top"><return type="void"></return><argument index="0" name="enabled" type="bool"></argument><description>
 				Sets whether the window should always be on top.
+				[b]Note:[/b] This method is implemented on Linux, macOS and Windows.</description></method><method name="set_window_mouse_passthrough"><return type="void"></return><argument index="0" name="region" type="PoolVector2Array"></argument><description>
+				Sets a polygonal region of the window which accepts mouse events. Mouse events outside the region will be passed through.
+				Passing an empty array will disable passthrough support (all mouse events will be intercepted by the window, which is the default behavior).
+				[codeblock]
+				# Set region, using Path2D node.
+				OS.set_window_mouse_passthrough($Path2D.curve.get_baked_points())
+
+				# Set region, using Polygon2D node.
+				OS.set_window_mouse_passthrough($Polygon2D.polygon)
+
+				# Reset region to default.
+				OS.set_window_mouse_passthrough([])
+				[/codeblock]
+				[b]Note:[/b] On Windows, the portion of a window that lies outside the region is not drawn, while on Linux and macOS it is.
 				[b]Note:[/b] This method is implemented on Linux, macOS and Windows.</description></method><method name="set_window_title"><return type="void"></return><argument index="0" name="title" type="String"></argument><description>
 				Sets the window title to the specified string.
 				[b]Note:[/b] This should be used sporadically. Don't set this every frame, as that will negatively affect performance on some window managers.
@@ -237,7 +252,7 @@
 			The maximum size of the window (without counting window manager decorations). Does not affect fullscreen mode. Set to [code](0, 0)[/code] to reset to the system default value.</member><member name="min_window_size" type="Vector2" setter="set_min_window_size" getter="get_min_window_size" default="Vector2( 0, 0 )">
 			The minimum size of the window (without counting window manager decorations). Does not affect fullscreen mode. Set to [code](0, 0)[/code] to reset to the system default value.</member><member name="screen_orientation" type="int" setter="set_screen_orientation" getter="get_screen_orientation" enum="_OS.ScreenOrientation" default="0">
 			The current screen orientation.</member><member name="tablet_driver" type="String" setter="set_current_tablet_driver" getter="get_current_tablet_driver" default="&quot;&quot;">
-			The current tablet drvier in use.</member><member name="vsync_enabled" type="bool" setter="set_use_vsync" getter="is_vsync_enabled" default="true">
+			The current tablet driver in use.</member><member name="vsync_enabled" type="bool" setter="set_use_vsync" getter="is_vsync_enabled" default="true">
 			If [code]true[/code], vertical synchronization (Vsync) is enabled.</member><member name="vsync_via_compositor" type="bool" setter="set_vsync_via_compositor" getter="is_vsync_via_compositor_enabled" default="false">
 			If [code]true[/code] and [code]vsync_enabled[/code] is true, the operating system's window compositor will be used for vsync when the compositor is enabled and the game is in windowed mode.
 			[b]Note:[/b] This option is experimental and meant to alleviate stutter experienced by some users. However, some users have experienced a Vsync framerate halving (e.g. from 60 FPS to 30 FPS) when using it.

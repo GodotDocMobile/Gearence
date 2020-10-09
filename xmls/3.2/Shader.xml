@@ -8,7 +8,7 @@
 				[b]Note:[/b] [code]param[/code] must match the name of the uniform in the code exactly.</description></method><method name="set_default_texture_param"><return type="void"></return><argument index="0" name="param" type="String"></argument><argument index="1" name="texture" type="Texture"></argument><description>
 				Sets the default texture to be used with a texture uniform. The default is used if a texture is not set in the [ShaderMaterial].
 				[b]Note:[/b] [code]param[/code] must match the name of the uniform in the code exactly.</description></method></methods><members><member name="code" type="String" setter="set_code" getter="get_code" default="&quot;&quot;">
-			Returns the shader's code as the user has written it, not the full generated code used internally.</member><member name="custom_defines" type="String" setter="set_custom_defines" getter="get_custom_defines" default="&quot;#define MAX_LIGHT_DATA_STRUCTS 409#define MAX_FORWARD_LIGHTS 8#define MAX_REFLECTION_DATA_STRUCTS 455#define MAX_SKELETON_BONES 1365&quot;">
+			Returns the shader's code as the user has written it, not the full generated code used internally.</member><member name="custom_defines" type="String" setter="set_custom_defines" getter="get_custom_defines" default="&quot;&quot;">
 			Returns the shader's custom defines. Custom defines can be used in Godot to add GLSL preprocessor directives (e.g: extensions) required for the shader logic.
 			[b]Note:[/b] Custom defines are not validated by the Godot shader parser, so care should be taken when using them.</member></members><constants><constant name="MODE_SPATIAL" value="0" enum="Mode">
 			Mode used to draw all 3D objects.</constant><constant name="MODE_CANVAS_ITEM" value="1" enum="Mode">
