@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?><class name="AABB" version="3.2"><brief_description>
 		Axis-Aligned Bounding Box.</brief_description><description>
-		AABB consists of a position, a size, and several utility functions. It is typically used for fast overlap tests.</description><tutorials><link>https://docs.godotengine.org/en/latest/tutorials/math/index.html</link></tutorials><methods><method name="AABB"><return type="AABB"></return><argument index="0" name="position" type="Vector3"></argument><argument index="1" name="size" type="Vector3"></argument><description>
+		[AABB] consists of a position, a size, and several utility functions. It is typically used for fast overlap tests.
+		It uses floating-point coordinates. The 2D counterpart to [AABB] is [Rect2].
+		[b]Note:[/b] Unlike [Rect2], [AABB] does not have a variant that uses integer coordinates.</description><tutorials><link>https://docs.godotengine.org/en/latest/tutorials/math/index.html</link></tutorials><methods><method name="AABB"><return type="AABB"></return><argument index="0" name="position" type="Vector3"></argument><argument index="1" name="size" type="Vector3"></argument><description>
 				Constructs an [AABB] from a position and size.</description></method><method name="abs"><return type="AABB"></return><description>
 				Returns an AABB with equivalent position and size, modified so that the most-negative corner is the origin and the size is positive.</description></method><method name="encloses"><return type="bool"></return><argument index="0" name="with" type="AABB"></argument><description>
 				Returns [code]true[/code] if this [AABB] completely encloses another one.</description></method><method name="expand"><return type="AABB"></return><argument index="0" name="to_point" type="Vector3"></argument><description>

@@ -25,7 +25,7 @@
 				[b]Note:[/b] [code]a.dot(b)[/code] is equivalent to [code]b.dot(a)[/code].</description></method><method name="floor"><return type="Vector2"></return><description>
 				Returns the vector with all components rounded down (towards negative infinity).</description></method><method name="is_equal_approx"><return type="bool"></return><argument index="0" name="v" type="Vector2"></argument><description>
 				Returns [code]true[/code] if this vector and [code]v[/code] are approximately equal, by running [method @GDScript.is_equal_approx] on each component.</description></method><method name="is_normalized"><return type="bool"></return><description>
-				Returns [code]true[/code] if the vector is normalized, and false otherwise.</description></method><method name="length"><return type="float"></return><description>
+				Returns [code]true[/code] if the vector is normalized, [code]false[/code] otherwise.</description></method><method name="length"><return type="float"></return><description>
 				Returns the length (magnitude) of this vector.</description></method><method name="length_squared"><return type="float"></return><description>
 				Returns the squared length (squared magnitude) of this vector.
 				This method runs faster than [method length], so prefer it if you need to compare vectors or need the squared distance for some formula.</description></method><method name="linear_interpolate"><return type="Vector2"></return><argument index="0" name="b" type="Vector2"></argument><argument index="1" name="t" type="float"></argument><description>

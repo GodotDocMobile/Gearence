@@ -148,7 +148,7 @@
 				    ┠╴Menu
 				    ┃  ┠╴Label
 				    ┃  ┖╴Camera2D
-				    ┖-SplashScreen
+				    ┖╴SplashScreen
 				       ┖╴Camera2D
 				[/codeblock]</description></method><method name="propagate_call"><return type="void"></return><argument index="0" name="method" type="String"></argument><argument index="1" name="args" type="Array" default="[  ]"></argument><argument index="2" name="parent_first" type="bool" default="false"></argument><description>
 				Calls the given method (if present) with the arguments given in [code]args[/code] on this node and recursively on all its children. If the [code]parent_first[/code] argument is [code]true[/code], the method will be called on the current node first, then on all its children. If [code]parent_first[/code] is [code]false[/code], the children will be called first.</description></method><method name="propagate_notification"><return type="void"></return><argument index="0" name="what" type="int"></argument><description>

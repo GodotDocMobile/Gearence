@@ -6,7 +6,7 @@
 				[b]Note:[/b] This method typically returns the vertices in reverse order (e.g. clockwise to counterclockwise).</description></method><method name="create_trimesh_shape" qualifiers="const"><return type="Shape"></return><description>
 				Calculate a [ConcavePolygonShape] from the mesh.</description></method><method name="generate_triangle_mesh" qualifiers="const"><return type="TriangleMesh"></return><description>
 				Generate a [TriangleMesh] from the mesh.</description></method><method name="get_aabb" qualifiers="const"><return type="AABB"></return><description>
-				Returns the smallest [AABB] enclosing this mesh. Not affected by [code]custom_aabb[/code].
+				Returns the smallest [AABB] enclosing this mesh in local space. Not affected by [code]custom_aabb[/code]. See also [method VisualInstance.get_transformed_aabb].
 				[b]Note:[/b] This is only implemented for [ArrayMesh] and [PrimitiveMesh].</description></method><method name="get_faces" qualifiers="const"><return type="PoolVector3Array"></return><description>
 				Returns all the vertices that make up the faces of the mesh. Each three vertices represent one triangle.</description></method><method name="get_surface_count" qualifiers="const"><return type="int"></return><description>
 				Returns the amount of surfaces that the [Mesh] holds.</description></method><method name="surface_get_arrays" qualifiers="const"><return type="Array"></return><argument index="0" name="surf_idx" type="int"></argument><description>
