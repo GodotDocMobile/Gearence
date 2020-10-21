@@ -6,7 +6,7 @@
 		tool
 		extends VisualShaderNodeCustom
 		class_name VisualShaderNodeNoise
-		[/codeblock]</description><tutorials><link>https://docs.godotengine.org/en/latest/tutorials/plugins/editor/visual_shader_plugins.html</link></tutorials><methods><method name="_get_category" qualifiers="virtual"><return type="String"></return><description>
+		[/codeblock]</description><tutorials><link>https://docs.godotengine.org/en/3.2/tutorials/plugins/editor/visual_shader_plugins.html</link></tutorials><methods><method name="_get_category" qualifiers="virtual"><return type="String"></return><description>
 				Override this method to define the category of the associated custom node in the Visual Shader Editor's members dialog.
 				Defining this method is [b]optional[/b]. If not overridden, the node will be filed under the "Custom" category.</description></method><method name="_get_code" qualifiers="virtual"><return type="String"></return><argument index="0" name="input_vars" type="Array"></argument><argument index="1" name="output_vars" type="Array"></argument><argument index="2" name="mode" type="int"></argument><argument index="3" name="type" type="int"></argument><description>
 				Override this method to define the actual shader code of the associated custom node. The shader code should be returned as a string, which can have multiple lines (the [code]"""[/code] multiline string construct can be used for convenience).

@@ -31,7 +31,7 @@
 		    var error = ResourceSaver.save("res://path/name.scn", scene)  # Or "user://..."
 		    if error != OK:
 		        push_error("An error occurred while saving the scene to disk.")
-		[/codeblock]</description><tutorials></tutorials><methods><method name="can_instance" qualifiers="const"><return type="bool"></return><description>
+		[/codeblock]</description><tutorials><link title="2D Role Playing Game Demo">https://godotengine.org/asset-library/asset/520</link></tutorials><methods><method name="can_instance" qualifiers="const"><return type="bool"></return><description>
 				Returns [code]true[/code] if the scene file has nodes.</description></method><method name="get_state"><return type="SceneState"></return><description>
 				Returns the [code]SceneState[/code] representing the scene file contents.</description></method><method name="instance" qualifiers="const"><return type="Node"></return><argument index="0" name="edit_state" type="int" enum="PackedScene.GenEditState" default="0"></argument><description>
 				Instantiates the scene's node hierarchy. Triggers child scene instantiation(s). Triggers a [constant Node.NOTIFICATION_INSTANCED] notification on the root node.</description></method><method name="pack"><return type="int" enum="Error"></return><argument index="0" name="path" type="Node"></argument><description>
