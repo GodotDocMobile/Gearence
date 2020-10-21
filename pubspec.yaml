@@ -64,6 +64,8 @@ flutter:
 
 
   assets:
+      # pngs
+    - drawer_header.png
       # svgs
     - svgs/2.1/
     - svgs/3.0/
