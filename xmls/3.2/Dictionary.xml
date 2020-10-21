@@ -66,7 +66,7 @@
 
 		func compare_dictionaries():
 		    print(dir1.hash() == dir2.hash()) # Will print true.
-		[/codeblock]</description><tutorials><link>https://docs.godotengine.org/en/latest/getting_started/scripting/gdscript/gdscript_basics.html#dictionary</link></tutorials><methods><method name="clear"><description>
+		[/codeblock]</description><tutorials><link title="GDScript basics: Dictionary">https://docs.godotengine.org/en/3.2/getting_started/scripting/gdscript/gdscript_basics.html#dictionary</link><link title="3D Voxel Demo">https://godotengine.org/asset-library/asset/676</link><link title="OS Test Demo">https://godotengine.org/asset-library/asset/677</link></tutorials><methods><method name="clear"><description>
 				Clear the dictionary, removing all key/value pairs.</description></method><method name="duplicate"><return type="Dictionary"></return><argument index="0" name="deep" type="bool" default="false"></argument><description>
 				Creates a copy of the dictionary, and returns it. The [code]deep[/code] parameter causes inner dictionaries and arrays to be copied recursively, but does not apply to objects.</description></method><method name="empty"><return type="bool"></return><description>
 				Returns [code]true[/code] if the dictionary is empty.</description></method><method name="erase"><return type="bool"></return><argument index="0" name="key" type="Variant"></argument><description>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?><class name="PoolStringArray" version="3.2"><brief_description>
 		A pooled [Array] of [String].</brief_description><description>
 		An [Array] specifically designed to hold [String]s. Optimized for memory usage, does not fragment the memory.
-		[b]Note:[/b] This type is passed by value and not by reference.</description><tutorials></tutorials><methods><method name="PoolStringArray"><return type="PoolStringArray"></return><argument index="0" name="from" type="Array"></argument><description>
+		[b]Note:[/b] This type is passed by value and not by reference.</description><tutorials><link title="OS Test Demo">https://godotengine.org/asset-library/asset/677</link></tutorials><methods><method name="PoolStringArray"><return type="PoolStringArray"></return><argument index="0" name="from" type="Array"></argument><description>
 				Constructs a new [PoolStringArray]. Optionally, you can pass in a generic [Array] that will be converted.</description></method><method name="append"><argument index="0" name="string" type="String"></argument><description>
 				Appends an element at the end of the array (alias of [method push_back]).</description></method><method name="append_array"><argument index="0" name="array" type="PoolStringArray"></argument><description>
 				Appends a [PoolStringArray] at the end of this array.</description></method><method name="empty"><return type="bool"></return><description>

@@ -42,7 +42,7 @@
 		    var filename = save_path + "." + get_save_extension()
 		    ResourceSaver.save(filename, mesh)
 		    return OK
-		[/codeblock]</description><tutorials><link>https://docs.godotengine.org/en/latest/tutorials/plugins/editor/import_plugins.html</link></tutorials><methods><method name="get_import_options" qualifiers="virtual"><return type="Array"></return><argument index="0" name="preset" type="int"></argument><description>
+		[/codeblock]</description><tutorials><link>https://docs.godotengine.org/en/3.2/tutorials/plugins/editor/import_plugins.html</link></tutorials><methods><method name="get_import_options" qualifiers="virtual"><return type="Array"></return><argument index="0" name="preset" type="int"></argument><description>
 				Gets the options and default values for the preset at this index. Returns an Array of Dictionaries with the following keys: [code]name[/code], [code]default_value[/code], [code]property_hint[/code] (optional), [code]hint_string[/code] (optional), [code]usage[/code] (optional).</description></method><method name="get_import_order" qualifiers="virtual"><return type="int"></return><description>
 				Gets the order of this importer to be run when importing resources. Higher values will be called later. Use this to ensure the importer runs after the dependencies are already imported.</description></method><method name="get_importer_name" qualifiers="virtual"><return type="String"></return><description>
 				Gets the unique name of the importer.</description></method><method name="get_option_visibility" qualifiers="virtual"><return type="bool"></return><argument index="0" name="option" type="String"></argument><argument index="1" name="options" type="Dictionary"></argument><description>

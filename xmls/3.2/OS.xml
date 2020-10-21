@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?><class name="OS" inherits="Object" version="3.2"><brief_description>
 		Operating System functions.</brief_description><description>
-		Operating System functions. OS wraps the most common functionality to communicate with the host operating system, such as the clipboard, video driver, date and time, timers, environment variables, execution of binaries, command line, etc.</description><tutorials></tutorials><methods><method name="alert"><return type="void"></return><argument index="0" name="text" type="String"></argument><argument index="1" name="title" type="String" default="&quot;Alert!&quot;"></argument><description>
+		Operating System functions. OS wraps the most common functionality to communicate with the host operating system, such as the clipboard, video driver, date and time, timers, environment variables, execution of binaries, command line, etc.</description><tutorials><link title="OS Test Demo">https://godotengine.org/asset-library/asset/677</link></tutorials><methods><method name="alert"><return type="void"></return><argument index="0" name="text" type="String"></argument><argument index="1" name="title" type="String" default="&quot;Alert!&quot;"></argument><description>
 				Displays a modal dialog box using the host OS' facilities. Execution is blocked until the dialog is closed.</description></method><method name="can_draw" qualifiers="const"><return type="bool"></return><description>
 				Returns [code]true[/code] if the host OS allows drawing.</description></method><method name="can_use_threads" qualifiers="const"><return type="bool"></return><description>
 				Returns [code]true[/code] if the current host platform is using multiple threads.</description></method><method name="center_window"><return type="void"></return><description>
@@ -74,7 +74,9 @@
 				Returns the host OS locale.</description></method><method name="get_model_name" qualifiers="const"><return type="String"></return><description>
 				Returns the model name of the current device.
 				[b]Note:[/b] This method is implemented on Android and iOS. Returns [code]"GenericDevice"[/code] on unsupported platforms.</description></method><method name="get_name" qualifiers="const"><return type="String"></return><description>
-				Returns the name of the host OS. Possible values are: [code]"Android"[/code], [code]"iOS"[/code], [code]"HTML5"[/code], [code]"OSX"[/code], [code]"Server"[/code], [code]"Windows"[/code], [code]"UWP"[/code], [code]"X11"[/code].</description></method><method name="get_power_percent_left"><return type="int"></return><description>
+				Returns the name of the host OS. Possible values are: [code]"Android"[/code], [code]"iOS"[/code], [code]"HTML5"[/code], [code]"OSX"[/code], [code]"Server"[/code], [code]"Windows"[/code], [code]"UWP"[/code], [code]"X11"[/code].</description></method><method name="get_native_handle"><return type="int"></return><argument index="0" name="handle_type" type="int" enum="OS.HandleType"></argument><description>
+				Returns internal structure pointers for use in GDNative plugins.
+				[b]Note:[/b] This method is implemented on Linux and Windows (other OSs will soon be supported).</description></method><method name="get_power_percent_left"><return type="int"></return><description>
 				Returns the amount of battery left in the device as a percentage. Returns [code]-1[/code] if power state is unknown.
 				[b]Note:[/b] This method is implemented on Linux, macOS and Windows.</description></method><method name="get_power_seconds_left"><return type="int"></return><description>
 				Returns an estimate of the time left in seconds before the device runs out of battery. Returns [code]-1[/code] if power state is unknown.
@@ -147,7 +149,7 @@
 				Removes the item at index "idx" from the global menu. Note that the indexes of items after the removed item are going to be shifted by one.
 				[b]Note:[/b] This method is implemented on macOS.</description></method><method name="has_environment" qualifiers="const"><return type="bool"></return><argument index="0" name="environment" type="String"></argument><description>
 				Returns [code]true[/code] if an environment variable exists.</description></method><method name="has_feature" qualifiers="const"><return type="bool"></return><argument index="0" name="tag_name" type="String"></argument><description>
-				Returns [code]true[/code] if the feature for the given feature tag is supported in the currently running instance, depending on platform, build etc. Can be used to check whether you're currently running a debug build, on a certain platform or arch, etc. Refer to the [url=https://docs.godotengine.org/en/latest/getting_started/workflow/export/feature_tags.html]Feature Tags[/url] documentation for more details.
+				Returns [code]true[/code] if the feature for the given feature tag is supported in the currently running instance, depending on platform, build etc. Can be used to check whether you're currently running a debug build, on a certain platform or arch, etc. Refer to the [url=https://docs.godotengine.org/en/3.2/getting_started/workflow/export/feature_tags.html]Feature Tags[/url] documentation for more details.
 				[b]Note:[/b] Tag names are case-sensitive.</description></method><method name="has_touchscreen_ui_hint" qualifiers="const"><return type="bool"></return><description>
 				Returns [code]true[/code] if the device has a touchscreen or emulates one.</description></method><method name="has_virtual_keyboard" qualifiers="const"><return type="bool"></return><description>
 				Returns [code]true[/code] if the platform has a virtual keyboard, [code]false[/code] otherwise.</description></method><method name="hide_virtual_keyboard"><return type="void"></return><description>
@@ -289,7 +291,25 @@
 			September.</constant><constant name="MONTH_OCTOBER" value="10" enum="Month">
 			October.</constant><constant name="MONTH_NOVEMBER" value="11" enum="Month">
 			November.</constant><constant name="MONTH_DECEMBER" value="12" enum="Month">
-			December.</constant><constant name="SCREEN_ORIENTATION_LANDSCAPE" value="0" enum="ScreenOrientation">
+			December.</constant><constant name="APPLICATION_HANDLE" value="0" enum="HandleType">
+			Application handle:
+			- Windows: [code]HINSTANCE[/code] of the application
+			- MacOS: [code]NSApplication*[/code] of the application (not yet implemented)
+			- Android: [code]JNIEnv*[/code] of the application (not yet implemented)</constant><constant name="DISPLAY_HANDLE" value="1" enum="HandleType">
+			Display handle:
+			- Linux: [code]X11::Display*[/code] for the display</constant><constant name="WINDOW_HANDLE" value="2" enum="HandleType">
+			Window handle:
+			- Windows: [code]HWND[/code] of the main window
+			- Linux: [code]X11::Window*[/code] of the main window
+			- MacOS: [code]NSWindow*[/code] of the main window (not yet implemented)
+			- Android: [code]jObject[/code] the main android activity (not yet implemented)</constant><constant name="WINDOW_VIEW" value="3" enum="HandleType">
+			Window view:
+			- Windows: [code]HDC[/code] of the main window drawing context
+			- MacOS: [code]NSView*[/code] of the main windows view (not yet implemented)</constant><constant name="OPENGL_CONTEXT" value="4" enum="HandleType">
+			OpenGL Context:
+			- Windows: [code]HGLRC[/code]
+			- Linux: [code]X11::GLXContext[/code]
+			- MacOS: [code]NSOpenGLContext*[/code] (not yet implemented)</constant><constant name="SCREEN_ORIENTATION_LANDSCAPE" value="0" enum="ScreenOrientation">
 			Landscape screen orientation.</constant><constant name="SCREEN_ORIENTATION_PORTRAIT" value="1" enum="ScreenOrientation">
 			Portrait screen orientation.</constant><constant name="SCREEN_ORIENTATION_REVERSE_LANDSCAPE" value="2" enum="ScreenOrientation">
 			Reverse landscape screen orientation.</constant><constant name="SCREEN_ORIENTATION_REVERSE_PORTRAIT" value="3" enum="ScreenOrientation">

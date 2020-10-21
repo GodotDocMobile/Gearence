@@ -43,4 +43,4 @@
 		- Can work as an exported property, so the editor can edit it universally.
 		- Can be used for dictionaries, arrays, parsers, etc.
 		[b]Containers (Array and Dictionary):[/b] Both are implemented using variants. A [Dictionary] can match any datatype used as key to any other datatype. An [Array] just holds an array of Variants. Of course, a Variant can also hold a [Dictionary] and an [Array] inside, making it even more flexible.
-		Modifications to a container will modify all references to it. A [Mutex] should be created to lock it if multi-threaded access is desired.</description><tutorials><link>https://docs.godotengine.org/en/latest/development/cpp/variant_class.html</link></tutorials><methods></methods><constants></constants></class>
+		Modifications to a container will modify all references to it. A [Mutex] should be created to lock it if multi-threaded access is desired.</description><tutorials><link>https://docs.godotengine.org/en/3.2/development/cpp/variant_class.html</link></tutorials><methods></methods><constants></constants></class>
