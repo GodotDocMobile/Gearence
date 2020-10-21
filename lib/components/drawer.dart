@@ -38,6 +38,32 @@ class GCRDrawerState extends State<GCRDrawer> {
     return true;
   }
 
+  Future<void> showAboutDialog() {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return SimpleDialog(
+            title: Text("About"),
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                child: ListTile(
+                  title: Text(docDate),
+                  subtitle: Text('Doc Last Update '),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                child: ListTile(
+                  title: Text(pi.version),
+                  subtitle: Text("Version"),
+                ),
+              )
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     final loaded = loadAll();
@@ -50,43 +76,12 @@ class GCRDrawerState extends State<GCRDrawer> {
               padding: EdgeInsets.zero,
               children: <Widget>[
                 DrawerHeader(
-                    decoration: BoxDecoration(color: godotColor),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text(
-                          "Godot Class Reference",
-                          style: TextStyle(fontSize: 24, color: Colors.white),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text(
-                              'Doc Last Update :' + docDate,
-                              style: TextStyle(color: Colors.white30),
-                            ),
-                            Text(
-                              "v ${pi.version}",
-                              style: TextStyle(color: Colors.white30),
-                            ),
-                          ],
-                        )
-                      ],
-                    )),
-//              ListTile(
-//                leading: Icon(Icons.list),
-//                title: Text("List Classes"),
-//                onTap: () {
-//                  Navigator.pop(context); // this will close the drawer
-//                  Navigator.push(context,
-//                      MaterialPageRoute(builder: (context) => ClassSelect()));
-//                },
-//              ),
-//              ListTile(
-//                leading: Icon(Icons.language),
-//                title: Text("Language"),
-//              ),
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage("drawer_header.png"),
+                        fit: BoxFit.cover),
+                  ),
+                ),
                 ListTile(
                   leading: Icon(Icons.compare_arrows),
                   title: Text("Godot Version"),
@@ -123,14 +118,14 @@ class GCRDrawerState extends State<GCRDrawer> {
                       StoredValues().themeChange.switchTheme(v);
                     },
                   ),
-                )
-//                ListTile(
-//                  title: Text('Doc Last Update :' + docDate),
-//                ),
-//              ListTile(
-//                leading: Icon(Icons.color_lens),
-//                title: Text("Theme"),
-//              )
+                ),
+                ListTile(
+                  leading: Icon(Icons.info),
+                  title: Text("About"),
+                  onTap: () {
+                    showAboutDialog();
+                  },
+                ),
               ],
             ),
           );
