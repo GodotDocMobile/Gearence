@@ -77,9 +77,10 @@ class GCRDrawerState extends State<GCRDrawer> {
               children: <Widget>[
                 DrawerHeader(
                   decoration: BoxDecoration(
+                    color: Color(int.parse('FF303d68', radix: 16)),
                     image: DecorationImage(
                         image: AssetImage("drawer_header.png"),
-                        fit: BoxFit.cover),
+                        fit: BoxFit.fitWidth),
                   ),
                 ),
                 ListTile(
