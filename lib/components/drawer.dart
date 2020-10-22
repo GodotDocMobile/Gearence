@@ -77,7 +77,7 @@ class GCRDrawerState extends State<GCRDrawer> {
               children: <Widget>[
                 DrawerHeader(
                   decoration: BoxDecoration(
-                    color: Color(int.parse('FF303d68', radix: 16)),
+                    color: Color(0xFF303d68),
                     image: DecorationImage(
                         image: AssetImage("drawer_header.png"),
                         fit: BoxFit.fitWidth),
