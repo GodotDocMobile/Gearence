@@ -82,6 +82,7 @@ class GCRDrawerState extends State<GCRDrawer> {
                         image: AssetImage("drawer_header.png"),
                         fit: BoxFit.fitWidth),
                   ),
+                  child: Container(),
                 ),
                 ListTile(
                   leading: Icon(Icons.compare_arrows),
