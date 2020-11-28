@@ -9,6 +9,7 @@ import 'package:xml/xml.dart' as xml;
 
 class ClassDB {
   List<ClassContent> _classContent = List<ClassContent>();
+  List<String> _classAreNode = List<String>();
 
   final _loadClassController = StreamController<ClassContent>.broadcast();
   StreamSink<ClassContent> get _inArgs => _loadClassController.sink;
@@ -33,6 +34,7 @@ class ClassDB {
       _loading = true;
       loaded = false;
       _classContent.clear();
+      _classAreNode.clear();
       _version = version;
 
       argStream.listen((event) {
@@ -49,6 +51,23 @@ class ClassDB {
     }
   }
 
+  void _updateNodeList() async {
+    await _findChildClasses("Node");
+    print("nodes loaded");
+  }
+
+  Future<void> _findChildClasses(String className) async {
+    _classAreNode.add(className);
+    var childes = _classContent
+        .where((element) => element.inherits == className)
+        .toList();
+    if (childes.length > 0) {
+      for (var child in childes) {
+        await _findChildClasses(child.name);
+      }
+    }
+  }
+
   void _updateDB(String version) async {
     final _updatingVersion = version;
     for (var _classFileName in ClassList().getList()) {
@@ -61,6 +80,7 @@ class ClassDB {
       _loadingClass = null;
     }
     _classContent.toSet().toList();
+    _updateNodeList();
 //    print("all class loaded");
 //    print(_classContent.length);
 //    print(ClassList().getList().length);
@@ -72,10 +92,9 @@ class ClassDB {
     var _existIndex = _classContent.indexWhere(
         (element) => element.name == classFileName.replaceAll('.xml', ''));
     if (_existIndex == -1) {
-      final file =
-          await rootBundle.loadString('xmls/' + version + '/' + classFileName);
-      final rootNode = xml
-          .parse(file)
+      final file = await rootBundle.loadString(
+          'xmls/' + version + '/' + classFileName.replaceAll('#Node#', ''));
+      final rootNode = xml.XmlDocument.parse(file)
           .root
           .children
           .lastWhere((w) => w.nodeType != xml.XmlNodeType.TEXT);

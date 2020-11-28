@@ -7,6 +7,7 @@ class StoredValues {
   SharedPreferences prefs;
   String docDate;
   ThemeChange themeChange;
+  bool iconForNonNode;
 
   static final StoredValues _instance = StoredValues._internal();
 
@@ -28,6 +29,9 @@ class StoredValues {
     prefs = await SharedPreferences.getInstance();
     docDate = await rootBundle.loadString('xmls/conf.json');
     themeChange = ThemeChange(prefs.getBool('darkTheme') == true);
+    iconForNonNode = prefs.getBool('iconForNonNodes') == null
+        ? true
+        : prefs.getBool('iconForNonNodes');
 
     int _scrollIndex = prefs.getInt('scrollIndex');
     if (_scrollIndex != null) {
