@@ -3,6 +3,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:godotclassreference/bloc/icon_for_non_node_bloc.dart';
+import 'package:godotclassreference/components/class_icon.dart';
+import 'package:godotclassreference/components/node_tag.dart';
 import 'package:godotclassreference/components/svg_icon.dart';
 import 'package:godotclassreference/constants/class_db.dart';
 
@@ -36,9 +39,19 @@ class ClassSelect extends StatefulWidget {
 }
 
 class _ClassSelectState extends State<ClassSelect> {
+  IconForNonNodeBloc _bloc;
+
   @override
   void initState() {
+    _bloc = IconForNonNodeBloc();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _bloc.dispose();
+    super.dispose();
   }
 
   @override
@@ -52,7 +65,9 @@ class _ClassSelectState extends State<ClassSelect> {
             snapshot.data.sort();
             return Scaffold(
               resizeToAvoidBottomPadding: true,
-              drawer: GCRDrawer(),
+              drawer: GCRDrawer(
+                iconBloc: _bloc,
+              ),
               appBar: AppBar(
                 title: Text("Godot v" +
                     StoredValues().prefs.getString('version') +
@@ -68,10 +83,6 @@ class _ClassSelectState extends State<ClassSelect> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => SearchScreen()));
-
-//                      showSearch(
-//                          context: context,
-//                          delegate: ClassSelectSearchDelegate());
                     },
                   )
                 ],
@@ -80,21 +91,22 @@ class _ClassSelectState extends State<ClassSelect> {
                   children: snapshot.data
                       .map((f) => Card(
                             child: ListTile(
-                                leading: SvgIcon(
-                                  className: f,
-                                  version:
-                                      StoredValues().prefs.getString('version'),
-                                ),
-                                title: Text(f.replaceAll('.xml', '')),
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => ClassDetail(
-                                            className:
-                                                f.replaceAll('.xml', '')),
-                                      ));
-                                }),
+                              leading: ClassIcon(className: f, bloc: _bloc),
+                              title: Text(f
+                                  .replaceAll('#Node#', '')
+                                  .replaceAll('.xml', '')),
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ClassDetail(
+                                          className: f
+                                              .replaceAll('#Node#', '')
+                                              .replaceAll('.xml', '')),
+                                    ));
+                              },
+                              trailing: f.contains('#Node#') ? NodeTag() : null,
+                            ),
                           ))
                       .toList()),
             );
@@ -108,70 +120,5 @@ class _ClassSelectState extends State<ClassSelect> {
             ),
           );
         });
-  }
-}
-
-class ClassSelectSearchDelegate extends SearchDelegate {
-  @override
-  List<Widget> buildActions(BuildContext context) {
-    return [
-      IconButton(
-        icon: Icon(Icons.clear),
-        onPressed: () {
-          query = '';
-        },
-      )
-    ];
-  }
-
-  @override
-  Widget buildLeading(BuildContext context) {
-    return IconButton(
-      icon: Icon(Icons.arrow_back),
-      onPressed: () {
-        close(context, null);
-      },
-    );
-  }
-
-  @override
-  Widget buildResults(BuildContext context) {
-    if (query.length == 0) {
-      return Container();
-    }
-
-    final _lowerQuery = query.toLowerCase();
-
-    final _resultList = ClassList().getList().where(
-        (e) => e.toLowerCase().contains(_lowerQuery.replaceAll(' ', '')));
-
-    final _toMapList = _resultList.toList();
-    _toMapList.sort((a, b) => a
-        .toLowerCase()
-        .indexOf(_lowerQuery)
-        .compareTo(b.toLowerCase().indexOf(_lowerQuery)));
-
-    return ListView(
-      children: _toMapList.map((c) {
-        return ListTile(
-          title: Text(
-            c.substring(0, c.length - 4),
-          ),
-          onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      ClassDetail(className: c.replaceAll('.xml', '')),
-                ));
-          },
-        );
-      }).toList(),
-    );
-  }
-
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    return Container();
   }
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?><class name="Tabs" inherits="Control" version="3.2"><brief_description>
 		Tabs control.</brief_description><description>
-		Simple tabs control, similar to [TabContainer] but is only in charge of drawing tabs, not interact with children.</description><tutorials></tutorials><methods><method name="add_tab"><return type="void"></return><argument index="0" name="title" type="String" default="&quot;&quot;"></argument><argument index="1" name="icon" type="Texture" default="null"></argument><description>
+		Simple tabs control, similar to [TabContainer] but is only in charge of drawing tabs, not interacting with children.</description><tutorials></tutorials><methods><method name="add_tab"><return type="void"></return><argument index="0" name="title" type="String" default="&quot;&quot;"></argument><argument index="1" name="icon" type="Texture" default="null"></argument><description>
 				Adds a new tab.</description></method><method name="ensure_tab_visible"><return type="void"></return><argument index="0" name="idx" type="int"></argument><description>
 				Moves the scroll view to make the tab visible.</description></method><method name="get_offset_buttons_visible" qualifiers="const"><return type="bool"></return><description>
 				Returns [code]true[/code] if the offset buttons (the ones that appear when there's not enough space for all tabs) are visible.</description></method><method name="get_previous_tab" qualifiers="const"><return type="int"></return><description>

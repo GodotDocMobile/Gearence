@@ -29,7 +29,7 @@
 				Returns the text inside the selection.</description></method><method name="get_selection_to_column" qualifiers="const"><return type="int"></return><description>
 				Returns the selection end column.</description></method><method name="get_selection_to_line" qualifiers="const"><return type="int"></return><description>
 				Returns the selection end line.</description></method><method name="get_word_under_cursor" qualifiers="const"><return type="String"></return><description>
-				Returns a [String] text with the word under the mouse cursor location.</description></method><method name="has_keyword_color" qualifiers="const"><return type="bool"></return><argument index="0" name="keyword" type="String"></argument><description>
+				Returns a [String] text with the word under the caret (text cursor) location.</description></method><method name="has_keyword_color" qualifiers="const"><return type="bool"></return><argument index="0" name="keyword" type="String"></argument><description>
 				Returns whether the specified [code]keyword[/code] has a color set to it or not.</description></method><method name="insert_text_at_cursor"><return type="void"></return><argument index="0" name="text" type="String"></argument><description>
 				Insert the specified text at the cursor position.</description></method><method name="is_folded" qualifiers="const"><return type="bool"></return><argument index="0" name="line" type="int"></argument><description>
 				Returns whether the line at the specified index is folded or not.</description></method><method name="is_line_hidden" qualifiers="const"><return type="bool"></return><argument index="0" name="line" type="int"></argument><description>
