@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:godotclassreference/bloc/tap_event_bloc.dart';
 import 'package:godotclassreference/bloc/theme_bloc.dart';
+import 'package:godotclassreference/components/node_tag.dart';
 import 'package:godotclassreference/constants/class_db.dart';
+import 'package:godotclassreference/constants/class_list.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:godotclassreference/bloc/tap_event_arg.dart';
 import 'package:xml/xml.dart' as xml;
@@ -106,16 +108,18 @@ class _ClassDetailState extends State<ClassDetail>
           // append theme item tab if needed
           if (snapshot.data.themeItems != null &&
               snapshot.data.themeItems.length > 0) {
-            _tabs.add(ClassTab(
-              title: 'Theme Items',
-              child: ClassThemeItems(
-                clsContent: snapshot.data,
-                onLinkTap: onLinkTap,
-                eventStream: _bloc.argStream,
+            _tabs.add(
+              ClassTab(
+                title: 'Theme Items',
+                child: ClassThemeItems(
+                  clsContent: snapshot.data,
+                  onLinkTap: onLinkTap,
+                  eventStream: _bloc.argStream,
+                ),
+                showCnt: true,
+                itemCount: snapshot.data.themeItems.length,
               ),
-              showCnt: true,
-              itemCount: snapshot.data.themeItems.length,
-            ));
+            );
           }
 
           if (tabController == null) {
@@ -137,7 +141,21 @@ class _ClassDetailState extends State<ClassDetail>
 
           return Scaffold(
             appBar: AppBar(
-              title: Text(widget.className),
+              title: ClassList()
+                      .getList()
+                      .contains(widget.className + '#Node#.xml')
+                  ? Row(
+                      children: [
+                        Text(widget.className),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Container(
+                          child: NodeTag(),
+                        ),
+                      ],
+                    )
+                  : Text(widget.className),
               bottom: TabBar(
                 controller: tabController,
                 isScrollable: true,

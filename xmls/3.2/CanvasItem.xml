@@ -75,7 +75,7 @@
 			[b]Note:[/b] For controls that inherit [Popup], the correct way to make them visible is to call one of the multiple [code]popup*()[/code] functions instead.</member></members><signals><signal name="draw"><description>
 				Emitted when the [CanvasItem] must redraw. This can only be connected realtime, as deferred will not allow drawing.</description></signal><signal name="hide"><description>
 				Emitted when becoming hidden.</description></signal><signal name="item_rect_changed"><description>
-				Emitted when the item rect has changed.</description></signal><signal name="visibility_changed"><description>
+				Emitted when the item's [Rect2] boundaries (position or size) have changed, or when an action is taking place that may have impacted these boundaries (e.g. changing [member Sprite.texture]).</description></signal><signal name="visibility_changed"><description>
 				Emitted when the visibility (hidden/visible) changes.</description></signal></signals><constants><constant name="BLEND_MODE_MIX" value="0" enum="BlendMode">
 			Mix blending mode. Colors are assumed to be independent of the alpha (opacity) value.</constant><constant name="BLEND_MODE_ADD" value="1" enum="BlendMode">
 			Additive blending mode.</constant><constant name="BLEND_MODE_SUB" value="2" enum="BlendMode">

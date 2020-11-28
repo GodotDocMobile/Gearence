@@ -28,8 +28,15 @@
 				Returns the drop section at [code]position[/code], or -100 if no item is there.
 				Values -1, 0, or 1 will be returned for the "above item", "on item", and "below item" drop sections, respectively. See [enum DropModeFlags] for a description of each drop section.
 				To get the item which the returned drop section is relative to, use [method get_item_at_position].</description></method><method name="get_edited" qualifiers="const"><return type="TreeItem"></return><description>
-				Returns the currently edited item. This is only available for custom cell mode.</description></method><method name="get_edited_column" qualifiers="const"><return type="int"></return><description>
-				Returns the column for the currently edited item. This is only available for custom cell mode.</description></method><method name="get_item_area_rect" qualifiers="const"><return type="Rect2"></return><argument index="0" name="item" type="Object"></argument><argument index="1" name="column" type="int" default="-1"></argument><description>
+				Returns the currently edited item. Can be used with [signal item_edited] to get the item that was modified.
+				[codeblock]
+				func _ready():
+				    $Tree.item_edited.connect(on_Tree_item_edited)
+
+				func on_Tree_item_edited():
+				    print($Tree.get_edited()) # This item just got edited (e.g. checked).
+				[/codeblock]</description></method><method name="get_edited_column" qualifiers="const"><return type="int"></return><description>
+				Returns the column for the currently edited item.</description></method><method name="get_item_area_rect" qualifiers="const"><return type="Rect2"></return><argument index="0" name="item" type="Object"></argument><argument index="1" name="column" type="int" default="-1"></argument><description>
 				Returns the rectangle area for the specified item. If [code]column[/code] is specified, only get the position and size of that column, otherwise get the rectangle containing all columns.</description></method><method name="get_item_at_position" qualifiers="const"><return type="TreeItem"></return><argument index="0" name="position" type="Vector2"></argument><description>
 				Returns the tree item at the specified position (relative to the tree origin position).</description></method><method name="get_next_selected"><return type="TreeItem"></return><argument index="0" name="from" type="Object"></argument><description>
 				Returns the next selected item after the given one, or [code]null[/code] if the end is reached.

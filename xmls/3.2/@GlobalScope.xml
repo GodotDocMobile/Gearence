@@ -393,10 +393,10 @@
 			[codeblock]
 			var err = method_that_returns_error()
 			if err != OK:
-			    print("Failure!)
+			    print("Failure!")
 			# Or, equivalent:
 			if err:
-			    print("Still failing!)
+			    print("Still failing!")
 			[/codeblock]</constant><constant name="FAILED" value="1" enum="Error">
 			Generic error.</constant><constant name="ERR_UNAVAILABLE" value="2" enum="Error">
 			Unavailable error.</constant><constant name="ERR_UNCONFIGURED" value="3" enum="Error">
