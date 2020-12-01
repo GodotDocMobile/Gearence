@@ -76,6 +76,7 @@ class _SearchScreenState extends State<SearchScreen> {
       _searchingTerm = val;
       _doSearch(val);
     }
+    _searchBloc.argSink.add(null);
   }
 
   void _doSearch(String term) async {
@@ -197,10 +198,38 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   List<Widget> _buildSearchResult() {
+    _argList.remove(null);
+    if (_argList.length == 0) {
+      List<Widget> _rtn = [
+        ListTile(
+          title: Text('No Result'),
+        )
+      ];
+      return _rtn;
+    }
     List<Widget> _toRtnList = _argList.toSet().toList().map((e) {
-      if (e.linkType == LinkType.Class) {
+      if (e == null) {
+      } else {
+        if (e.linkType == LinkType.Class) {
+          return ListTile(
+            title:
+                Text(e.linkType.toString().substring(9) + " : " + e.className),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ClassDetail(
+                    className: e.className,
+                    args: e,
+                  ),
+                ),
+              );
+            },
+          );
+        }
         return ListTile(
-          title: Text(e.linkType.toString().substring(9) + " : " + e.className),
+          title: Text(e.linkType.toString().substring(9) + " : " + e.fieldName),
+          subtitle: Text("Class:" + e.className),
           onTap: () {
             Navigator.push(
               context,
@@ -213,28 +242,13 @@ class _SearchScreenState extends State<SearchScreen> {
             );
           },
         );
-      }
-      return ListTile(
-        title: Text(e.linkType.toString().substring(9) + " : " + e.fieldName),
-        subtitle: Text("Class:" + e.className),
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ClassDetail(
-                className: e.className,
-                args: e,
-              ),
-            ),
-          );
-        },
-      );
 //      return ListTile(
 //        title: Text(e.className),
 //        subtitle: Text(e.linkType.toString().replaceAll('LinkType.', '') +
 //            ':' +
 //            e.fieldName),
 //      );
+      }
     }).toList();
 
     if (_searching) {
