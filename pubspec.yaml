@@ -71,19 +71,20 @@ flutter:
     - svgs/3.0/
     - svgs/3.1/
     - svgs/3.2/
+    - svgs/icon.svg
       # xmls
     - xmls/2.0/
     - xmls/2.1/
     - xmls/3.0/
     - xmls/3.1/
     - xmls/3.2/
+      # jsons
     - xmls/files_2.0.json
     - xmls/files_2.1.json
     - xmls/files_3.0.json
     - xmls/files_3.1.json
     - xmls/files_3.2.json
     - xmls/conf.json
-    - svgs/icon.svg
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg
