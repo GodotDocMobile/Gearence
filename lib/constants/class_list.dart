@@ -1,6 +1,8 @@
 //this is a singleton class
+import 'package:godotclassreference/models/class_content.dart';
+
 class ClassList {
-  List<String> _list = List<String>();
+  List<ClassContent> _list = List<ClassContent>();
 
   static final ClassList _instance = ClassList._internal();
 
@@ -10,11 +12,11 @@ class ClassList {
 
   ClassList._internal();
 
-  updateList(List<String> newList) {
+  updateList(List<ClassContent> newList) {
     _list = newList;
   }
 
-  List<String> getList() {
+  List<ClassContent> getList() {
     return _list;
   }
 }

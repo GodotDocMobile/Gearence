@@ -127,7 +127,8 @@
 				Returns the current time zone as a dictionary with the keys: bias and name.</description></method><method name="get_unique_id" qualifiers="const"><return type="String"></return><description>
 				Returns a string that is unique to the device.
 				[b]Note:[/b] Returns an empty string on HTML5 and UWP, as this method isn't implemented on those platforms yet.</description></method><method name="get_unix_time" qualifiers="const"><return type="int"></return><description>
-				Returns the current UNIX epoch timestamp.</description></method><method name="get_unix_time_from_datetime" qualifiers="const"><return type="int"></return><argument index="0" name="datetime" type="Dictionary"></argument><description>
+				Returns the current UNIX epoch timestamp.
+				[b]Important:[/b] This is the system clock that the user can manully set. [b]Never use[/b] this method for precise time calculation since its results are also subject to automatic adjustments by the operating system. [b]Always use[/b] [method get_ticks_usec] or [method get_ticks_msec] for precise time calculation instead, since they are guaranteed to be monotonic (i.e. never decrease).</description></method><method name="get_unix_time_from_datetime" qualifiers="const"><return type="int"></return><argument index="0" name="datetime" type="Dictionary"></argument><description>
 				Gets an epoch time value from a dictionary of time values.
 				[code]datetime[/code] must be populated with the following keys: [code]year[/code], [code]month[/code], [code]day[/code], [code]hour[/code], [code]minute[/code], [code]second[/code].
 				You can pass the output from [method get_datetime_from_unix_time] directly into this function. Daylight Savings Time ([code]dst[/code]), if present, is ignored.</description></method><method name="get_user_data_dir" qualifiers="const"><return type="String"></return><description>
