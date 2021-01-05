@@ -39,6 +39,10 @@ class ClassNode:
         else:
             return ClassNode(element.attrib['name'])
 
+    def toJSON(self):
+        # return json.dump()
+        pass
+
 # TODO: add inherit chain on each classes.
 # TODO: update svg files
 
@@ -51,6 +55,16 @@ def _write_file_index(branch_name, file_name_arr):
     f.close()
     pass
 
+def _write_class_index(branch_name,class_arr):
+    files_json = json.dumps(class_arr)
+    f = open(join("../xmls", "files_"+branch_name+".json"), "w")
+    f.write(files_json)
+    f.close()
+    pass
+
+def _remove_parent_class(class_dict):
+    class_dict.pop("parent_class")
+    return class_dict
 
 def _remove_old_files(folder_path, branch_name):
     if exists(folder_path):
@@ -82,8 +96,24 @@ def find_child_classes(class_list, name):
     for c in class_list:
         if c.parent_class == name:
             _return_list.append(c)
-            _return_list = _return_list + find_child_classes(class_list, c.class_name)
+            _return_list = _return_list + \
+                find_child_classes(class_list, c.class_name)
     return _return_list
+
+
+def find_parent_class_chain(class_list, parent_name):
+    _chain_string = ""
+    if parent_name != "":
+        _chain_string = "[" + parent_name + "]"
+        for c in class_list:
+            if c.class_name == parent_name:
+                if c.inherit_chain == "" and c.parent_class is not None:
+                    c.inherit_chain = find_parent_class_chain(class_list, c.parent_class)
+                if c.inherit_chain != "":
+                    _chain_string =  _chain_string + " >> "+ c.inherit_chain
+                pass
+            pass
+    return _chain_string
 
 
 def single_class_files(branch_name):
@@ -108,11 +138,20 @@ def single_class_files(branch_name):
         _files.append(n.attrib["name"]+".xml")
         _class = ClassNode.parse_element(n)
         _classes.append(_class)
-    _nodes = _nodes + find_child_classes(_classes, 'Node')
-    for n in _nodes:
-        _index = _files.index("{}{}".format(n.class_name, ".xml"))
-        _files[_index] = _files[_index].replace('.xml', '#Node#.xml')
-    _write_file_index(branch_name, _files)
+    
+    for c in _classes:
+        if c.parent_class != "":
+            c.inherit_chain = find_parent_class_chain(_classes,c.parent_class)
+            pass
+        c.parent_class = None
+        pass
+    _write_class_index(branch_name,[_remove_parent_class(ob.__dict__) for ob in _classes])
+
+    # _nodes = _nodes + find_child_classes(_classes, 'Node')
+    # for n in _nodes:
+    #     _index = _files.index("{}{}".format(n.class_name, ".xml"))
+    #     _files[_index] = _files[_index].replace('.xml', '#Node#.xml')
+    # _write_file_index(branch_name, _files)
 
 
 def multiple_class_files(branch_name):
@@ -158,12 +197,21 @@ def multiple_class_files(branch_name):
                 _classes.append(_class)
                 pass
             pass
-    _write_file_index(branch_name, _files)
-    _nodes = _nodes + find_child_classes(_classes, 'Node')
-    for n in _nodes:
-        _index = _files.index("{}{}".format(n.class_name, ".xml"))
-        _files[_index] = _files[_index].replace('.xml', '#Node#.xml')
-    _write_file_index(branch_name, _files)
+    
+    for c in _classes:
+        if c.parent_class != "":
+            c.inherit_chain = find_parent_class_chain(_classes,c.parent_class)
+            pass
+        c.parent_class = None
+        pass
+    _write_class_index(branch_name,[_remove_parent_class(ob.__dict__) for ob in _classes])
+
+    # _write_file_index(branch_name, _files)
+    # _nodes = _nodes + find_child_classes(_classes, 'Node')
+    # for n in _nodes:
+    #     _index = _files.index("{}{}".format(n.class_name, ".xml"))
+    #     _files[_index] = _files[_index].replace('.xml', '#Node#.xml')
+    # _write_file_index(branch_name, _files)
 
 
 def parse_argv():

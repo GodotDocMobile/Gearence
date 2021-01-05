@@ -23,7 +23,7 @@ class SvgIcon extends StatelessWidget {
       : assert(className != null),
         assert(version != null),
         super(key: key) {
-    final _classNameLength = className.length - 4; // '.xml' not included
+    final _classNameLength = className.length; // '.xml' not included
     int _digit = 0;
 
     while (_digit < _classNameLength) {

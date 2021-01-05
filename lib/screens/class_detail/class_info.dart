@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:godotclassreference/components/description_text.dart';
 import 'package:godotclassreference/bloc/tap_event_arg.dart';
+import 'package:godotclassreference/constants/class_db.dart';
 import 'package:godotclassreference/models/class_content.dart';
 import 'package:godotclassreference/theme/default.dart';
 
@@ -15,6 +16,13 @@ class ClassInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _childClasses = ClassDB()
+        .getDB()
+        .where((element) => element.inherits == clsContent.name)
+        .map((e) => ' [' + e.name + '] ')
+        .toList()
+        .toString();
+
     //brief_description
     //description
     //version
@@ -24,6 +32,31 @@ class ClassInfo extends StatelessWidget {
     return ListView(
       padding: EdgeInsets.all(6),
       children: <Widget>[
+        Text(
+          'Inherits:',
+          style: TextStyle(color: Colors.grey),
+        ),
+        DescriptionText(
+          className: clsContent.name,
+          content:
+              clsContent.inheritChain == null ? '' : clsContent.inheritChain,
+          onLinkTap: onLinkTap,
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Text(
+          'Child Classes:',
+          style: TextStyle(color: Colors.grey),
+        ),
+        DescriptionText(
+          className: clsContent.name,
+          content: _childClasses.substring(1, _childClasses.length - 1),
+          onLinkTap: onLinkTap,
+        ),
+        SizedBox(
+          height: 10,
+        ),
         //brief_description
         Text(
           'Brief Description:',
