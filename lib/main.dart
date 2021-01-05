@@ -103,7 +103,6 @@ class _GCRAppState extends State<GCRApp> {
   @override
   void dispose() {
     // TODO: implement dispose
-    ClassDB().dispose();
     TapEventBloc().dispose();
     super.dispose();
   }

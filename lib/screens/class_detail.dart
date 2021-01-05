@@ -70,7 +70,7 @@ class _ClassDetailState extends State<ClassDetail>
   Future<ClassContent> getClassDetail() async {
     final version = StoredValues().prefs.getString('version');
 
-    return await ClassDB().getSingle(version, widget.className + '.xml');
+    return await ClassDB().getSingle(version, widget.className);
   }
 
   void onLinkTap(TapEventArg args) async {
@@ -141,9 +141,9 @@ class _ClassDetailState extends State<ClassDetail>
 
           return Scaffold(
             appBar: AppBar(
-              title: ClassList()
-                      .getList()
-                      .contains(widget.className + '#Node#.xml')
+              title: snapshot.data.inheritChain != null &&
+                      (snapshot.data.inheritChain.contains('[Node]') ||
+                          snapshot.data.name == 'Node')
                   ? Row(
                       children: [
                         Text(widget.className),

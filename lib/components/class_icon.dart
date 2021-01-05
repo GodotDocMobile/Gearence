@@ -40,7 +40,7 @@ class _ClassIconState extends State<ClassIcon> {
           if (snapshot.hasData) {
             if (snapshot.data || widget.className.contains('#Node#')) {
               return SvgIcon(
-                className: widget.className.replaceAll('#Node#', ''),
+                className: widget.className,
                 version: StoredValues().prefs.getString('version'),
               );
             }

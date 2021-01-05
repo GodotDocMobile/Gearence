@@ -20,6 +20,7 @@ class ClassContent {
   List<Signal> signals;
   List<ThemeItem> themeItems;
   String tutorials;
+  String inheritChain;
 
   ClassContent(
       {this.name,
@@ -34,7 +35,10 @@ class ClassContent {
       this.methods,
       this.signals,
       this.themeItems,
-      this.tutorials});
+      this.tutorials,
+      this.inheritChain});
+
+  static ClassContent fromJson(json) {}
 
   static ClassContent fromXml(XmlElement node) {
     ClassContent toReturn = ClassContent();

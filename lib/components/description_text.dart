@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:godotclassreference/constants/class_db.dart';
 import 'package:godotclassreference/constants/class_list.dart';
 import 'package:godotclassreference/constants/colors.dart';
 import 'package:godotclassreference/bloc/tap_event_arg.dart';
@@ -116,7 +117,7 @@ class DescriptionText extends StatelessWidget {
           ),
         );
         pos = brkEnd + 1;
-      } else if (ClassList().getList().contains(tag + '.xml')) {
+      } else if (ClassDB().getDB().any((element) => element.name == tag)) {
         _toRtn.add(
           TextSpan(
             text: tag,
@@ -129,7 +130,8 @@ class DescriptionText extends StatelessWidget {
                 );
                 this.onLinkTap(args);
               },
-            style: TextStyle(color: godotColor),
+            style:
+                TextStyle(color: tag == className ? Colors.black : godotColor),
           ),
         );
         pos = brkEnd + 1;
