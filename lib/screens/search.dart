@@ -6,7 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:godotclassreference/bloc/search_bloc.dart';
 import 'package:godotclassreference/bloc/tap_event_arg.dart';
 import 'package:godotclassreference/constants/class_db.dart';
-import 'package:godotclassreference/constants/class_list.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:godotclassreference/models/class_content.dart';
 import 'package:godotclassreference/theme/themes.dart';

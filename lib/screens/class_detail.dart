@@ -1,11 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:godotclassreference/bloc/tap_event_bloc.dart';
 import 'package:godotclassreference/bloc/theme_bloc.dart';
 import 'package:godotclassreference/components/node_tag.dart';
 import 'package:godotclassreference/constants/class_db.dart';
-import 'package:godotclassreference/constants/class_list.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:godotclassreference/bloc/tap_event_arg.dart';
 import 'package:xml/xml.dart' as xml;
@@ -151,7 +149,9 @@ class _ClassDetailState extends State<ClassDetail>
                           width: 5,
                         ),
                         Container(
-                          child: NodeTag(),
+                          child: NodeTag(
+                            classContent: snapshot.data,
+                          ),
                         ),
                       ],
                     )
