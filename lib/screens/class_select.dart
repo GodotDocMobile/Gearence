@@ -52,11 +52,6 @@ class ClassSelect extends StatefulWidget {
 class _ClassSelectState extends State<ClassSelect> {
   IconForNonNodeBloc _bloc;
   ClassListFilterBloc _filterBloc;
-  bool show2DNode = true;
-  bool show3DNode = true;
-  bool showControlNode = true;
-  bool showOtherNode = true;
-  bool showNonNode = true;
 
   List<ClassContent> _classes = List<ClassContent>();
 
@@ -76,11 +71,6 @@ class _ClassSelectState extends State<ClassSelect> {
     _bloc = IconForNonNodeBloc();
     _filterBloc = ClassListFilterBloc();
 
-    show2DNode = StoredValues().show2DNodes;
-    show3DNode = StoredValues().show3DNodes;
-    showControlNode = StoredValues().showControlNodes;
-    showOtherNode = StoredValues().showOtherNodes;
-    showNonNode = StoredValues().showNonNodes;
     super.initState();
   }
 
@@ -109,10 +99,10 @@ class _ClassSelectState extends State<ClassSelect> {
                     ListTile(
                       title: Text('2D Nodes'),
                       trailing: Switch(
-                          value: show2DNode,
+                          value: StoredValues().show2DNodes,
                           onChanged: (v) {
                             setState(() {
-                              show2DNode = v;
+                              StoredValues().show2DNodes = v;
                               _filterBloc.argSink
                                   .add(FilterOption(FilterType.Node2D, v));
                               StoredValues().prefs.setBool("show2DNodes", v);
@@ -123,10 +113,10 @@ class _ClassSelectState extends State<ClassSelect> {
                     ListTile(
                       title: Text('3D Nodes'),
                       trailing: Switch(
-                        value: show3DNode,
+                        value: StoredValues().show3DNodes,
                         onChanged: (v) {
                           setState(() {
-                            show3DNode = v;
+                            StoredValues().show3DNodes = v;
                             _filterBloc.argSink
                                 .add(FilterOption(FilterType.Node3D, v));
                             StoredValues().prefs.setBool("show3DNodes", v);
@@ -138,10 +128,10 @@ class _ClassSelectState extends State<ClassSelect> {
                     ListTile(
                       title: Text('Control Nodes'),
                       trailing: Switch(
-                        value: showControlNode,
+                        value: StoredValues().showControlNodes,
                         onChanged: (v) {
                           setState(() {
-                            showControlNode = v;
+                            StoredValues().showControlNodes = v;
                             _filterBloc.argSink
                                 .add(FilterOption(FilterType.NodeControl, v));
                             StoredValues().prefs.setBool("showControlNodes", v);
@@ -153,10 +143,10 @@ class _ClassSelectState extends State<ClassSelect> {
                     ListTile(
                       title: Text('Other Nodes'),
                       trailing: Switch(
-                        value: showOtherNode,
+                        value: StoredValues().showOtherNodes,
                         onChanged: (v) {
                           setState(() {
-                            showOtherNode = v;
+                            StoredValues().showOtherNodes = v;
                             _filterBloc.argSink
                                 .add(FilterOption(FilterType.NodeOther, v));
                             StoredValues().prefs.setBool("showOtherNodes", v);
@@ -168,10 +158,10 @@ class _ClassSelectState extends State<ClassSelect> {
                     ListTile(
                       title: Text('Non Nodes'),
                       trailing: Switch(
-                        value: showNonNode,
+                        value: StoredValues().showNonNodes,
                         onChanged: (v) {
                           setState(() {
-                            showNonNode = v;
+                            StoredValues().showNonNodes = v;
                             _filterBloc.argSink
                                 .add(FilterOption(FilterType.NonNode, v));
                             StoredValues().prefs.setBool("showNonNodes", v);
@@ -236,23 +226,23 @@ class _ClassSelectState extends State<ClassSelect> {
   List<ClassContent> filterClasses(List<ClassContent> list) {
     List<ClassContent> _rtnList = List<ClassContent>();
     _sortClasses(list);
-    if (show2DNode) {
+    if (StoredValues().show2DNodes) {
       _rtnList.addAll(_2dNodes);
     }
 
-    if (show3DNode) {
+    if (StoredValues().show3DNodes) {
       _rtnList.addAll(_3dNodes);
     }
 
-    if (showControlNode) {
+    if (StoredValues().showControlNodes) {
       _rtnList.addAll(_controlNodes);
     }
 
-    if (showOtherNode) {
+    if (StoredValues().showOtherNodes) {
       _rtnList.addAll(_otherNodes);
     }
 
-    if (showNonNode) {
+    if (StoredValues().showNonNodes) {
       _rtnList.addAll(_nonNodes);
     }
 
@@ -324,19 +314,19 @@ class _ClassSelectState extends State<ClassSelect> {
           if (snapshot.hasData) {
             switch (snapshot.data.type) {
               case FilterType.Node2D:
-                show2DNode = snapshot.data.value;
+                StoredValues().show2DNodes = snapshot.data.value;
                 break;
               case FilterType.Node3D:
-                show3DNode = snapshot.data.value;
+                StoredValues().show3DNodes = snapshot.data.value;
                 break;
               case FilterType.NodeControl:
-                showControlNode = snapshot.data.value;
+                StoredValues().showControlNodes = snapshot.data.value;
                 break;
               case FilterType.NodeOther:
-                showOtherNode = snapshot.data.value;
+                StoredValues().showOtherNodes = snapshot.data.value;
                 break;
               case FilterType.NonNode:
-                showNonNode = snapshot.data.value;
+                StoredValues().showNonNodes = snapshot.data.value;
                 break;
             }
           }
