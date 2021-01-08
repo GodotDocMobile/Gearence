@@ -9,11 +9,13 @@ class StoredValues {
   ThemeChange themeChange;
   bool iconForNonNode;
 
-  static final StoredValues _instance = StoredValues._internal();
+  bool show2DNodes;
+  bool show3DNodes;
+  bool showControlNodes;
+  bool showOtherNodes;
+  bool showNonNodes;
 
-  static final List<int> scrollIndexes = List<int>();
-  static final List<int> tabIndexes = List<int>();
-  static final List<String> classes = List<String>();
+  static final StoredValues _instance = StoredValues._internal();
 
   factory StoredValues() {
     if (_instance.prefs == null) {
@@ -33,20 +35,26 @@ class StoredValues {
         ? true
         : prefs.getBool('iconForNonNodes');
 
-    int _scrollIndex = prefs.getInt('scrollIndex');
-    if (_scrollIndex != null) {
-      scrollIndexes.add(_scrollIndex);
-    }
+    show2DNodes = prefs.getBool('show2DNodes') == null
+        ? true
+        : prefs.getBool('show2DNodes');
 
-    int _tabIndex = prefs.getInt('tabIndex');
-    if (_tabIndex != null) {
-      scrollIndexes.add(_tabIndex);
-    }
+    show3DNodes = prefs.getBool('show3DNodes') == null
+        ? true
+        : prefs.getBool('show3DNodes');
 
-    String _className = prefs.getString('className');
-    if (_className != null && _className.length > 0) {
-      classes.add(_className);
-    }
+    showControlNodes = prefs.getBool('showControlNodes') == null
+        ? true
+        : prefs.getBool('showControlNodes');
+
+    showOtherNodes = prefs.getBool('showOtherNodes') == null
+        ? true
+        : prefs.getBool('showOtherNodes');
+
+    showNonNodes = prefs.getBool('showNonNodes') == null
+        ? true
+        : prefs.getBool('showNonNodes');
+
     return true;
   }
 }

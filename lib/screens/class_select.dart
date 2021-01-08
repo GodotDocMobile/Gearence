@@ -3,13 +3,13 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:godotclassreference/bloc/class_list_filter_bloc.dart';
 import 'package:godotclassreference/bloc/icon_for_non_node_bloc.dart';
 import 'package:godotclassreference/components/class_icon.dart';
 import 'package:godotclassreference/components/node_tag.dart';
 import 'package:godotclassreference/components/svg_icon.dart';
 import 'package:godotclassreference/constants/class_db.dart';
 
-import 'package:godotclassreference/constants/class_list.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:godotclassreference/models/class_content.dart';
 import 'package:godotclassreference/screens/class_detail.dart';
@@ -51,6 +51,7 @@ class ClassSelect extends StatefulWidget {
 
 class _ClassSelectState extends State<ClassSelect> {
   IconForNonNodeBloc _bloc;
+  ClassListFilterBloc _filterBloc;
   bool show2DNode = true;
   bool show3DNode = true;
   bool showControlNode = true;
@@ -59,9 +60,27 @@ class _ClassSelectState extends State<ClassSelect> {
 
   List<ClassContent> _classes = List<ClassContent>();
 
+  List<ClassContent> _2dNodes = List<ClassContent>();
+  List<ClassContent> _3dNodes = List<ClassContent>();
+  List<ClassContent> _controlNodes = List<ClassContent>();
+  List<ClassContent> _otherNodes = List<ClassContent>();
+  List<ClassContent> _nonNodes = List<ClassContent>();
+
   @override
   void initState() {
+    _2dNodes.clear();
+    _3dNodes.clear();
+    _controlNodes.clear();
+    _otherNodes.clear();
+    _nonNodes.clear();
     _bloc = IconForNonNodeBloc();
+    _filterBloc = ClassListFilterBloc();
+
+    show2DNode = StoredValues().show2DNodes;
+    show3DNode = StoredValues().show3DNodes;
+    showControlNode = StoredValues().showControlNodes;
+    showOtherNode = StoredValues().showOtherNodes;
+    showNonNode = StoredValues().showNonNodes;
     super.initState();
   }
 
@@ -94,7 +113,10 @@ class _ClassSelectState extends State<ClassSelect> {
                           onChanged: (v) {
                             setState(() {
                               show2DNode = v;
-                              _classes = filterClasses(_classes);
+                              _filterBloc.argSink
+                                  .add(FilterOption(FilterType.Node2D, v));
+                              StoredValues().prefs.setBool("show2DNodes", v);
+                              // _classes = filterClasses(_classes);
                             });
                           }),
                     ),
@@ -103,8 +125,13 @@ class _ClassSelectState extends State<ClassSelect> {
                       trailing: Switch(
                         value: show3DNode,
                         onChanged: (v) {
-                          show3DNode = v;
-                          _classes = filterClasses(_classes);
+                          setState(() {
+                            show3DNode = v;
+                            _filterBloc.argSink
+                                .add(FilterOption(FilterType.Node3D, v));
+                            StoredValues().prefs.setBool("show3DNodes", v);
+                          });
+                          // _classes = filterClasses(_classes);
                         },
                       ),
                     ),
@@ -115,7 +142,10 @@ class _ClassSelectState extends State<ClassSelect> {
                         onChanged: (v) {
                           setState(() {
                             showControlNode = v;
-                            _classes = filterClasses(_classes);
+                            _filterBloc.argSink
+                                .add(FilterOption(FilterType.NodeControl, v));
+                            StoredValues().prefs.setBool("showControlNodes", v);
+                            // _classes = filterClasses(_classes);
                           });
                         },
                       ),
@@ -127,7 +157,10 @@ class _ClassSelectState extends State<ClassSelect> {
                         onChanged: (v) {
                           setState(() {
                             showOtherNode = v;
-                            _classes = filterClasses(_classes);
+                            _filterBloc.argSink
+                                .add(FilterOption(FilterType.NodeOther, v));
+                            StoredValues().prefs.setBool("showOtherNodes", v);
+                            // _classes = filterClasses(_classes);
                           });
                         },
                       ),
@@ -139,7 +172,10 @@ class _ClassSelectState extends State<ClassSelect> {
                         onChanged: (v) {
                           setState(() {
                             showNonNode = v;
-                            _classes = filterClasses(_classes);
+                            _filterBloc.argSink
+                                .add(FilterOption(FilterType.NonNode, v));
+                            StoredValues().prefs.setBool("showNonNodes", v);
+                            // _classes = filterClasses(_classes);
                           });
                         },
                       ),
@@ -159,49 +195,71 @@ class _ClassSelectState extends State<ClassSelect> {
         });
   }
 
+  void _sortClasses(List<ClassContent> list) async {
+    List<ClassContent> _filteredClasses = List<ClassContent>.from(list);
+    if (_2dNodes.length == 0) {
+      _2dNodes = _filteredClasses
+          .where((element) => element.belong('Node2D'))
+          .toList();
+    }
+
+    if (_3dNodes.length == 0) {
+      _3dNodes = _filteredClasses
+          .where((element) => element.belong('Spatial'))
+          .toList();
+    }
+
+    if (_controlNodes.length == 0) {
+      _controlNodes = _filteredClasses
+          .where((element) => element.belong('Control'))
+          .toList();
+    }
+
+    if (_otherNodes.length == 0) {
+      _otherNodes = _filteredClasses.where((element) {
+        var _allNames = '[${element.name}]${element.inheritChain}';
+        return _allNames.contains('[Node]') &&
+            !_allNames.contains('Node2D') &&
+            !_allNames.contains('[Spatial]') &&
+            !_allNames.contains('[Control]');
+      }).toList();
+    }
+
+    if (_nonNodes.length == 0) {
+      _nonNodes = _filteredClasses.where((element) {
+        var _allNames = '[${element.name}]${element.inheritChain}';
+        return !_allNames.contains('[Node]');
+      }).toList();
+    }
+  }
+
   List<ClassContent> filterClasses(List<ClassContent> list) {
-    List<ClassContent> _classes = List<ClassContent>.from(list);
+    List<ClassContent> _rtnList = List<ClassContent>();
+    _sortClasses(list);
+    if (show2DNode) {
+      _rtnList.addAll(_2dNodes);
+    }
 
-    List<String> _filtered = [];
-    if (!show2DNode) {
-      _filtered.add('Node2D');
+    if (show3DNode) {
+      _rtnList.addAll(_3dNodes);
     }
-    if (!show3DNode) {
-      _filtered.add('Node3D');
-    }
-    if (!showControlNode) {
-      _filtered.add('Control');
-    }
-    // if (!showOtherNode) {
-    //   _filtered.add('Node');
-    // }
 
-    if (!showOtherNode) {
-      _classes = _classes.where((element) {
-        var _allNames = '[${element.name}]${element.inheritChain}';
-        return !_allNames.contains('Node2D') &&
-            !_allNames.contains('Node3D') &&
-            !_allNames.contains('Control') &&
-            !_allNames.contains('[Node]');
-      }).toList();
+    if (showControlNode) {
+      _rtnList.addAll(_controlNodes);
     }
-    _classes = _classes.where((e) {
-      bool result = true;
-      for (var i in _filtered) {
-        var _allNames = '[${e.name}]${e.inheritChain}';
-        result = result && !_allNames.contains('[$i]');
-        if (!result) break;
-      }
-      return result;
-    }).toList();
 
-    if (!showNonNode) {
-      _classes = _classes.where((element) {
-        var _allNames = '[${element.name}]${element.inheritChain}';
-        return _allNames.contains('[Node]');
-      }).toList();
+    if (showOtherNode) {
+      _rtnList.addAll(_otherNodes);
     }
-    return _classes;
+
+    if (showNonNode) {
+      _rtnList.addAll(_nonNodes);
+    }
+
+    _rtnList.sort((a, b) {
+      return a.name.compareTo(b.name);
+    });
+    return _rtnList;
   }
 
   @override
@@ -213,31 +271,8 @@ class _ClassSelectState extends State<ClassSelect> {
         builder:
             (BuildContext context, AsyncSnapshot<List<ClassContent>> snapshot) {
           if (snapshot.hasData) {
-            snapshot.data.sort((a, b) {
-              return a.name.compareTo(b.name);
-            });
-
-            // if (!show2DNode) {
-            //   _classes = _classes.where((e) {
-            //     return !e.inheritChain.contains('[Node2D]') &&
-            //         e.name != 'Node2D';
-            //   });
-            // }
-            //
-            // if (!show3DNode) {
-            //   _classes = _classes.where((e) {
-            //     return !e.inheritChain.contains('[Node2D]') &&
-            //         e.name != 'Node2D';
-            //   });
-            // }
-            //
-            // if (!showControlNode) {
-            //   _classes = _classes.where((e) {
-            //     return !e.inheritChain.contains('[Control]') &&
-            //         e.name != 'Control';
-            //   });
-            // }
-
+            _classes = snapshot.data;
+            _sortClasses(_classes);
             return Scaffold(
               resizeToAvoidBottomPadding: true,
               drawer: GCRDrawer(
@@ -268,34 +303,7 @@ class _ClassSelectState extends State<ClassSelect> {
                   )
                 ],
               ),
-              body: StatefulBuilder(builder: (context, setState) {
-                _classes = filterClasses(snapshot.data.toList());
-
-                return ListView(
-                    children: _classes
-                        .map((f) => Card(
-                              child: ListTile(
-                                leading:
-                                    ClassIcon(className: f.name, bloc: _bloc),
-                                title: Text(f.name),
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            ClassDetail(className: f.name),
-                                      ));
-                                },
-                                trailing: f.inheritChain != null &&
-                                            f.inheritChain.contains('[Node]') ||
-                                        f.name == 'Node'
-                                    ? NodeTag()
-                                    : null,
-                                // f.name.contains('#Node#') ? NodeTag() : null,
-                              ),
-                            ))
-                        .toList());
-              }),
+              body: buildList(),
             );
           }
 
@@ -306,6 +314,62 @@ class _ClassSelectState extends State<ClassSelect> {
               child: CircularProgressIndicator(),
             ),
           );
+        });
+  }
+
+  Widget buildList() {
+    return StreamBuilder<FilterOption>(
+        stream: _filterBloc.argStream,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            switch (snapshot.data.type) {
+              case FilterType.Node2D:
+                show2DNode = snapshot.data.value;
+                break;
+              case FilterType.Node3D:
+                show3DNode = snapshot.data.value;
+                break;
+              case FilterType.NodeControl:
+                showControlNode = snapshot.data.value;
+                break;
+              case FilterType.NodeOther:
+                showOtherNode = snapshot.data.value;
+                break;
+              case FilterType.NonNode:
+                showNonNode = snapshot.data.value;
+                break;
+            }
+          }
+
+          var _widget = ListView(
+              children: filterClasses(_classes)
+                  .map((f) => Card(
+                        child: ListTile(
+                          leading: ClassIcon(
+                            classContent: f,
+                            bloc: _bloc,
+                            key: UniqueKey(),
+                          ),
+                          title: Text(f.name),
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      ClassDetail(className: f.name),
+                                ));
+                          },
+                          trailing: f.belong('Node')
+                              ? NodeTag(
+                                  classContent: f,
+                                )
+                              : null,
+                          // f.name.contains('#Node#') ? NodeTag() : null,
+                        ),
+                      ))
+                  .toList());
+
+          return _widget;
         });
   }
 }

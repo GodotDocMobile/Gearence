@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:godotclassreference/components/description_text.dart';
-import 'package:godotclassreference/constants/class_list.dart';
+import 'package:godotclassreference/constants/class_db.dart';
 import 'package:godotclassreference/constants/colors.dart';
 import 'package:godotclassreference/bloc/tap_event_arg.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
@@ -97,7 +97,9 @@ class _ClassMethodsState extends State<ClassMethods> {
           return ListTile(
             leading: m.returnValue == null
                 ? Text('void')
-                : ClassList().getList().contains(m.returnValue.type + '.xml')
+                : ClassDB()
+                        .getDB()
+                        .any((element) => element.name == m.returnValue.type)
                     ? InkWell(
                         child: Text(
                           m.returnValue.type,
@@ -151,9 +153,9 @@ class _ClassMethodsState extends State<ClassMethods> {
 //                                        print(ClassList()
 //                                            .getList()
 //                                            .contains(a.type + '.xml'));
-                                        return ClassList()
-                                                .getList()
-                                                .contains(a.type + '.xml')
+                                        return ClassDB().getDB().any(
+                                                (element) =>
+                                                    element.name == a.type)
                                             ? InkWell(
                                                 child: Text(
                                                   a.type,

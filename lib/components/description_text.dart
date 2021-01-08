@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:godotclassreference/constants/class_db.dart';
-import 'package:godotclassreference/constants/class_list.dart';
 import 'package:godotclassreference/constants/colors.dart';
 import 'package:godotclassreference/bloc/tap_event_arg.dart';
+import 'package:godotclassreference/constants/stored_values.dart';
 //import 'package:xml/xml.dart';
 
 //logic check godot/editor/editor_help.cpp _add_text_to_rt
@@ -130,8 +130,13 @@ class DescriptionText extends StatelessWidget {
                 );
                 this.onLinkTap(args);
               },
-            style:
-                TextStyle(color: tag == className ? Colors.black : godotColor),
+            style: TextStyle(
+                color: tag == className
+                    ? (StoredValues().themeChange.currentTheme() ==
+                            ThemeMode.dark
+                        ? Colors.white
+                        : Colors.black)
+                    : godotColor),
           ),
         );
         pos = brkEnd + 1;

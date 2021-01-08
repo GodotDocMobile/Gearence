@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:godotclassreference/components/description_text.dart';
-import 'package:godotclassreference/constants/class_list.dart';
+import 'package:godotclassreference/constants/class_db.dart';
 import 'package:godotclassreference/constants/colors.dart';
 import 'package:godotclassreference/bloc/tap_event_arg.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
@@ -74,30 +74,31 @@ class _ClassMembersState extends State<ClassMembers> {
           return Column(
             children: <Widget>[
               ListTile(
-                leading: ClassList().getList().contains(m.type + '.xml')
-                    ? InkWell(
-                        child: Text(
-                          m.type,
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: godotColor,
+                leading:
+                    ClassDB().getDB().any((element) => element.name == m.type)
+                        ? InkWell(
+                            child: Text(
+                              m.type,
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: godotColor,
+                              ),
+                            ),
+                            onTap: () {
+                              TapEventArg _arg = TapEventArg(
+                                  className: m.type,
+                                  linkType: LinkType.Class,
+                                  fieldName: '');
+                              widget.onLinkTap(_arg);
+                            },
+                          )
+                        : Text(
+                            m.type,
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.black,
+                            ),
                           ),
-                        ),
-                        onTap: () {
-                          TapEventArg _arg = TapEventArg(
-                              className: m.type,
-                              linkType: LinkType.Class,
-                              fieldName: '');
-                          widget.onLinkTap(_arg);
-                        },
-                      )
-                    : Text(
-                        m.type,
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.black,
-                        ),
-                      ),
                 title: Text(
                   m.name,
                   style: TextStyle(

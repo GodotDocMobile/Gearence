@@ -10,6 +10,7 @@ import datetime
 import yaml
 import json
 import argparse
+from shutil import copyfile
 
 branches = [
     "2.0",
@@ -55,16 +56,19 @@ def _write_file_index(branch_name, file_name_arr):
     f.close()
     pass
 
-def _write_class_index(branch_name,class_arr):
+
+def _write_class_index(branch_name, class_arr):
     files_json = json.dumps(class_arr)
     f = open(join("../xmls", "files_"+branch_name+".json"), "w")
     f.write(files_json)
     f.close()
     pass
 
+
 def _remove_parent_class(class_dict):
     class_dict.pop("parent_class")
     return class_dict
+
 
 def _remove_old_files(folder_path, branch_name):
     if exists(folder_path):
@@ -108,9 +112,10 @@ def find_parent_class_chain(class_list, parent_name):
         for c in class_list:
             if c.class_name == parent_name:
                 if c.inherit_chain == "" and c.parent_class is not None:
-                    c.inherit_chain = find_parent_class_chain(class_list, c.parent_class)
+                    c.inherit_chain = find_parent_class_chain(
+                        class_list, c.parent_class)
                 if c.inherit_chain != "":
-                    _chain_string =  _chain_string + " >> "+ c.inherit_chain
+                    _chain_string = _chain_string + " >> " + c.inherit_chain
                 pass
             pass
     return _chain_string
@@ -138,14 +143,15 @@ def single_class_files(branch_name):
         _files.append(n.attrib["name"]+".xml")
         _class = ClassNode.parse_element(n)
         _classes.append(_class)
-    
+
     for c in _classes:
         if c.parent_class != "":
-            c.inherit_chain = find_parent_class_chain(_classes,c.parent_class)
+            c.inherit_chain = find_parent_class_chain(_classes, c.parent_class)
             pass
         c.parent_class = None
         pass
-    _write_class_index(branch_name,[_remove_parent_class(ob.__dict__) for ob in _classes])
+    _write_class_index(
+        branch_name, [_remove_parent_class(ob.__dict__) for ob in _classes])
 
     # _nodes = _nodes + find_child_classes(_classes, 'Node')
     # for n in _nodes:
@@ -197,14 +203,15 @@ def multiple_class_files(branch_name):
                 _classes.append(_class)
                 pass
             pass
-    
+
     for c in _classes:
         if c.parent_class != "":
-            c.inherit_chain = find_parent_class_chain(_classes,c.parent_class)
+            c.inherit_chain = find_parent_class_chain(_classes, c.parent_class)
             pass
         c.parent_class = None
         pass
-    _write_class_index(branch_name,[_remove_parent_class(ob.__dict__) for ob in _classes])
+    _write_class_index(
+        branch_name, [_remove_parent_class(ob.__dict__) for ob in _classes])
 
     # _write_file_index(branch_name, _files)
     # _nodes = _nodes + find_child_classes(_classes, 'Node')
@@ -221,6 +228,36 @@ def parse_argv():
     parser.add_argument(
         '--skip_pull', help='skip pulling action before strip line breaking', action='store_true')
     return parser.parse_args()
+
+
+def copy_svgs(branch_name, custom_path):
+    print("removing old svg files.")
+    _svg_target_folder = join("../svgs", branch_name)
+
+    if exists(_svg_target_folder):
+        for f in listdir(_svg_target_folder):
+            remove(join(_svg_target_folder, f))
+            pass
+    else:
+        mkdir(_svg_target_folder)
+    print("done removing old svg files.")
+
+    _svg_source_folder = join(godot_repo, "editor", "icons")
+    if custom_path:
+        _svg_source_folder = join(_svg_source_folder, "source")
+
+    if exists(_svg_source_folder):
+        print("moving svg files.")
+        for origin_file in listdir(_svg_source_folder):
+            if origin_file.find(".svg") > -1:
+                copyfile(join(_svg_source_folder, origin_file),
+                         join(_svg_target_folder, origin_file))
+                pass
+
+        print("done moving svg files.")
+    else:
+        print("no svg files in this version,skipping")
+    pass
 
 
 if __name__ == "__main__":
@@ -269,8 +306,10 @@ if __name__ == "__main__":
 
         if float(b) >= 3:
             multiple_class_files(b)
+            copy_svgs(b, False)
             pass
         else:
+            copy_svgs(b, True)
             single_class_files(b)
             pass
         pass

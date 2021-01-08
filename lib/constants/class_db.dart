@@ -2,7 +2,6 @@
 import 'dart:async';
 
 import 'package:flutter/services.dart';
-import 'package:godotclassreference/constants/class_list.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:godotclassreference/models/class_content.dart';
 import 'package:xml/xml.dart' as xml;
