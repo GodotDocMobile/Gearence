@@ -171,4 +171,9 @@ class ClassContent {
       return null;
     })?.value;
   }
+
+  bool belong(String targetClassName) {
+    var _allNames = '[${this.name}]${this.inheritChain}';
+    return _allNames.contains('[$targetClassName]');
+  }
 }
