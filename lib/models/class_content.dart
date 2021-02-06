@@ -38,7 +38,7 @@ class ClassContent {
       this.tutorials,
       this.inheritChain});
 
-  static ClassContent fromJson(json) {}
+  static void fromJson(json) {}
 
   static ClassContent fromXml(XmlElement node) {
     ClassContent toReturn = ClassContent();

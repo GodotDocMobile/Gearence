@@ -1,18 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:godotclassreference/bloc/icon_for_non_node_bloc.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:package_info/package_info.dart';
-
-import 'package:godotclassreference/constants/colors.dart';
 
 import 'package:godotclassreference/screens/class_select.dart';
 
 // ignore: must_be_immutable
 class GCRDrawer extends StatefulWidget {
-  final IconForNonNodeBloc iconBloc;
-
-  const GCRDrawer({Key key, this.iconBloc}) : super(key: key);
+  const GCRDrawer({Key key}) : super(key: key);
 
 //  String _version = '';
 //  String godotVersion = StoredValues().prefs.getString('version').substring(0);
@@ -135,20 +130,6 @@ class GCRDrawerState extends State<GCRDrawer> {
                       StoredValues().prefs.setBool('darkTheme', v);
                       setState(() {
                         StoredValues().themeChange.switchTheme(v);
-                      });
-                    },
-                  ),
-                ),
-                ListTile(
-                  leading: Icon(Icons.add_to_queue),
-                  title: Text("Icon for Non-nodes"),
-                  trailing: Switch(
-                    value: StoredValues().iconForNonNode,
-                    onChanged: (v) {
-                      StoredValues().prefs.setBool('iconForNonNodes', v);
-                      setState(() {
-                        widget.iconBloc.argSink.add(v);
-                        StoredValues().iconForNonNode = v;
                       });
                     },
                   ),

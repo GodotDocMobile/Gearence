@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:godotclassreference/bloc/tap_event_bloc.dart';
-import 'package:godotclassreference/bloc/theme_bloc.dart';
 import 'package:godotclassreference/components/node_tag.dart';
 import 'package:godotclassreference/constants/class_db.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:godotclassreference/bloc/tap_event_arg.dart';
-import 'package:xml/xml.dart' as xml;
 
 import 'package:godotclassreference/screens/class_detail/class_constants.dart';
 import 'package:godotclassreference/screens/class_detail/class_enums.dart';
