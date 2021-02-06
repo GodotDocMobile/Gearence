@@ -4,10 +4,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:godotclassreference/bloc/class_list_filter_bloc.dart';
-import 'package:godotclassreference/bloc/icon_for_non_node_bloc.dart';
 import 'package:godotclassreference/components/class_icon.dart';
 import 'package:godotclassreference/components/node_tag.dart';
-import 'package:godotclassreference/components/svg_icon.dart';
 import 'package:godotclassreference/constants/class_db.dart';
 
 import 'package:godotclassreference/constants/stored_values.dart';
@@ -50,12 +48,13 @@ class ClassSelect extends StatefulWidget {
 }
 
 class _ClassSelectState extends State<ClassSelect> {
-  IconForNonNodeBloc _bloc;
   ClassListFilterBloc _filterBloc;
 
   List<ClassContent> _classes = List<ClassContent>();
 
+  // ignore: non_constant_identifier_names
   List<ClassContent> _2dNodes = List<ClassContent>();
+  // ignore: non_constant_identifier_names
   List<ClassContent> _3dNodes = List<ClassContent>();
   List<ClassContent> _controlNodes = List<ClassContent>();
   List<ClassContent> _otherNodes = List<ClassContent>();
@@ -68,7 +67,6 @@ class _ClassSelectState extends State<ClassSelect> {
     _controlNodes.clear();
     _otherNodes.clear();
     _nonNodes.clear();
-    _bloc = IconForNonNodeBloc();
     _filterBloc = ClassListFilterBloc();
 
     super.initState();
@@ -77,7 +75,6 @@ class _ClassSelectState extends State<ClassSelect> {
   @override
   void dispose() {
     // TODO: implement dispose
-    _bloc.dispose();
     super.dispose();
   }
 
@@ -265,9 +262,7 @@ class _ClassSelectState extends State<ClassSelect> {
             _sortClasses(_classes);
             return Scaffold(
               resizeToAvoidBottomPadding: true,
-              drawer: GCRDrawer(
-                iconBloc: _bloc,
-              ),
+              drawer: GCRDrawer(),
               appBar: AppBar(
                 title: Text("Godot v" +
                     StoredValues().prefs.getString('version') +
@@ -337,7 +332,6 @@ class _ClassSelectState extends State<ClassSelect> {
                         child: ListTile(
                           leading: ClassIcon(
                             classContent: f,
-                            bloc: _bloc,
                             key: UniqueKey(),
                           ),
                           title: Text(f.name),

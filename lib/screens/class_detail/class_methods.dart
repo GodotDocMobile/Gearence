@@ -25,7 +25,7 @@ class ClassMethods extends StatefulWidget {
 class _ClassMethodsState extends State<ClassMethods> {
   ItemScrollController _scrollController;
   ItemPositionsListener _itemPositionsListener;
-  int _scrollIndex = 0;
+  // int _scrollIndex = 0;
 
   bool _isDarkMode;
 

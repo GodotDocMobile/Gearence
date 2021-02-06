@@ -1,5 +1,4 @@
 import 'package:flutter/services.dart';
-import 'package:godotclassreference/bloc/tap_event_arg.dart';
 import 'package:godotclassreference/bloc/theme_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
