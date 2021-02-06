@@ -3,14 +3,10 @@ import 'dart:io';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:godotclassreference/bloc/tap_event_bloc.dart';
-import 'package:godotclassreference/bloc/theme_bloc.dart';
-import 'package:godotclassreference/constants/class_db.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:godotclassreference/theme/themes.dart';
 
 import 'screens/class_select.dart';
-
-import 'constants/colors.dart';
 
 const appId = 'ca-app-pub-3569371273195353~4389051701';
 const appUnitId = 'ca-app-pub-3569371273195353/9278184798';

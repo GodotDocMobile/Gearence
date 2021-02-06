@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 //check godot/editor/icons/SCsub
 
+// ignore: must_be_immutable
 class SvgIcon extends StatelessWidget {
   final String className;
   final String version;

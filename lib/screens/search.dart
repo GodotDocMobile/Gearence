@@ -1,15 +1,9 @@
-import 'dart:async';
-//import 'dart:html';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:godotclassreference/bloc/search_bloc.dart';
 import 'package:godotclassreference/bloc/tap_event_arg.dart';
 import 'package:godotclassreference/constants/class_db.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
-import 'package:godotclassreference/models/class_content.dart';
 import 'package:godotclassreference/theme/themes.dart';
-import 'package:xml/xml.dart' as xml;
 
 import 'class_detail.dart';
 

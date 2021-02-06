@@ -2,7 +2,6 @@
 import 'dart:async';
 
 import 'package:flutter/services.dart';
-import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:godotclassreference/models/class_content.dart';
 import 'package:xml/xml.dart' as xml;
 
@@ -30,10 +29,8 @@ class ClassDB {
 //    print("loading");
     if (!_loading) {
       _loading = true;
-      loaded = false;
       _version = version;
       _updateDB(version);
-      loaded = true;
       _loading = false;
     }
   }
