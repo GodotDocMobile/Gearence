@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:godotclassreference/bloc/tap_event_arg.dart';
+import 'package:godotclassreference/constants/class_db.dart';
+import 'package:godotclassreference/constants/colors.dart';
 import 'package:godotclassreference/models/class_content.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
@@ -65,7 +67,16 @@ class _ClassThemeItemsState extends State<ClassThemeItems> {
       itemBuilder: (context, index) {
         final t = widget.clsContent.themeItems[index];
         return ListTile(
-          leading: Text(t.type),
+          leading: ClassDB().getDB().any((element) => element.name == t.type)
+              ? InkWell(
+                  child: Text(
+                    t.type,
+                    style: TextStyle(
+                      color: godotColor,
+                    ),
+                  ),
+                )
+              : Text(t.type),
           title: Text(t.name),
         );
       },
