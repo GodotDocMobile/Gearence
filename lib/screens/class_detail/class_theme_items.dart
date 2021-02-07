@@ -75,6 +75,13 @@ class _ClassThemeItemsState extends State<ClassThemeItems> {
                       color: godotColor,
                     ),
                   ),
+                  onTap: () {
+                    TapEventArg _arg = TapEventArg(
+                        className: t.type,
+                        linkType: LinkType.Class,
+                        fieldName: '');
+                    widget.onLinkTap(_arg);
+                  },
                 )
               : Text(t.type),
           title: Text(t.name),
