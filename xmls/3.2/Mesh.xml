@@ -14,7 +14,7 @@
 				Returns the blend shape arrays for the requested surface.</description></method><method name="surface_get_material" qualifiers="const"><return type="Material"></return><argument index="0" name="surf_idx" type="int"></argument><description>
 				Returns a [Material] in a given surface. Surface is rendered using this material.</description></method><method name="surface_set_material"><return type="void"></return><argument index="0" name="surf_idx" type="int"></argument><argument index="1" name="material" type="Material"></argument><description>
 				Sets a [Material] for a given surface. Surface will be rendered using this material.</description></method></methods><members><member name="lightmap_size_hint" type="Vector2" setter="set_lightmap_size_hint" getter="get_lightmap_size_hint" default="Vector2( 0, 0 )">
-			Sets a hint to be used for lightmap resolution in [BakedLightmap]. Overrides [member BakedLightmap.bake_default_texels_per_unit].</member></members><constants><constant name="PRIMITIVE_POINTS" value="0" enum="PrimitiveType">
+			Sets a hint to be used for lightmap resolution in [BakedLightmap]. Overrides [member BakedLightmap.default_texels_per_unit].</member></members><constants><constant name="PRIMITIVE_POINTS" value="0" enum="PrimitiveType">
 			Render array as points (one vertex equals one point).</constant><constant name="PRIMITIVE_LINES" value="1" enum="PrimitiveType">
 			Render array as lines (every two vertices a line is created).</constant><constant name="PRIMITIVE_LINE_STRIP" value="2" enum="PrimitiveType">
 			Render array as line strip.</constant><constant name="PRIMITIVE_LINE_LOOP" value="3" enum="PrimitiveType">

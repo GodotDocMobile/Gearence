@@ -58,7 +58,8 @@
 			The number of spaces associated with a single tab length. Does not affect [code]\t[/code] in text tags, only indent tags.</member><member name="text" type="String" setter="set_text" getter="get_text" default="&quot;&quot;">
 			The raw text of the label.
 			When set, clears the tag stack and adds a raw text tag to the top of it. Does not parse BBCodes. Does not modify [member bbcode_text].</member><member name="visible_characters" type="int" setter="set_visible_characters" getter="get_visible_characters" default="-1">
-			The restricted number of characters to display in the label. If [code]-1[/code], all characters will be displayed.</member></members><signals><signal name="meta_clicked"><argument index="0" name="meta" type="Variant"></argument><description>
+			The restricted number of characters to display in the label. If [code]-1[/code], all characters will be displayed.
+			[b]Note:[/b] Setting this property updates [member percent_visible] based on current [method get_total_character_count].</member></members><signals><signal name="meta_clicked"><argument index="0" name="meta" type="Variant"></argument><description>
 				Triggered when the user clicks on content between meta tags. If the meta is defined in text, e.g. [code][url={"data"="hi"}]hi[/url][/code], then the parameter for this signal will be a [String] type. If a particular type or an object is desired, the [method push_meta] method must be used to manually insert the data into the tag stack.</description></signal><signal name="meta_hover_ended"><argument index="0" name="meta" type="Variant"></argument><description>
 				Triggers when the mouse exits a meta tag.</description></signal><signal name="meta_hover_started"><argument index="0" name="meta" type="Variant"></argument><description>
 				Triggers when the mouse enters a meta tag.</description></signal></signals><constants><constant name="ALIGN_LEFT" value="0" enum="Align">

@@ -90,7 +90,8 @@
 				Returns a copy of the string with special characters escaped using the JSON standard.</description></method><method name="left"><return type="String"></return><argument index="0" name="position" type="int"></argument><description>
 				Returns a number of characters from the left of the string.</description></method><method name="length"><return type="int"></return><description>
 				Returns the string's amount of characters.</description></method><method name="lstrip"><return type="String"></return><argument index="0" name="chars" type="String"></argument><description>
-				Returns a copy of the string with characters removed from the left.</description></method><method name="match"><return type="bool"></return><argument index="0" name="expr" type="String"></argument><description>
+				Returns a copy of the string with characters removed from the left. The [code]chars[/code] argument is a string specifying the set of characters to be removed.
+				[b]Note:[/b] The [code]chars[/code] is not a prefix. See [method trim_prefix] method that will remove a single prefix string rather than a set of characters.</description></method><method name="match"><return type="bool"></return><argument index="0" name="expr" type="String"></argument><description>
 				Does a simple case-sensitive expression match, where [code]"*"[/code] matches zero or more arbitrary characters and [code]"?"[/code] matches any single character except a period ([code]"."[/code]).</description></method><method name="matchn"><return type="bool"></return><argument index="0" name="expr" type="String"></argument><description>
 				Does a simple case-insensitive expression match, where [code]"*"[/code] matches zero or more arbitrary characters and [code]"?"[/code] matches any single character except a period ([code]"."[/code]).</description></method><method name="md5_buffer"><return type="PoolByteArray"></return><description>
 				Returns the MD5 hash of the string as an array of bytes.</description></method><method name="md5_text"><return type="String"></return><description>
@@ -122,7 +123,8 @@
 				print(some_array[0]) # Prints "Four"
 				print(some_array[1]) # Prints "Three,Two,One"
 				[/codeblock]</description></method><method name="rstrip"><return type="String"></return><argument index="0" name="chars" type="String"></argument><description>
-				Returns a copy of the string with characters removed from the right.</description></method><method name="sha1_buffer"><return type="PoolByteArray"></return><description>
+				Returns a copy of the string with characters removed from the right. The [code]chars[/code] argument is a string specifying the set of characters to be removed.
+				[b]Note:[/b] The [code]chars[/code] is not a suffix. See [method trim_suffix] method that will remove a single suffix string rather than a set of characters.</description></method><method name="sha1_buffer"><return type="PoolByteArray"></return><description>
 				Returns the SHA-1 hash of the string as an array of bytes.</description></method><method name="sha1_text"><return type="String"></return><description>
 				Returns the SHA-1 hash of the string as a string.</description></method><method name="sha256_buffer"><return type="PoolByteArray"></return><description>
 				Returns the SHA-256 hash of the string as an array of bytes.</description></method><method name="sha256_text"><return type="String"></return><description>

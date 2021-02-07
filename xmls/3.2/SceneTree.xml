@@ -20,7 +20,8 @@
 				    print("start")
 				    yield(get_tree().create_timer(1.0), "timeout")
 				    print("end")
-				[/codeblock]</description></method><method name="get_frame" qualifiers="const"><return type="int"></return><description>
+				[/codeblock]
+				The timer will be automatically freed after its time elapses.</description></method><method name="get_frame" qualifiers="const"><return type="int"></return><description>
 				Returns the current frame number, i.e. the total frame count since the application started.</description></method><method name="get_network_connected_peers" qualifiers="const"><return type="PoolIntArray"></return><description>
 				Returns the peer IDs of all connected peers of this [SceneTree]'s [member network_peer].</description></method><method name="get_network_unique_id" qualifiers="const"><return type="int"></return><description>
 				Returns the unique peer ID of this [SceneTree]'s [member network_peer].</description></method><method name="get_node_count" qualifiers="const"><return type="int"></return><description>
