@@ -33,7 +33,10 @@
 				Returns whether the specified [code]keyword[/code] has a color set to it or not.</description></method><method name="insert_text_at_cursor"><return type="void"></return><argument index="0" name="text" type="String"></argument><description>
 				Insert the specified text at the cursor position.</description></method><method name="is_folded" qualifiers="const"><return type="bool"></return><argument index="0" name="line" type="int"></argument><description>
 				Returns whether the line at the specified index is folded or not.</description></method><method name="is_line_hidden" qualifiers="const"><return type="bool"></return><argument index="0" name="line" type="int"></argument><description>
-				Returns whether the line at the specified index is hidden or not.</description></method><method name="is_selection_active" qualifiers="const"><return type="bool"></return><description>
+				Returns whether the line at the specified index is hidden or not.</description></method><method name="is_line_set_as_bookmark" qualifiers="const"><return type="bool"></return><argument index="0" name="line" type="int"></argument><description>
+				Returns [code]true[/code] when the specified [code]line[/code] is bookmarked.</description></method><method name="is_line_set_as_breakpoint" qualifiers="const"><return type="bool"></return><argument index="0" name="line" type="int"></argument><description>
+				Returns [code]true[/code] when the specified [code]line[/code] has a breakpoint.</description></method><method name="is_line_set_as_safe" qualifiers="const"><return type="bool"></return><argument index="0" name="line" type="int"></argument><description>
+				Returns [code]true[/code] when the specified [code]line[/code] is marked as safe.</description></method><method name="is_selection_active" qualifiers="const"><return type="bool"></return><description>
 				Returns [code]true[/code] if the selection is active.</description></method><method name="menu_option"><return type="void"></return><argument index="0" name="option" type="int"></argument><description>
 				Triggers a right-click menu action by the specified index. See [enum MenuItems] for a list of available indexes.</description></method><method name="paste"><return type="void"></return><description>
 				Paste the current selection.</description></method><method name="redo"><return type="void"></return><description>
@@ -52,8 +55,13 @@
 				If [member selecting_enabled] is [code]false[/code], no selection will occur.</description></method><method name="select_all"><return type="void"></return><description>
 				Select all the text.
 				If [member selecting_enabled] is [code]false[/code], no selection will occur.</description></method><method name="set_line"><return type="void"></return><argument index="0" name="line" type="int"></argument><argument index="1" name="new_text" type="String"></argument><description>
-				Sets the text for a specific line.</description></method><method name="set_line_as_hidden"><return type="void"></return><argument index="0" name="line" type="int"></argument><argument index="1" name="enable" type="bool"></argument><description>
-				If [code]true[/code], hides the line of the specified index.</description></method><method name="toggle_fold_line"><return type="void"></return><argument index="0" name="line" type="int"></argument><description>
+				Sets the text for a specific line.</description></method><method name="set_line_as_bookmark"><return type="void"></return><argument index="0" name="line" type="int"></argument><argument index="1" name="bookmark" type="bool"></argument><description>
+				Bookmarks the [code]line[/code] if [code]bookmark[/code] is true. Deletes the bookmark if [code]bookmark[/code] is false.
+				Bookmarks are shown in the [member breakpoint_gutter].</description></method><method name="set_line_as_breakpoint"><return type="void"></return><argument index="0" name="line" type="int"></argument><argument index="1" name="breakpoint" type="bool"></argument><description>
+				Adds or removes the breakpoint in [code]line[/code]. Breakpoints are shown in the [member breakpoint_gutter].</description></method><method name="set_line_as_hidden"><return type="void"></return><argument index="0" name="line" type="int"></argument><argument index="1" name="enable" type="bool"></argument><description>
+				If [code]true[/code], hides the line of the specified index.</description></method><method name="set_line_as_safe"><return type="void"></return><argument index="0" name="line" type="int"></argument><argument index="1" name="safe" type="bool"></argument><description>
+				If [code]true[/code], marks the [code]line[/code] as safe.
+				This will show the line number with the color provided in the [code]safe_line_number_color[/code] theme property.</description></method><method name="toggle_fold_line"><return type="void"></return><argument index="0" name="line" type="int"></argument><description>
 				Toggle the folding of the code block at the given line.</description></method><method name="undo"><return type="void"></return><description>
 				Perform undo operation.</description></method><method name="unfold_line"><return type="void"></return><argument index="0" name="line" type="int"></argument><description>
 				Unfolds the given line, if folded.</description></method><method name="unhide_all_lines"><return type="void"></return><description>

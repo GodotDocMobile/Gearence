@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?><class name="MultiplayerAPI" inherits="Reference" version="3.2"><brief_description>
 		High-level multiplayer API.</brief_description><description>
-		This class implements most of the logic behind the high-level multiplayer API.
+		This class implements most of the logic behind the high-level multiplayer API. See also [NetworkedMultiplayerPeer].
 		By default, [SceneTree] has a reference to this class that is used to provide multiplayer capabilities (i.e. RPC/RSET) across the whole scene.
-		It is possible to override the MultiplayerAPI instance used by specific Nodes by setting the [member Node.custom_multiplayer] property, effectively allowing to run both client and server in the same scene.</description><tutorials></tutorials><methods><method name="clear"><return type="void"></return><description>
+		It is possible to override the MultiplayerAPI instance used by specific Nodes by setting the [member Node.custom_multiplayer] property, effectively allowing to run both client and server in the same scene.
+		[b]Note:[/b] The high-level multiplayer API protocol is an implementation detail and isn't meant to be used by non-Godot servers. It may change without notice.</description><tutorials></tutorials><methods><method name="clear"><return type="void"></return><description>
 				Clears the current MultiplayerAPI network state (you shouldn't call this unless you know what you are doing).</description></method><method name="get_network_connected_peers" qualifiers="const"><return type="PoolIntArray"></return><description>
 				Returns the peer IDs of all connected peers of this MultiplayerAPI's [member network_peer].</description></method><method name="get_network_unique_id" qualifiers="const"><return type="int"></return><description>
 				Returns the unique peer ID of this MultiplayerAPI's [member network_peer].</description></method><method name="get_rpc_sender_id" qualifiers="const"><return type="int"></return><description>

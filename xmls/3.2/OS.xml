@@ -120,7 +120,9 @@
 				Returns the total number of available tablet drivers.
 				[b]Note:[/b] This method is implemented on Windows.</description></method><method name="get_tablet_driver_name" qualifiers="const"><return type="String"></return><argument index="0" name="idx" type="int"></argument><description>
 				Returns the tablet driver name for the given index.
-				[b]Note:[/b] This method is implemented on Windows.</description></method><method name="get_ticks_msec" qualifiers="const"><return type="int"></return><description>
+				[b]Note:[/b] This method is implemented on Windows.</description></method><method name="get_thread_caller_id" qualifiers="const"><return type="int"></return><description>
+				Returns the ID of the current thread. This can be used in logs to ease debugging of multi-threaded applications.
+				[b]Note:[/b] Thread IDs are not deterministic and may be reused across application restarts.</description></method><method name="get_ticks_msec" qualifiers="const"><return type="int"></return><description>
 				Returns the amount of time passed in milliseconds since the engine started.</description></method><method name="get_ticks_usec" qualifiers="const"><return type="int"></return><description>
 				Returns the amount of time passed in microseconds since the engine started.</description></method><method name="get_time" qualifiers="const"><return type="Dictionary"></return><argument index="0" name="utc" type="bool" default="false"></argument><description>
 				Returns current time as a dictionary of keys: hour, minute, second.</description></method><method name="get_time_zone_info" qualifiers="const"><return type="Dictionary"></return><description>
