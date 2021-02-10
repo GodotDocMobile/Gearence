@@ -24,7 +24,8 @@ dependencies:
 
   flutter_svg: ^0.18.0
 
-#  firebase_admob: ^0.10.2
+  url_launcher: ^5.7.10
+
   # store values to local
   shared_preferences: ^0.5.7+3
 
