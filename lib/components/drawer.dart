@@ -1,9 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:package_info/package_info.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:godotclassreference/screens/class_select.dart';
+import 'package:godotclassreference/constants/stored_values.dart';
 
 // ignore: must_be_immutable
 class GCRDrawer extends StatefulWidget {
@@ -69,6 +69,25 @@ class GCRDrawerState extends State<GCRDrawer> {
         });
   }
 
+  Future<void> showThemeChangeLoading() {
+    StoredValues().themeChange.addListener(() {
+      Navigator.pop(context, true);
+    });
+
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return SimpleDialog(
+            title: Text('Loading'),
+            children: [
+              Center(
+                child: CircularProgressIndicator(),
+              ),
+            ],
+          );
+        });
+  }
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -127,6 +146,7 @@ class GCRDrawerState extends State<GCRDrawer> {
                   trailing: Switch(
                     value: darkTheme,
                     onChanged: (v) {
+                      showThemeChangeLoading();
                       StoredValues().prefs.setBool('darkTheme', v);
                       setState(() {
                         StoredValues().themeChange.switchTheme(v);
@@ -139,6 +159,16 @@ class GCRDrawerState extends State<GCRDrawer> {
                   title: Text("About"),
                   onTap: () {
                     showAboutDialog();
+                  },
+                ),
+                ListTile(
+                  title: Text('I WANT TRANSLATION!'),
+                  onTap: () async {
+                    const url =
+                        'https://hosted.weblate.org/projects/godot-engine/godot-class-reference/';
+                    if (await canLaunch(url)) {
+                      await launch(url);
+                    }
                   },
                 ),
               ],
