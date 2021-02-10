@@ -50,7 +50,7 @@ class _ClassDetailState extends State<ClassDetail>
         });
       }
     });
-    print("$className init");
+    // print("$className init");
 //    StoredValues().appendClass(widget.className);
   }
 
@@ -59,7 +59,7 @@ class _ClassDetailState extends State<ClassDetail>
     super.dispose();
     tabController.dispose();
     _bloc.dispose();
-    print("$className disposed");
+    // print("$className disposed");
   }
 
   Future<ClassContent> getClassDetail() async {

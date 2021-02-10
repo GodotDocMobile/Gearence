@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:godotclassreference/components/code_text.dart';
+import 'package:godotclassreference/components/inline_code.dart';
 import 'package:godotclassreference/constants/class_db.dart';
 import 'package:godotclassreference/constants/colors.dart';
 import 'package:godotclassreference/bloc/tap_event_arg.dart';
@@ -32,6 +34,7 @@ class DescriptionText extends StatelessWidget {
 
     List<String> tagStack = List<String>();
     bool codeTag = false;
+    bool inlineCode = false;
     int pos = 0;
 
     TextStyle _toApplyStyle = DefaultTextStyle.of(context).style;
@@ -45,10 +48,21 @@ class DescriptionText extends StatelessWidget {
 
       if (brkPos > pos) {
         String text = content.substring(pos, brkPos);
-//        if (!codeTag) {
-//          text = text.replaceAll('\n', '\n');
-//        }
-        _toRtn.add(TextSpan(text: text, style: _toApplyStyle));
+        if (codeTag) {
+          _toRtn.add(WidgetSpan(
+            child: CodeText(
+              codeText: text,
+            ),
+          ));
+        } else if (inlineCode) {
+          _toRtn.add(WidgetSpan(
+            child: InlineCode(
+              codeText: text,
+            ),
+          ));
+        } else {
+          _toRtn.add(TextSpan(text: text, style: _toApplyStyle));
+        }
         _toApplyStyle = DefaultTextStyle.of(context).style;
       }
 
@@ -85,6 +99,7 @@ class DescriptionText extends StatelessWidget {
         tagStack.removeAt(0);
         pos = brkEnd + 1;
         codeTag = false;
+        inlineCode = false;
 //        if (tag != '/img') {
 //          _toRtn.removeLast();
 //        }
@@ -150,9 +165,15 @@ class DescriptionText extends StatelessWidget {
         pos = brkEnd + 1;
         tagStack.add(tag);
         _toApplyStyle = TextStyle(fontStyle: FontStyle.italic);
-      } else if (tag == 'code' || tag == 'codeblock') {
+      } else if (tag == 'codeblock') {
         //should set font
         codeTag = true;
+        inlineCode = false;
+        pos = brkEnd + 1;
+        tagStack.add(tag);
+      } else if (tag == 'code') {
+        codeTag = false;
+        inlineCode = true;
         pos = brkEnd + 1;
         tagStack.add(tag);
       } else if (tag == 'center') {
