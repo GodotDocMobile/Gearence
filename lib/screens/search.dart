@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:godotclassreference/bloc/search_bloc.dart';
 import 'package:godotclassreference/bloc/tap_event_arg.dart';
 import 'package:godotclassreference/constants/class_db.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
+import 'package:godotclassreference/models/class_content.dart';
 import 'package:godotclassreference/theme/themes.dart';
 
 import 'class_detail.dart';
@@ -43,6 +47,8 @@ class _SearchScreenState extends State<SearchScreen> {
 
   bool _isDarkTheme;
 
+  StreamSubscription<ClassContent> _xmlSub;
+
   @override
   void initState() {
     super.initState();
@@ -52,13 +58,15 @@ class _SearchScreenState extends State<SearchScreen> {
       });
     });
     _isDarkTheme = StoredValues().themeChange.isDark;
+    ClassDB().loadBloc.argStream.listen(_xmlLoadSearch);
   }
 
   @override
   void dispose() {
-    super.dispose();
     _controller.dispose();
     _searchBloc.dispose();
+    _xmlSub.cancel();
+    super.dispose();
   }
 
   void _onTextSubmit(String val) {
@@ -72,6 +80,126 @@ class _SearchScreenState extends State<SearchScreen> {
     _searchBloc.argSink.add(null);
   }
 
+  int _searchNotifyCnt = 0;
+
+  void _xmlLoadSearch(ClassContent clsContent) {
+    // print("${clsContent.name}:${_searchNotifyCnt++}");
+    if (!_searching && _searchingTerm.length > 0) {
+      _searchSingle(clsContent);
+    }
+  }
+
+  void _searchSingle(ClassContent _class) {
+    var _classNameContains = false;
+    if (_caseSensitive) {
+      _classNameContains = _class.name.contains(_searchingTerm);
+    } else {
+      _classNameContains = _class.name.toLowerCase().contains(_searchingTerm);
+    }
+
+    if (_searchClass && _classNameContains) {
+      _searchBloc.argSink.add(TapEventArg(
+          linkType: LinkType.Class, className: _class.name, fieldName: ''));
+    }
+
+    //search methods
+    if (_searchMethod && _class.methods != null && _class.methods.length > 0) {
+      _class.methods.forEach((element) {
+        if (_caseSensitive
+            ? element.name.contains(_searchingTerm)
+            : element.name.toLowerCase().contains(_searchingTerm)) {
+          _searchBloc.argSink.add(TapEventArg(
+              linkType: LinkType.Method,
+              className: _class.name,
+              fieldName: element.name));
+        }
+      });
+    }
+
+    //search signals
+    if (_searchSignal && _class.signals != null && _class.signals.length > 0) {
+      _class.signals.forEach((element) {
+        if (_caseSensitive
+            ? element.name.contains(_searchingTerm)
+            : element.name.toLowerCase().contains(_searchingTerm)) {
+          _searchBloc.argSink.add(TapEventArg(
+              linkType: LinkType.Signal,
+              className: _class.name,
+              fieldName: element.name));
+        }
+      });
+    }
+
+    //search constants & enum values
+    if (_searchConstant &&
+        _class.constants != null &&
+        _class.constants.length > 0) {
+      _class.constants.forEach((element) {
+        if (_caseSensitive
+            ? element.name.contains(_searchingTerm)
+            : element.name.toLowerCase().contains(_searchingTerm)) {
+          if (element.enumValue != null) {
+            //search enum values
+            if (element.enumValue.length > 0) {
+              _searchBloc.argSink.add(TapEventArg(
+                  linkType: LinkType.Enum,
+                  className: _class.name,
+                  fieldName: "${element.enumValue}.${element.name}"));
+            }
+          } else {
+            //search constants
+            _searchBloc.argSink.add(TapEventArg(
+                linkType: LinkType.Constant,
+                className: _class.name,
+                fieldName: element.name));
+          }
+        }
+
+        //search enum names,but will show enum values as well
+        if (element.enumValue != null &&
+            element.enumValue.length > 0 &&
+            (_caseSensitive
+                ? element.enumValue.contains(_searchingTerm)
+                : element.enumValue.toLowerCase().contains(_searchingTerm))) {
+          _searchBloc.argSink.add(TapEventArg(
+              linkType: LinkType.Enum,
+              className: _class.name,
+              fieldName: "${element.enumValue}.${element.name}"));
+        }
+      });
+    }
+
+    //search properties
+    if (_searchMember && _class.members != null && _class.members.length > 0) {
+      _class.members.forEach((element) {
+        if (_caseSensitive
+            ? element.name.contains(_searchingTerm)
+            : element.name.toLowerCase().contains(_searchingTerm)) {
+          _searchBloc.argSink.add(TapEventArg(
+              linkType: LinkType.Member,
+              className: _class.name,
+              fieldName: element.name));
+        }
+      });
+    }
+
+    //search theme items
+    if (_searchThemeItem &&
+        _class.themeItems != null &&
+        _class.themeItems.length > 0) {
+      _class.themeItems.forEach((element) {
+        if (_caseSensitive
+            ? element.name.contains(_searchingTerm)
+            : element.name.toLowerCase().contains(_searchingTerm)) {
+          _searchBloc.argSink.add(TapEventArg(
+              linkType: LinkType.ThemeItem,
+              className: _class.name,
+              fieldName: element.name));
+        }
+      });
+    }
+  }
+
   void _doSearch(String term) async {
     if (_searchingTerm != term || term.length <= 1) {
       return;
@@ -80,114 +208,14 @@ class _SearchScreenState extends State<SearchScreen> {
     if (!_caseSensitive) {
       term = term.toLowerCase();
     }
-
+    _searching = true;
     for (int i = 0; i < ClassDB().getDB().length; i++) {
-//      if (_searchingTerm != term) {
-//        return;
-//      }
-
-      final _class = ClassDB().getDB()[i];
-
-//      print(_class.name);
-      var _classNameContains = false;
-      if (_caseSensitive) {
-        _classNameContains = _class.name.contains(term);
-      } else {
-        _classNameContains = _class.name.toLowerCase().contains(term);
+      if (ClassDB().getDB()[i].version == null) {
+        break;
       }
-
-      if (_searchClass && _classNameContains) {
-        _searchBloc.argSink.add(TapEventArg(
-            linkType: LinkType.Class, className: _class.name, fieldName: ''));
-      }
-
-      //search methods
-      if (_searchMethod &&
-          _class.methods != null &&
-          _class.methods.length > 0) {
-        _class.methods.forEach((element) {
-          if (_caseSensitive
-              ? element.name.contains(term)
-              : element.name.toLowerCase().contains(term)) {
-            _searchBloc.argSink.add(TapEventArg(
-                linkType: LinkType.Method,
-                className: _class.name,
-                fieldName: element.name));
-          }
-        });
-      }
-
-      //search signals
-      if (_searchSignal &&
-          _class.signals != null &&
-          _class.signals.length > 0) {
-        _class.signals.forEach((element) {
-          if (_caseSensitive
-              ? element.name.contains(term)
-              : element.name.toLowerCase().contains(term)) {
-            _searchBloc.argSink.add(TapEventArg(
-                linkType: LinkType.Signal,
-                className: _class.name,
-                fieldName: element.name));
-          }
-        });
-      }
-
-      //search constants
-      if (_searchConstant &&
-          _class.constants != null &&
-          _class.constants.length > 0) {
-        _class.constants.forEach((element) {
-          if (_caseSensitive
-              ? element.name.contains(term)
-              : element.name.toLowerCase().contains(term)) {
-            _searchBloc.argSink.add(TapEventArg(
-                linkType: LinkType.Constant,
-                className: _class.name,
-                fieldName: element.name));
-          }
-        });
-      }
-
-      //search properties
-      if (_searchMember &&
-          _class.members != null &&
-          _class.members.length > 0) {
-        _class.members.forEach((element) {
-          if (_caseSensitive
-              ? element.name.contains(term)
-              : element.name.toLowerCase().contains(term)) {
-            _searchBloc.argSink.add(TapEventArg(
-                linkType: LinkType.Member,
-                className: _class.name,
-                fieldName: element.name));
-          }
-        });
-      }
-
-      //search theme items
-      if (_searchThemeItem &&
-          _class.themeItems != null &&
-          _class.themeItems.length > 0) {
-        _class.themeItems.forEach((element) {
-          if (_caseSensitive
-              ? element.name.contains(term)
-              : element.name.toLowerCase().contains(term)) {
-            _searchBloc.argSink.add(TapEventArg(
-                linkType: LinkType.ThemeItem,
-                className: _class.name,
-                fieldName: element.name));
-          }
-        });
-      }
-
-//      Timer _timer = new Timer.periodic(Duration(seconds: 1), (timer) {});
-      while (i == ClassDB().getDB().length - 1 && !ClassDB().loaded) {
-//        continue;
-      }
+      _searchSingle(ClassDB().getDB()[i]);
     }
-//    print('done searching');
-//    if(_searchBloc == null)
+    _searching = false;
   }
 
   List<Widget> _buildSearchResult() {
@@ -235,12 +263,6 @@ class _SearchScreenState extends State<SearchScreen> {
             );
           },
         );
-//      return ListTile(
-//        title: Text(e.className),
-//        subtitle: Text(e.linkType.toString().replaceAll('LinkType.', '') +
-//            ':' +
-//            e.fieldName),
-//      );
       }
     }).toList();
 
