@@ -8,6 +8,7 @@ import 'package:godotclassreference/constants/class_db.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:godotclassreference/models/class_content.dart';
 import 'package:godotclassreference/theme/themes.dart';
+import 'package:url_launcher/link.dart';
 
 import 'class_detail.dart';
 
@@ -30,6 +31,7 @@ class _SearchScreenState extends State<SearchScreen> {
     'Members Only',
     'Signals Only',
     'Constants Only',
+    'Enums Only',
     'Theme Items Only'
   ];
   bool _caseSensitive = false;
@@ -44,6 +46,7 @@ class _SearchScreenState extends State<SearchScreen> {
   bool _searchMember = true;
   bool _searchSignal = true;
   bool _searchThemeItem = true;
+  bool _searchEnum = true;
 
   bool _isDarkTheme;
 
@@ -53,9 +56,14 @@ class _SearchScreenState extends State<SearchScreen> {
   void initState() {
     super.initState();
     _searchBloc.argStream.listen((event) {
-      setState(() {
-        _argList.add(event);
-      });
+      if (event != null) {
+        setState(() {
+          if (_argList.length == 0 ||
+              _argList.last.fieldName != event.fieldName) {
+            _argList.add(event);
+          }
+        });
+      }
     });
     _isDarkTheme = StoredValues().themeChange.isDark;
     ClassDB().loadBloc.argStream.listen(_xmlLoadSearch);
@@ -69,6 +77,41 @@ class _SearchScreenState extends State<SearchScreen> {
     super.dispose();
   }
 
+  List<TapEventArg> filterResult() {
+    print("filter");
+    List<TapEventArg> _rtn = List<TapEventArg>.from(_argList);
+
+    if (!_searchClass) {
+      print("filter classes");
+      _rtn.removeWhere((element) => element.linkType == LinkType.Class);
+    }
+    if (!_searchMethod) {
+      print("filter method");
+      _rtn.removeWhere((element) => element.linkType == LinkType.Method);
+    }
+    if (!_searchMember) {
+      print("filter member");
+      _rtn.removeWhere((element) => element.linkType == LinkType.Member);
+    }
+    if (!_searchSignal) {
+      print("filter signal");
+      _rtn.removeWhere((element) => element.linkType == LinkType.Signal);
+    }
+    if (!_searchConstant) {
+      print("filter constant");
+      _rtn.removeWhere((element) => element.linkType == LinkType.Constant);
+    }
+    if (!_searchEnum) {
+      _rtn.removeWhere((element) => element.linkType == LinkType.Enum);
+    }
+    if (!_searchThemeItem) {
+      print("filter theme item");
+      _rtn.removeWhere((element) => element.linkType == LinkType.ThemeItem);
+    }
+
+    return _rtn;
+  }
+
   void _onTextSubmit(String val) {
     if (_controller.text.length > 0) {
 //      print(_controller.text);
@@ -77,16 +120,22 @@ class _SearchScreenState extends State<SearchScreen> {
       _searchingTerm = val;
       _doSearch(val);
     }
-    _searchBloc.argSink.add(null);
+
+    _searching = ClassDB().getDB().last.version == null;
+    // print("search finish");
+    // _searchBloc.argSink.add(null);
   }
 
-  int _searchNotifyCnt = 0;
+  // int _searchNotifyCnt = 0;
 
   void _xmlLoadSearch(ClassContent clsContent) {
     // print("${clsContent.name}:${_searchNotifyCnt++}");
-    if (!_searching && _searchingTerm.length > 0) {
+    if (_searching && _searchingTerm.length > 0) {
       _searchSingle(clsContent);
     }
+
+    _searching = ClassDB().getDB().last.version == null;
+    // print(_searching);
   }
 
   void _searchSingle(ClassContent _class) {
@@ -97,13 +146,13 @@ class _SearchScreenState extends State<SearchScreen> {
       _classNameContains = _class.name.toLowerCase().contains(_searchingTerm);
     }
 
-    if (_searchClass && _classNameContains) {
+    if (_classNameContains) {
       _searchBloc.argSink.add(TapEventArg(
           linkType: LinkType.Class, className: _class.name, fieldName: ''));
     }
 
     //search methods
-    if (_searchMethod && _class.methods != null && _class.methods.length > 0) {
+    if (_class.methods != null && _class.methods.length > 0) {
       _class.methods.forEach((element) {
         if (_caseSensitive
             ? element.name.contains(_searchingTerm)
@@ -117,7 +166,7 @@ class _SearchScreenState extends State<SearchScreen> {
     }
 
     //search signals
-    if (_searchSignal && _class.signals != null && _class.signals.length > 0) {
+    if (_class.signals != null && _class.signals.length > 0) {
       _class.signals.forEach((element) {
         if (_caseSensitive
             ? element.name.contains(_searchingTerm)
@@ -131,9 +180,7 @@ class _SearchScreenState extends State<SearchScreen> {
     }
 
     //search constants & enum values
-    if (_searchConstant &&
-        _class.constants != null &&
-        _class.constants.length > 0) {
+    if (_class.constants != null && _class.constants.length > 0) {
       _class.constants.forEach((element) {
         if (_caseSensitive
             ? element.name.contains(_searchingTerm)
@@ -170,7 +217,7 @@ class _SearchScreenState extends State<SearchScreen> {
     }
 
     //search properties
-    if (_searchMember && _class.members != null && _class.members.length > 0) {
+    if (_class.members != null && _class.members.length > 0) {
       _class.members.forEach((element) {
         if (_caseSensitive
             ? element.name.contains(_searchingTerm)
@@ -184,9 +231,7 @@ class _SearchScreenState extends State<SearchScreen> {
     }
 
     //search theme items
-    if (_searchThemeItem &&
-        _class.themeItems != null &&
-        _class.themeItems.length > 0) {
+    if (_class.themeItems != null && _class.themeItems.length > 0) {
       _class.themeItems.forEach((element) {
         if (_caseSensitive
             ? element.name.contains(_searchingTerm)
@@ -215,7 +260,6 @@ class _SearchScreenState extends State<SearchScreen> {
       }
       _searchSingle(ClassDB().getDB()[i]);
     }
-    _searching = false;
   }
 
   List<Widget> _buildSearchResult() {
@@ -228,7 +272,10 @@ class _SearchScreenState extends State<SearchScreen> {
       ];
       return _rtn;
     }
-    List<Widget> _toRtnList = _argList.toSet().toList().map((e) {
+
+    var _filteredList = filterResult();
+
+    List<Widget> _toRtnList = _filteredList.map((e) {
       if (e == null) {
       } else {
         if (e.linkType == LinkType.Class) {
@@ -267,8 +314,10 @@ class _SearchScreenState extends State<SearchScreen> {
     }).toList();
 
     if (_searching) {
-      _toRtnList.add(Center(
-        child: CircularProgressIndicator(),
+      _toRtnList.add(ListTile(
+        title: Center(
+          child: CircularProgressIndicator(),
+        ),
       ));
     }
     return _toRtnList;
@@ -331,11 +380,13 @@ class _SearchScreenState extends State<SearchScreen> {
                 _searchMember = _idx == 0 || _idx == 3;
                 _searchSignal = _idx == 0 || _idx == 4;
                 _searchConstant = _idx == 0 || _idx == 5;
-                _searchThemeItem = _idx == 0 || _idx == 6;
-                _onTextSubmit(_controller.text);
+                _searchEnum = _idx == 0 || _idx == 6;
+                _searchThemeItem = _idx == 0 || _idx == 7;
                 setState(() {
                   _searchCat = v;
                 });
+
+                // _onTextSubmit(_controller.text);
               },
             ),
           ),

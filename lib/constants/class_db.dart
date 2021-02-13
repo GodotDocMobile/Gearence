@@ -13,7 +13,7 @@ class ClassDB {
 
   static final ClassDB _instance = ClassDB._internal();
   String _version;
-  bool _loading = false;
+  bool loading = false;
 
   String _loadingClass;
 
@@ -32,11 +32,11 @@ class ClassDB {
 
   updateDB(String version) async {
 //    print("loading");
-    if (!_loading) {
-      _loading = true;
+    if (!loading) {
+      loading = true;
       _version = version;
       _updateDB(version);
-      _loading = false;
+      loading = false;
     }
   }
 
