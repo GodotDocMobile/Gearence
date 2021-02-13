@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:godotclassreference/bloc/tap_event_arg.dart';
 
 class SearchBloc {
-  final _searchStateController = StreamController<TapEventArg>.broadcast();
+  final _searchStateController = StreamController<TapEventArg>();
   StreamSink<TapEventArg> get _inArgs => _searchStateController.sink;
   Stream<TapEventArg> get argStream => _searchStateController.stream;
 
@@ -15,6 +15,7 @@ class SearchBloc {
   }
 
   void _onAdd(TapEventArg data) {
+    // print(data);
     _inArgs.add(data);
   }
 
