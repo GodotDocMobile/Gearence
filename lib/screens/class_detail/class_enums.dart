@@ -33,7 +33,7 @@ class _ClassEnumsState extends State<ClassEnums> {
   List<String> _enumNames = List<String>();
 
   List<Widget> _builtList = List<Widget>();
-  List<String> _enums = List<String>();
+  List<String> _enumValues = List<String>();
 
   @override
   void initState() {
@@ -65,7 +65,7 @@ class _ClassEnumsState extends State<ClassEnums> {
     if (widget.clsContent.name == args.className &&
         args.linkType == LinkType.Enum) {
       final _targetIndex =
-          _enums.indexWhere((w) => w == args.fieldName.split('.').last);
+          _enumValues.indexWhere((w) => w == args.fieldName.split('.').last);
       if (_targetIndex != -1) {
         _scrollController.scrollTo(
           curve: Curves.easeInOutCubic,
@@ -99,9 +99,10 @@ class _ClassEnumsState extends State<ClassEnums> {
       List<Constant> _belongEnum = widget.clsContent.constants.where((element) {
         return element.enumValue != null && element.enumValue == enumName;
       }).toList();
-      _belongEnum.sort((a, b) => a.value.compareTo(b.value));
+      _belongEnum
+          .sort((a, b) => int.parse(a.value).compareTo(int.parse(b.value)));
 
-      _enums.add(_belongEnum[0].name);
+      _enumValues.add(_belongEnum[0].name);
       _builtList.add(Column(
         children: [
           Row(children: [
@@ -124,7 +125,7 @@ class _ClassEnumsState extends State<ClassEnums> {
 
       for (var i = 1; i < _belongEnum.length; i++) {
         _builtList.add(_singleEnum(_belongEnum[i]));
-        _enums.add(_belongEnum[i].name);
+        _enumValues.add(_belongEnum[i].name);
       }
     });
 
