@@ -8,7 +8,7 @@ import 'package:godotclassreference/constants/class_db.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:godotclassreference/models/class_content.dart';
 import 'package:godotclassreference/theme/themes.dart';
-import 'package:url_launcher/link.dart';
+// import 'package:url_launcher/link.dart';
 
 import 'class_detail.dart';
 
@@ -50,12 +50,12 @@ class _SearchScreenState extends State<SearchScreen> {
 
   bool _isDarkTheme;
 
-  StreamSubscription<ClassContent> _xmlSub;
+  StreamSubscription<TapEventArg> _xmlSub;
 
   @override
   void initState() {
     super.initState();
-    _searchBloc.argStream.listen((event) {
+    _xmlSub = _searchBloc.argStream.listen((event) {
       if (event != null) {
         setState(() {
           if (_argList.length == 0 ||
@@ -71,41 +71,43 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   void dispose() {
+    super.dispose();
     _controller.dispose();
     _searchBloc.dispose();
-    _xmlSub.cancel();
-    super.dispose();
+    _xmlSub.cancel().then((value) {
+      _xmlSub = null;
+    });
   }
 
   List<TapEventArg> filterResult() {
-    print("filter");
+    // print("filter");
     List<TapEventArg> _rtn = List<TapEventArg>.from(_argList);
 
     if (!_searchClass) {
-      print("filter classes");
+      // print("filter classes");
       _rtn.removeWhere((element) => element.linkType == LinkType.Class);
     }
     if (!_searchMethod) {
-      print("filter method");
+      // print("filter method");
       _rtn.removeWhere((element) => element.linkType == LinkType.Method);
     }
     if (!_searchMember) {
-      print("filter member");
+      // print("filter member");
       _rtn.removeWhere((element) => element.linkType == LinkType.Member);
     }
     if (!_searchSignal) {
-      print("filter signal");
+      // print("filter signal");
       _rtn.removeWhere((element) => element.linkType == LinkType.Signal);
     }
     if (!_searchConstant) {
-      print("filter constant");
+      // print("filter constant");
       _rtn.removeWhere((element) => element.linkType == LinkType.Constant);
     }
     if (!_searchEnum) {
       _rtn.removeWhere((element) => element.linkType == LinkType.Enum);
     }
     if (!_searchThemeItem) {
-      print("filter theme item");
+      // print("filter theme item");
       _rtn.removeWhere((element) => element.linkType == LinkType.ThemeItem);
     }
 
@@ -121,20 +123,26 @@ class _SearchScreenState extends State<SearchScreen> {
       _doSearch(val);
     }
 
-    _searching = ClassDB().getDB().last.version == null;
-    // print("search finish");
-    // _searchBloc.argSink.add(null);
+    if (_xmlSub != null) {
+      setState(() {
+        _searching = ClassDB().getDB().last.version == null;
+      });
+    }
   }
 
   // int _searchNotifyCnt = 0;
 
   void _xmlLoadSearch(ClassContent clsContent) {
     // print("${clsContent.name}:${_searchNotifyCnt++}");
-    if (_searching && _searchingTerm.length > 0) {
-      _searchSingle(clsContent);
-    }
+    if (_xmlSub != null) {
+      if (_searching && _searchingTerm.length > 0) {
+        _searchSingle(clsContent);
+      }
 
-    _searching = ClassDB().getDB().last.version == null;
+      setState(() {
+        _searching = ClassDB().getDB().last.version == null;
+      });
+    }
     // print(_searching);
   }
 
@@ -263,6 +271,7 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   List<Widget> _buildSearchResult() {
+    // _searching = ClassDB().getDB().last.version == null;
     _argList.remove(null);
     if (_argList.length == 0) {
       List<Widget> _rtn = [
