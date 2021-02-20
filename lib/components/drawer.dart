@@ -60,7 +60,8 @@ class GCRDrawerState extends State<GCRDrawer> {
               Padding(
                 padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                 child: ListTile(
-                  title: Text("F12"),
+                  title: Text("View Source"),
+                  subtitle: Text("Press F12"),
                   onTap: () async {
                     const url =
                         'https://github.com/GodotDocMobile/godot_class_reference';
@@ -135,7 +136,6 @@ class GCRDrawerState extends State<GCRDrawer> {
                         godotVersion = v;
                       });
                       StoredValues().prefs.setString('version', v);
-//                      Navigator.pop(context);
                       Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
