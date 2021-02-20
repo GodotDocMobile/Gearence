@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -39,7 +38,6 @@ class SvgIcon extends StatelessWidget {
 
       _digit++;
     }
-    // print(_correspondFilename);
 
     _correspondFilename =
         'svgs/' + version + '/' + _correspondFilename + '.svg';
@@ -55,13 +53,11 @@ class SvgIcon extends StatelessWidget {
       _svgContent = await Future.value('svgs/' + version + '/icon_node.svg');
       _loadFailed = true;
     }
-    // print("$_loadFailed , $_correspondFilename");
     if (_loadFailed &&
         (_correspondFilename.endsWith('2_d.svg') ||
             _correspondFilename.endsWith('3_d.svg'))) {
       _correspondFilename =
           _correspondFilename.replaceAll('2_d', '2d').replaceAll('3_d', '3d');
-      // print("replaced:$_correspondFilename");
       try {
         _svgContent = await rootBundle.loadString(_correspondFilename);
       } catch (e) {
@@ -89,11 +85,6 @@ class SvgIcon extends StatelessWidget {
                 : SvgPicture.asset('svgs/' + version + '/icon_node.svg'),
           ),
         );
-//        if (snapshot.hasData) {
-////          print('darawing svg: ' + version + ': ' + className);
-//          return SvgPicture.string(snapshot.data);
-//        }
-//        return SvgPicture.asset('svgs/' + version + '/icon_node.svg');
       },
     );
   }

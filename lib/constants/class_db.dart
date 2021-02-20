@@ -1,10 +1,10 @@
 //this is a singleton class
 import 'dart:async';
-
 import 'package:flutter/services.dart';
-import 'package:godotclassreference/bloc/xml_load_bloc.dart';
-import 'package:godotclassreference/models/class_content.dart';
 import 'package:xml/xml.dart' as xml;
+
+import '../bloc/xml_load_bloc.dart';
+import '../models/class_content.dart';
 
 class ClassDB {
   List<ClassContent> _classContent = List<ClassContent>();
@@ -55,7 +55,6 @@ class ClassDB {
 
   Future<ClassContent> _loadSingle(String version, String classFileName,
       {bool skipCheck = true}) async {
-    // print("loading:$classFileName");
     ClassContent _toRtn;
     var _existIndex = _classContent.indexWhere(
         (element) => element.name == classFileName.replaceAll('.xml', ''));
@@ -88,7 +87,6 @@ class ClassDB {
   }
 
   Future<ClassContent> getSingle(String version, String className) async {
-//    ClassContent _toReturn;
     final _className = className;
 
     if (_classContent.any(

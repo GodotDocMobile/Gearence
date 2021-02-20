@@ -2,15 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'package:godotclassreference/screens/class_select.dart';
-import 'package:godotclassreference/constants/stored_values.dart';
+import '../screens/class_select.dart';
+import '../constants/stored_values.dart';
 
 // ignore: must_be_immutable
 class GCRDrawer extends StatefulWidget {
   const GCRDrawer({Key key}) : super(key: key);
-
-//  String _version = '';
-//  String godotVersion = StoredValues().prefs.getString('version').substring(0);
 
   @override
   State<StatefulWidget> createState() {
@@ -19,7 +16,6 @@ class GCRDrawer extends StatefulWidget {
 }
 
 class GCRDrawerState extends State<GCRDrawer> {
-//  Future<PackageInfo>
   String godotVersion;
   PackageInfo pi;
   String docDate;
@@ -31,15 +27,12 @@ class GCRDrawerState extends State<GCRDrawer> {
   }
 
   Future<bool> loadAll() async {
-//    await PackageInfo.fromPlatform();
-//    await StoredValues().readValue();
     pi = await PackageInfo.fromPlatform();
     godotVersion = StoredValues().prefs.getString('version').substring(0);
     darkTheme = StoredValues().prefs.getBool('darkTheme') == null
         ? false
         : StoredValues().prefs.getBool('darkTheme');
     docDate = StoredValues().docDate;
-//    print(StoredValues().docDate);
     return true;
   }
 
@@ -51,17 +44,30 @@ class GCRDrawerState extends State<GCRDrawer> {
             title: Text("About"),
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                 child: ListTile(
                   title: Text(docDate),
                   subtitle: Text('Doc Last Update '),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                 child: ListTile(
                   title: Text(pi.version),
                   subtitle: Text("Version"),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                child: ListTile(
+                  title: Text("F12"),
+                  onTap: () async {
+                    const url =
+                        'https://github.com/GodotDocMobile/godot_class_reference';
+                    if (await canLaunch(url)) {
+                      await launch(url);
+                    }
+                  },
                 ),
               )
             ],
@@ -90,7 +96,6 @@ class GCRDrawerState extends State<GCRDrawer> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
   }
 
