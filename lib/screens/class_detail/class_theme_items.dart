@@ -1,10 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:godotclassreference/bloc/tap_event_arg.dart';
-import 'package:godotclassreference/constants/class_db.dart';
-import 'package:godotclassreference/constants/colors.dart';
-import 'package:godotclassreference/models/class_content.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+
+import '../../bloc/tap_event_arg.dart';
+import '../../constants/class_db.dart';
+import '../../constants/colors.dart';
+import '../../models/class_content.dart';
 
 class ClassThemeItems extends StatefulWidget {
   final ClassContent clsContent;

@@ -1,13 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:godotclassreference/components/code_text.dart';
-import 'package:godotclassreference/components/inline_code.dart';
-import 'package:godotclassreference/constants/class_db.dart';
-import 'package:godotclassreference/constants/colors.dart';
-import 'package:godotclassreference/bloc/tap_event_arg.dart';
-import 'package:godotclassreference/constants/stored_values.dart';
-//import 'package:xml/xml.dart';
+
+import '../components/code_text.dart';
+import '../components/inline_code.dart';
+import '../constants/class_db.dart';
+import '../constants/colors.dart';
+import '../constants/stored_values.dart';
+import '../bloc/tap_event_arg.dart';
 
 //logic check godot/editor/editor_help.cpp _add_text_to_rt
 
@@ -38,7 +37,6 @@ class DescriptionText extends StatelessWidget {
     int pos = 0;
 
     TextStyle _toApplyStyle = DefaultTextStyle.of(context).style;
-//    bool _willCallOnTap = false;
     while (pos < content.length) {
       int brkPos = content.indexOf('[', pos);
 
@@ -87,8 +85,6 @@ class DescriptionText extends StatelessWidget {
       if (tag.startsWith('/')) {
         bool tagOK = tagStack.length > 0 &&
             tagStack.last == tag.substring(1, tag.length);
-
-//        final aaa = tag.substring(1, tag.length);
 
         if (!tagOK) {
           _toRtn.add(TextSpan(text: ']'));

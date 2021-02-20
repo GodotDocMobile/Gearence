@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:godotclassreference/models/class_content.dart';
+
+import '../models/class_content.dart';
 
 class NodeTag extends StatelessWidget {
   final ClassContent classContent;

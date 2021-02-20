@@ -1,25 +1,21 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:godotclassreference/bloc/class_list_filter_bloc.dart';
-import 'package:godotclassreference/components/class_icon.dart';
-import 'package:godotclassreference/components/node_tag.dart';
-import 'package:godotclassreference/constants/class_db.dart';
 
-import 'package:godotclassreference/constants/stored_values.dart';
-import 'package:godotclassreference/models/class_content.dart';
-import 'package:godotclassreference/screens/class_detail.dart';
-import 'package:godotclassreference/components/drawer.dart';
-import 'package:godotclassreference/screens/search.dart';
+import '../bloc/class_list_filter_bloc.dart';
+import '../components/class_icon.dart';
+import '../components/node_tag.dart';
+import '../components/drawer.dart';
+import '../constants/class_db.dart';
+import '../constants/stored_values.dart';
+import '../models/class_content.dart';
+import '../screens/class_detail.dart';
+import '../screens/search.dart';
 
 class ClassSelect extends StatefulWidget {
   static Future<List<ClassContent>> getXmlFiles() async {
-//    await StoredValues().readValue();
-
     String version = StoredValues().prefs.getString('version');
-//    print(version);
     if (version == null || version.length == 0) {
       version = '3.2';
       await StoredValues().prefs.setString('version', version);
@@ -36,8 +32,6 @@ class ClassSelect extends StatefulWidget {
       _rtn.inheritChain = e['inherit_chain'];
       return _rtn;
     })).toList();
-    // final _parsedList = List<ClassContent>.from();
-    // final parsedList = List<String>.from(decoded);
     ClassDB().updateList(_parsedList);
     ClassDB().updateDB(version);
     return _parsedList;
@@ -74,8 +68,6 @@ class _ClassSelectState extends State<ClassSelect> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
-
     super.dispose();
   }
 
@@ -104,7 +96,6 @@ class _ClassSelectState extends State<ClassSelect> {
                               _filterBloc.argSink
                                   .add(FilterOption(FilterType.Node2D, v));
                               StoredValues().prefs.setBool("show2DNodes", v);
-                              // _classes = filterClasses(_classes);
                             });
                           }),
                     ),
@@ -119,7 +110,6 @@ class _ClassSelectState extends State<ClassSelect> {
                                 .add(FilterOption(FilterType.Node3D, v));
                             StoredValues().prefs.setBool("show3DNodes", v);
                           });
-                          // _classes = filterClasses(_classes);
                         },
                       ),
                     ),
@@ -133,7 +123,6 @@ class _ClassSelectState extends State<ClassSelect> {
                             _filterBloc.argSink
                                 .add(FilterOption(FilterType.NodeControl, v));
                             StoredValues().prefs.setBool("showControlNodes", v);
-                            // _classes = filterClasses(_classes);
                           });
                         },
                       ),
@@ -148,7 +137,6 @@ class _ClassSelectState extends State<ClassSelect> {
                             _filterBloc.argSink
                                 .add(FilterOption(FilterType.NodeOther, v));
                             StoredValues().prefs.setBool("showOtherNodes", v);
-                            // _classes = filterClasses(_classes);
                           });
                         },
                       ),
@@ -163,7 +151,6 @@ class _ClassSelectState extends State<ClassSelect> {
                             _filterBloc.argSink
                                 .add(FilterOption(FilterType.NonNode, v));
                             StoredValues().prefs.setBool("showNonNodes", v);
-                            // _classes = filterClasses(_classes);
                           });
                         },
                       ),
@@ -349,7 +336,6 @@ class _ClassSelectState extends State<ClassSelect> {
                                   classContent: f,
                                 )
                               : null,
-                          // f.name.contains('#Node#') ? NodeTag() : null,
                         ),
                       ))
                   .toList());

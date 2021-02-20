@@ -2,6 +2,9 @@
 
 Class reference for Godot Engine.
 
+[<img src="google-play-badge.png" height="50">](https://play.google.com/store/apps/details?id=com.fengjiongmax.godotclassreference)
+[<img src="appstore-badge.png" height="50">](https://apps.apple.com/qa/app/godot-class-reference/id1523486419)
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.

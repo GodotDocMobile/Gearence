@@ -1,10 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:godotclassreference/components/description_text.dart';
-import 'package:godotclassreference/bloc/tap_event_arg.dart';
-import 'package:godotclassreference/constants/class_db.dart';
-import 'package:godotclassreference/models/class_content.dart';
-import 'package:godotclassreference/theme/default.dart';
+
+import '../../components/description_text.dart';
+import '../../bloc/tap_event_arg.dart';
+import '../../constants/class_db.dart';
+import '../../models/class_content.dart';
+import '../../theme/default.dart';
 
 class ClassInfo extends StatelessWidget {
   final ClassContent clsContent;
@@ -23,6 +23,8 @@ class ClassInfo extends StatelessWidget {
         .toList()
         .toString();
 
+    //inherit chain
+    //child classes
     //brief_description
     //description
     //version
@@ -32,6 +34,7 @@ class ClassInfo extends StatelessWidget {
     return ListView(
       padding: EdgeInsets.all(6),
       children: <Widget>[
+        //inherit chain
         Text(
           'Inherits:',
           style: TextStyle(color: Colors.grey),
@@ -45,6 +48,8 @@ class ClassInfo extends StatelessWidget {
         SizedBox(
           height: 10,
         ),
+
+        //child classes
         Text(
           'Child Classes:',
           style: TextStyle(color: Colors.grey),
@@ -57,6 +62,7 @@ class ClassInfo extends StatelessWidget {
         SizedBox(
           height: 10,
         ),
+
         //brief_description
         Text(
           'Brief Description:',
@@ -110,13 +116,12 @@ class ClassInfo extends StatelessWidget {
               )),
 
         //description
-//        Text('Description:', style: fieldNames),
         DescriptionText(
           className: clsContent.name,
           content: clsContent.description,
           onLinkTap: onLinkTap,
         ),
-//        Text(clsContent.description),
+
         //tutorials
         clsContent.demos != null && clsContent.demos.length > 0
             ? Column(

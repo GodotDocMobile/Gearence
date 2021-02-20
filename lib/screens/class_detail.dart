@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:godotclassreference/bloc/tap_event_bloc.dart';
-import 'package:godotclassreference/components/node_tag.dart';
-import 'package:godotclassreference/constants/class_db.dart';
-import 'package:godotclassreference/constants/stored_values.dart';
-import 'package:godotclassreference/bloc/tap_event_arg.dart';
 
-import 'package:godotclassreference/screens/class_detail/class_constants.dart';
-import 'package:godotclassreference/screens/class_detail/class_enums.dart';
-import 'package:godotclassreference/screens/class_detail/class_info.dart';
-import 'package:godotclassreference/screens/class_detail/class_members.dart';
-import 'package:godotclassreference/screens/class_detail/class_methods.dart';
-import 'package:godotclassreference/screens/class_detail/class_signals.dart';
-import 'package:godotclassreference/screens/class_detail/class_theme_items.dart';
+import '../bloc/tap_event_bloc.dart';
+import '../bloc/tap_event_arg.dart';
+import '../components/node_tag.dart';
+import '../constants/class_db.dart';
+import '../constants/stored_values.dart';
+import '../models/class_content.dart';
 
-import 'package:godotclassreference/models/class_content.dart';
+import '../screens/class_detail/class_constants.dart';
+import '../screens/class_detail/class_enums.dart';
+import '../screens/class_detail/class_info.dart';
+import '../screens/class_detail/class_members.dart';
+import '../screens/class_detail/class_methods.dart';
+import '../screens/class_detail/class_signals.dart';
+import '../screens/class_detail/class_theme_items.dart';
 
 class ClassDetail extends StatefulWidget {
   final String className;
@@ -50,8 +50,6 @@ class _ClassDetailState extends State<ClassDetail>
         });
       }
     });
-    // print("$className init");
-//    StoredValues().appendClass(widget.className);
   }
 
   @override
@@ -59,7 +57,6 @@ class _ClassDetailState extends State<ClassDetail>
     super.dispose();
     tabController.dispose();
     _bloc.dispose();
-    // print("$className disposed");
   }
 
   Future<ClassContent> getClassDetail() async {
@@ -69,7 +66,6 @@ class _ClassDetailState extends State<ClassDetail>
   }
 
   void onLinkTap(TapEventArg args) async {
-//    _bloc.argSink.add(args);
     if (args.className == widget.className) {
       //navigation within class
       int _toFocusTabIndex =
@@ -89,8 +85,6 @@ class _ClassDetailState extends State<ClassDetail>
             ),
           ));
     }
-//    print(
-//        args.className + ":" + args.linkType.toString() + ":" + args.fieldName);
   }
 
   @override
@@ -118,7 +112,6 @@ class _ClassDetailState extends State<ClassDetail>
           }
 
           if (tabController == null) {
-//            print("$className  null");
             tabController = TabController(
               vsync: this,
               length: _tabs.length,
