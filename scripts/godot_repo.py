@@ -20,7 +20,7 @@ branches = [
     "3.2"
 ]
 
-godot_repo = "/home/tin/Projects/godot"
+godot_repo = ""
 
 
 class ClassNode:
@@ -219,10 +219,14 @@ def multiple_class_files(branch_name):
 
 def parse_argv():
     parser = argparse.ArgumentParser(
-        description="update godot documents and strip unnecessary line breaking")
+        description="update godot documents and remove unnecessary line breaks")
     # parser.add_argument('-sp','--skip-pull',metavar='SP',help='skip pulling action before strip line breaking')
     parser.add_argument(
-        '--skip_pull', help='skip pulling action before strip line breaking', action='store_true')
+        '--skip_pull', help='skip pulling action before removing line breaks', action='store_true')
+    parser.add_argument(
+        '--godot_path',type=str,dest='godot_path',required=True,
+        help='path to godot repository like ~/godot'
+    )
     return parser.parse_args()
 
 
@@ -259,6 +263,7 @@ def copy_svgs(branch_name, custom_path):
 if __name__ == "__main__":
 
     parsed = parse_argv()
+    godot_repo = parsed.godot_path
 
     _doc_date = datetime.date.today() - datetime.timedelta(days=1)
 
@@ -311,14 +316,6 @@ if __name__ == "__main__":
         pass
 
     _doc_date = datetime.date.today()
-    # if _find_time_line:
-    #     _config_content[_time_line] = 'doc_time: {}\n'.format(_doc_date)
-    # else:
-    #     _config_content.append('doc_time: {}\n'.format(_doc_date))
-
-    # _config_file = open("../pubspec.yaml",'w')
-    # _config_file.write("".join(_config_content))
-    # _config_file.close()
 
     _update_doc_file = open("../xmls/conf.json", "w")
     _update_doc_file.write("{}".format(_doc_date))
