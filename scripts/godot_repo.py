@@ -44,10 +44,6 @@ class ClassNode:
         # return json.dump()
         pass
 
-# TODO: add inherit chain on each classes.
-# TODO: update svg files
-
-
 def _write_file_index(branch_name, file_name_arr):
     file_name_arr.sort()
     files_json = json.dumps(file_name_arr)
@@ -84,7 +80,7 @@ def _remove_old_files(folder_path, branch_name):
     pass
 
 
-def _copy_and_strip(src_path, dest_path):
+def _copy_and_trim(src_path, dest_path):
     _f = open(src_path, 'r')
     _content = _f.read()
     _f.close()
@@ -175,7 +171,7 @@ def multiple_class_files(branch_name):
     for origin_file in listdir(_class_docs_folder):
         print("[{}] procesing {}".format(branch_name, origin_file))
 
-        _copy_and_strip(join(_class_docs_folder, origin_file),
+        _copy_and_trim(join(_class_docs_folder, origin_file),
                         join(_folder_path, origin_file))
         _files.append(origin_file)
         _xml_element = ET.parse(join(_folder_path, origin_file))
@@ -195,7 +191,7 @@ def multiple_class_files(branch_name):
             for _xml in _xmls:
                 print("[{}] [module {}] processing {}".format(
                     branch_name, m, _xml))
-                _copy_and_strip(join(_folder, _xml), join(_folder_path, _xml))
+                _copy_and_trim(join(_folder, _xml), join(_folder_path, _xml))
                 _files.append(_xml)
 
                 _xml_element = ET.parse(join(_folder_path, _xml))

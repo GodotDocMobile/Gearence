@@ -1,12 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:godotclassreference/components/description_text.dart';
-import 'package:godotclassreference/constants/class_db.dart';
-import 'package:godotclassreference/constants/colors.dart';
-import 'package:godotclassreference/bloc/tap_event_arg.dart';
-import 'package:godotclassreference/constants/stored_values.dart';
-import 'package:godotclassreference/models/class_content.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+
+import '../../components/description_text.dart';
+import '../../constants/class_db.dart';
+import '../../constants/colors.dart';
+import '../../bloc/tap_event_arg.dart';
+import '../../constants/stored_values.dart';
+import '../../models/class_content.dart';
 
 class ClassMembers extends StatefulWidget {
   final ClassContent clsContent;
@@ -61,7 +61,7 @@ class _ClassMembersState extends State<ClassMembers> {
     if (widget.clsContent.members == null ||
         widget.clsContent.members.length == 0) {
       return Center(
-        child: Text('0 memeber in this class'),
+        child: Text('0 member in this class'),
       );
     }
 

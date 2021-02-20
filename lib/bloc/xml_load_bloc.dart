@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:godotclassreference/models/class_content.dart';
+import '../models/class_content.dart';
 
 class XMLLoadBloc {
   final _loadStateController = StreamController<ClassContent>.broadcast();

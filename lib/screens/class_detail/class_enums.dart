@@ -1,11 +1,11 @@
 import 'dart:async';
-
-import 'package:flutter/material.dart';
-import 'package:godotclassreference/components/description_text.dart';
-import 'package:godotclassreference/bloc/tap_event_arg.dart';
-import 'package:godotclassreference/models/class_content.dart';
-import 'package:godotclassreference/models/constant.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:flutter/material.dart';
+
+import '../../components/description_text.dart';
+import '../../bloc/tap_event_arg.dart';
+import '../../models/class_content.dart';
+import '../../models/constant.dart';
 
 class ClassEnums extends StatefulWidget {
   final ClassContent clsContent;
@@ -56,7 +56,6 @@ class _ClassEnumsState extends State<ClassEnums> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _tapSub.cancel();
     super.dispose();
   }
@@ -128,8 +127,6 @@ class _ClassEnumsState extends State<ClassEnums> {
         _enumValues.add(_belongEnum[i].name);
       }
     });
-
-    // return _builtList;
   }
 
   @override
@@ -144,7 +141,6 @@ class _ClassEnumsState extends State<ClassEnums> {
       );
     }
 
-//    final _enums
     buildEnums();
 
     return ScrollablePositionedList.builder(
@@ -154,48 +150,6 @@ class _ClassEnumsState extends State<ClassEnums> {
       itemPositionsListener: _itemPositionsListener,
       itemBuilder: (context, index) {
         return _builtList[index];
-        // final _enumValues = widget.clsContent.constants
-        //     .where((w) => w.enumValue == _enums[index])
-        //     .toList();
-        // _enumValues.sort((a, b) => a.value.compareTo(b.value));
-        //
-        // return Column(
-        //   crossAxisAlignment: CrossAxisAlignment.start,
-        //   mainAxisAlignment: MainAxisAlignment.start,
-        //   children: <Widget>[
-        //     Row(
-        //       children: <Widget>[
-        //         Text(
-        //           'enum ',
-        //           style: TextStyle(color: Colors.grey, fontSize: 20),
-        //         ),
-        //         Text(
-        //           _enums[index],
-        //           style: TextStyle(fontSize: 20),
-        //         ),
-        //         Text(
-        //           ':',
-        //           style: TextStyle(fontSize: 20),
-        //         ),
-        //       ],
-        //     ),
-        //     Column(
-        //       children: _enumValues.map((c) {
-        //         return ListTile(
-        //           title: Text(c.name + ' = ' + c.value),
-        //           subtitle: DescriptionText(
-        //             className: widget.clsContent.name,
-        //             content: c.constantText,
-        //             onLinkTap: widget.onLinkTap,
-        //           ),
-        //         );
-        //       }).toList(),
-        //     ),
-        //     SizedBox(
-        //       height: 5,
-        //     )
-        //   ],
-        // );
       },
     );
   }

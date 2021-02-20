@@ -1,6 +1,7 @@
 import 'package:flutter/services.dart';
-import 'package:godotclassreference/bloc/theme_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../bloc/theme_bloc.dart';
 
 class StoredValues {
   SharedPreferences prefs;

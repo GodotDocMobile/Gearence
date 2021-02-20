@@ -1,14 +1,13 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:godotclassreference/bloc/search_bloc.dart';
-import 'package:godotclassreference/bloc/tap_event_arg.dart';
-import 'package:godotclassreference/constants/class_db.dart';
-import 'package:godotclassreference/constants/stored_values.dart';
-import 'package:godotclassreference/models/class_content.dart';
-import 'package:godotclassreference/theme/themes.dart';
-// import 'package:url_launcher/link.dart';
+
+import '../bloc/search_bloc.dart';
+import '../bloc/tap_event_arg.dart';
+import '../constants/class_db.dart';
+import '../constants/stored_values.dart';
+import '../models/class_content.dart';
+import '../theme/themes.dart';
 
 import 'class_detail.dart';
 
@@ -80,34 +79,27 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   List<TapEventArg> filterResult() {
-    // print("filter");
     List<TapEventArg> _rtn = List<TapEventArg>.from(_argList);
 
     if (!_searchClass) {
-      // print("filter classes");
       _rtn.removeWhere((element) => element.linkType == LinkType.Class);
     }
     if (!_searchMethod) {
-      // print("filter method");
       _rtn.removeWhere((element) => element.linkType == LinkType.Method);
     }
     if (!_searchMember) {
-      // print("filter member");
       _rtn.removeWhere((element) => element.linkType == LinkType.Member);
     }
     if (!_searchSignal) {
-      // print("filter signal");
       _rtn.removeWhere((element) => element.linkType == LinkType.Signal);
     }
     if (!_searchConstant) {
-      // print("filter constant");
       _rtn.removeWhere((element) => element.linkType == LinkType.Constant);
     }
     if (!_searchEnum) {
       _rtn.removeWhere((element) => element.linkType == LinkType.Enum);
     }
     if (!_searchThemeItem) {
-      // print("filter theme item");
       _rtn.removeWhere((element) => element.linkType == LinkType.ThemeItem);
     }
 
@@ -116,7 +108,6 @@ class _SearchScreenState extends State<SearchScreen> {
 
   void _onTextSubmit(String val) {
     if (_controller.text.length > 0) {
-//      print(_controller.text);
       _argList.clear();
       val = val.toLowerCase().replaceAll(' ', '');
       _searchingTerm = val;
@@ -130,10 +121,7 @@ class _SearchScreenState extends State<SearchScreen> {
     }
   }
 
-  // int _searchNotifyCnt = 0;
-
   void _xmlLoadSearch(ClassContent clsContent) {
-    // print("${clsContent.name}:${_searchNotifyCnt++}");
     if (_xmlSub != null) {
       if (_searching && _searchingTerm.length > 0) {
         _searchSingle(clsContent);
@@ -143,7 +131,6 @@ class _SearchScreenState extends State<SearchScreen> {
         _searching = ClassDB().getDB().last.version == null;
       });
     }
-    // print(_searching);
   }
 
   void _searchSingle(ClassContent _class) {
@@ -271,7 +258,6 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   List<Widget> _buildSearchResult() {
-    // _searching = ClassDB().getDB().last.version == null;
     _argList.remove(null);
     if (_argList.length == 0) {
       List<Widget> _rtn = [
@@ -360,19 +346,6 @@ class _SearchScreenState extends State<SearchScreen> {
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(48.0),
           child: ListTile(
-//            leading: Icon(Icons.filter_list),
-//            leading: IconButton(
-//              icon: Icon(
-//                Icons.format_size,
-//              ),
-//              color: _caseSensitive ? Colors.blue : Colors.grey,
-//              onPressed: () {
-//                setState(() {
-//                  _caseSensitive = !_caseSensitive;
-//                });
-//                _onTextSubmit(_controller.text);
-//              },
-//            ),
             title: DropdownButton<String>(
               icon: Icon(Icons.list),
               value: _searchCat,
@@ -394,25 +367,11 @@ class _SearchScreenState extends State<SearchScreen> {
                 setState(() {
                   _searchCat = v;
                 });
-
-                // _onTextSubmit(_controller.text);
               },
             ),
           ),
         ),
       ),
-
-//      body: StreamBuilder<TapEventArg>(
-//        stream: _searchBloc.argStream,
-//        builder: (BuildContext context, AsyncSnapshot<TapEventArg> snapshot) {
-//          _argList.add(snapshot.data);
-//          print('search result:' + _argList.length.toString());
-//
-//          return ListView(
-//            children: _buildSearchResult(),
-//          );
-//        },
-//      ),
       body: ListView(
         children: _buildSearchResult(),
       ),
