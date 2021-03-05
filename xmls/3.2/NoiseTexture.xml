@@ -12,5 +12,6 @@
 			Strength of the bump maps used in this texture. A higher value will make the bump maps appear larger while a lower value will make them appear softer.</member><member name="flags" type="int" setter="set_flags" getter="get_flags" override="true" default="7" /><member name="height" type="int" setter="set_height" getter="get_height" default="512">
 			Height of the generated texture.</member><member name="noise" type="OpenSimplexNoise" setter="set_noise" getter="get_noise">
 			The [OpenSimplexNoise] instance used to generate the noise.</member><member name="seamless" type="bool" setter="set_seamless" getter="get_seamless" default="false">
-			Whether the texture can be tiled without visible seams or not. Seamless textures take longer to generate.</member><member name="width" type="int" setter="set_width" getter="get_width" default="512">
+			Whether the texture can be tiled without visible seams or not. Seamless textures take longer to generate.
+			[b]Note:[/b] Seamless noise has a lower contrast compared to non-seamless noise. This is due to the way noise uses higher dimensions for generating seamless noise.</member><member name="width" type="int" setter="set_width" getter="get_width" default="512">
 			Width of the generated texture.</member></members><constants></constants></class>

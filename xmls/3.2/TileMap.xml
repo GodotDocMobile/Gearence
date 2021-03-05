@@ -15,7 +15,12 @@
 				Returns [code]true[/code] if the given cell is transposed, i.e. the X and Y axes are swapped.</description></method><method name="is_cell_x_flipped" qualifiers="const"><return type="bool"></return><argument index="0" name="x" type="int"></argument><argument index="1" name="y" type="int"></argument><description>
 				Returns [code]true[/code] if the given cell is flipped in the X axis.</description></method><method name="is_cell_y_flipped" qualifiers="const"><return type="bool"></return><argument index="0" name="x" type="int"></argument><argument index="1" name="y" type="int"></argument><description>
 				Returns [code]true[/code] if the given cell is flipped in the Y axis.</description></method><method name="map_to_world" qualifiers="const"><return type="Vector2"></return><argument index="0" name="map_position" type="Vector2"></argument><argument index="1" name="ignore_half_ofs" type="bool" default="false"></argument><description>
-				Returns the local position corresponding to the given tilemap (grid-based) coordinates.
+				Returns the local position of the top left corner of the cell corresponding to the given tilemap (grid-based) coordinates.
+				To get the global position, use [method Node2D.to_global]:
+				[codeblock]
+				var local_position = my_tilemap.map_to_world(map_position)
+				var global_position = my_tilemap.to_global(local_position)
+				[/codeblock]
 				Optionally, the tilemap's half offset can be ignored.</description></method><method name="set_cell"><return type="void"></return><argument index="0" name="x" type="int"></argument><argument index="1" name="y" type="int"></argument><argument index="2" name="tile" type="int"></argument><argument index="3" name="flip_x" type="bool" default="false"></argument><argument index="4" name="flip_y" type="bool" default="false"></argument><argument index="5" name="transpose" type="bool" default="false"></argument><argument index="6" name="autotile_coord" type="Vector2" default="Vector2( 0, 0 )"></argument><description>
 				Sets the tile index for the cell given by a Vector2.
 				An index of [code]-1[/code] clears the cell.
@@ -40,7 +45,12 @@
 				Applies autotiling rules to the cells in the given region (specified by grid-based X and Y coordinates).
 				Calling with invalid (or missing) parameters applies autotiling rules for the entire tilemap.</description></method><method name="update_dirty_quadrants"><return type="void"></return><description>
 				Updates the tile map's quadrants, allowing things such as navigation and collision shapes to be immediately used if modified.</description></method><method name="world_to_map" qualifiers="const"><return type="Vector2"></return><argument index="0" name="world_position" type="Vector2"></argument><description>
-				Returns the tilemap (grid-based) coordinates corresponding to the given local position.</description></method></methods><members><member name="cell_clip_uv" type="bool" setter="set_clip_uv" getter="get_clip_uv" default="false">
+				Returns the tilemap (grid-based) coordinates corresponding to the given local position.
+				To use this with a global position, first determine the local position with [method Node2D.to_local]:
+				[codeblock]
+				var local_position = my_tilemap.to_local(global_position)
+				var map_position = my_tilemap.world_to_map(local_position)
+				[/codeblock]</description></method></methods><members><member name="cell_clip_uv" type="bool" setter="set_clip_uv" getter="get_clip_uv" default="false">
 			If [code]true[/code], the cell's UVs will be clipped.</member><member name="cell_custom_transform" type="Transform2D" setter="set_custom_transform" getter="get_custom_transform" default="Transform2D( 64, 0, 0, 64, 0, 0 )">
 			The custom [Transform2D] to be applied to the TileMap's cells.</member><member name="cell_half_offset" type="int" setter="set_half_offset" getter="get_half_offset" enum="TileMap.HalfOffset" default="2">
 			Amount to offset alternating tiles. See [enum HalfOffset] for possible values.</member><member name="cell_quadrant_size" type="int" setter="set_quadrant_size" getter="get_quadrant_size" default="16">
@@ -60,7 +70,8 @@
 			If [code]false[/code], the textures do not move when doing [code]flip_h[/code], [code]flip_v[/code] operations if no offset is used, nor when changing the tile origin.
 			The compatibility mode doesn't work with the [member centered_textures] option, because displacing textures with the [member cell_tile_origin] option or in irregular tiles is not relevant when centering those textures.</member><member name="mode" type="int" setter="set_mode" getter="get_mode" enum="TileMap.Mode" default="0">
 			The TileMap orientation mode. See [enum Mode] for possible values.</member><member name="occluder_light_mask" type="int" setter="set_occluder_light_mask" getter="get_occluder_light_mask" default="1">
-			The light mask assigned to all light occluders in the TileMap. The TileSet's light occluders will cast shadows only from Light2D(s) that have the same light mask(s).</member><member name="tile_set" type="TileSet" setter="set_tileset" getter="get_tileset">
+			The light mask assigned to all light occluders in the TileMap. The TileSet's light occluders will cast shadows only from Light2D(s) that have the same light mask(s).</member><member name="show_collision" type="bool" setter="set_show_collision" getter="is_show_collision_enabled" default="true">
+			If [code]true[/code], collision shapes are shown in the editor and at run-time. Requires [b]Visible Collision Shapes[/b] to be enabled in the [b]Debug[/b] menu for collision shapes to be visible at run-time.</member><member name="tile_set" type="TileSet" setter="set_tileset" getter="get_tileset">
 			The assigned [TileSet].</member></members><signals><signal name="settings_changed"><description>
 				Emitted when a tilemap setting has changed.</description></signal></signals><constants><constant name="INVALID_CELL" value="-1">
 			Returned when a cell doesn't exist.</constant><constant name="MODE_SQUARE" value="0" enum="Mode">
