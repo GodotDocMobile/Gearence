@@ -11,7 +11,7 @@
 		    return "my.special.plugin"
 
 		func get_visible_name():
-		    return "Special Mesh Importer"
+		    return "Special Mesh"
 
 		func get_recognized_extensions():
 		    return ["special", "spec"]
@@ -40,8 +40,7 @@
 		    # Fill the Mesh with data read in "file", left as an exercise to the reader
 
 		    var filename = save_path + "." + get_save_extension()
-		    ResourceSaver.save(filename, mesh)
-		    return OK
+		    return ResourceSaver.save(filename, mesh)
 		[/codeblock]</description><tutorials><link>https://docs.godotengine.org/en/3.2/tutorials/plugins/editor/import_plugins.html</link></tutorials><methods><method name="get_import_options" qualifiers="virtual"><return type="Array"></return><argument index="0" name="preset" type="int"></argument><description>
 				Gets the options and default values for the preset at this index. Returns an Array of Dictionaries with the following keys: [code]name[/code], [code]default_value[/code], [code]property_hint[/code] (optional), [code]hint_string[/code] (optional), [code]usage[/code] (optional).</description></method><method name="get_import_order" qualifiers="virtual"><return type="int"></return><description>
 				Gets the order of this importer to be run when importing resources. Higher values will be called later. Use this to ensure the importer runs after the dependencies are already imported.</description></method><method name="get_importer_name" qualifiers="virtual"><return type="String"></return><description>
@@ -62,6 +61,6 @@
 				Gets the list of file extensions to associate with this loader (case-insensitive). e.g. [code]["obj"][/code].</description></method><method name="get_resource_type" qualifiers="virtual"><return type="String"></return><description>
 				Gets the Godot resource type associated with this loader. e.g. [code]"Mesh"[/code] or [code]"Animation"[/code].</description></method><method name="get_save_extension" qualifiers="virtual"><return type="String"></return><description>
 				Gets the extension used to save this resource in the [code].import[/code] directory.</description></method><method name="get_visible_name" qualifiers="virtual"><return type="String"></return><description>
-				Gets the name to display in the import window.</description></method><method name="import" qualifiers="virtual"><return type="int"></return><argument index="0" name="source_file" type="String"></argument><argument index="1" name="save_path" type="String"></argument><argument index="2" name="options" type="Dictionary"></argument><argument index="3" name="platform_variants" type="Array"></argument><argument index="4" name="gen_files" type="Array"></argument><description>
+				Gets the name to display in the import window. You should choose this name as a continuation to "Import as", e.g. "Import as Special Mesh".</description></method><method name="import" qualifiers="virtual"><return type="int"></return><argument index="0" name="source_file" type="String"></argument><argument index="1" name="save_path" type="String"></argument><argument index="2" name="options" type="Dictionary"></argument><argument index="3" name="platform_variants" type="Array"></argument><argument index="4" name="gen_files" type="Array"></argument><description>
 				Imports [code]source_file[/code] into [code]save_path[/code] with the import [code]options[/code] specified. The [code]platform_variants[/code] and [code]gen_files[/code] arrays will be modified by this function.
 				This method must be overridden to do the actual importing work. See this class' description for an example of overriding this method.</description></method></methods><constants></constants></class>

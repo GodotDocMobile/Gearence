@@ -7,8 +7,8 @@
 				Centers the window on the screen if in windowed mode.</description></method><method name="close_midi_inputs"><return type="void"></return><description>
 				Shuts down system MIDI driver.
 				[b]Note:[/b] This method is implemented on Linux, macOS and Windows.</description></method><method name="delay_msec" qualifiers="const"><return type="void"></return><argument index="0" name="msec" type="int"></argument><description>
-				Delay execution of the current thread by [code]msec[/code] milliseconds.</description></method><method name="delay_usec" qualifiers="const"><return type="void"></return><argument index="0" name="usec" type="int"></argument><description>
-				Delay execution of the current thread by [code]usec[/code] microseconds.</description></method><method name="dump_memory_to_file"><return type="void"></return><argument index="0" name="file" type="String"></argument><description>
+				Delay execution of the current thread by [code]msec[/code] milliseconds. [code]usec[/code] must be greater than or equal to [code]0[/code]. Otherwise, [method delay_msec] will do nothing and will print an error message.</description></method><method name="delay_usec" qualifiers="const"><return type="void"></return><argument index="0" name="usec" type="int"></argument><description>
+				Delay execution of the current thread by [code]usec[/code] microseconds. [code]usec[/code] must be greater than or equal to [code]0[/code]. Otherwise, [method delay_usec] will do nothing and will print an error message.</description></method><method name="dump_memory_to_file"><return type="void"></return><argument index="0" name="file" type="String"></argument><description>
 				Dumps the memory allocation ringlist to a file (only works in debug).
 				Entry format per line: "Address - Size - Description".</description></method><method name="dump_resources_to_file"><return type="void"></return><argument index="0" name="file" type="String"></argument><description>
 				Dumps all used resources to file (only works in debug).
@@ -57,8 +57,9 @@
 				Returns current datetime as a dictionary of keys: [code]year[/code], [code]month[/code], [code]day[/code], [code]weekday[/code], [code]dst[/code] (Daylight Savings Time), [code]hour[/code], [code]minute[/code], [code]second[/code].</description></method><method name="get_datetime_from_unix_time" qualifiers="const"><return type="Dictionary"></return><argument index="0" name="unix_time_val" type="int"></argument><description>
 				Gets a dictionary of time values corresponding to the given UNIX epoch time (in seconds).
 				The returned Dictionary's values will be the same as [method get_datetime], with the exception of Daylight Savings Time as it cannot be determined from the epoch.</description></method><method name="get_dynamic_memory_usage" qualifiers="const"><return type="int"></return><description>
-				Returns the total amount of dynamic memory used (only works in debug).</description></method><method name="get_environment" qualifiers="const"><return type="String"></return><argument index="0" name="environment" type="String"></argument><description>
-				Returns an environment variable.</description></method><method name="get_executable_path" qualifiers="const"><return type="String"></return><description>
+				Returns the total amount of dynamic memory used (only works in debug).</description></method><method name="get_environment" qualifiers="const"><return type="String"></return><argument index="0" name="variable" type="String"></argument><description>
+				Returns the value of an environment variable. Returns an empty string if the environment variable doesn't exist.
+				[b]Note:[/b] Double-check the casing of [code]variable[/code]. Environment variable names are case-sensitive on all platforms except Windows.</description></method><method name="get_executable_path" qualifiers="const"><return type="String"></return><description>
 				Returns the path to the current engine executable.</description></method><method name="get_granted_permissions" qualifiers="const"><return type="PoolStringArray"></return><description>
 				With this function you can get the list of dangerous permissions that have been granted to the Android application.
 				[b]Note:[/b] This method is implemented on Android.</description></method><method name="get_ime_selection" qualifiers="const"><return type="Vector2"></return><description>
@@ -150,8 +151,9 @@
 				Clear the global menu, in effect removing all items.
 				[b]Note:[/b] This method is implemented on macOS.</description></method><method name="global_menu_remove_item"><return type="void"></return><argument index="0" name="menu" type="String"></argument><argument index="1" name="idx" type="int"></argument><description>
 				Removes the item at index "idx" from the global menu. Note that the indexes of items after the removed item are going to be shifted by one.
-				[b]Note:[/b] This method is implemented on macOS.</description></method><method name="has_environment" qualifiers="const"><return type="bool"></return><argument index="0" name="environment" type="String"></argument><description>
-				Returns [code]true[/code] if an environment variable exists.</description></method><method name="has_feature" qualifiers="const"><return type="bool"></return><argument index="0" name="tag_name" type="String"></argument><description>
+				[b]Note:[/b] This method is implemented on macOS.</description></method><method name="has_environment" qualifiers="const"><return type="bool"></return><argument index="0" name="variable" type="String"></argument><description>
+				Returns [code]true[/code] if the environment variable with the name [code]variable[/code] exists.
+				[b]Note:[/b] Double-check the casing of [code]variable[/code]. Environment variable names are case-sensitive on all platforms except Windows.</description></method><method name="has_feature" qualifiers="const"><return type="bool"></return><argument index="0" name="tag_name" type="String"></argument><description>
 				Returns [code]true[/code] if the feature for the given feature tag is supported in the currently running instance, depending on platform, build etc. Can be used to check whether you're currently running a debug build, on a certain platform or arch, etc. Refer to the [url=https://docs.godotengine.org/en/3.2/getting_started/workflow/export/feature_tags.html]Feature Tags[/url] documentation for more details.
 				[b]Note:[/b] Tag names are case-sensitive.</description></method><method name="has_touchscreen_ui_hint" qualifiers="const"><return type="bool"></return><description>
 				Returns [code]true[/code] if the device has a touchscreen or emulates one.</description></method><method name="has_virtual_keyboard" qualifiers="const"><return type="bool"></return><description>
@@ -202,7 +204,9 @@
 				[b]Note:[/b] This method is implemented on Linux, macOS and Windows.</description></method><method name="request_permission"><return type="bool"></return><argument index="0" name="name" type="String"></argument><description>
 				At the moment this function is only used by [code]AudioDriverOpenSL[/code] to request permission for [code]RECORD_AUDIO[/code] on Android.</description></method><method name="request_permissions"><return type="bool"></return><description>
 				With this function you can request dangerous permissions since normal permissions are automatically granted at install time in Android application.
-				[b]Note:[/b] This method is implemented on Android.</description></method><method name="set_icon"><return type="void"></return><argument index="0" name="icon" type="Image"></argument><description>
+				[b]Note:[/b] This method is implemented on Android.</description></method><method name="set_environment" qualifiers="const"><return type="bool"></return><argument index="0" name="variable" type="String"></argument><argument index="1" name="value" type="String"></argument><description>
+				Sets the value of the environment variable [code]variable[/code] to [code]value[/code]. The environment variable will be set for the Godot process and any process executed with [method execute] after running [method set_environment]. The environment variable will [i]not[/i] persist to processes run after the Godot process was terminated.
+				[b]Note:[/b] Double-check the casing of [code]variable[/code]. Environment variable names are case-sensitive on all platforms except Windows.</description></method><method name="set_icon"><return type="void"></return><argument index="0" name="icon" type="Image"></argument><description>
 				Sets the game's icon using an [Image] resource.
 				The same image is used for window caption, taskbar/dock and window selection dialog. Image is scaled as needed.
 				[b]Note:[/b] This method is implemented on HTML5, Linux, macOS and Windows.</description></method><method name="set_ime_active"><return type="void"></return><argument index="0" name="active" type="bool"></argument><description>
