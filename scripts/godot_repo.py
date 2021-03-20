@@ -7,10 +7,9 @@ from os import listdir, mkdir, remove
 import re
 from shutil import copyfile
 import datetime
-import yaml
+# import yaml
 import json
 import argparse
-from shutil import copyfile
 
 branches = [
     "2.0",
