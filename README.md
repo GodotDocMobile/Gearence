@@ -1,4 +1,5 @@
 # Godot Class Reference
+[<img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="60" width="217" >](https://www.buymeacoffee.com/fengjiongmax)
 
 Class reference for Godot Engine on both iOS and Android.
 
