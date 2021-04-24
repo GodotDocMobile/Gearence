@@ -7,7 +7,7 @@ import '../bloc/xml_load_bloc.dart';
 import '../models/class_content.dart';
 
 class ClassDB {
-  List<ClassContent> _classContent = List<ClassContent>();
+  List<ClassContent> _classContent = [];
 
   XMLLoadBloc loadBloc = XMLLoadBloc();
 
@@ -15,7 +15,7 @@ class ClassDB {
   String _version;
   bool loading = false;
 
-  String _loadingClass;
+  // String _loadingClass;
 
   factory ClassDB() {
     return _instance;
@@ -46,9 +46,9 @@ class ClassDB {
       if (_updatingVersion != _version) {
         break;
       }
-      _loadingClass = _classFileName.name;
+      // _loadingClass = _classFileName.name;
       await _loadSingle(version, _classFileName.name);
-      _loadingClass = null;
+      // _loadingClass = null;
     }
     _classContent.toSet().toList();
   }

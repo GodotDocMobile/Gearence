@@ -6,7 +6,7 @@
 				Returns the IP of this peer.</description></method><method name="get_connected_port" qualifiers="const"><return type="int"></return><description>
 				Returns the port of this peer.</description></method><method name="get_status"><return type="int" enum="StreamPeerTCP.Status"></return><description>
 				Returns the status of the connection, see [enum Status].</description></method><method name="is_connected_to_host" qualifiers="const"><return type="bool"></return><description>
-				Returns [code]true[/code] if this peer is currently connected or is connecting to a host, [code]false[/code] otherwise.</description></method><method name="set_no_delay"><return type="void"></return><argument index="0" name="enabled" type="bool"></argument><description>
+				Returns [code]true[/code] if this peer is currently connected to a host, [code]false[/code] otherwise.</description></method><method name="set_no_delay"><return type="void"></return><argument index="0" name="enabled" type="bool"></argument><description>
 				Disables Nagle's algorithm to improve latency for small packets.
 				[b]Note:[/b] For applications that send large packets or need to transfer a lot of data, this can decrease the total available bandwidth.</description></method></methods><constants><constant name="STATUS_NONE" value="0" enum="Status">
 			The initial status of the [StreamPeerTCP]. This is also the status after disconnecting.</constant><constant name="STATUS_CONNECTING" value="1" enum="Status">

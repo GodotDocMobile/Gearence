@@ -32,7 +32,7 @@ class GCRDrawerState extends State<GCRDrawer> {
     darkTheme = StoredValues().prefs.getBool('darkTheme') == null
         ? false
         : StoredValues().prefs.getBool('darkTheme');
-    docDate = StoredValues().docDate;
+    docDate = StoredValues().configContent.updateDate;
     return true;
   }
 
@@ -125,7 +125,7 @@ class GCRDrawerState extends State<GCRDrawer> {
                   title: Text("Godot Version"),
                   trailing: DropdownButton<String>(
                     value: godotVersion,
-                    items: <String>['2.0', '2.1', '3.0', '3.1', '3.2'].map((i) {
+                    items: StoredValues().configContent.branches.map((i) {
                       return DropdownMenuItem<String>(
                         value: i,
                         child: Text(i),

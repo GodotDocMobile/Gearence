@@ -16,11 +16,11 @@ branches = [
     "2.1",
     "3.0",
     "3.1",
-    "3.2"
+    "3.2",
+    "3.3"
 ]
 
 godot_repo = ""
-
 
 class ClassNode:
     inherit_chain = ""
@@ -316,8 +316,13 @@ if __name__ == "__main__":
 
     _doc_date = datetime.date.today()
 
+    config_content = json.dumps({
+        "branches":branches,
+        "update_date":"{}".format(_doc_date)
+    })
+
     _update_doc_file = open("../xmls/conf.json", "w")
-    _update_doc_file.write("{}".format(_doc_date))
+    _update_doc_file.write(config_content)
     _update_doc_file.close()
 
     print("finish at {}".format(_doc_date))

@@ -12,35 +12,35 @@ doc_time: 2020-08-12
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 0.1.2+27
+version: 0.1.3+28
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
-  flutter_launcher_icons: ^0.7.5
+  flutter_launcher_icons: ^0.9.0
 
   scrollable_positioned_list: ^0.1.4
 
-  flutter_svg: ^0.18.0
+  flutter_svg: ^0.22.0
 
-  url_launcher: ^5.7.10
+  url_launcher: ^6.0.3
 
   # store values to local
-  shared_preferences: ^0.5.7+3
+  shared_preferences: ^2.0.5
 
   # read package info from code
-  package_info: ^0.4.0+16
+  package_info: ^2.0.0
 
   # xml parser
-  xml: ^4.2.0
+  xml: ^5.1.0
 
   flutter:
     sdk: flutter
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.2
+  cupertino_icons: ^1.0.2
 
 dev_dependencies:
   flutter_test:
@@ -72,6 +72,7 @@ flutter:
     - svgs/3.0/
     - svgs/3.1/
     - svgs/3.2/
+    - svgs/3.3/
     - svgs/icon.svg
       # xmls
     - xmls/2.0/
@@ -79,13 +80,9 @@ flutter:
     - xmls/3.0/
     - xmls/3.1/
     - xmls/3.2/
-      # jsons
-    - xmls/files_2.0.json
-    - xmls/files_2.1.json
-    - xmls/files_3.0.json
-    - xmls/files_3.1.json
-    - xmls/files_3.2.json
-    - xmls/conf.json
+    - xmls/3.3/
+      # file index
+    - xmls/
 
       # godot_lisence
     - godot_lisence/

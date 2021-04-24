@@ -21,7 +21,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   final _searchBloc = SearchBloc();
 
-  final _argList = List<TapEventArg>();
+  final _argList = [];
 
   final _options = [
     'All',

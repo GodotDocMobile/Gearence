@@ -29,9 +29,9 @@ class DescriptionText extends StatelessWidget {
 
   // this is a full implementation of _add_text_to_rt
   List<InlineSpan> _parseText(BuildContext context) {
-    List<InlineSpan> _toRtn = List<InlineSpan>();
+    List<InlineSpan> _toRtn = [];
 
-    List<String> tagStack = List<String>();
+    List<String> tagStack = [];
     bool codeTag = false;
     bool inlineCode = false;
     int pos = 0;

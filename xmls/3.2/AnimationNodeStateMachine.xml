@@ -5,7 +5,7 @@
 		[codeblock]
 		var state_machine = $AnimationTree.get("parameters/playback")
 		state_machine.travel("some_state")
-		[/codeblock]</description><tutorials><link>https://docs.godotengine.org/en/3.2/tutorials/animation/animation_tree.html</link></tutorials><methods><method name="add_node"><return type="void"></return><argument index="0" name="name" type="String"></argument><argument index="1" name="node" type="AnimationNode"></argument><argument index="2" name="position" type="Vector2" default="Vector2( 0, 0 )"></argument><description>
+		[/codeblock]</description><tutorials><link>https://docs.godotengine.org/en/latest/tutorials/animation/animation_tree.html</link></tutorials><methods><method name="add_node"><return type="void"></return><argument index="0" name="name" type="String"></argument><argument index="1" name="node" type="AnimationNode"></argument><argument index="2" name="position" type="Vector2" default="Vector2( 0, 0 )"></argument><description>
 				Adds a new node to the graph. The [code]position[/code] is used for display in the editor.</description></method><method name="add_transition"><return type="void"></return><argument index="0" name="from" type="String"></argument><argument index="1" name="to" type="String"></argument><argument index="2" name="transition" type="AnimationNodeStateMachineTransition"></argument><description>
 				Adds a transition between the given nodes.</description></method><method name="get_end_node" qualifiers="const"><return type="String"></return><description>
 				Returns the graph's end node.</description></method><method name="get_graph_offset" qualifiers="const"><return type="Vector2"></return><description>

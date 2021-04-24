@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?><class name="TranslationServer" inherits="Object" version="3.2"><brief_description>
 		Server that manages all translations.</brief_description><description>
-		Server that manages all translations. Translations can be set to it and removed from it.</description><tutorials><link>https://docs.godotengine.org/en/3.2/tutorials/i18n/internationalizing_games.html</link><link>https://docs.godotengine.org/en/3.2/tutorials/i18n/locales.html</link></tutorials><methods><method name="add_translation"><return type="void"></return><argument index="0" name="translation" type="Translation"></argument><description>
+		Server that manages all translations. Translations can be set to it and removed from it.</description><tutorials><link>https://docs.godotengine.org/en/latest/tutorials/i18n/internationalizing_games.html</link><link>https://docs.godotengine.org/en/latest/tutorials/i18n/locales.html</link></tutorials><methods><method name="add_translation"><return type="void"></return><argument index="0" name="translation" type="Translation"></argument><description>
 				Adds a [Translation] resource.</description></method><method name="clear"><return type="void"></return><description>
 				Clears the server from all translations.</description></method><method name="get_loaded_locales" qualifiers="const"><return type="Array"></return><description>
 				Returns an Array of all loaded locales of the game.</description></method><method name="get_locale" qualifiers="const"><return type="String"></return><description>

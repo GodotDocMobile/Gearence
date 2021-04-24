@@ -17,7 +17,7 @@ class ClassSelect extends StatefulWidget {
   static Future<List<ClassContent>> getXmlFiles() async {
     String version = StoredValues().prefs.getString('version');
     if (version == null || version.length == 0) {
-      version = '3.2';
+      version = '3.3';
       await StoredValues().prefs.setString('version', version);
     }
 
@@ -44,15 +44,15 @@ class ClassSelect extends StatefulWidget {
 class _ClassSelectState extends State<ClassSelect> {
   ClassListFilterBloc _filterBloc;
 
-  List<ClassContent> _classes = List<ClassContent>();
+  List<ClassContent> _classes = [];
 
   // ignore: non_constant_identifier_names
-  List<ClassContent> _2dNodes = List<ClassContent>();
+  List<ClassContent> _2dNodes = [];
   // ignore: non_constant_identifier_names
-  List<ClassContent> _3dNodes = List<ClassContent>();
-  List<ClassContent> _controlNodes = List<ClassContent>();
-  List<ClassContent> _otherNodes = List<ClassContent>();
-  List<ClassContent> _nonNodes = List<ClassContent>();
+  List<ClassContent> _3dNodes = [];
+  List<ClassContent> _controlNodes = [];
+  List<ClassContent> _otherNodes = [];
+  List<ClassContent> _nonNodes = [];
 
   @override
   void initState() {
@@ -209,7 +209,7 @@ class _ClassSelectState extends State<ClassSelect> {
   }
 
   List<ClassContent> filterClasses(List<ClassContent> list) {
-    List<ClassContent> _rtnList = List<ClassContent>();
+    List<ClassContent> _rtnList = [];
     _sortClasses(list);
     if (StoredValues().show2DNodes) {
       _rtnList.addAll(_2dNodes);
@@ -249,7 +249,7 @@ class _ClassSelectState extends State<ClassSelect> {
             _classes = snapshot.data;
             _sortClasses(_classes);
             return Scaffold(
-              resizeToAvoidBottomPadding: true,
+              // resizeToAvoidBottomPadding: true,
               drawer: GCRDrawer(),
               appBar: AppBar(
                 title: Text("Godot v" +
