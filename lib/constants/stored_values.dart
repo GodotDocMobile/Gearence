@@ -1,13 +1,18 @@
+import 'dart:convert';
+
 import 'package:flutter/services.dart';
+import 'package:godotclassreference/models/config_content.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../bloc/theme_bloc.dart';
 
 class StoredValues {
   SharedPreferences prefs;
-  String docDate;
+  // String docDate;
   ThemeChange themeChange;
   bool iconForNonNode;
+
+  ConfigContent configContent;
 
   bool show2DNodes;
   bool show3DNodes;
@@ -29,7 +34,8 @@ class StoredValues {
 
   Future<bool> readValue() async {
     prefs = await SharedPreferences.getInstance();
-    docDate = await rootBundle.loadString('xmls/conf.json');
+    var configString = await rootBundle.loadString('xmls/conf.json');
+    configContent = ConfigContent.fromJson(jsonDecode(configString));
     themeChange = ThemeChange(prefs.getBool('darkTheme') == true);
     iconForNonNode = prefs.getBool('iconForNonNodes') == null
         ? true

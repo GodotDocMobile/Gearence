@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?><class name="MeshLibrary" inherits="Resource" version="3.2"><brief_description>
 		Library of meshes.</brief_description><description>
-		A library of meshes. Contains a list of [Mesh] resources, each with a name and ID. Each item can also include collision and navigation shapes. This resource is used in [GridMap].</description><tutorials><link title="3D Kinematic Character Demo">https://godotengine.org/asset-library/asset/126</link><link title="3D Platformer Demo">https://godotengine.org/asset-library/asset/125</link></tutorials><methods><method name="clear"><return type="void"></return><description>
+		A library of meshes. Contains a list of [Mesh] resources, each with a name and ID. Each item can also include collision and navigation shapes. This resource is used in [GridMap].</description><tutorials></tutorials><methods><method name="clear"><return type="void"></return><description>
 				Clears the library.</description></method><method name="create_item"><return type="void"></return><argument index="0" name="id" type="int"></argument><description>
 				Creates a new item in the library with the given ID.
 				You can get an unused ID from [method get_last_unused_item_id].</description></method><method name="find_item_by_name" qualifiers="const"><return type="int"></return><argument index="0" name="name" type="String"></argument><description>

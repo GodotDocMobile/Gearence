@@ -17,7 +17,7 @@
 		            file_name = dir.get_next()
 		    else:
 		        print("An error occurred when trying to access the path.")
-		[/codeblock]</description><tutorials><link>https://docs.godotengine.org/en/3.2/getting_started/step_by_step/filesystem.html</link></tutorials><methods><method name="change_dir"><return type="int" enum="Error"></return><argument index="0" name="todir" type="String"></argument><description>
+		[/codeblock]</description><tutorials><link>https://docs.godotengine.org/en/latest/getting_started/step_by_step/filesystem.html</link></tutorials><methods><method name="change_dir"><return type="int" enum="Error"></return><argument index="0" name="todir" type="String"></argument><description>
 				Changes the currently opened directory to the one passed as an argument. The argument can be relative to the current directory (e.g. [code]newdir[/code] or [code]../newdir[/code]), or an absolute path (e.g. [code]/tmp/newdir[/code] or [code]res://somedir/newdir[/code]).
 				Returns one of the [enum Error] code constants ([code]OK[/code] on success).</description></method><method name="copy"><return type="int" enum="Error"></return><argument index="0" name="from" type="String"></argument><argument index="1" name="to" type="String"></argument><description>
 				Copies the [code]from[/code] file to the [code]to[/code] destination. Both arguments should be paths to files, either relative or absolute. If the destination file exists and is not access-protected, it will be overwritten.

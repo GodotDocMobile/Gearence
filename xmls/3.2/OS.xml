@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?><class name="OS" inherits="Object" version="3.2"><brief_description>
 		Operating System functions.</brief_description><description>
-		Operating System functions. OS wraps the most common functionality to communicate with the host operating system, such as the clipboard, video driver, date and time, timers, environment variables, execution of binaries, command line, etc.</description><tutorials><link title="OS Test Demo">https://godotengine.org/asset-library/asset/677</link></tutorials><methods><method name="alert"><return type="void"></return><argument index="0" name="text" type="String"></argument><argument index="1" name="title" type="String" default="&quot;Alert!&quot;"></argument><description>
+		Operating System functions. OS wraps the most common functionality to communicate with the host operating system, such as the clipboard, video driver, date and time, timers, environment variables, execution of binaries, command line, etc.</description><tutorials></tutorials><methods><method name="alert"><return type="void"></return><argument index="0" name="text" type="String"></argument><argument index="1" name="title" type="String" default="&quot;Alert!&quot;"></argument><description>
 				Displays a modal dialog box using the host OS' facilities. Execution is blocked until the dialog is closed.</description></method><method name="can_draw" qualifiers="const"><return type="bool"></return><description>
 				Returns [code]true[/code] if the host OS allows drawing.</description></method><method name="can_use_threads" qualifiers="const"><return type="bool"></return><description>
 				Returns [code]true[/code] if the current host platform is using multiple threads.</description></method><method name="center_window"><return type="void"></return><description>
 				Centers the window on the screen if in windowed mode.</description></method><method name="close_midi_inputs"><return type="void"></return><description>
 				Shuts down system MIDI driver.
 				[b]Note:[/b] This method is implemented on Linux, macOS and Windows.</description></method><method name="delay_msec" qualifiers="const"><return type="void"></return><argument index="0" name="msec" type="int"></argument><description>
-				Delay execution of the current thread by [code]msec[/code] milliseconds. [code]usec[/code] must be greater than or equal to [code]0[/code]. Otherwise, [method delay_msec] will do nothing and will print an error message.</description></method><method name="delay_usec" qualifiers="const"><return type="void"></return><argument index="0" name="usec" type="int"></argument><description>
-				Delay execution of the current thread by [code]usec[/code] microseconds. [code]usec[/code] must be greater than or equal to [code]0[/code]. Otherwise, [method delay_usec] will do nothing and will print an error message.</description></method><method name="dump_memory_to_file"><return type="void"></return><argument index="0" name="file" type="String"></argument><description>
+				Delay execution of the current thread by [code]msec[/code] milliseconds.</description></method><method name="delay_usec" qualifiers="const"><return type="void"></return><argument index="0" name="usec" type="int"></argument><description>
+				Delay execution of the current thread by [code]usec[/code] microseconds.</description></method><method name="dump_memory_to_file"><return type="void"></return><argument index="0" name="file" type="String"></argument><description>
 				Dumps the memory allocation ringlist to a file (only works in debug).
 				Entry format per line: "Address - Size - Description".</description></method><method name="dump_resources_to_file"><return type="void"></return><argument index="0" name="file" type="String"></argument><description>
 				Dumps all used resources to file (only works in debug).
@@ -57,9 +57,8 @@
 				Returns current datetime as a dictionary of keys: [code]year[/code], [code]month[/code], [code]day[/code], [code]weekday[/code], [code]dst[/code] (Daylight Savings Time), [code]hour[/code], [code]minute[/code], [code]second[/code].</description></method><method name="get_datetime_from_unix_time" qualifiers="const"><return type="Dictionary"></return><argument index="0" name="unix_time_val" type="int"></argument><description>
 				Gets a dictionary of time values corresponding to the given UNIX epoch time (in seconds).
 				The returned Dictionary's values will be the same as [method get_datetime], with the exception of Daylight Savings Time as it cannot be determined from the epoch.</description></method><method name="get_dynamic_memory_usage" qualifiers="const"><return type="int"></return><description>
-				Returns the total amount of dynamic memory used (only works in debug).</description></method><method name="get_environment" qualifiers="const"><return type="String"></return><argument index="0" name="variable" type="String"></argument><description>
-				Returns the value of an environment variable. Returns an empty string if the environment variable doesn't exist.
-				[b]Note:[/b] Double-check the casing of [code]variable[/code]. Environment variable names are case-sensitive on all platforms except Windows.</description></method><method name="get_executable_path" qualifiers="const"><return type="String"></return><description>
+				Returns the total amount of dynamic memory used (only works in debug).</description></method><method name="get_environment" qualifiers="const"><return type="String"></return><argument index="0" name="environment" type="String"></argument><description>
+				Returns an environment variable.</description></method><method name="get_executable_path" qualifiers="const"><return type="String"></return><description>
 				Returns the path to the current engine executable.</description></method><method name="get_granted_permissions" qualifiers="const"><return type="PoolStringArray"></return><description>
 				With this function you can get the list of dangerous permissions that have been granted to the Android application.
 				[b]Note:[/b] This method is implemented on Android.</description></method><method name="get_ime_selection" qualifiers="const"><return type="Vector2"></return><description>
@@ -75,9 +74,7 @@
 				Returns the host OS locale.</description></method><method name="get_model_name" qualifiers="const"><return type="String"></return><description>
 				Returns the model name of the current device.
 				[b]Note:[/b] This method is implemented on Android and iOS. Returns [code]"GenericDevice"[/code] on unsupported platforms.</description></method><method name="get_name" qualifiers="const"><return type="String"></return><description>
-				Returns the name of the host OS. Possible values are: [code]"Android"[/code], [code]"iOS"[/code], [code]"HTML5"[/code], [code]"OSX"[/code], [code]"Server"[/code], [code]"Windows"[/code], [code]"UWP"[/code], [code]"X11"[/code].</description></method><method name="get_native_handle"><return type="int"></return><argument index="0" name="handle_type" type="int" enum="OS.HandleType"></argument><description>
-				Returns internal structure pointers for use in GDNative plugins.
-				[b]Note:[/b] This method is implemented on Linux and Windows (other OSs will soon be supported).</description></method><method name="get_power_percent_left"><return type="int"></return><description>
+				Returns the name of the host OS. Possible values are: [code]"Android"[/code], [code]"iOS"[/code], [code]"HTML5"[/code], [code]"OSX"[/code], [code]"Server"[/code], [code]"Windows"[/code], [code]"UWP"[/code], [code]"X11"[/code].</description></method><method name="get_power_percent_left"><return type="int"></return><description>
 				Returns the amount of battery left in the device as a percentage. Returns [code]-1[/code] if power state is unknown.
 				[b]Note:[/b] This method is implemented on Linux, macOS and Windows.</description></method><method name="get_power_seconds_left"><return type="int"></return><description>
 				Returns an estimate of the time left in seconds before the device runs out of battery. Returns [code]-1[/code] if power state is unknown.
@@ -92,8 +89,7 @@
 				See also [member InputEventKey.scancode] and [method InputEventKey.get_scancode_with_modifiers].</description></method><method name="get_screen_count" qualifiers="const"><return type="int"></return><description>
 				Returns the number of displays attached to the host machine.</description></method><method name="get_screen_dpi" qualifiers="const"><return type="int"></return><argument index="0" name="screen" type="int" default="-1"></argument><description>
 				Returns the dots per inch density of the specified screen. If [code]screen[/code] is [/code]-1[/code] (the default value), the current screen will be used.
-				[b]Note:[/b] On macOS, returned value is inaccurate if fractional display scaling mode is used.
-				[b]Note:[/b] On Android devices, the actual screen densities are grouped into six generalized densities:
+				On Android devices, the actual screen densities are grouped into six generalized densities:
 				[codeblock]
 				   ldpi - 120 dpi
 				   mdpi - 160 dpi
@@ -121,17 +117,14 @@
 				Returns the total number of available tablet drivers.
 				[b]Note:[/b] This method is implemented on Windows.</description></method><method name="get_tablet_driver_name" qualifiers="const"><return type="String"></return><argument index="0" name="idx" type="int"></argument><description>
 				Returns the tablet driver name for the given index.
-				[b]Note:[/b] This method is implemented on Windows.</description></method><method name="get_thread_caller_id" qualifiers="const"><return type="int"></return><description>
-				Returns the ID of the current thread. This can be used in logs to ease debugging of multi-threaded applications.
-				[b]Note:[/b] Thread IDs are not deterministic and may be reused across application restarts.</description></method><method name="get_ticks_msec" qualifiers="const"><return type="int"></return><description>
+				[b]Note:[/b] This method is implemented on Windows.</description></method><method name="get_ticks_msec" qualifiers="const"><return type="int"></return><description>
 				Returns the amount of time passed in milliseconds since the engine started.</description></method><method name="get_ticks_usec" qualifiers="const"><return type="int"></return><description>
 				Returns the amount of time passed in microseconds since the engine started.</description></method><method name="get_time" qualifiers="const"><return type="Dictionary"></return><argument index="0" name="utc" type="bool" default="false"></argument><description>
 				Returns current time as a dictionary of keys: hour, minute, second.</description></method><method name="get_time_zone_info" qualifiers="const"><return type="Dictionary"></return><description>
 				Returns the current time zone as a dictionary with the keys: bias and name.</description></method><method name="get_unique_id" qualifiers="const"><return type="String"></return><description>
 				Returns a string that is unique to the device.
 				[b]Note:[/b] Returns an empty string on HTML5 and UWP, as this method isn't implemented on those platforms yet.</description></method><method name="get_unix_time" qualifiers="const"><return type="int"></return><description>
-				Returns the current UNIX epoch timestamp.
-				[b]Important:[/b] This is the system clock that the user can manully set. [b]Never use[/b] this method for precise time calculation since its results are also subject to automatic adjustments by the operating system. [b]Always use[/b] [method get_ticks_usec] or [method get_ticks_msec] for precise time calculation instead, since they are guaranteed to be monotonic (i.e. never decrease).</description></method><method name="get_unix_time_from_datetime" qualifiers="const"><return type="int"></return><argument index="0" name="datetime" type="Dictionary"></argument><description>
+				Returns the current UNIX epoch timestamp.</description></method><method name="get_unix_time_from_datetime" qualifiers="const"><return type="int"></return><argument index="0" name="datetime" type="Dictionary"></argument><description>
 				Gets an epoch time value from a dictionary of time values.
 				[code]datetime[/code] must be populated with the following keys: [code]year[/code], [code]month[/code], [code]day[/code], [code]hour[/code], [code]minute[/code], [code]second[/code].
 				You can pass the output from [method get_datetime_from_unix_time] directly into this function. Daylight Savings Time ([code]dst[/code]), if present, is ignored.</description></method><method name="get_user_data_dir" qualifiers="const"><return type="String"></return><description>
@@ -151,10 +144,9 @@
 				Clear the global menu, in effect removing all items.
 				[b]Note:[/b] This method is implemented on macOS.</description></method><method name="global_menu_remove_item"><return type="void"></return><argument index="0" name="menu" type="String"></argument><argument index="1" name="idx" type="int"></argument><description>
 				Removes the item at index "idx" from the global menu. Note that the indexes of items after the removed item are going to be shifted by one.
-				[b]Note:[/b] This method is implemented on macOS.</description></method><method name="has_environment" qualifiers="const"><return type="bool"></return><argument index="0" name="variable" type="String"></argument><description>
-				Returns [code]true[/code] if the environment variable with the name [code]variable[/code] exists.
-				[b]Note:[/b] Double-check the casing of [code]variable[/code]. Environment variable names are case-sensitive on all platforms except Windows.</description></method><method name="has_feature" qualifiers="const"><return type="bool"></return><argument index="0" name="tag_name" type="String"></argument><description>
-				Returns [code]true[/code] if the feature for the given feature tag is supported in the currently running instance, depending on platform, build etc. Can be used to check whether you're currently running a debug build, on a certain platform or arch, etc. Refer to the [url=https://docs.godotengine.org/en/3.2/getting_started/workflow/export/feature_tags.html]Feature Tags[/url] documentation for more details.
+				[b]Note:[/b] This method is implemented on macOS.</description></method><method name="has_environment" qualifiers="const"><return type="bool"></return><argument index="0" name="environment" type="String"></argument><description>
+				Returns [code]true[/code] if an environment variable exists.</description></method><method name="has_feature" qualifiers="const"><return type="bool"></return><argument index="0" name="tag_name" type="String"></argument><description>
+				Returns [code]true[/code] if the feature for the given feature tag is supported in the currently running instance, depending on platform, build etc. Can be used to check whether you're currently running a debug build, on a certain platform or arch, etc. Refer to the [url=https://docs.godotengine.org/en/latest/getting_started/workflow/export/feature_tags.html]Feature Tags[/url] documentation for more details.
 				[b]Note:[/b] Tag names are case-sensitive.</description></method><method name="has_touchscreen_ui_hint" qualifiers="const"><return type="bool"></return><description>
 				Returns [code]true[/code] if the device has a touchscreen or emulates one.</description></method><method name="has_virtual_keyboard" qualifiers="const"><return type="bool"></return><description>
 				Returns [code]true[/code] if the platform has a virtual keyboard, [code]false[/code] otherwise.</description></method><method name="hide_virtual_keyboard"><return type="void"></return><description>
@@ -204,9 +196,7 @@
 				[b]Note:[/b] This method is implemented on Linux, macOS and Windows.</description></method><method name="request_permission"><return type="bool"></return><argument index="0" name="name" type="String"></argument><description>
 				At the moment this function is only used by [code]AudioDriverOpenSL[/code] to request permission for [code]RECORD_AUDIO[/code] on Android.</description></method><method name="request_permissions"><return type="bool"></return><description>
 				With this function you can request dangerous permissions since normal permissions are automatically granted at install time in Android application.
-				[b]Note:[/b] This method is implemented on Android.</description></method><method name="set_environment" qualifiers="const"><return type="bool"></return><argument index="0" name="variable" type="String"></argument><argument index="1" name="value" type="String"></argument><description>
-				Sets the value of the environment variable [code]variable[/code] to [code]value[/code]. The environment variable will be set for the Godot process and any process executed with [method execute] after running [method set_environment]. The environment variable will [i]not[/i] persist to processes run after the Godot process was terminated.
-				[b]Note:[/b] Double-check the casing of [code]variable[/code]. Environment variable names are case-sensitive on all platforms except Windows.</description></method><method name="set_icon"><return type="void"></return><argument index="0" name="icon" type="Image"></argument><description>
+				[b]Note:[/b] This method is implemented on Android.</description></method><method name="set_icon"><return type="void"></return><argument index="0" name="icon" type="Image"></argument><description>
 				Sets the game's icon using an [Image] resource.
 				The same image is used for window caption, taskbar/dock and window selection dialog. Image is scaled as needed.
 				[b]Note:[/b] This method is implemented on HTML5, Linux, macOS and Windows.</description></method><method name="set_ime_active"><return type="void"></return><argument index="0" name="active" type="bool"></argument><description>
@@ -223,20 +213,6 @@
 				Sets the name of the current thread.</description></method><method name="set_use_file_access_save_and_swap"><return type="void"></return><argument index="0" name="enabled" type="bool"></argument><description>
 				Enables backup saves if [code]enabled[/code] is [code]true[/code].</description></method><method name="set_window_always_on_top"><return type="void"></return><argument index="0" name="enabled" type="bool"></argument><description>
 				Sets whether the window should always be on top.
-				[b]Note:[/b] This method is implemented on Linux, macOS and Windows.</description></method><method name="set_window_mouse_passthrough"><return type="void"></return><argument index="0" name="region" type="PoolVector2Array"></argument><description>
-				Sets a polygonal region of the window which accepts mouse events. Mouse events outside the region will be passed through.
-				Passing an empty array will disable passthrough support (all mouse events will be intercepted by the window, which is the default behavior).
-				[codeblock]
-				# Set region, using Path2D node.
-				OS.set_window_mouse_passthrough($Path2D.curve.get_baked_points())
-
-				# Set region, using Polygon2D node.
-				OS.set_window_mouse_passthrough($Polygon2D.polygon)
-
-				# Reset region to default.
-				OS.set_window_mouse_passthrough([])
-				[/codeblock]
-				[b]Note:[/b] On Windows, the portion of a window that lies outside the region is not drawn, while on Linux and macOS it is.
 				[b]Note:[/b] This method is implemented on Linux, macOS and Windows.</description></method><method name="set_window_title"><return type="void"></return><argument index="0" name="title" type="String"></argument><description>
 				Sets the window title to the specified string.
 				[b]Note:[/b] This should be used sporadically. Don't set this every frame, as that will negatively affect performance on some window managers.
@@ -261,7 +237,7 @@
 			The maximum size of the window (without counting window manager decorations). Does not affect fullscreen mode. Set to [code](0, 0)[/code] to reset to the system default value.</member><member name="min_window_size" type="Vector2" setter="set_min_window_size" getter="get_min_window_size" default="Vector2( 0, 0 )">
 			The minimum size of the window (without counting window manager decorations). Does not affect fullscreen mode. Set to [code](0, 0)[/code] to reset to the system default value.</member><member name="screen_orientation" type="int" setter="set_screen_orientation" getter="get_screen_orientation" enum="_OS.ScreenOrientation" default="0">
 			The current screen orientation.</member><member name="tablet_driver" type="String" setter="set_current_tablet_driver" getter="get_current_tablet_driver" default="&quot;&quot;">
-			The current tablet driver in use.</member><member name="vsync_enabled" type="bool" setter="set_use_vsync" getter="is_vsync_enabled" default="true">
+			The current tablet drvier in use.</member><member name="vsync_enabled" type="bool" setter="set_use_vsync" getter="is_vsync_enabled" default="true">
 			If [code]true[/code], vertical synchronization (Vsync) is enabled.</member><member name="vsync_via_compositor" type="bool" setter="set_vsync_via_compositor" getter="is_vsync_via_compositor_enabled" default="false">
 			If [code]true[/code] and [code]vsync_enabled[/code] is true, the operating system's window compositor will be used for vsync when the compositor is enabled and the game is in windowed mode.
 			[b]Note:[/b] This option is experimental and meant to alleviate stutter experienced by some users. However, some users have experienced a Vsync framerate halving (e.g. from 60 FPS to 30 FPS) when using it.
@@ -298,25 +274,7 @@
 			September.</constant><constant name="MONTH_OCTOBER" value="10" enum="Month">
 			October.</constant><constant name="MONTH_NOVEMBER" value="11" enum="Month">
 			November.</constant><constant name="MONTH_DECEMBER" value="12" enum="Month">
-			December.</constant><constant name="APPLICATION_HANDLE" value="0" enum="HandleType">
-			Application handle:
-			- Windows: [code]HINSTANCE[/code] of the application
-			- MacOS: [code]NSApplication*[/code] of the application (not yet implemented)
-			- Android: [code]JNIEnv*[/code] of the application (not yet implemented)</constant><constant name="DISPLAY_HANDLE" value="1" enum="HandleType">
-			Display handle:
-			- Linux: [code]X11::Display*[/code] for the display</constant><constant name="WINDOW_HANDLE" value="2" enum="HandleType">
-			Window handle:
-			- Windows: [code]HWND[/code] of the main window
-			- Linux: [code]X11::Window*[/code] of the main window
-			- MacOS: [code]NSWindow*[/code] of the main window (not yet implemented)
-			- Android: [code]jObject[/code] the main android activity (not yet implemented)</constant><constant name="WINDOW_VIEW" value="3" enum="HandleType">
-			Window view:
-			- Windows: [code]HDC[/code] of the main window drawing context
-			- MacOS: [code]NSView*[/code] of the main windows view (not yet implemented)</constant><constant name="OPENGL_CONTEXT" value="4" enum="HandleType">
-			OpenGL Context:
-			- Windows: [code]HGLRC[/code]
-			- Linux: [code]X11::GLXContext[/code]
-			- MacOS: [code]NSOpenGLContext*[/code] (not yet implemented)</constant><constant name="SCREEN_ORIENTATION_LANDSCAPE" value="0" enum="ScreenOrientation">
+			December.</constant><constant name="SCREEN_ORIENTATION_LANDSCAPE" value="0" enum="ScreenOrientation">
 			Landscape screen orientation.</constant><constant name="SCREEN_ORIENTATION_PORTRAIT" value="1" enum="ScreenOrientation">
 			Portrait screen orientation.</constant><constant name="SCREEN_ORIENTATION_REVERSE_LANDSCAPE" value="2" enum="ScreenOrientation">
 			Reverse landscape screen orientation.</constant><constant name="SCREEN_ORIENTATION_REVERSE_PORTRAIT" value="3" enum="ScreenOrientation">

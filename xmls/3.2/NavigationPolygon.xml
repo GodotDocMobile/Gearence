@@ -17,7 +17,7 @@
 		var indices = PoolIntArray(0, 3, 1)
 		polygon.add_polygon(indices)
 		$NavigationPolygonInstance.navpoly = polygon
-		[/codeblock]</description><tutorials><link title="2D Navigation Demo">https://godotengine.org/asset-library/asset/117</link></tutorials><methods><method name="add_outline"><return type="void"></return><argument index="0" name="outline" type="PoolVector2Array"></argument><description>
+		[/codeblock]</description><tutorials></tutorials><methods><method name="add_outline"><return type="void"></return><argument index="0" name="outline" type="PoolVector2Array"></argument><description>
 				Appends a [PoolVector2Array] that contains the vertices of an outline to the internal array that contains all the outlines. You have to call [method make_polygons_from_outlines] in order for this array to be converted to polygons that the engine will use.</description></method><method name="add_outline_at_index"><return type="void"></return><argument index="0" name="outline" type="PoolVector2Array"></argument><argument index="1" name="index" type="int"></argument><description>
 				Adds a [PoolVector2Array] that contains the vertices of an outline to the internal array that contains all the outlines at a fixed position. You have to call [method make_polygons_from_outlines] in order for this array to be converted to polygons that the engine will use.</description></method><method name="add_polygon"><return type="void"></return><argument index="0" name="polygon" type="PoolIntArray"></argument><description>
 				Adds a polygon using the indices of the vertices you get when calling [method get_vertices].</description></method><method name="clear_outlines"><return type="void"></return><description>

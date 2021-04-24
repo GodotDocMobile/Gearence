@@ -24,7 +24,7 @@ class _ClassConstantsState extends State<ClassConstants> {
   ItemScrollController _scrollController;
   ItemPositionsListener _itemPositionsListener;
 
-  List<Constant> _onlyConstants = List<Constant>();
+  List<Constant> _onlyConstants = [];
 
   @override
   void initState() {

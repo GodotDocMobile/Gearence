@@ -15,7 +15,7 @@
 		@"/root" # Equivalent to get_tree().get_root().
 		@"/root/Main" # If your main scene's root node were named "Main".
 		@"/root/MyAutoload" # If you have an autoloaded node or scene.
-		[/codeblock]</description><tutorials><link title="2D Role Playing Game Demo">https://godotengine.org/asset-library/asset/520</link></tutorials><methods><method name="NodePath"><return type="NodePath"></return><argument index="0" name="from" type="String"></argument><description>
+		[/codeblock]</description><tutorials></tutorials><methods><method name="NodePath"><return type="NodePath"></return><argument index="0" name="from" type="String"></argument><description>
 				Creates a NodePath from a string, e.g. [code]"Path2D/PathFollow2D/Sprite:texture:size"[/code]. A path is absolute if it starts with a slash. Absolute paths are only valid in the global scene tree, not within individual scenes. In a relative path, [code]"."[/code] and [code]".."[/code] indicate the current node and its parent.
 				The "subnames" optionally included after the path to the target node can point to resources or properties, and can also be nested.
 				Examples of valid NodePaths (assuming that those nodes exist and have the referenced resources or properties):
