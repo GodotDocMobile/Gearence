@@ -30,10 +30,10 @@ class _ClassEnumsState extends State<ClassEnums> {
   ItemPositionsListener _itemPositionsListener;
   StreamSubscription<TapEventArg> _tapSub;
 
-  List<String> _enumNames = List<String>();
+  List<String> _enumNames = [];
 
-  List<Widget> _builtList = List<Widget>();
-  List<String> _enumValues = List<String>();
+  List<Widget> _builtList = [];
+  List<String> _enumValues = [];
 
   @override
   void initState() {
