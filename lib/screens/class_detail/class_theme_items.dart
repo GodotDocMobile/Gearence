@@ -66,25 +66,40 @@ class _ClassThemeItemsState extends State<ClassThemeItems> {
       itemPositionsListener: _itemPositionsListener,
       itemBuilder: (context, index) {
         final t = widget.clsContent.themeItems[index];
-        return ListTile(
-          leading: ClassDB().getDB().any((element) => element.name == t.type)
-              ? InkWell(
-                  child: Text(
-                    t.type,
-                    style: TextStyle(
-                      color: godotColor,
-                    ),
+        return Column(
+          children: [
+            ListTile(
+              title: Text(t.name),
+              subtitle: Row(
+                children: [
+                  Text("type"),
+                  SizedBox(
+                    width: 10,
                   ),
-                  onTap: () {
-                    TapEventArg _arg = TapEventArg(
-                        className: t.type,
-                        linkType: LinkType.Class,
-                        fieldName: '');
-                    widget.onLinkTap(_arg);
-                  },
-                )
-              : Text(t.type),
-          title: Text(t.name),
+                  ClassDB().getDB().any((element) => element.name == t.type)
+                      ? InkWell(
+                          child: Text(
+                            t.type,
+                            style: TextStyle(
+                              color: godotColor,
+                            ),
+                          ),
+                          onTap: () {
+                            TapEventArg _arg = TapEventArg(
+                                className: t.type,
+                                linkType: LinkType.Class,
+                                fieldName: '');
+                            widget.onLinkTap(_arg);
+                          },
+                        )
+                      : Text(t.type)
+                ],
+              ),
+            ),
+            Divider(
+              color: Colors.blueGrey,
+            )
+          ],
         );
       },
     );

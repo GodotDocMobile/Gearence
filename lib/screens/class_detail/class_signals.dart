@@ -4,6 +4,8 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import '../../components/description_text.dart';
 import '../../bloc/tap_event_arg.dart';
 import '../../models/class_content.dart';
+import '../../constants/class_db.dart';
+import '../../constants/colors.dart';
 
 class ClassSignals extends StatefulWidget {
   final ClassContent clsContent;
@@ -23,6 +25,8 @@ class _ClassSignalsState extends State<ClassSignals> {
   ItemScrollController _scrollController;
 
   ItemPositionsListener _itemPositionsListener;
+
+  double propertyIndent = 50;
 
   @override
   void initState() {
@@ -66,18 +70,64 @@ class _ClassSignalsState extends State<ClassSignals> {
         itemPositionsListener: _itemPositionsListener,
         itemBuilder: (context, index) {
           final s = widget.clsContent.signals[index];
-          return ListTile(
-            title: Text(
-              s.name +
-                  s.arguments.map((a) {
-                    return a.type + " " + a.name;
-                  }).toString(),
-            ),
-            subtitle: DescriptionText(
-              className: widget.clsContent.name,
-              content: s.description,
-              onLinkTap: widget.onLinkTap,
-            ),
+          return Column(
+            children: [
+              ListTile(
+                title: Text(s.name),
+                subtitle: Column(
+                  children: [
+                    Column(
+                      children: s.arguments.map((e) {
+                        return Column(
+                          children: [
+                            Row(
+                              children: [
+                                ClassDB().getDB().any(
+                                        (element) => element.name == e.type)
+                                    ? InkWell(
+                                        child: Text(
+                                          e.type,
+                                          style: TextStyle(
+                                            color: godotColor,
+                                          ),
+                                        ),
+                                        onTap: () {
+                                          TapEventArg _arg = TapEventArg(
+                                              className: e.type,
+                                              linkType: LinkType.Class,
+                                              fieldName: '');
+                                          widget.onLinkTap(_arg);
+                                        },
+                                      )
+                                    : Text(e.type),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  e.name,
+                                  style: TextStyle(fontSize: 15),
+                                ),
+                              ],
+                            ),
+                          ],
+                        );
+                      }).toList(),
+                    ),
+                    Divider(
+                      indent: propertyIndent,
+                    ),
+                    DescriptionText(
+                      className: widget.clsContent.name,
+                      content: s.description,
+                      onLinkTap: widget.onLinkTap,
+                    ),
+                  ],
+                ),
+              ),
+              Divider(
+                color: Colors.blueGrey,
+              )
+            ],
           );
         });
   }
