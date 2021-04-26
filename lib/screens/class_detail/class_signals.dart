@@ -73,7 +73,13 @@ class _ClassSignalsState extends State<ClassSignals> {
           return Column(
             children: [
               ListTile(
-                title: Text(s.name),
+                title: Text(
+                  s.name,
+                  style: TextStyle(
+                    fontSize: 25,
+//                    color: godotColor,
+                  ),
+                ),
                 subtitle: Column(
                   children: [
                     Column(
