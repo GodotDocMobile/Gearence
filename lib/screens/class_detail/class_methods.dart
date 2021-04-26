@@ -75,11 +75,14 @@ class _ClassMethodsState extends State<ClassMethods> {
           return Column(
             children: [
               ListTile(
-                title: Text(
-                  m.name,
-                  softWrap: true,
-                  style: TextStyle(
-                    fontSize: 25,
+                title: Container(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  child: Text(
+                    m.name,
+                    softWrap: true,
+                    style: TextStyle(
+                      fontSize: 25,
+                    ),
                   ),
                 ),
                 subtitle: Column(

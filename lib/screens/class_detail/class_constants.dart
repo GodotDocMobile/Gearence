@@ -78,7 +78,13 @@ class _ClassConstantsState extends State<ClassConstants> {
               ListTile(
                 title: Row(
                   children: <Widget>[
-                    Text(c.name),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      child: Text(
+                        c.name,
+                        // style: TextStyle(fontSize: 20),
+                      ),
+                    ),
                   ],
                 ),
                 subtitle: Column(

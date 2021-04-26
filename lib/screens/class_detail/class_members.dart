@@ -77,11 +77,14 @@ class _ClassMembersState extends State<ClassMembers> {
           return Column(
             children: <Widget>[
               ListTile(
-                title: Text(
-                  m.name,
-                  style: TextStyle(
-                    fontSize: 25,
+                title: Container(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  child: Text(
+                    m.name,
+                    style: TextStyle(
+                      fontSize: 25,
 //                    color: godotColor,
+                    ),
                   ),
                 ),
                 subtitle: Column(
