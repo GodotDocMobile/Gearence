@@ -14,6 +14,23 @@ import '../screens/class_detail.dart';
 import '../screens/search.dart';
 
 class ClassSelect extends StatefulWidget {
+  @override
+  _ClassSelectState createState() => _ClassSelectState();
+}
+
+class _ClassSelectState extends State<ClassSelect> {
+  ClassListFilterBloc _filterBloc;
+
+  List<ClassContent> _classes = [];
+
+  // ignore: non_constant_identifier_names
+  List<ClassContent> _2dNodes = [];
+  // ignore: non_constant_identifier_names
+  List<ClassContent> _3dNodes = [];
+  List<ClassContent> _controlNodes = [];
+  List<ClassContent> _otherNodes = [];
+  List<ClassContent> _nonNodes = [];
+
   static Future<List<ClassContent>> getXmlFiles() async {
     String version = StoredValues().prefs.getString('version');
     if (version == null || version.length == 0) {
@@ -36,23 +53,6 @@ class ClassSelect extends StatefulWidget {
     ClassDB().updateDB(version);
     return _parsedList;
   }
-
-  @override
-  _ClassSelectState createState() => _ClassSelectState();
-}
-
-class _ClassSelectState extends State<ClassSelect> {
-  ClassListFilterBloc _filterBloc;
-
-  List<ClassContent> _classes = [];
-
-  // ignore: non_constant_identifier_names
-  List<ClassContent> _2dNodes = [];
-  // ignore: non_constant_identifier_names
-  List<ClassContent> _3dNodes = [];
-  List<ClassContent> _controlNodes = [];
-  List<ClassContent> _otherNodes = [];
-  List<ClassContent> _nonNodes = [];
 
   @override
   void initState() {
@@ -239,7 +239,7 @@ class _ClassSelectState extends State<ClassSelect> {
 
   @override
   Widget build(BuildContext context) {
-    Future<List<ClassContent>> jsonContent = ClassSelect.getXmlFiles();
+    Future<List<ClassContent>> jsonContent = getXmlFiles();
 
     return FutureBuilder(
         future: jsonContent,

@@ -27,6 +27,7 @@ class _ClassMethodsState extends State<ClassMethods> {
   ItemPositionsListener _itemPositionsListener;
 
   bool _isDarkMode;
+  double propertyIndent = 50;
 
   @override
   void initState() {
@@ -71,168 +72,196 @@ class _ClassMethodsState extends State<ClassMethods> {
         itemPositionsListener: _itemPositionsListener,
         itemBuilder: (context, index) {
           final m = widget.clsContent.methods[index];
-          return ListTile(
-            leading: m.returnValue == null
-                ? Text('void')
-                : ClassDB()
-                        .getDB()
-                        .any((element) => element.name == m.returnValue.type)
-                    ? InkWell(
-                        child: Text(
-                          m.returnValue.type,
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: godotColor,
-                          ),
-                        ),
-                        onTap: () {
-                          TapEventArg _arg = TapEventArg(
-                              className: m.returnValue.type,
-                              linkType: LinkType.Class,
-                              fieldName: '');
-                          widget.onLinkTap(_arg);
-                        },
-                      )
-                    : Text(
-                        m.returnValue.type,
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),
-                      ),
-            title: Text(
-              m.name,
-              softWrap: true,
-              style: TextStyle(
-                fontSize: 25,
-              ),
-            ),
-            subtitle: Column(
-              children: <Widget>[
-                Column(
+          return Column(
+            children: [
+              ListTile(
+                title: Container(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  child: Text(
+                    m.name,
+                    softWrap: true,
+                    style: TextStyle(
+                      fontSize: 25,
+                    ),
+                  ),
+                ),
+                subtitle: Column(
                   children: <Widget>[
-                    (m.arguments != null && m.arguments.length > 0
-                        ? Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                'arguments:',
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  children: <Widget>[
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: m.arguments.map((a) {
-                                        return ClassDB().getDB().any(
-                                                (element) =>
-                                                    element.name == a.type)
-                                            ? InkWell(
-                                                child: Text(
-                                                  a.type,
-                                                  style: TextStyle(
-                                                    fontSize: 15,
-                                                    color: godotColor,
-                                                  ),
-                                                ),
-                                                onTap: () {
-                                                  TapEventArg _arg =
-                                                      TapEventArg(
-                                                          className: a.type,
-                                                          linkType:
-                                                              LinkType.Class,
-                                                          fieldName: '');
-                                                  widget.onLinkTap(_arg);
-                                                },
-                                              )
-                                            : Text(
-                                                a.type,
-                                                style: TextStyle(
-                                                  fontSize: 15,
-                                                ),
-                                              );
-                                      }).toList(),
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: m.arguments.map((a) {
-                                        return Text(
-                                          a.name,
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            color: _isDarkMode
-                                                ? Colors.white
-                                                : Colors.black,
-                                          ),
-                                        );
-                                      }).toList(),
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: m.arguments.map((a) {
-                                        return a.defaultValue == null
-                                            ? Text('')
-                                            : Row(
-                                                children: <Widget>[
-                                                  Text(
-                                                    ' = ',
-                                                    style: TextStyle(
-                                                      color: Colors.grey,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    a.defaultValue,
-                                                    style: TextStyle(
-                                                      color: _isDarkMode
-                                                          ? Colors.white
-                                                          : Colors.black,
-                                                    ),
-                                                  )
-                                                ],
-                                              );
-                                      }).toList(),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ],
-                          )
-                        : SizedBox()),
                     Row(
+                      children: [
+                        Text(
+                          'return',
+                        ),
+                        SizedBox(
+                          width: 15,
+                        ),
+                        m.returnValue == null
+                            ? Text('void')
+                            : ClassDB().getDB().any((element) =>
+                                    element.name == m.returnValue.type)
+                                ? InkWell(
+                                    child: Text(
+                                      m.returnValue.type,
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        color: godotColor,
+                                      ),
+                                    ),
+                                    onTap: () {
+                                      TapEventArg _arg = TapEventArg(
+                                          className: m.returnValue.type,
+                                          linkType: LinkType.Class,
+                                          fieldName: '');
+                                      widget.onLinkTap(_arg);
+                                    },
+                                  )
+                                : Text(
+                                    m.returnValue.type,
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                      ],
+                    ),
+                    Divider(
+                      indent: propertyIndent,
+                    ),
+                    Column(
                       children: <Widget>[
-                        m.qualifiers == null
-                            ? SizedBox()
-                            : Row(
+                        (m.arguments != null && m.arguments.length > 0
+                            ? Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Text(
-                                    'qualifiers ',
+                                    'arguments:',
                                   ),
-                                  Text(
-                                    m.qualifiers,
-                                    style: TextStyle(
-                                        color: _isDarkMode
-                                            ? Colors.white
-                                            : Colors.black),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      children: <Widget>[
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: m.arguments.map((a) {
+                                            return ClassDB().getDB().any(
+                                                    (element) =>
+                                                        element.name == a.type)
+                                                ? InkWell(
+                                                    child: Text(
+                                                      a.type,
+                                                      style: TextStyle(
+                                                        fontSize: 15,
+                                                        color: godotColor,
+                                                      ),
+                                                    ),
+                                                    onTap: () {
+                                                      TapEventArg _arg =
+                                                          TapEventArg(
+                                                              className: a.type,
+                                                              linkType: LinkType
+                                                                  .Class,
+                                                              fieldName: '');
+                                                      widget.onLinkTap(_arg);
+                                                    },
+                                                  )
+                                                : Text(
+                                                    a.type,
+                                                    style: TextStyle(
+                                                      fontSize: 15,
+                                                    ),
+                                                  );
+                                          }).toList(),
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: m.arguments.map((a) {
+                                            return Text(
+                                              a.name,
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                                color: _isDarkMode
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                              ),
+                                            );
+                                          }).toList(),
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: m.arguments.map((a) {
+                                            return a.defaultValue == null
+                                                ? Text('')
+                                                : Row(
+                                                    children: <Widget>[
+                                                      Text(
+                                                        ' = ',
+                                                        style: TextStyle(
+                                                          color: Colors.grey,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        a.defaultValue,
+                                                        style: TextStyle(
+                                                          color: _isDarkMode
+                                                              ? Colors.white
+                                                              : Colors.black,
+                                                        ),
+                                                      )
+                                                    ],
+                                                  );
+                                          }).toList(),
+                                        ),
+                                        Divider(
+                                          indent: propertyIndent,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Divider(
+                                    indent: propertyIndent,
                                   ),
                                 ],
-                              ),
+                              )
+                            : SizedBox()),
+                        Row(
+                          children: <Widget>[
+                            m.qualifiers == null
+                                ? SizedBox()
+                                : Row(
+                                    children: <Widget>[
+                                      Text(
+                                        'qualifiers ',
+                                      ),
+                                      Text(
+                                        m.qualifiers,
+                                        style: TextStyle(
+                                            color: _isDarkMode
+                                                ? Colors.white
+                                                : Colors.black),
+                                      ),
+                                    ],
+                                  ),
+                          ],
+                        ),
                       ],
+                    ),
+                    DescriptionText(
+                      className: widget.clsContent.name,
+                      content: m.description,
+                      onLinkTap: widget.onLinkTap,
                     ),
                   ],
                 ),
-                DescriptionText(
-                  className: widget.clsContent.name,
-                  content: m.description,
-                  onLinkTap: widget.onLinkTap,
-                ),
-              ],
-            ),
+              ),
+              Divider(
+                color: Colors.blueGrey,
+              )
+            ],
           );
         });
   }

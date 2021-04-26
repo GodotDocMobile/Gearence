@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:godotclassreference/bloc/theme_bloc.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../components/description_text.dart';
@@ -27,6 +28,8 @@ class _ClassMembersState extends State<ClassMembers> {
   ItemPositionsListener _itemPositionsListener;
 
   bool _isDarkMode;
+
+  double propertyIndent = 50;
 
   @override
   void initState() {
@@ -74,41 +77,59 @@ class _ClassMembersState extends State<ClassMembers> {
           return Column(
             children: <Widget>[
               ListTile(
-                leading:
-                    ClassDB().getDB().any((element) => element.name == m.type)
-                        ? InkWell(
-                            child: Text(
-                              m.type,
-                              style: TextStyle(
-                                fontSize: 15,
-                                color: godotColor,
-                              ),
-                            ),
-                            onTap: () {
-                              TapEventArg _arg = TapEventArg(
-                                  className: m.type,
-                                  linkType: LinkType.Class,
-                                  fieldName: '');
-                              widget.onLinkTap(_arg);
-                            },
-                          )
-                        : Text(
-                            m.type,
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.black,
-                            ),
-                          ),
-                title: Text(
-                  m.name,
-                  style: TextStyle(
-                    fontSize: 25,
+                title: Container(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  child: Text(
+                    m.name,
+                    style: TextStyle(
+                      fontSize: 25,
 //                    color: godotColor,
+                    ),
                   ),
                 ),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
+                    Row(
+                      children: [
+                        Text(
+                          'type',
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        ClassDB()
+                                .getDB()
+                                .any((element) => element.name == m.type)
+                            ? InkWell(
+                                child: Text(
+                                  m.type,
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: godotColor,
+                                  ),
+                                ),
+                                onTap: () {
+                                  TapEventArg _arg = TapEventArg(
+                                      className: m.type,
+                                      linkType: LinkType.Class,
+                                      fieldName: '');
+                                  widget.onLinkTap(_arg);
+                                },
+                              )
+                            : Text(
+                                m.type,
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.black,
+                                ),
+                              ),
+                      ],
+                    ),
+                    Divider(
+                      indent: propertyIndent,
+                    ),
                     m.setter == null || m.setter.length == 0
                         ? SizedBox()
                         : Column(
@@ -127,6 +148,9 @@ class _ClassMembersState extends State<ClassMembers> {
                                           ? Colors.white
                                           : Colors.black),
                                 ),
+                              ),
+                              Divider(
+                                indent: propertyIndent,
                               ),
                             ],
                           ),
@@ -149,6 +173,9 @@ class _ClassMembersState extends State<ClassMembers> {
                                           : Colors.black),
                                 ),
                               ),
+                              Divider(
+                                indent: propertyIndent,
+                              ),
                             ],
                           ),
                     DescriptionText(
@@ -159,9 +186,9 @@ class _ClassMembersState extends State<ClassMembers> {
                   ],
                 ),
               ),
-              SizedBox(
-                height: 10,
-              ),
+              Divider(
+                color: Colors.blueGrey,
+              )
             ],
           );
         });
