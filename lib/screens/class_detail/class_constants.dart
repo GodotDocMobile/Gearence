@@ -26,6 +26,8 @@ class _ClassConstantsState extends State<ClassConstants> {
 
   List<Constant> _onlyConstants = [];
 
+  double propertyIndent = 50;
+
   @override
   void initState() {
     super.initState();
@@ -71,21 +73,40 @@ class _ClassConstantsState extends State<ClassConstants> {
         itemPositionsListener: _itemPositionsListener,
         itemBuilder: (context, index) {
           final c = _onlyConstants[index];
-          return ListTile(
-            title: Row(
-              children: <Widget>[
-                Text(c.name),
-                Text(
-                  ' = ' + c.value,
-                  style: TextStyle(color: Colors.grey),
-                )
-              ],
-            ),
-            subtitle: DescriptionText(
-              className: widget.clsContent.name,
-              content: c.constantText,
-              onLinkTap: widget.onLinkTap,
-            ),
+          return Column(
+            children: [
+              ListTile(
+                title: Row(
+                  children: <Widget>[
+                    Text(c.name),
+                  ],
+                ),
+                subtitle: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Text("value"),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(c.value),
+                      ],
+                    ),
+                    Divider(
+                      indent: propertyIndent,
+                    ),
+                    DescriptionText(
+                      className: widget.clsContent.name,
+                      content: c.constantText,
+                      onLinkTap: widget.onLinkTap,
+                    ),
+                  ],
+                ),
+              ),
+              Divider(
+                color: Colors.blueGrey,
+              )
+            ],
           );
         });
   }

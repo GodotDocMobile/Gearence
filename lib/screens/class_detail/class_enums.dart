@@ -35,6 +35,8 @@ class _ClassEnumsState extends State<ClassEnums> {
   List<Widget> _builtList = [];
   List<String> _enumValues = [];
 
+  double propertyIndent = 50;
+
   @override
   void initState() {
     _scrollController = ItemScrollController();
@@ -81,14 +83,25 @@ class _ClassEnumsState extends State<ClassEnums> {
     }).length;
   }
 
-  Widget _singleEnum(Constant clsConstant) {
-    return ListTile(
-      title: Text('${clsConstant.name} = ${clsConstant.value}'),
-      subtitle: DescriptionText(
-        className: widget.clsContent.name,
-        content: clsConstant.constantText,
-        onLinkTap: widget.onLinkTap,
-      ),
+  Widget _singleEnum(Constant clsConstant, {bool appendDivider = false}) {
+    return Column(
+      children: [
+        ListTile(
+          title: Text('${clsConstant.name} = ${clsConstant.value}'),
+          subtitle: DescriptionText(
+            className: widget.clsContent.name,
+            content: clsConstant.constantText,
+            onLinkTap: widget.onLinkTap,
+          ),
+        ),
+        appendDivider
+            ? Divider(
+                color: Colors.blueGrey,
+              )
+            : Divider(
+                indent: propertyIndent,
+              ),
+      ],
     );
   }
 
@@ -104,26 +117,34 @@ class _ClassEnumsState extends State<ClassEnums> {
       _enumValues.add(_belongEnum[0].name);
       _builtList.add(Column(
         children: [
-          Row(children: [
-            Text(
-              'enum ',
-              style: TextStyle(color: Colors.grey, fontSize: 20),
+          Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Column(
+              children: [
+                Row(children: [
+                  Text(
+                    'enum ',
+                    style: TextStyle(color: Colors.grey, fontSize: 20),
+                  ),
+                  Text(
+                    enumName,
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  Text(
+                    ':',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ]),
+              ],
             ),
-            Text(
-              enumName,
-              style: TextStyle(fontSize: 20),
-            ),
-            Text(
-              ':',
-              style: TextStyle(fontSize: 20),
-            ),
-          ]),
-          _singleEnum(_belongEnum.first)
+          ),
+          _singleEnum(_belongEnum.first),
         ],
       ));
 
       for (var i = 1; i < _belongEnum.length; i++) {
-        _builtList.add(_singleEnum(_belongEnum[i]));
+        _builtList.add(_singleEnum(_belongEnum[i],
+            appendDivider: i == _belongEnum.length - 1));
         _enumValues.add(_belongEnum[i].name);
       }
     });
@@ -144,12 +165,16 @@ class _ClassEnumsState extends State<ClassEnums> {
     buildEnums();
 
     return ScrollablePositionedList.builder(
-      padding: EdgeInsets.all(5),
+      // padding: EdgeInsets.all(5),
       itemCount: _getPositionCount(),
       itemScrollController: _scrollController,
       itemPositionsListener: _itemPositionsListener,
       itemBuilder: (context, index) {
-        return _builtList[index];
+        return Column(
+          children: [
+            _builtList[index],
+          ],
+        );
       },
     );
   }
