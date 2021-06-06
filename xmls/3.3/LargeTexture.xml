@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?><class name="LargeTexture" inherits="Texture" version="3.3"><brief_description>
-		A [Texture] capable of storing many smaller textures with offsets.</brief_description><description>
-		A [Texture] capable of storing many smaller textures with offsets.
+		[i]Deprecated.[/i] A [Texture] capable of storing many smaller textures with offsets.</brief_description><description>
+		[i]Deprecated (will be removed in Godot 4.0).[/i] A [Texture] capable of storing many smaller textures with offsets.
 		You can dynamically add pieces ([Texture]s) to this [LargeTexture] using different offsets.</description><tutorials></tutorials><methods><method name="add_piece"><return type="int"></return><argument index="0" name="ofs" type="Vector2"></argument><argument index="1" name="texture" type="Texture"></argument><description>
 				Adds [code]texture[/code] to this [LargeTexture], starting on offset [code]ofs[/code].</description></method><method name="clear"><return type="void"></return><description>
 				Clears the [LargeTexture].</description></method><method name="get_piece_count" qualifiers="const"><return type="int"></return><description>
