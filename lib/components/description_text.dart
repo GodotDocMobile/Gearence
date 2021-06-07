@@ -47,6 +47,11 @@ class DescriptionText extends StatelessWidget {
       if (brkPos > pos) {
         String text = content.substring(pos, brkPos);
         if (codeTag) {
+          while (!content.substring(brkPos).startsWith('[/code')) {
+            brkPos = content.indexOf('[', brkPos + 1);
+          }
+          text = content.substring(pos, brkPos);
+
           _toRtn.add(WidgetSpan(
             child: CodeText(
               codeText: text,
@@ -85,9 +90,8 @@ class DescriptionText extends StatelessWidget {
       if (tag.startsWith('/')) {
         bool tagOK = tagStack.length > 0 &&
             tagStack.last == tag.substring(1, tag.length);
-
         if (!tagOK) {
-          _toRtn.add(TextSpan(text: ']'));
+          _toRtn.add(TextSpan(text: '['));
           pos = brkPos + 1;
           continue;
         }
