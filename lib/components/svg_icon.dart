@@ -13,6 +13,7 @@ class SvgIcon extends StatelessWidget {
   final int width;
 
   String _correspondFilename = 'icon';
+  bool _loadFailed = false;
 
   SvgIcon(
       {@required this.className,
@@ -44,13 +45,11 @@ class SvgIcon extends StatelessWidget {
   }
 
   Future<String> getSVGContent() async {
-    bool _loadFailed = false;
-
-    String _svgContent;
+    String _svgContent = "";
     try {
       _svgContent = await rootBundle.loadString(_correspondFilename);
+      _loadFailed = false;
     } catch (e) {
-      _svgContent = await Future.value('svgs/' + version + '/icon_node.svg');
       _loadFailed = true;
     }
     if (_loadFailed &&
@@ -60,8 +59,9 @@ class SvgIcon extends StatelessWidget {
           _correspondFilename.replaceAll('2_d', '2d').replaceAll('3_d', '3d');
       try {
         _svgContent = await rootBundle.loadString(_correspondFilename);
+        _loadFailed = false;
       } catch (e) {
-        _svgContent = await Future.value('svgs/' + version + '/icon_node.svg');
+        _loadFailed = true;
       }
     }
     return _svgContent;
@@ -80,7 +80,7 @@ class SvgIcon extends StatelessWidget {
 //          color: Colors.black,
           child: Padding(
             padding: const EdgeInsets.all(10.0),
-            child: snapshot.hasData
+            child: snapshot.hasData && !_loadFailed
                 ? SvgPicture.string(snapshot.data)
                 : SvgPicture.asset('svgs/' + version + '/icon_node.svg'),
           ),
