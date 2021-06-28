@@ -22,6 +22,7 @@ branches = [
 
 godot_repo = ""
 
+
 class ClassNode:
     inherit_chain = ""
     class_name = ""
@@ -42,6 +43,7 @@ class ClassNode:
     def toJSON(self):
         # return json.dump()
         pass
+
 
 def _write_file_index(branch_name, file_name_arr):
     file_name_arr.sort()
@@ -171,7 +173,7 @@ def multiple_class_files(branch_name):
         print("[{}] procesing {}".format(branch_name, origin_file))
 
         _copy_and_trim(join(_class_docs_folder, origin_file),
-                        join(_folder_path, origin_file))
+                       join(_folder_path, origin_file))
         _files.append(origin_file)
         _xml_element = ET.parse(join(_folder_path, origin_file))
         _class = ClassNode.parse_element(_xml_element.getroot())
@@ -223,7 +225,7 @@ def parse_argv():
     parser.add_argument(
         '--skip_pull', help='skip pulling action before removing line breaks', action='store_true')
     parser.add_argument(
-        '--godot_path',type=str,dest='godot_path',required=True,
+        '--godot_path', type=str, dest='godot_path', required=True,
         help='path to godot repository like ~/godot'
     )
     return parser.parse_args()
@@ -256,6 +258,33 @@ def copy_svgs(branch_name, custom_path):
         print("done moving svg files.")
     else:
         print("no svg files in this version,skipping")
+    pass
+
+
+def copy_translations(branch_name):
+    print("removing old translation files.")
+    _translation_target_folder = join("../translations", branch_name)
+
+    if exists(_translation_target_folder):
+        for f in listdir(_translation_target_folder):
+            remove(join(_translation_target_folder, f))
+    else:
+        mkdir(_translation_target_folder)
+
+    print("done removing old translation files.")
+
+    _translation_source_folder = join(godot_repo, "editor", "translations")
+
+    if exists(_translation_source_folder):
+        print("moving translation files.")
+        for origin_file in listdir(_translation_source_folder):
+            if origin_file.find(".po") > -1:
+                copyfile(join(_translation_source_folder, origin_file),
+                         join(_translation_target_folder, origin_file))
+        print(("done moving translation files."))
+    else:
+        print("no translation files in this versin,skipping")
+
     pass
 
 
@@ -304,6 +333,7 @@ if __name__ == "__main__":
                 o.pull()
                 print("done pulling.")
 
+        copy_translations(b)
         if float(b) >= 3:
             multiple_class_files(b)
             copy_svgs(b, False)
@@ -317,8 +347,8 @@ if __name__ == "__main__":
     _doc_date = datetime.date.today()
 
     config_content = json.dumps({
-        "branches":branches,
-        "update_date":"{}".format(_doc_date)
+        "branches": branches,
+        "update_date": "{}".format(_doc_date)
     })
 
     _update_doc_file = open("../xmls/conf.json", "w")
