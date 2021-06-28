@@ -333,7 +333,7 @@ if __name__ == "__main__":
                 o.pull()
                 print("done pulling.")
 
-        copy_translations(b)
+        # copy_translations(b)
         if float(b) >= 3:
             multiple_class_files(b)
             copy_svgs(b, False)
