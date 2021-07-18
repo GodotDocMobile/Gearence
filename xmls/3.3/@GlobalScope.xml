@@ -332,7 +332,8 @@
 			Gamepad button 18.</constant><constant name="JOY_BUTTON_19" value="19" enum="JoystickList">
 			Gamepad button 19.</constant><constant name="JOY_BUTTON_20" value="20" enum="JoystickList">
 			Gamepad button 20.</constant><constant name="JOY_BUTTON_21" value="21" enum="JoystickList">
-			Gamepad button 21.</constant><constant name="JOY_BUTTON_MAX" value="22" enum="JoystickList">
+			Gamepad button 21.</constant><constant name="JOY_BUTTON_22" value="22" enum="JoystickList">
+			Gamepad button 22.</constant><constant name="JOY_BUTTON_MAX" value="23" enum="JoystickList">
 			Represents the maximum number of joystick buttons supported.</constant><constant name="JOY_SONY_CIRCLE" value="1" enum="JoystickList">
 			DualShock circle button.</constant><constant name="JOY_SONY_X" value="0" enum="JoystickList">
 			DualShock X button.</constant><constant name="JOY_SONY_SQUARE" value="2" enum="JoystickList">
@@ -358,12 +359,13 @@
 			Gamepad DPad up.</constant><constant name="JOY_DPAD_DOWN" value="13" enum="JoystickList">
 			Gamepad DPad down.</constant><constant name="JOY_DPAD_LEFT" value="14" enum="JoystickList">
 			Gamepad DPad left.</constant><constant name="JOY_DPAD_RIGHT" value="15" enum="JoystickList">
-			Gamepad DPad right.</constant><constant name="JOY_MISC1" value="16" enum="JoystickList">
-			Gamepad SDL miscellaneous button.</constant><constant name="JOY_PADDLE1" value="17" enum="JoystickList">
-			Gamepad SDL paddle 1 button.</constant><constant name="JOY_PADDLE2" value="18" enum="JoystickList">
-			Gamepad SDL paddle 2 button.</constant><constant name="JOY_PADDLE3" value="19" enum="JoystickList">
-			Gamepad SDL paddle 3 button.</constant><constant name="JOY_PADDLE4" value="20" enum="JoystickList">
-			Gamepad SDL paddle 4 button.</constant><constant name="JOY_TOUCHPAD" value="21" enum="JoystickList">
+			Gamepad DPad right.</constant><constant name="JOY_GUIDE" value="16" enum="JoystickList">
+			Gamepad SDL guide button.</constant><constant name="JOY_MISC1" value="17" enum="JoystickList">
+			Gamepad SDL miscellaneous button.</constant><constant name="JOY_PADDLE1" value="18" enum="JoystickList">
+			Gamepad SDL paddle 1 button.</constant><constant name="JOY_PADDLE2" value="19" enum="JoystickList">
+			Gamepad SDL paddle 2 button.</constant><constant name="JOY_PADDLE3" value="20" enum="JoystickList">
+			Gamepad SDL paddle 3 button.</constant><constant name="JOY_PADDLE4" value="21" enum="JoystickList">
+			Gamepad SDL paddle 4 button.</constant><constant name="JOY_TOUCHPAD" value="22" enum="JoystickList">
 			Gamepad SDL touchpad button.</constant><constant name="JOY_L" value="4" enum="JoystickList">
 			Gamepad left Shoulder button.</constant><constant name="JOY_L2" value="6" enum="JoystickList">
 			Gamepad left trigger.</constant><constant name="JOY_L3" value="8" enum="JoystickList">

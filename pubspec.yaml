@@ -12,7 +12,7 @@ doc_time: 2020-08-12
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 0.1.6+31
+version: 0.1.7+32
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -41,6 +41,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  gettext: ^1.2.0
 
 dev_dependencies:
   flutter_test:
@@ -83,6 +84,12 @@ flutter:
     - xmls/3.3/
       # file index
     - xmls/
+
+#    - translations/2.1/
+#    - translations/3.0/
+#    - translations/3.1/
+#    - translations/3.2/
+#    - translations/3.3/
 
       # godot_lisence
     - godot_lisence/
