@@ -1,6 +1,6 @@
 import 'dart:async';
 
-enum FilterType { Node2D, Node3D, NodeControl, NodeOther, NonNode }
+enum FilterType { Node2D, Node3D, NodeControl,NodeVisualScript, NodeOther, NonNode }
 
 class FilterOption {
   final FilterType type;
