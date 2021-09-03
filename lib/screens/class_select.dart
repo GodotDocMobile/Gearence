@@ -25,9 +25,11 @@ class _ClassSelectState extends State<ClassSelect> {
 
   // ignore: non_constant_identifier_names
   List<ClassContent> _2dNodes = [];
+
   // ignore: non_constant_identifier_names
   List<ClassContent> _3dNodes = [];
   List<ClassContent> _controlNodes = [];
+  List<ClassContent> _visualNodes = [];
   List<ClassContent> _otherNodes = [];
   List<ClassContent> _nonNodes = [];
 
@@ -128,6 +130,22 @@ class _ClassSelectState extends State<ClassSelect> {
                       ),
                     ),
                     ListTile(
+                      title: Text('Visual Script Nodes'),
+                      trailing: Switch(
+                        value: StoredValues().showVisualScriptNodes,
+                        onChanged: (v) {
+                          setState(() {
+                            StoredValues().showVisualScriptNodes = v;
+                            _filterBloc.argSink.add(
+                                FilterOption(FilterType.NodeVisualScript, v));
+                            StoredValues()
+                                .prefs
+                                .setBool('showVisualScriptNodes', v);
+                          });
+                        },
+                      ),
+                    ),
+                    ListTile(
                       title: Text('Other Nodes'),
                       trailing: Switch(
                         value: StoredValues().showOtherNodes,
@@ -172,6 +190,13 @@ class _ClassSelectState extends State<ClassSelect> {
 
   void _sortClasses(List<ClassContent> list) async {
     List<ClassContent> _filteredClasses = List<ClassContent>.from(list);
+
+    if (_visualNodes.length == 0) {
+      _visualNodes = _filteredClasses
+          .where((element) => element.belong('VisualScriptNode'))
+          .toList();
+    }
+
     if (_2dNodes.length == 0) {
       _2dNodes = _filteredClasses
           .where((element) => element.belong('Node2D'))
@@ -196,7 +221,8 @@ class _ClassSelectState extends State<ClassSelect> {
         return _allNames.contains('[Node]') &&
             !_allNames.contains('Node2D') &&
             !_allNames.contains('[Spatial]') &&
-            !_allNames.contains('[Control]');
+            !_allNames.contains('[Control]') &&
+            !_allNames.contains('[VisualScriptNode]');
       }).toList();
     }
 
@@ -229,6 +255,10 @@ class _ClassSelectState extends State<ClassSelect> {
 
     if (StoredValues().showNonNodes) {
       _rtnList.addAll(_nonNodes);
+    }
+
+    if (StoredValues().showVisualScriptNodes) {
+      _rtnList.addAll(_visualNodes);
     }
 
     _rtnList.sort((a, b) {
@@ -311,6 +341,9 @@ class _ClassSelectState extends State<ClassSelect> {
               case FilterType.NonNode:
                 StoredValues().showNonNodes = snapshot.data.value;
                 break;
+              case FilterType.NodeVisualScript:
+                StoredValues().showVisualScriptNodes = snapshot.data.value;
+                break;
             }
           }
 
@@ -331,11 +364,12 @@ class _ClassSelectState extends State<ClassSelect> {
                                       ClassDetail(className: f.name),
                                 ));
                           },
-                          trailing: f.belong('Node')
-                              ? NodeTag(
-                                  classContent: f,
-                                )
-                              : null,
+                          trailing:
+                              (f.belong('Node') || f.belong('VisualScriptNode'))
+                                  ? NodeTag(
+                                      classContent: f,
+                                    )
+                                  : null,
                         ),
                       ))
                   .toList());

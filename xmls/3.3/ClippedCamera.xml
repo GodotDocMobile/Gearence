@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?><class name="ClippedCamera" inherits="Camera" version="3.3"><brief_description>
 		A [Camera] that includes collision.</brief_description><description>
-		This node extends [Camera] to add collisions with [Area] and/or [PhysicsBody] nodes. The camera cannot move through colliding objects.</description><tutorials></tutorials><methods><method name="add_exception"><return type="void"></return><argument index="0" name="node" type="Object"></argument><description>
-				Adds a collision exception so the camera does not collide with the specified node.</description></method><method name="add_exception_rid"><return type="void"></return><argument index="0" name="rid" type="RID"></argument><description>
-				Adds a collision exception so the camera does not collide with the specified [RID].</description></method><method name="clear_exceptions"><return type="void"></return><description>
-				Removes all collision exceptions.</description></method><method name="get_clip_offset" qualifiers="const"><return type="float"></return><description>
-				Returns the distance the camera has been offset due to a collision.</description></method><method name="get_collision_mask_bit" qualifiers="const"><return type="bool"></return><argument index="0" name="bit" type="int"></argument><description>
+		This node extends [Camera] to add collisions with [Area] and/or [PhysicsBody] nodes. The camera cannot move through colliding objects.</description><tutorials></tutorials><methods><method name="add_exception"><return type="void" /><argument index="0" name="node" type="Object" /><description>
+				Adds a collision exception so the camera does not collide with the specified node.</description></method><method name="add_exception_rid"><return type="void" /><argument index="0" name="rid" type="RID" /><description>
+				Adds a collision exception so the camera does not collide with the specified [RID].</description></method><method name="clear_exceptions"><return type="void" /><description>
+				Removes all collision exceptions.</description></method><method name="get_clip_offset" qualifiers="const"><return type="float" /><description>
+				Returns the distance the camera has been offset due to a collision.</description></method><method name="get_collision_mask_bit" qualifiers="const"><return type="bool" /><argument index="0" name="bit" type="int" /><description>
 				Returns [code]true[/code] if the specified bit index is on.
-				[b]Note:[/b] Bit indices range from 0-19.</description></method><method name="remove_exception"><return type="void"></return><argument index="0" name="node" type="Object"></argument><description>
-				Removes a collision exception with the specified node.</description></method><method name="remove_exception_rid"><return type="void"></return><argument index="0" name="rid" type="RID"></argument><description>
-				Removes a collision exception with the specified [RID].</description></method><method name="set_collision_mask_bit"><return type="void"></return><argument index="0" name="bit" type="int"></argument><argument index="1" name="value" type="bool"></argument><description>
+				[b]Note:[/b] Bit indices range from 0-19.</description></method><method name="remove_exception"><return type="void" /><argument index="0" name="node" type="Object" /><description>
+				Removes a collision exception with the specified node.</description></method><method name="remove_exception_rid"><return type="void" /><argument index="0" name="rid" type="RID" /><description>
+				Removes a collision exception with the specified [RID].</description></method><method name="set_collision_mask_bit"><return type="void" /><argument index="0" name="bit" type="int" /><argument index="1" name="value" type="bool" /><description>
 				Sets the specified bit index to the [code]value[/code].
 				[b]Note:[/b] Bit indices range from 0-19.</description></method></methods><members><member name="clip_to_areas" type="bool" setter="set_clip_to_areas" getter="is_clip_to_areas_enabled" default="false">
 			If [code]true[/code], the camera stops on contact with [Area]s.</member><member name="clip_to_bodies" type="bool" setter="set_clip_to_bodies" getter="is_clip_to_bodies_enabled" default="true">

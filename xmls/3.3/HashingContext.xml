@@ -23,9 +23,9 @@
 		    # Print the result as hex string and array.
 		    printt(res.hex_encode(), Array(res))
 		[/codeblock]
-		[b]Note:[/b] Not available in HTML5 exports.</description><tutorials></tutorials><methods><method name="finish"><return type="PoolByteArray"></return><description>
-				Closes the current context, and return the computed hash.</description></method><method name="start"><return type="int" enum="Error"></return><argument index="0" name="type" type="int" enum="HashingContext.HashType"></argument><description>
-				Starts a new hash computation of the given [code]type[/code] (e.g. [constant HASH_SHA256] to start computation of a SHA-256).</description></method><method name="update"><return type="int" enum="Error"></return><argument index="0" name="chunk" type="PoolByteArray"></argument><description>
+		[b]Note:[/b] Not available in HTML5 exports.</description><tutorials></tutorials><methods><method name="finish"><return type="PoolByteArray" /><description>
+				Closes the current context, and return the computed hash.</description></method><method name="start"><return type="int" enum="Error" /><argument index="0" name="type" type="int" enum="HashingContext.HashType" /><description>
+				Starts a new hash computation of the given [code]type[/code] (e.g. [constant HASH_SHA256] to start computation of a SHA-256).</description></method><method name="update"><return type="int" enum="Error" /><argument index="0" name="chunk" type="PoolByteArray" /><description>
 				Updates the computation with the given [code]chunk[/code] of data.</description></method></methods><constants><constant name="HASH_MD5" value="0" enum="HashType">
 			Hashing algorithm: MD5.</constant><constant name="HASH_SHA1" value="1" enum="HashType">
 			Hashing algorithm: SHA-1.</constant><constant name="HASH_SHA256" value="2" enum="HashType">

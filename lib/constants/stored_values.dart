@@ -19,6 +19,7 @@ class StoredValues {
   bool showControlNodes;
   bool showOtherNodes;
   bool showNonNodes;
+  bool showVisualScriptNodes;
 
   static final StoredValues _instance = StoredValues._internal();
 
@@ -61,6 +62,9 @@ class StoredValues {
         ? true
         : prefs.getBool('showNonNodes');
 
+    showVisualScriptNodes = prefs.getBool('showVisualScriptNodes') == null?
+        true:
+        prefs.getBool('showVisualScriptNodes');
     return true;
   }
 }
