@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?><class name="WindowDialog" inherits="Popup" version="3.3"><brief_description>
 		Base class for window dialogs.</brief_description><description>
-		Windowdialog is the base class for all window-based dialogs. It's a by-default toplevel [Control] that draws a window decoration and allows motion and resizing.</description><tutorials></tutorials><methods><method name="get_close_button"><return type="TextureButton"></return><description>
+		Windowdialog is the base class for all window-based dialogs. It's a by-default toplevel [Control] that draws a window decoration and allows motion and resizing.</description><tutorials></tutorials><methods><method name="get_close_button"><return type="TextureButton" /><description>
 				Returns the close [TextureButton].</description></method></methods><members><member name="resizable" type="bool" setter="set_resizable" getter="get_resizable" default="false">
 			If [code]true[/code], the user can resize the window.</member><member name="window_title" type="String" setter="set_title" getter="get_title" default="&quot;&quot;">
 			The text displayed in the window's title bar.</member></members><constants></constants><theme_items><theme_item name="close" type="Texture">

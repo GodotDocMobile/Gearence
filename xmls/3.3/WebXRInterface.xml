@@ -84,7 +84,7 @@
 		- Using [ARVRController] nodes and their [signal ARVRController.button_pressed] and [signal ARVRController.button_release] signals. This is how controllers are typically handled in AR/VR apps in Godot, however, this will only work with advanced VR controllers like the Oculus Touch or Index controllers, for example. The buttons codes are defined by [url=https://immersive-web.github.io/webxr-gamepads-module/#xr-standard-gamepad-mapping]Section 3.3 of the WebXR Gamepads Module[/url].
 		- Using [method Node._unhandled_input] and [InputEventJoypadButton] or [InputEventJoypadMotion]. This works the same as normal joypads, except the [member InputEvent.device] starts at 100, so the left controller is 100 and the right controller is 101, and the button codes are also defined by [url=https://immersive-web.github.io/webxr-gamepads-module/#xr-standard-gamepad-mapping]Section 3.3 of the WebXR Gamepads Module[/url].
 		- Using the [signal select], [signal squeeze] and related signals. This method will work for both advanced VR controllers, and non-traditional "controllers" like a tap on the screen, a spoken voice command or a button press on the device itself. The [code]controller_id[/code] passed to these signals is the same id as used in [member ARVRController.controller_id].
-		You can use one or all of these methods to allow your game or app to support a wider or narrower set of devices and input methods, or to allow more advanced interations with more advanced devices.</description><tutorials><link title="How to make a VR game for WebXR with Godot">https://www.snopekgames.com/blog/2020/how-make-vr-game-webxr-godot</link></tutorials><methods><method name="get_controller" qualifiers="const"><return type="ARVRPositionalTracker"></return><argument index="0" name="controller_id" type="int"></argument><description>
+		You can use one or all of these methods to allow your game or app to support a wider or narrower set of devices and input methods, or to allow more advanced interations with more advanced devices.</description><tutorials><link title="How to make a VR game for WebXR with Godot">https://www.snopekgames.com/blog/2020/how-make-vr-game-webxr-godot</link></tutorials><methods><method name="get_controller" qualifiers="const"><return type="ARVRPositionalTracker" /><argument index="0" name="controller_id" type="int" /><description>
 				Gets an [ARVRPositionalTracker] for the given [code]controller_id[/code].
 				In the context of WebXR, a "controller" can be an advanced VR controller like the Oculus Touch or Index controllers, or even a tap on the screen, a spoken voice command or a button press on the device itself. When a non-traditional controller is used, interpret the position and orientation of the [ARVRPositionalTracker] as a ray pointing at the object the user wishes to interact with.
 				Use this method to get information about the controller that triggered one of these signals:
@@ -93,7 +93,7 @@
 				- [signal selectend]
 				- [signal squeezestart]
 				- [signal squeeze]
-				- [signal squeezestart]</description></method><method name="is_session_supported"><return type="void"></return><argument index="0" name="session_mode" type="String"></argument><description>
+				- [signal squeezestart]</description></method><method name="is_session_supported"><return type="void" /><argument index="0" name="session_mode" type="String" /><description>
 				Checks if the given [code]session_mode[/code] is supported by the user's browser.
 				Possible values come from [url=https://developer.mozilla.org/en-US/docs/Web/API/XRSessionMode]WebXR's XRSessionMode[/url], including: [code]"immersive-vr"[/code], [code]"immersive-ar"[/code], and [code]"inline"[/code].
 				This method returns nothing, instead it emits the [signal session_supported] signal with the result.</description></method></methods><members><member name="bounds_geometry" type="PoolVector3Array" setter="" getter="get_bounds_geometry">
@@ -121,24 +121,24 @@
 			Possible values come from [url=https://developer.mozilla.org/en-US/docs/Web/API/XRVisibilityState]WebXR's XRVisibilityState[/url], including [code]"hidden"[/code], [code]"visible"[/code], and [code]"visible-blurred"[/code].</member></members><signals><signal name="reference_space_reset"><description>
 				Emitted to indicate that the reference space has been reset or reconfigured.
 				When (or whether) this is emitted depends on the user's browser or device, but may include when the user has changed the dimensions of their play space (which you may be able to access via [member bounds_geometry]) or pressed/held a button to recenter their position.
-				See [url=https://developer.mozilla.org/en-US/docs/Web/API/XRReferenceSpace/reset_event]WebXR's XRReferenceSpace reset event[/url] for more information.</description></signal><signal name="select"><argument index="0" name="controller_id" type="int"></argument><description>
+				See [url=https://developer.mozilla.org/en-US/docs/Web/API/XRReferenceSpace/reset_event]WebXR's XRReferenceSpace reset event[/url] for more information.</description></signal><signal name="select"><argument index="0" name="controller_id" type="int" /><description>
 				Emitted after one of the "controllers" has finished its "primary action".
-				Use [method get_controller] to get more information about the controller.</description></signal><signal name="selectend"><argument index="0" name="controller_id" type="int"></argument><description>
+				Use [method get_controller] to get more information about the controller.</description></signal><signal name="selectend"><argument index="0" name="controller_id" type="int" /><description>
 				Emitted when one of the "controllers" has finished its "primary action".
-				Use [method get_controller] to get more information about the controller.</description></signal><signal name="selectstart"><argument index="0" name="controller_id" type="int"></argument><description>
+				Use [method get_controller] to get more information about the controller.</description></signal><signal name="selectstart"><argument index="0" name="controller_id" type="int" /><description>
 				Emitted when one of the "controllers" has started its "primary action".
 				Use [method get_controller] to get more information about the controller.</description></signal><signal name="session_ended"><description>
 				Emitted when the user ends the WebXR session (which can be done using UI from the browser or device).
-				At this point, you should do [code]get_viewport().arvr = false[/code] to instruct Godot to resume rendering to the screen.</description></signal><signal name="session_failed"><argument index="0" name="message" type="String"></argument><description>
+				At this point, you should do [code]get_viewport().arvr = false[/code] to instruct Godot to resume rendering to the screen.</description></signal><signal name="session_failed"><argument index="0" name="message" type="String" /><description>
 				Emitted by [method ARVRInterface.initialize] if the session fails to start.
 				[code]message[/code] may optionally contain an error message from WebXR, or an empty string if no message is available.</description></signal><signal name="session_started"><description>
 				Emitted by [method ARVRInterface.initialize] if the session is successfully started.
-				At this point, it's safe to do [code]get_viewport().arvr = true[/code] to instruct Godot to start rendering to the AR/VR device.</description></signal><signal name="session_supported"><argument index="0" name="session_mode" type="String"></argument><argument index="1" name="supported" type="bool"></argument><description>
-				Emitted by [method is_session_supported] to indicate if the given [code]session_mode[/code] is supported or not.</description></signal><signal name="squeeze"><argument index="0" name="controller_id" type="int"></argument><description>
+				At this point, it's safe to do [code]get_viewport().arvr = true[/code] to instruct Godot to start rendering to the AR/VR device.</description></signal><signal name="session_supported"><argument index="0" name="session_mode" type="String" /><argument index="1" name="supported" type="bool" /><description>
+				Emitted by [method is_session_supported] to indicate if the given [code]session_mode[/code] is supported or not.</description></signal><signal name="squeeze"><argument index="0" name="controller_id" type="int" /><description>
 				Emitted after one of the "controllers" has finished its "primary squeeze action".
-				Use [method get_controller] to get more information about the controller.</description></signal><signal name="squeezeend"><argument index="0" name="controller_id" type="int"></argument><description>
+				Use [method get_controller] to get more information about the controller.</description></signal><signal name="squeezeend"><argument index="0" name="controller_id" type="int" /><description>
 				Emitted when one of the "controllers" has finished its "primary squeeze action".
-				Use [method get_controller] to get more information about the controller.</description></signal><signal name="squeezestart"><argument index="0" name="controller_id" type="int"></argument><description>
+				Use [method get_controller] to get more information about the controller.</description></signal><signal name="squeezestart"><argument index="0" name="controller_id" type="int" /><description>
 				Emitted when one of the "controllers" has started its "primary squeeze action".
 				Use [method get_controller] to get more information about the controller.</description></signal><signal name="visibility_state_changed"><description>
 				Emitted when [member visibility_state] has changed.</description></signal></signals><constants></constants></class>

@@ -9,6 +9,7 @@ class NodeTag extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool visualScript = false;
     Color _backColor = Colors.blueGrey;
 
     if (classContent.belong('Node2D')) {
@@ -17,6 +18,8 @@ class NodeTag extends StatelessWidget {
       _backColor = Color(0xfffc9c9c);
     } else if (classContent.belong('Control')) {
       _backColor = Color(0xffa5efac);
+    } else if (classContent.belong('VisualScriptNode')) {
+      visualScript = true;
     }
 
     return Container(
@@ -28,7 +31,7 @@ class NodeTag extends StatelessWidget {
       height: 20,
       child: Center(
         child: Text(
-          "Node",
+          visualScript ? "Visual" : "Node",
           style: TextStyle(color: Colors.white, fontSize: 15),
         ),
       ),

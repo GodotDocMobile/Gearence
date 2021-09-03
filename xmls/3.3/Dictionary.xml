@@ -78,11 +78,11 @@
 		    print(dict1.hash() == dict2.hash()) # Will print true.
 		[/codeblock]
 		[b]Note:[/b] When declaring a dictionary with [code]const[/code], the dictionary itself can still be mutated by defining the values of individual keys. Using [code]const[/code] will only prevent assigning the constant with another value after it was initialized.</description><tutorials><link title="GDScript basics: Dictionary">https://docs.godotengine.org/en/3.3/getting_started/scripting/gdscript/gdscript_basics.html#dictionary</link><link title="3D Voxel Demo">https://godotengine.org/asset-library/asset/676</link><link title="OS Test Demo">https://godotengine.org/asset-library/asset/677</link></tutorials><methods><method name="clear"><description>
-				Clear the dictionary, removing all key/value pairs.</description></method><method name="duplicate"><return type="Dictionary"></return><argument index="0" name="deep" type="bool" default="false"></argument><description>
-				Creates a copy of the dictionary, and returns it. The [code]deep[/code] parameter causes inner dictionaries and arrays to be copied recursively, but does not apply to objects.</description></method><method name="empty"><return type="bool"></return><description>
-				Returns [code]true[/code] if the dictionary is empty.</description></method><method name="erase"><return type="bool"></return><argument index="0" name="key" type="Variant"></argument><description>
-				Erase a dictionary key/value pair by key. Returns [code]true[/code] if the given key was present in the dictionary, [code]false[/code] otherwise. Does not erase elements while iterating over the dictionary.</description></method><method name="get"><return type="Variant"></return><argument index="0" name="key" type="Variant"></argument><argument index="1" name="default" type="Variant" default="null"></argument><description>
-				Returns the current value for the specified key in the [Dictionary]. If the key does not exist, the method returns the value of the optional default argument, or [code]null[/code] if it is omitted.</description></method><method name="has"><return type="bool"></return><argument index="0" name="key" type="Variant"></argument><description>
+				Clear the dictionary, removing all key/value pairs.</description></method><method name="duplicate"><return type="Dictionary" /><argument index="0" name="deep" type="bool" default="false" /><description>
+				Creates a copy of the dictionary, and returns it. The [code]deep[/code] parameter causes inner dictionaries and arrays to be copied recursively, but does not apply to objects.</description></method><method name="empty"><return type="bool" /><description>
+				Returns [code]true[/code] if the dictionary is empty.</description></method><method name="erase"><return type="bool" /><argument index="0" name="key" type="Variant" /><description>
+				Erase a dictionary key/value pair by key. Returns [code]true[/code] if the given key was present in the dictionary, [code]false[/code] otherwise. Does not erase elements while iterating over the dictionary.</description></method><method name="get"><return type="Variant" /><argument index="0" name="key" type="Variant" /><argument index="1" name="default" type="Variant" default="null" /><description>
+				Returns the current value for the specified key in the [Dictionary]. If the key does not exist, the method returns the value of the optional default argument, or [code]null[/code] if it is omitted.</description></method><method name="has"><return type="bool" /><argument index="0" name="key" type="Variant" /><description>
 				Returns [code]true[/code] if the dictionary has a given key.
 				[b]Note:[/b] This is equivalent to using the [code]in[/code] operator as follows:
 				[codeblock]
@@ -90,8 +90,8 @@
 				if "godot" in {"godot": "engine"}:
 				    pass
 				[/codeblock]
-				This method (like the [code]in[/code] operator) will evaluate to [code]true[/code] as long as the key exists, even if the associated value is [code]null[/code].</description></method><method name="has_all"><return type="bool"></return><argument index="0" name="keys" type="Array"></argument><description>
-				Returns [code]true[/code] if the dictionary has all the keys in the given array.</description></method><method name="hash"><return type="int"></return><description>
+				This method (like the [code]in[/code] operator) will evaluate to [code]true[/code] as long as the key exists, even if the associated value is [code]null[/code].</description></method><method name="has_all"><return type="bool" /><argument index="0" name="keys" type="Array" /><description>
+				Returns [code]true[/code] if the dictionary has all the keys in the given array.</description></method><method name="hash"><return type="int" /><description>
 				Returns a hashed integer value representing the dictionary contents. This can be used to compare dictionaries by value:
 				[codeblock]
 				var dict1 = {0: 10}
@@ -99,7 +99,7 @@
 				# The line below prints `true`, whereas it would have printed `false` if both variables were compared directly.
 				print(dict1.hash() == dict2.hash())
 				[/codeblock]
-				[b]Note:[/b] Dictionaries with the same keys/values but in a different order will have a different hash.</description></method><method name="keys"><return type="Array"></return><description>
-				Returns the list of keys in the [Dictionary].</description></method><method name="size"><return type="int"></return><description>
-				Returns the number of keys in the dictionary.</description></method><method name="values"><return type="Array"></return><description>
+				[b]Note:[/b] Dictionaries with the same keys/values but in a different order will have a different hash.</description></method><method name="keys"><return type="Array" /><description>
+				Returns the list of keys in the [Dictionary].</description></method><method name="size"><return type="int" /><description>
+				Returns the number of keys in the dictionary.</description></method><method name="values"><return type="Array" /><description>
 				Returns the list of values in the [Dictionary].</description></method></methods><constants></constants></class>

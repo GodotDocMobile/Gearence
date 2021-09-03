@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?><class name="PrimitiveMesh" inherits="Mesh" version="3.3"><brief_description>
 		Base class for all primitive meshes. Handles applying a [Material] to a primitive mesh.</brief_description><description>
-		Base class for all primitive meshes. Handles applying a [Material] to a primitive mesh. Examples include [CapsuleMesh], [CubeMesh], [CylinderMesh], [PlaneMesh], [PrismMesh], [QuadMesh], and [SphereMesh].</description><tutorials></tutorials><methods><method name="get_mesh_arrays" qualifiers="const"><return type="Array"></return><description>
+		Base class for all primitive meshes. Handles applying a [Material] to a primitive mesh. Examples include [CapsuleMesh], [CubeMesh], [CylinderMesh], [PlaneMesh], [PrismMesh], [QuadMesh], and [SphereMesh].</description><tutorials></tutorials><methods><method name="get_mesh_arrays" qualifiers="const"><return type="Array" /><description>
 				Returns mesh arrays used to constitute surface of [Mesh]. The result can be passed to [method ArrayMesh.add_surface_from_arrays] to create a new surface. For example:
 				[codeblock]
 				var c := CylinderMesh.new()
