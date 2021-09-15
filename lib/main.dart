@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:godotclassreference/bloc/theme_bloc.dart';
+import 'package:provider/provider.dart';
 
 import 'bloc/tap_event_bloc.dart';
 import 'constants/stored_values.dart';
@@ -24,29 +26,70 @@ class _GCRAppState extends State<GCRApp> {
     super.dispose();
   }
 
+  Future<void> showThemeChangeLoading() {
+    print("showing theme change");
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return SimpleDialog(
+            title: Text('Loading'),
+            children: [
+              Center(
+                child: CircularProgressIndicator(),
+              ),
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<bool>(
       future: StoredValues().readValue(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
-          if (!StoredValues().themeChange.isListened()) {
-            StoredValues().themeChange.addListener(() {
-              setState(() {});
-            });
-          }
+          // if (!StoredValues().themeChange.isListened()) {
+          //   StoredValues().themeChange.addListener(() {
+          //     print("in main");
+          //
+          //     // Navigator.pop(context, true);
+          //     setState(() {});
+          //   });
+          // }
 
-          return MaterialApp(
-            //hide debug banner
-            debugShowCheckedModeBanner: false,
-            theme: lightTheme,
-            darkTheme: darkTheme,
-            themeMode: StoredValues().themeChange.currentTheme(),
-            home: ClassSelect(),
-            builder: (BuildContext context, Widget child) {
-              return child;
+          return ChangeNotifierProvider<ThemeChange>(
+            create: (context) {
+              return StoredValues().themeChange;
+            },
+            builder: (context, widget) {
+              return MaterialApp(
+                  //hide debug banner
+                  debugShowCheckedModeBanner: false,
+                  theme: lightTheme,
+                  darkTheme: darkTheme,
+                  themeMode: Provider.of<ThemeChange>(context).isDark
+                      ? ThemeMode.dark
+                      : ThemeMode.light,
+                  home: ClassSelect(),
+                  builder: (BuildContext context, Widget child) {
+                    return child;
+                  });
             },
           );
+
+          //   MaterialApp(
+          //   //hide debug banner
+          //   debugShowCheckedModeBanner: false,
+          //   theme: lightTheme,
+          //   darkTheme: darkTheme,
+          //   themeMode: Provider.of<ThemeChange>(context).isDark
+          //       ? ThemeMode.dark
+          //       : ThemeMode.light,
+          //   home: ClassSelect(),
+          //   builder: (BuildContext context, Widget child) {
+          //     return child;
+          //   },
+          // );
         } else {
           return Container(
             color: Colors.black,
