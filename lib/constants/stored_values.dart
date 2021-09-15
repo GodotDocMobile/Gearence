@@ -8,8 +8,9 @@ import '../bloc/theme_bloc.dart';
 
 class StoredValues {
   SharedPreferences prefs;
+
   // String docDate;
-  ThemeChange themeChange;
+  ThemeChange themeChange = ThemeChange();
   bool iconForNonNode;
 
   ConfigContent configContent;
@@ -34,10 +35,14 @@ class StoredValues {
   StoredValues._internal();
 
   Future<bool> readValue() async {
+    if (prefs != null) {
+      return true;
+    }
+
     prefs = await SharedPreferences.getInstance();
     var configString = await rootBundle.loadString('xmls/conf.json');
     configContent = ConfigContent.fromJson(jsonDecode(configString));
-    themeChange = ThemeChange(prefs.getBool('darkTheme') == true);
+    themeChange.isDark = prefs.getBool('darkTheme') == true;
     iconForNonNode = prefs.getBool('iconForNonNodes') == null
         ? true
         : prefs.getBool('iconForNonNodes');
@@ -62,9 +67,9 @@ class StoredValues {
         ? true
         : prefs.getBool('showNonNodes');
 
-    showVisualScriptNodes = prefs.getBool('showVisualScriptNodes') == null?
-        true:
-        prefs.getBool('showVisualScriptNodes');
+    showVisualScriptNodes = prefs.getBool('showVisualScriptNodes') == null
+        ? true
+        : prefs.getBool('showVisualScriptNodes');
     return true;
   }
 }

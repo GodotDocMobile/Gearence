@@ -21,9 +21,54 @@ class GCRDrawerState extends State<GCRDrawer> {
   String docDate;
   bool darkTheme;
 
+  OverlayState overlayState;
+  OverlayEntry overlayEntry;
+
+  Color overlayBackground;
+
   @override
   initState() {
     super.initState();
+    StoredValues().themeChange.addListener(() async {
+      if (overlayEntry != null) {
+        await Future.delayed(Duration(milliseconds: 500));
+        overlayEntry.remove();
+        overlayEntry = null;
+      }
+    });
+  }
+
+  void showLoading(BuildContext context, bool isDark) {
+    Color tmp =
+        isDark ? ThemeData.dark().cardColor : ThemeData.light().cardColor;
+    overlayBackground = Color.fromARGB(0x99, tmp.red, tmp.green, tmp.green);
+
+    overlayState = Overlay.of(context);
+    overlayEntry = OverlayEntry(builder: (context) {
+      return Container(
+        color: overlayBackground,
+        child: Center(
+          child: Container(
+            width: 150,
+            height: 150,
+            child: Card(
+              elevation: 10,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text(
+                    "Loading Theme",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  CircularProgressIndicator(strokeWidth: 5),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+    });
+    overlayState.insert(overlayEntry);
   }
 
   Future<bool> loadAll() async {
@@ -61,7 +106,7 @@ class GCRDrawerState extends State<GCRDrawer> {
                 padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                 child: ListTile(
                   title: Text("View Source"),
-                  subtitle: Text("Press F12"),
+                  subtitle: Text("You can create an issue!"),
                   onTap: () async {
                     const url =
                         'https://github.com/GodotDocMobile/godot_class_reference';
@@ -71,25 +116,6 @@ class GCRDrawerState extends State<GCRDrawer> {
                   },
                 ),
               )
-            ],
-          );
-        });
-  }
-
-  Future<void> showThemeChangeLoading() {
-    StoredValues().themeChange.addListener(() {
-      Navigator.pop(context, true);
-    });
-
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return SimpleDialog(
-            title: Text('Loading'),
-            children: [
-              Center(
-                child: CircularProgressIndicator(),
-              ),
             ],
           );
         });
@@ -151,11 +177,12 @@ class GCRDrawerState extends State<GCRDrawer> {
                   trailing: Switch(
                     value: darkTheme,
                     onChanged: (v) {
-                      showThemeChangeLoading();
+                      showLoading(context, v);
                       StoredValues().prefs.setBool('darkTheme', v);
                       setState(() {
-                        StoredValues().themeChange.switchTheme(v);
+                        darkTheme = v;
                       });
+                      StoredValues().themeChange.switchTheme(v);
                     },
                   ),
                 ),

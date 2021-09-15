@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ThemeChange with ChangeNotifier {
   bool isDark = false;
 
-  ThemeChange(this.isDark);
+  ThemeChange();
 
   bool isListened() {
     return this.hasListeners;
@@ -15,6 +15,7 @@ class ThemeChange with ChangeNotifier {
 
   void switchTheme(bool value) {
     isDark = value;
+    // print(this.isListened());
     notifyListeners();
   }
 
