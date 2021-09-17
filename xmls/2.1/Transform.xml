@@ -1,19 +1,19 @@
-<class name="Transform" category="Built-In Types"><brief_description>
-		3D Transformation.</brief_description><description>
-		Transform is used to store transformations, including translations. It consists of a Matrix3 "basis" and Vector3 "origin". Transform is used to represent transformations of any object in space. It is similar to a 4x3 matrix.</description><methods><method name="Transform"><return type="Transform"></return><argument index="0" name="x_axis" type="Vector3"></argument><argument index="1" name="y_axis" type="Vector3"></argument><argument index="2" name="z_axis" type="Vector3"></argument><argument index="3" name="origin" type="Vector3"></argument><description>
-				Construct the Transform from four Vector3. Each axis creates the basis.</description></method><method name="Transform"><return type="Transform"></return><argument index="0" name="basis" type="Matrix3"></argument><argument index="1" name="origin" type="Vector3"></argument><description>
-				Construct the Transform from a Matrix3 and Vector3.</description></method><method name="Transform"><return type="Transform"></return><argument index="0" name="from" type="Matrix32"></argument><description>
-				Construct the Transform from a Matrix32.</description></method><method name="Transform"><return type="Transform"></return><argument index="0" name="from" type="Quat"></argument><description>
-				Construct the Transform from a Quat. The origin will be Vector3(0, 0, 0)</description></method><method name="Transform"><return type="Transform"></return><argument index="0" name="from" type="Matrix3"></argument><description>
-				Construct the Transform from a Matrix3. The origin will be Vector3(0, 0, 0)</description></method><method name="affine_inverse"><return type="Transform"></return><description>
-				Returns the inverse of the transfrom, even if the transform has scale or the axis vectors are not orthogonal.</description></method><method name="inverse"><return type="Transform"></return><description>
-				Returns the inverse of the transform.</description></method><method name="looking_at"><return type="Transform"></return><argument index="0" name="target" type="Vector3"></argument><argument index="1" name="up" type="Vector3"></argument><description>
-				Rotate the transform around the up vector to face the target.</description></method><method name="orthonormalized"><return type="Transform"></return><description>
-				Returns a transfrom with the basis orthogonal (90 degrees), and normalized axis vectors.</description></method><method name="rotated"><return type="Transform"></return><argument index="0" name="axis" type="Vector3"></argument><argument index="1" name="phi" type="float"></argument><description>
-				Rotate the transform locally.</description></method><method name="scaled"><return type="Transform"></return><argument index="0" name="scale" type="Vector3"></argument><description>
-				Scale the transform locally.</description></method><method name="translated"><return type="Transform"></return><argument index="0" name="ofs" type="Vector3"></argument><description>
-				Translate the transform locally.</description></method><method name="xform"><return type="var"></return><argument index="0" name="v" type="var"></argument><description>
-				Transforms vector "v" by this transform.</description></method><method name="xform_inv"><return type="var"></return><argument index="0" name="v" type="var"></argument><description>
-				Inverse-transforms vector "v" by this transform.</description></method></methods><members><member name="basis" type="Matrix3">
-			The basis contains 3 [Vector3]. X axis, Y axis, and Z axis.</member><member name="origin" type="Vector3">
-			The origin of the transform. Which is the translation offset.</member></members><constants></constants></class>
+<class name="Transform" category="Built-In Types"><brief_description>3D Transformation.
+</brief_description><description>Transform is used to store transformations, including translations. It consists of a Matrix3 "basis" and Vector3 "origin". Transform is used to represent transformations of any object in space. It is similar to a 4x3 matrix.
+</description><methods><method name="Transform"><return type="Transform"></return><argument index="0" name="x_axis" type="Vector3"></argument><argument index="1" name="y_axis" type="Vector3"></argument><argument index="2" name="z_axis" type="Vector3"></argument><argument index="3" name="origin" type="Vector3"></argument><description>Construct the Transform from four Vector3. Each axis creates the basis.
+</description></method><method name="Transform"><return type="Transform"></return><argument index="0" name="basis" type="Matrix3"></argument><argument index="1" name="origin" type="Vector3"></argument><description>Construct the Transform from a Matrix3 and Vector3.
+</description></method><method name="Transform"><return type="Transform"></return><argument index="0" name="from" type="Matrix32"></argument><description>Construct the Transform from a Matrix32.
+</description></method><method name="Transform"><return type="Transform"></return><argument index="0" name="from" type="Quat"></argument><description>Construct the Transform from a Quat. The origin will be Vector3(0, 0, 0)
+</description></method><method name="Transform"><return type="Transform"></return><argument index="0" name="from" type="Matrix3"></argument><description>Construct the Transform from a Matrix3. The origin will be Vector3(0, 0, 0)
+</description></method><method name="affine_inverse"><return type="Transform"></return><description>Returns the inverse of the transfrom, even if the transform has scale or the axis vectors are not orthogonal.
+</description></method><method name="inverse"><return type="Transform"></return><description>Returns the inverse of the transform.
+</description></method><method name="looking_at"><return type="Transform"></return><argument index="0" name="target" type="Vector3"></argument><argument index="1" name="up" type="Vector3"></argument><description>Rotate the transform around the up vector to face the target.
+</description></method><method name="orthonormalized"><return type="Transform"></return><description>Returns a transfrom with the basis orthogonal (90 degrees), and normalized axis vectors.
+</description></method><method name="rotated"><return type="Transform"></return><argument index="0" name="axis" type="Vector3"></argument><argument index="1" name="phi" type="float"></argument><description>Rotate the transform locally.
+</description></method><method name="scaled"><return type="Transform"></return><argument index="0" name="scale" type="Vector3"></argument><description>Scale the transform locally.
+</description></method><method name="translated"><return type="Transform"></return><argument index="0" name="ofs" type="Vector3"></argument><description>Translate the transform locally.
+</description></method><method name="xform"><return type="var"></return><argument index="0" name="v" type="var"></argument><description>Transforms vector "v" by this transform.
+</description></method><method name="xform_inv"><return type="var"></return><argument index="0" name="v" type="var"></argument><description>Inverse-transforms vector "v" by this transform.
+</description></method></methods><members><member name="basis" type="Matrix3">The basis contains 3 [Vector3]. X axis, Y axis, and Z axis.
+</member><member name="origin" type="Vector3">The origin of the transform. Which is the translation offset.
+</member></members><constants></constants></class>

@@ -1,8 +1,8 @@
-<class name="SpinBox" inherits="Range" category="Core"><brief_description>
-	Numerical input text field.</brief_description><description>
-	SpinBox is a numerical input text field. It allows entering integers and floats.</description><methods><method name="get_line_edit"><return type="Object"></return><description></description></method><method name="get_prefix" qualifiers="const"><return type="String"></return><description></description></method><method name="get_suffix" qualifiers="const"><return type="String"></return><description>
-			Return the specific suffix.</description></method><method name="is_editable" qualifiers="const"><return type="bool"></return><description>
-			Return if the spinbox is editable.</description></method><method name="set_editable"><argument index="0" name="editable" type="bool"></argument><description>
-			Set whether the spinbox is editable.</description></method><method name="set_prefix"><argument index="0" name="prefix" type="String"></argument><description>
-			Set a prefix.</description></method><method name="set_suffix"><argument index="0" name="suffix" type="String"></argument><description>
-			Set a specific suffix.</description></method></methods><constants></constants><theme_items><theme_item name="updown" type="Texture"></theme_item></theme_items></class>
+<class name="SpinBox" inherits="Range" category="Core"><brief_description>Numerical input text field.
+</brief_description><description>SpinBox is a numerical input text field. It allows entering integers and floats.
+</description><methods><method name="get_line_edit"><return type="Object"></return><description></description></method><method name="get_prefix" qualifiers="const"><return type="String"></return><description></description></method><method name="get_suffix" qualifiers="const"><return type="String"></return><description>Return the specific suffix.
+</description></method><method name="is_editable" qualifiers="const"><return type="bool"></return><description>Return if the spinbox is editable.
+</description></method><method name="set_editable"><argument index="0" name="editable" type="bool"></argument><description>Set whether the spinbox is editable.
+</description></method><method name="set_prefix"><argument index="0" name="prefix" type="String"></argument><description>Set a prefix.
+</description></method><method name="set_suffix"><argument index="0" name="suffix" type="String"></argument><description>Set a specific suffix.
+</description></method></methods><constants></constants><theme_items><theme_item name="updown" type="Texture"></theme_item></theme_items></class>

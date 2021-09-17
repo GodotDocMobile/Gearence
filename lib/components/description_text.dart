@@ -47,6 +47,7 @@ class DescriptionText extends StatelessWidget {
       if (brkPos > pos) {
         String text = content.substring(pos, brkPos);
         if (codeTag) {
+          // in case there are a '[' in code
           while (!content.substring(brkPos).startsWith('[/code')) {
             brkPos = content.indexOf('[', brkPos + 1);
           }
@@ -64,7 +65,11 @@ class DescriptionText extends StatelessWidget {
             ),
           ));
         } else {
-          _toRtn.add(TextSpan(text: text, style: _toApplyStyle));
+          if (text.characters.last == '\n') {
+            text = text.substring(0, text.length - 1);
+          }
+          _toRtn.add(TextSpan(
+              text: text.replaceAll('\n', '\n\n'), style: _toApplyStyle));
         }
         _toApplyStyle = DefaultTextStyle.of(context).style;
       }

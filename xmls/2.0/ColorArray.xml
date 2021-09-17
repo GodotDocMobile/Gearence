@@ -1,8 +1,8 @@
-<class name="ColorArray" category="Built-In Types"><brief_description>
-	Array of Colors</brief_description><description>
-	Array of Color, can only contains colors. Optimized for memory usage, can't fragment the memory.</description><methods><method name="ColorArray"><return type="ColorArray"></return><argument index="0" name="from" type="Array"></argument><description>
-			Create from a generic array.</description></method><method name="push_back"><argument index="0" name="color" type="Color"></argument><description>
-			Append a value to the array.</description></method><method name="resize"><argument index="0" name="idx" type="int"></argument><description>
-			Set the size of the [ColorArray]. If larger than the current size it will reserve some space beforehand, and if it is smaller it will cut off the array.</description></method><method name="set"><argument index="0" name="idx" type="int"></argument><argument index="1" name="color" type="Color"></argument><description>
-			Change the [Color] at the given index.</description></method><method name="size"><return type="int"></return><description>
-			Return the array size.</description></method></methods><constants></constants></class>
+<class name="ColorArray" category="Built-In Types"><brief_description>Array of Colors
+</brief_description><description>Array of Color, can only contains colors. Optimized for memory usage, can't fragment the memory.
+</description><methods><method name="ColorArray"><return type="ColorArray"></return><argument index="0" name="from" type="Array"></argument><description>Create from a generic array.
+</description></method><method name="push_back"><argument index="0" name="color" type="Color"></argument><description>Append a value to the array.
+</description></method><method name="resize"><argument index="0" name="idx" type="int"></argument><description>Set the size of the [ColorArray]. If larger than the current size it will reserve some space beforehand, and if it is smaller it will cut off the array.
+</description></method><method name="set"><argument index="0" name="idx" type="int"></argument><argument index="1" name="color" type="Color"></argument><description>Change the [Color] at the given index.
+</description></method><method name="size"><return type="int"></return><description>Return the array size.
+</description></method></methods><constants></constants></class>

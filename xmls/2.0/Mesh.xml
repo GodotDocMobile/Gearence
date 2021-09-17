@@ -1,41 +1,41 @@
-<class name="Mesh" inherits="Resource" category="Core"><brief_description>
-	A [Resource] that contains vertex-array based geometry.</brief_description><description>
-	Mesh is a type of [Resource] that contains vertex-array based geometry, divided in [i]surfaces[/i]. Each surface contains a completely separate array and a material used to draw it. Design wise, a mesh with multiple surfaces is preferred to a single surface, because objects created in 3D editing software commonly contain multiple materials.</description><methods><method name="add_morph_target"><argument index="0" name="name" type="String"></argument><description></description></method><method name="add_surface"><argument index="0" name="primitive" type="int"></argument><argument index="1" name="arrays" type="Array"></argument><argument index="2" name="morph_arrays" type="Array" default="Array()"></argument><argument index="3" name="alphasort" type="bool" default="false"></argument><description>
-			Create a new surface ([method get_surface_count] that will become surf_idx for this.
-			Surfaces are created to be rendered using a "primitive", which may be PRIMITIVE_POINTS, PRIMITIVE_LINES, PRIMITIVE_LINE_STRIP, PRIMITIVE_LINE_LOOP, PRIMITIVE_TRIANGLES, PRIMITIVE_TRIANGLE_STRIP, PRIMITIVE_TRIANGLE_FAN. (As a note, when using indices, it is recommended to only use just points, lines or triangles).
-			The format of a surface determines which arrays it will allocate and hold, so "format" is a combination of ARRAY_FORMAT_* mask constants ORed together. ARRAY_FORMAT_VERTEX must be always present. "array_len" determines the amount of vertices in the array (not primitives!). if ARRAY_FORMAT_INDEX is in the format mask, then it means that an index array will be allocated and "index_array_len" must be passed.</description></method><method name="center_geometry"><description></description></method><method name="clear_morph_targets"><description></description></method><method name="get_custom_aabb" qualifiers="const"><return type="AABB"></return><description></description></method><method name="get_morph_target_count" qualifiers="const"><return type="int"></return><description></description></method><method name="get_morph_target_mode" qualifiers="const"><return type="int"></return><description></description></method><method name="get_morph_target_name" qualifiers="const"><return type="String"></return><argument index="0" name="index" type="int"></argument><description></description></method><method name="get_surface_count" qualifiers="const"><return type="int"></return><description>
-			Return the amount of surfaces that the [Mesh] holds.</description></method><method name="regen_normalmaps"><description></description></method><method name="set_custom_aabb"><argument index="0" name="aabb" type="AABB"></argument><description></description></method><method name="set_morph_target_mode"><argument index="0" name="mode" type="int"></argument><description></description></method><method name="surface_get_array_index_len" qualifiers="const"><return type="int"></return><argument index="0" name="surf_idx" type="int"></argument><description>
-			Return the length in indices of the index array in the requested surface (see [method add_surface]).</description></method><method name="surface_get_array_len" qualifiers="const"><return type="int"></return><argument index="0" name="surf_idx" type="int"></argument><description>
-			Return the length in vertices of the vertex array in the requested surface (see [method add_surface]).</description></method><method name="surface_get_format" qualifiers="const"><return type="int"></return><argument index="0" name="surf_idx" type="int"></argument><description>
-			Return the format mask of the requested surface (see [method add_surface]).</description></method><method name="surface_get_material" qualifiers="const"><return type="Material"></return><argument index="0" name="surf_idx" type="int"></argument><description>
-			Return a [Material] in a given surface. Surface is rendered using this material.</description></method><method name="surface_get_name" qualifiers="const"><return type="String"></return><argument index="0" name="surf_idx" type="int"></argument><description></description></method><method name="surface_get_primitive_type" qualifiers="const"><return type="int"></return><argument index="0" name="surf_idx" type="int"></argument><description>
-			Return the primitive type of the requested surface (see [method add_surface]).</description></method><method name="surface_remove"><argument index="0" name="surf_idx" type="int"></argument><description>
-			Remove a surface at position surf_idx, shifting greater surfaces one surf_idx slot down.</description></method><method name="surface_set_material"><argument index="0" name="surf_idx" type="int"></argument><argument index="1" name="material" type="Material"></argument><description>
-			Set a [Material] for a given surface. Surface will be rendered using this material.</description></method><method name="surface_set_name"><argument index="0" name="surf_idx" type="int"></argument><argument index="1" name="name" type="String"></argument><description></description></method></methods><constants><constant name="NO_INDEX_ARRAY" value="-1">
-			Default value used for index_array_len when no indices are present.</constant><constant name="ARRAY_WEIGHTS_SIZE" value="4">
-			Amount of weights/bone indices per vertex (always 4).</constant><constant name="ARRAY_VERTEX" value="0">
-			Vertex array (array of [Vector3] vertices).</constant><constant name="ARRAY_NORMAL" value="1">
-			Normal array (array of [Vector3] normals).</constant><constant name="ARRAY_TANGENT" value="2">
-			Tangent array, array of groups of 4 floats. first 3 floats determine the tangent, and the last the binormal direction as -1 or 1.</constant><constant name="ARRAY_COLOR" value="3">
-			Vertex array (array of [Color] colors).</constant><constant name="ARRAY_TEX_UV" value="4">
-			UV array (array of [Vector3] UVs or float array of groups of 2 floats (u,v)).</constant><constant name="ARRAY_TEX_UV2" value="5">
-			Second UV array (array of [Vector3] UVs or float array of groups of 2 floats (u,v)).</constant><constant name="ARRAY_BONES" value="6">
-			Array of bone indices, as a float array. Each element in groups of 4 floats.</constant><constant name="ARRAY_WEIGHTS" value="7">
-			Array of bone weights, as a float array. Each element in groups of 4 floats.</constant><constant name="ARRAY_INDEX" value="8">
-			Array of integers, used as indices referencing vertices. No index can be beyond the vertex array size.</constant><constant name="ARRAY_FORMAT_VERTEX" value="1">
-			Array format will include vertices (mandatory).</constant><constant name="ARRAY_FORMAT_NORMAL" value="2">
-			Array format will include normals</constant><constant name="ARRAY_FORMAT_TANGENT" value="4">
-			Array format will include tangents</constant><constant name="ARRAY_FORMAT_COLOR" value="8">
-			Array format will include a color array.</constant><constant name="ARRAY_FORMAT_TEX_UV" value="16">
-			Array format will include UVs.</constant><constant name="ARRAY_FORMAT_TEX_UV2" value="32">
-			Array format will include another set of UVs.</constant><constant name="ARRAY_FORMAT_BONES" value="64">
-			Array format will include bone indices.</constant><constant name="ARRAY_FORMAT_WEIGHTS" value="128">
-			Array format will include bone weights.</constant><constant name="ARRAY_FORMAT_INDEX" value="256">
-			Index array will be used.</constant><constant name="PRIMITIVE_POINTS" value="0">
-			Render array as points (one vertex equals one point).</constant><constant name="PRIMITIVE_LINES" value="1">
-			Render array as lines (every two vertices a line is created).</constant><constant name="PRIMITIVE_LINE_STRIP" value="2">
-			Render array as line strip.</constant><constant name="PRIMITIVE_LINE_LOOP" value="3">
-			Render array as line loop (like line strip, but closed).</constant><constant name="PRIMITIVE_TRIANGLES" value="4">
-			Render array as triangles (every three vertices a triangle is created).</constant><constant name="PRIMITIVE_TRIANGLE_STRIP" value="5">
-			Render array as triangle strips.</constant><constant name="PRIMITIVE_TRIANGLE_FAN" value="6">
-			Render array as triangle fans.</constant></constants></class>
+<class name="Mesh" inherits="Resource" category="Core"><brief_description>A [Resource] that contains vertex-array based geometry.
+</brief_description><description>Mesh is a type of [Resource] that contains vertex-array based geometry, divided in [i]surfaces[/i]. Each surface contains a completely separate array and a material used to draw it. Design wise, a mesh with multiple surfaces is preferred to a single surface, because objects created in 3D editing software commonly contain multiple materials.
+</description><methods><method name="add_morph_target"><argument index="0" name="name" type="String"></argument><description></description></method><method name="add_surface"><argument index="0" name="primitive" type="int"></argument><argument index="1" name="arrays" type="Array"></argument><argument index="2" name="morph_arrays" type="Array" default="Array()"></argument><argument index="3" name="alphasort" type="bool" default="false"></argument><description>Create a new surface ([method get_surface_count] that will become surf_idx for this.
+Surfaces are created to be rendered using a "primitive", which may be PRIMITIVE_POINTS, PRIMITIVE_LINES, PRIMITIVE_LINE_STRIP, PRIMITIVE_LINE_LOOP, PRIMITIVE_TRIANGLES, PRIMITIVE_TRIANGLE_STRIP, PRIMITIVE_TRIANGLE_FAN. (As a note, when using indices, it is recommended to only use just points, lines or triangles).
+The format of a surface determines which arrays it will allocate and hold, so "format" is a combination of ARRAY_FORMAT_* mask constants ORed together. ARRAY_FORMAT_VERTEX must be always present. "array_len" determines the amount of vertices in the array (not primitives!). if ARRAY_FORMAT_INDEX is in the format mask, then it means that an index array will be allocated and "index_array_len" must be passed.
+</description></method><method name="center_geometry"><description></description></method><method name="clear_morph_targets"><description></description></method><method name="get_custom_aabb" qualifiers="const"><return type="AABB"></return><description></description></method><method name="get_morph_target_count" qualifiers="const"><return type="int"></return><description></description></method><method name="get_morph_target_mode" qualifiers="const"><return type="int"></return><description></description></method><method name="get_morph_target_name" qualifiers="const"><return type="String"></return><argument index="0" name="index" type="int"></argument><description></description></method><method name="get_surface_count" qualifiers="const"><return type="int"></return><description>Return the amount of surfaces that the [Mesh] holds.
+</description></method><method name="regen_normalmaps"><description></description></method><method name="set_custom_aabb"><argument index="0" name="aabb" type="AABB"></argument><description></description></method><method name="set_morph_target_mode"><argument index="0" name="mode" type="int"></argument><description></description></method><method name="surface_get_array_index_len" qualifiers="const"><return type="int"></return><argument index="0" name="surf_idx" type="int"></argument><description>Return the length in indices of the index array in the requested surface (see [method add_surface]).
+</description></method><method name="surface_get_array_len" qualifiers="const"><return type="int"></return><argument index="0" name="surf_idx" type="int"></argument><description>Return the length in vertices of the vertex array in the requested surface (see [method add_surface]).
+</description></method><method name="surface_get_format" qualifiers="const"><return type="int"></return><argument index="0" name="surf_idx" type="int"></argument><description>Return the format mask of the requested surface (see [method add_surface]).
+</description></method><method name="surface_get_material" qualifiers="const"><return type="Material"></return><argument index="0" name="surf_idx" type="int"></argument><description>Return a [Material] in a given surface. Surface is rendered using this material.
+</description></method><method name="surface_get_name" qualifiers="const"><return type="String"></return><argument index="0" name="surf_idx" type="int"></argument><description></description></method><method name="surface_get_primitive_type" qualifiers="const"><return type="int"></return><argument index="0" name="surf_idx" type="int"></argument><description>Return the primitive type of the requested surface (see [method add_surface]).
+</description></method><method name="surface_remove"><argument index="0" name="surf_idx" type="int"></argument><description>Remove a surface at position surf_idx, shifting greater surfaces one surf_idx slot down.
+</description></method><method name="surface_set_material"><argument index="0" name="surf_idx" type="int"></argument><argument index="1" name="material" type="Material"></argument><description>Set a [Material] for a given surface. Surface will be rendered using this material.
+</description></method><method name="surface_set_name"><argument index="0" name="surf_idx" type="int"></argument><argument index="1" name="name" type="String"></argument><description></description></method></methods><constants><constant name="NO_INDEX_ARRAY" value="-1">Default value used for index_array_len when no indices are present.
+</constant><constant name="ARRAY_WEIGHTS_SIZE" value="4">Amount of weights/bone indices per vertex (always 4).
+</constant><constant name="ARRAY_VERTEX" value="0">Vertex array (array of [Vector3] vertices).
+</constant><constant name="ARRAY_NORMAL" value="1">Normal array (array of [Vector3] normals).
+</constant><constant name="ARRAY_TANGENT" value="2">Tangent array, array of groups of 4 floats. first 3 floats determine the tangent, and the last the binormal direction as -1 or 1.
+</constant><constant name="ARRAY_COLOR" value="3">Vertex array (array of [Color] colors).
+</constant><constant name="ARRAY_TEX_UV" value="4">UV array (array of [Vector3] UVs or float array of groups of 2 floats (u,v)).
+</constant><constant name="ARRAY_TEX_UV2" value="5">Second UV array (array of [Vector3] UVs or float array of groups of 2 floats (u,v)).
+</constant><constant name="ARRAY_BONES" value="6">Array of bone indices, as a float array. Each element in groups of 4 floats.
+</constant><constant name="ARRAY_WEIGHTS" value="7">Array of bone weights, as a float array. Each element in groups of 4 floats.
+</constant><constant name="ARRAY_INDEX" value="8">Array of integers, used as indices referencing vertices. No index can be beyond the vertex array size.
+</constant><constant name="ARRAY_FORMAT_VERTEX" value="1">Array format will include vertices (mandatory).
+</constant><constant name="ARRAY_FORMAT_NORMAL" value="2">Array format will include normals
+</constant><constant name="ARRAY_FORMAT_TANGENT" value="4">Array format will include tangents
+</constant><constant name="ARRAY_FORMAT_COLOR" value="8">Array format will include a color array.
+</constant><constant name="ARRAY_FORMAT_TEX_UV" value="16">Array format will include UVs.
+</constant><constant name="ARRAY_FORMAT_TEX_UV2" value="32">Array format will include another set of UVs.
+</constant><constant name="ARRAY_FORMAT_BONES" value="64">Array format will include bone indices.
+</constant><constant name="ARRAY_FORMAT_WEIGHTS" value="128">Array format will include bone weights.
+</constant><constant name="ARRAY_FORMAT_INDEX" value="256">Index array will be used.
+</constant><constant name="PRIMITIVE_POINTS" value="0">Render array as points (one vertex equals one point).
+</constant><constant name="PRIMITIVE_LINES" value="1">Render array as lines (every two vertices a line is created).
+</constant><constant name="PRIMITIVE_LINE_STRIP" value="2">Render array as line strip.
+</constant><constant name="PRIMITIVE_LINE_LOOP" value="3">Render array as line loop (like line strip, but closed).
+</constant><constant name="PRIMITIVE_TRIANGLES" value="4">Render array as triangles (every three vertices a triangle is created).
+</constant><constant name="PRIMITIVE_TRIANGLE_STRIP" value="5">Render array as triangle strips.
+</constant><constant name="PRIMITIVE_TRIANGLE_FAN" value="6">Render array as triangle fans.
+</constant></constants></class>

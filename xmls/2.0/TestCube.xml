@@ -1,3 +1,3 @@
-<class name="TestCube" inherits="GeometryInstance" category="Core"><brief_description>
-	A simple cube used for testing in 3D.</brief_description><description>
-	The TestCube is a simple 2x2x2 cube with a basic texture. It can be used as a placeholder, to verify how the lighting looks, to test shaders, or any other task you may need a textured model to test with.</description><methods></methods><constants></constants></class>
+<class name="TestCube" inherits="GeometryInstance" category="Core"><brief_description>A simple cube used for testing in 3D.
+</brief_description><description>The TestCube is a simple 2x2x2 cube with a basic texture. It can be used as a placeholder, to verify how the lighting looks, to test shaders, or any other task you may need a textured model to test with.
+</description><methods></methods><constants></constants></class>

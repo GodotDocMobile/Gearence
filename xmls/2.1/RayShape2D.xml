@@ -1,5 +1,5 @@
-<class name="RayShape2D" inherits="Shape2D" category="Core"><brief_description>
-		Ray 2D shape resource for physics.</brief_description><description>
-		Ray 2D shape resource for physics. A ray is not really a collision body, instead it tries to separate itself from whatever is touching its far endpoint. It's often useful for characters.</description><methods><method name="get_length" qualifiers="const"><return type="float"></return><description>
-				Return the length of the ray.</description></method><method name="set_length"><argument index="0" name="length" type="float"></argument><description>
-				Set the length of the ray.</description></method></methods><constants></constants></class>
+<class name="RayShape2D" inherits="Shape2D" category="Core"><brief_description>Ray 2D shape resource for physics.
+</brief_description><description>Ray 2D shape resource for physics. A ray is not really a collision body, instead it tries to separate itself from whatever is touching its far endpoint. It's often useful for characters.
+</description><methods><method name="get_length" qualifiers="const"><return type="float"></return><description>Return the length of the ray.
+</description></method><method name="set_length"><argument index="0" name="length" type="float"></argument><description>Set the length of the ray.
+</description></method></methods><constants></constants></class>

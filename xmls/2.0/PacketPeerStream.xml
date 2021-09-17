@@ -1,4 +1,4 @@
-<class name="PacketPeerStream" inherits="PacketPeer" category="Core"><brief_description>
-	Wrapper to use a PacketPeer over a StreamPeer.</brief_description><description>
-	PacketStreamPeer provides a wrapper for working using packets over a stream. This allows for using packet based code with StreamPeers. PacketPeerStream implements a custom protocol over the StreamPeer, so the user should not read or write to the wrapped StreamPeer directly.</description><methods><method name="set_stream_peer"><argument index="0" name="peer" type="StreamPeer"></argument><description>
-			Set the StreamPeer object to be wrapped</description></method></methods><constants></constants></class>
+<class name="PacketPeerStream" inherits="PacketPeer" category="Core"><brief_description>Wrapper to use a PacketPeer over a StreamPeer.
+</brief_description><description>PacketStreamPeer provides a wrapper for working using packets over a stream. This allows for using packet based code with StreamPeers. PacketPeerStream implements a custom protocol over the StreamPeer, so the user should not read or write to the wrapped StreamPeer directly.
+</description><methods><method name="set_stream_peer"><argument index="0" name="peer" type="StreamPeer"></argument><description>Set the StreamPeer object to be wrapped
+</description></method></methods><constants></constants></class>

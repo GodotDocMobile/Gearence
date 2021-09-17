@@ -1,8 +1,8 @@
-<class name="CollisionShape2D" inherits="Node2D" category="Core"><brief_description>
-		Editor-only class for easy editing of shapes.</brief_description><description>
-		Editor-only class. This is not present when running the game. It's used in the editor to properly edit and position collision shapes in [CollisionObject2D]. This is not accessible from regular code.</description><methods><method name="get_collision_object_shape_index" qualifiers="const"><return type="int"></return><description>
-				Return the index of this shape inside its container [CollisionObject2D]. This can be used to directly access the underlying [Shape2D].</description></method><method name="get_shape" qualifiers="const"><return type="Object"></return><description>
-				Return this shape's [Shape2D].</description></method><method name="is_trigger" qualifiers="const"><return type="bool"></return><description>
-				Return whether this shape is a trigger.</description></method><method name="set_shape"><argument index="0" name="shape" type="Object"></argument><description>
-				Set this shape's [Shape2D]. This will not appear as a node, but can be directly edited as a property.</description></method><method name="set_trigger"><argument index="0" name="enable" type="bool"></argument><description>
-				Set whether this shape is a trigger. A trigger shape detects collisions, but is otherwise unaffected by physics (i.e. will not block movement of colliding objects).</description></method></methods><constants></constants></class>
+<class name="CollisionShape2D" inherits="Node2D" category="Core"><brief_description>Editor-only class for easy editing of shapes.
+</brief_description><description>Editor-only class. This is not present when running the game. It's used in the editor to properly edit and position collision shapes in [CollisionObject2D]. This is not accessible from regular code.
+</description><methods><method name="get_collision_object_shape_index" qualifiers="const"><return type="int"></return><description>Return the index of this shape inside its container [CollisionObject2D]. This can be used to directly access the underlying [Shape2D].
+</description></method><method name="get_shape" qualifiers="const"><return type="Object"></return><description>Return this shape's [Shape2D].
+</description></method><method name="is_trigger" qualifiers="const"><return type="bool"></return><description>Return whether this shape is a trigger.
+</description></method><method name="set_shape"><argument index="0" name="shape" type="Object"></argument><description>Set this shape's [Shape2D]. This will not appear as a node, but can be directly edited as a property.
+</description></method><method name="set_trigger"><argument index="0" name="enable" type="bool"></argument><description>Set whether this shape is a trigger. A trigger shape detects collisions, but is otherwise unaffected by physics (i.e. will not block movement of colliding objects).
+</description></method></methods><constants></constants></class>

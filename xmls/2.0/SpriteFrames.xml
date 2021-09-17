@@ -1,8 +1,8 @@
-<class name="SpriteFrames" inherits="Resource" category="Core"><brief_description>
-	Sprite frame library for AnimatedSprite.</brief_description><description>
-	Sprite frame library for [AnimatedSprite].</description><methods><method name="add_frame"><argument index="0" name="frame" type="Object"></argument><argument index="1" name="atpos" type="int" default="-1"></argument><description>
-			Add a frame (texture).</description></method><method name="clear"><description>
-			Clear the frames.</description></method><method name="get_frame" qualifiers="const"><return type="Object"></return><argument index="0" name="idx" type="int"></argument><description>
-			Return a texture (frame).</description></method><method name="get_frame_count" qualifiers="const"><return type="int"></return><description>
-			Return the amount of frames.</description></method><method name="remove_frame"><argument index="0" name="idx" type="int"></argument><description>
-			Remove a frame</description></method><method name="set_frame"><argument index="0" name="idx" type="int"></argument><argument index="1" name="txt" type="Object"></argument><description></description></method></methods><constants></constants></class>
+<class name="SpriteFrames" inherits="Resource" category="Core"><brief_description>Sprite frame library for AnimatedSprite.
+</brief_description><description>Sprite frame library for [AnimatedSprite].
+</description><methods><method name="add_frame"><argument index="0" name="frame" type="Object"></argument><argument index="1" name="atpos" type="int" default="-1"></argument><description>Add a frame (texture).
+</description></method><method name="clear"><description>Clear the frames.
+</description></method><method name="get_frame" qualifiers="const"><return type="Object"></return><argument index="0" name="idx" type="int"></argument><description>Return a texture (frame).
+</description></method><method name="get_frame_count" qualifiers="const"><return type="int"></return><description>Return the amount of frames.
+</description></method><method name="remove_frame"><argument index="0" name="idx" type="int"></argument><description>Remove a frame
+</description></method><method name="set_frame"><argument index="0" name="idx" type="int"></argument><argument index="1" name="txt" type="Object"></argument><description></description></method></methods><constants></constants></class>

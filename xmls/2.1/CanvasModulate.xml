@@ -1,5 +1,5 @@
-<class name="CanvasModulate" inherits="Node2D" category="Core"><brief_description>
-		Tint the entire canvas</brief_description><description>
-		CanvasModulate tints the canvas elements using its asigned color</description><methods><method name="get_color" qualifiers="const"><return type="Color"></return><description>
-				Gets the canvas tint color</description></method><method name="set_color"><argument index="0" name="color" type="Color"></argument><description>
-				Sets the canvas tint color</description></method></methods><constants></constants></class>
+<class name="CanvasModulate" inherits="Node2D" category="Core"><brief_description>Tint the entire canvas
+</brief_description><description>CanvasModulate tints the canvas elements using its asigned color
+</description><methods><method name="get_color" qualifiers="const"><return type="Color"></return><description>Gets the canvas tint color
+</description></method><method name="set_color"><argument index="0" name="color" type="Color"></argument><description>Sets the canvas tint color
+</description></method></methods><constants></constants></class>

@@ -1,5 +1,5 @@
-<class name="Path2D" inherits="Node2D" category="Core"><brief_description>
-	Container for a [Curve2D].</brief_description><description>
-	This class is a container/Node-ification of a [Curve2D], so it can have [Node2D] properties and [Node] info.</description><methods><method name="get_curve" qualifiers="const"><return type="Curve2D"></return><description>
-			Returns the [Curve2D] contained.</description></method><method name="set_curve"><argument index="0" name="curve" type="Curve2D"></argument><description>
-			Sets the [Curve2D].</description></method></methods><constants></constants></class>
+<class name="Path2D" inherits="Node2D" category="Core"><brief_description>Container for a [Curve2D].
+</brief_description><description>This class is a container/Node-ification of a [Curve2D], so it can have [Node2D] properties and [Node] info.
+</description><methods><method name="get_curve" qualifiers="const"><return type="Curve2D"></return><description>Returns the [Curve2D] contained.
+</description></method><method name="set_curve"><argument index="0" name="curve" type="Curve2D"></argument><description>Sets the [Curve2D].
+</description></method></methods><constants></constants></class>
