@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+from typing import ContextManager
 from git import Repo
 import xml.etree.ElementTree as ET
 from os.path import isfile, join, exists
@@ -87,9 +88,13 @@ def _copy_and_trim(src_path, dest_path):
     _f.close()
 
     _f = open(dest_path, 'w')
-    _f.write(re.sub('\n[\t]*<', '<', re.sub('>\n[\t]*<', '><', _content)))
+    _f.write(_remove_line_breaks(_content))
     _f.close()
     pass
+
+
+def _remove_line_breaks(str):
+    return re.sub('>\n', '>', re.sub('\n[\t]*', '\n', re.sub('>\n[\t]*<', '><', str)))
 
 
 def find_child_classes(class_list, name):
@@ -134,8 +139,7 @@ def single_class_files(branch_name):
         print("[{}] dumping {}".format(branch_name, n.attrib["name"]))
         # print(ET.tostring(n,encoding="unicode"))
         f = open(join(_folder_path, n.attrib["name"]+".xml"), "w")
-        f.write(re.sub('\n[\t]*<', '<', re.sub('>\n[\t]*<',
-                                               '><', ET.tostring(n, encoding="unicode")[0:-1])))
+        f.write(_remove_line_breaks(ET.tostring(n, encoding="unicode")[0:-1]))
         # print("done dumping")
         _files.append(n.attrib["name"]+".xml")
         _class = ClassNode.parse_element(n)
