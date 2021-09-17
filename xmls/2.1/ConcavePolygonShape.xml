@@ -1,5 +1,5 @@
-<class name="ConcavePolygonShape" inherits="Shape" category="Core"><brief_description>
-		Concave polygon shape.</brief_description><description>
-		Concave polygon shape resource, which can be set into a [PhysicsBody] or area. This shape is created by feeding a list of triangles.</description><methods><method name="get_faces" qualifiers="const"><return type="Vector3Array"></return><description>
-				Return the faces (an array of triangles).</description></method><method name="set_faces"><argument index="0" name="faces" type="Vector3Array"></argument><description>
-				Set the faces (an array of triangles).</description></method></methods><constants></constants></class>
+<class name="ConcavePolygonShape" inherits="Shape" category="Core"><brief_description>Concave polygon shape.
+</brief_description><description>Concave polygon shape resource, which can be set into a [PhysicsBody] or area. This shape is created by feeding a list of triangles.
+</description><methods><method name="get_faces" qualifiers="const"><return type="Vector3Array"></return><description>Return the faces (an array of triangles).
+</description></method><method name="set_faces"><argument index="0" name="faces" type="Vector3Array"></argument><description>Set the faces (an array of triangles).
+</description></method></methods><constants></constants></class>

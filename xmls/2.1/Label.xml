@@ -1,34 +1,34 @@
-<class name="Label" inherits="Control" category="Core"><brief_description>
-		Control that displays formatted text.</brief_description><description>
-		Label is a control that displays formatted text, optionally autowrapping it to the [Control] area. It inherits from range to be able to scroll wrapped text vertically.</description><methods><method name="get_align" qualifiers="const"><return type="int"></return><description>
-				Return the alignment mode (any of the ALIGN_* enumeration values).</description></method><method name="get_line_count" qualifiers="const"><return type="int"></return><description>
-				Return the amount of lines.</description></method><method name="get_line_height" qualifiers="const"><return type="int"></return><description>
-				Return the height of a line.</description></method><method name="get_lines_skipped" qualifiers="const"><return type="int"></return><description>
-				Return the the number of lines to skipped before displaying.</description></method><method name="get_max_lines_visible" qualifiers="const"><return type="int"></return><description>
-				Return the restricted number of lines to display. Returns -1 if unrestricted.</description></method><method name="get_percent_visible" qualifiers="const"><return type="float"></return><description>
-				Return the restricted number of characters to display (as a percentage of the total text).</description></method><method name="get_text" qualifiers="const"><return type="String"></return><description>
-				Return the label text. Text can contain newlines.</description></method><method name="get_total_character_count" qualifiers="const"><return type="int"></return><description>
-				Return the total length of the text.</description></method><method name="get_valign" qualifiers="const"><return type="int"></return><description>
-				Return the vertical alignment mode (any of the VALIGN_* enumeration values).</description></method><method name="get_visible_characters" qualifiers="const"><return type="int"></return><description>
-				Return the restricted number of characters to display. Returns -1 if unrestricted.</description></method><method name="get_visible_line_count" qualifiers="const"><return type="int"></return><description></description></method><method name="has_autowrap" qualifiers="const"><return type="bool"></return><description>
-				Return the state of the [i]autowrap[/i] mode (see [method set_autowrap]).</description></method><method name="is_clipping_text" qualifiers="const"><return type="bool"></return><description>
-				Return true if text would be cut off if it is too wide.</description></method><method name="is_uppercase" qualifiers="const"><return type="bool"></return><description>
-				Return true if text is displayed in all capitals.</description></method><method name="set_align"><argument index="0" name="align" type="int"></argument><description>
-				Sets the alignment mode to any of the ALIGN_* enumeration values.</description></method><method name="set_autowrap"><argument index="0" name="enable" type="bool"></argument><description>
-				Set [i]autowrap[/i] mode. When enabled, autowrap will fit text to the control width, breaking sentences when they exceed the available horizontal space. When disabled, the label minimum width becomes the width of the longest row, and the minimum height large enough to fit all rows.</description></method><method name="set_clip_text"><argument index="0" name="enable" type="bool"></argument><description>
-				Cuts off the rest of the text if it is too wide.</description></method><method name="set_lines_skipped"><argument index="0" name="lines_skipped" type="int"></argument><description>
-				Sets the number of lines to skip before displaying. Useful for scrolling text.</description></method><method name="set_max_lines_visible"><argument index="0" name="lines_visible" type="int"></argument><description>
-				Restricts the number of lines to display. Set to -1 to disable.</description></method><method name="set_percent_visible"><argument index="0" name="percent_visible" type="float"></argument><description>
-				Restricts the number of characters to display (as a percentage of the total text).</description></method><method name="set_text"><argument index="0" name="text" type="String"></argument><description>
-				Set the label text. Text can contain newlines.</description></method><method name="set_uppercase"><argument index="0" name="enable" type="bool"></argument><description>
-				Display text in all capitals.</description></method><method name="set_valign"><argument index="0" name="valign" type="int"></argument><description>
-				Sets the vertical alignment mode to any of the VALIGN_* enumeration values.</description></method><method name="set_visible_characters"><argument index="0" name="amount" type="int"></argument><description>
-				Restricts the number of characters to display. Set to -1 to disable.</description></method></methods><constants><constant name="ALIGN_LEFT" value="0">
-			Align rows to the left (default).</constant><constant name="ALIGN_CENTER" value="1">
-			Align rows centered.</constant><constant name="ALIGN_RIGHT" value="2">
-			Align rows to the right (default).</constant><constant name="ALIGN_FILL" value="3">
-			Expand row whitespaces to fit the width.</constant><constant name="VALIGN_TOP" value="0">
-			Align the whole text to the top.</constant><constant name="VALIGN_CENTER" value="1">
-			Align the whole text to the center.</constant><constant name="VALIGN_BOTTOM" value="2">
-			Align the whole text to the bottom.</constant><constant name="VALIGN_FILL" value="3">
-			Align the whole text by spreading the rows.</constant></constants><theme_items><theme_item name="font" type="Font"></theme_item><theme_item name="font_color" type="Color"></theme_item><theme_item name="font_color_shadow" type="Color"></theme_item><theme_item name="line_spacing" type="int"></theme_item><theme_item name="shadow_as_outline" type="int"></theme_item><theme_item name="shadow_offset_x" type="int"></theme_item><theme_item name="shadow_offset_y" type="int"></theme_item></theme_items></class>
+<class name="Label" inherits="Control" category="Core"><brief_description>Control that displays formatted text.
+</brief_description><description>Label is a control that displays formatted text, optionally autowrapping it to the [Control] area. It inherits from range to be able to scroll wrapped text vertically.
+</description><methods><method name="get_align" qualifiers="const"><return type="int"></return><description>Return the alignment mode (any of the ALIGN_* enumeration values).
+</description></method><method name="get_line_count" qualifiers="const"><return type="int"></return><description>Return the amount of lines.
+</description></method><method name="get_line_height" qualifiers="const"><return type="int"></return><description>Return the height of a line.
+</description></method><method name="get_lines_skipped" qualifiers="const"><return type="int"></return><description>Return the the number of lines to skipped before displaying.
+</description></method><method name="get_max_lines_visible" qualifiers="const"><return type="int"></return><description>Return the restricted number of lines to display. Returns -1 if unrestricted.
+</description></method><method name="get_percent_visible" qualifiers="const"><return type="float"></return><description>Return the restricted number of characters to display (as a percentage of the total text).
+</description></method><method name="get_text" qualifiers="const"><return type="String"></return><description>Return the label text. Text can contain newlines.
+</description></method><method name="get_total_character_count" qualifiers="const"><return type="int"></return><description>Return the total length of the text.
+</description></method><method name="get_valign" qualifiers="const"><return type="int"></return><description>Return the vertical alignment mode (any of the VALIGN_* enumeration values).
+</description></method><method name="get_visible_characters" qualifiers="const"><return type="int"></return><description>Return the restricted number of characters to display. Returns -1 if unrestricted.
+</description></method><method name="get_visible_line_count" qualifiers="const"><return type="int"></return><description></description></method><method name="has_autowrap" qualifiers="const"><return type="bool"></return><description>Return the state of the [i]autowrap[/i] mode (see [method set_autowrap]).
+</description></method><method name="is_clipping_text" qualifiers="const"><return type="bool"></return><description>Return true if text would be cut off if it is too wide.
+</description></method><method name="is_uppercase" qualifiers="const"><return type="bool"></return><description>Return true if text is displayed in all capitals.
+</description></method><method name="set_align"><argument index="0" name="align" type="int"></argument><description>Sets the alignment mode to any of the ALIGN_* enumeration values.
+</description></method><method name="set_autowrap"><argument index="0" name="enable" type="bool"></argument><description>Set [i]autowrap[/i] mode. When enabled, autowrap will fit text to the control width, breaking sentences when they exceed the available horizontal space. When disabled, the label minimum width becomes the width of the longest row, and the minimum height large enough to fit all rows.
+</description></method><method name="set_clip_text"><argument index="0" name="enable" type="bool"></argument><description>Cuts off the rest of the text if it is too wide.
+</description></method><method name="set_lines_skipped"><argument index="0" name="lines_skipped" type="int"></argument><description>Sets the number of lines to skip before displaying. Useful for scrolling text.
+</description></method><method name="set_max_lines_visible"><argument index="0" name="lines_visible" type="int"></argument><description>Restricts the number of lines to display. Set to -1 to disable.
+</description></method><method name="set_percent_visible"><argument index="0" name="percent_visible" type="float"></argument><description>Restricts the number of characters to display (as a percentage of the total text).
+</description></method><method name="set_text"><argument index="0" name="text" type="String"></argument><description>Set the label text. Text can contain newlines.
+</description></method><method name="set_uppercase"><argument index="0" name="enable" type="bool"></argument><description>Display text in all capitals.
+</description></method><method name="set_valign"><argument index="0" name="valign" type="int"></argument><description>Sets the vertical alignment mode to any of the VALIGN_* enumeration values.
+</description></method><method name="set_visible_characters"><argument index="0" name="amount" type="int"></argument><description>Restricts the number of characters to display. Set to -1 to disable.
+</description></method></methods><constants><constant name="ALIGN_LEFT" value="0">Align rows to the left (default).
+</constant><constant name="ALIGN_CENTER" value="1">Align rows centered.
+</constant><constant name="ALIGN_RIGHT" value="2">Align rows to the right (default).
+</constant><constant name="ALIGN_FILL" value="3">Expand row whitespaces to fit the width.
+</constant><constant name="VALIGN_TOP" value="0">Align the whole text to the top.
+</constant><constant name="VALIGN_CENTER" value="1">Align the whole text to the center.
+</constant><constant name="VALIGN_BOTTOM" value="2">Align the whole text to the bottom.
+</constant><constant name="VALIGN_FILL" value="3">Align the whole text by spreading the rows.
+</constant></constants><theme_items><theme_item name="font" type="Font"></theme_item><theme_item name="font_color" type="Color"></theme_item><theme_item name="font_color_shadow" type="Color"></theme_item><theme_item name="line_spacing" type="int"></theme_item><theme_item name="shadow_as_outline" type="int"></theme_item><theme_item name="shadow_offset_x" type="int"></theme_item><theme_item name="shadow_offset_y" type="int"></theme_item></theme_items></class>

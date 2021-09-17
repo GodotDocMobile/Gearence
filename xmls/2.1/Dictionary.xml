@@ -1,15 +1,15 @@
-<class name="Dictionary" category="Built-In Types"><brief_description>
-		Dictionary type.</brief_description><description>
-		Dictionary type. Associative container which contains values referenced by unique keys. Dictionaries are always passed by reference.</description><methods><method name="clear"><description>
-				Clear the dictionary, removing all key/value pairs.</description></method><method name="empty"><return type="bool"></return><description>
-				Return true if the dictionary is empty.</description></method><method name="erase"><argument index="0" name="key" type="var"></argument><description>
-				Erase a dictionary key/value pair by key.</description></method><method name="has"><return type="bool"></return><argument index="0" name="key" type="var"></argument><description>
-				Return true if the dictionary has a given key.</description></method><method name="has_all"><return type="bool"></return><argument index="0" name="keys" type="Array"></argument><description>
-				Return true if the dictionary has all of the keys in the given array.</description></method><method name="hash"><return type="int"></return><description>
-				Return a hashed integer value representing the dictionary contents.</description></method><method name="keys"><return type="Array"></return><description>
-				Return the list of keys in the [Dictionary].</description></method><method name="parse_json"><return type="int"></return><argument index="0" name="json" type="String"></argument><description>
-				Parse JSON text to the dictionary. Return OK when successed or the error code when failed.
-				Be aware that the JSON specification does not define integer or float types, but only a number type. Therefore, parsing a JSON text will convert every numerical values to [float] types.</description></method><method name="size"><return type="int"></return><description>
-				Return the size of the dictionary (in pairs).</description></method><method name="to_json"><return type="String"></return><description>
-				Return the dictionary as json text.</description></method><method name="values"><return type="Array"></return><description>
-				Return the list of values in the [Dictionary].</description></method></methods><constants></constants></class>
+<class name="Dictionary" category="Built-In Types"><brief_description>Dictionary type.
+</brief_description><description>Dictionary type. Associative container which contains values referenced by unique keys. Dictionaries are always passed by reference.
+</description><methods><method name="clear"><description>Clear the dictionary, removing all key/value pairs.
+</description></method><method name="empty"><return type="bool"></return><description>Return true if the dictionary is empty.
+</description></method><method name="erase"><argument index="0" name="key" type="var"></argument><description>Erase a dictionary key/value pair by key.
+</description></method><method name="has"><return type="bool"></return><argument index="0" name="key" type="var"></argument><description>Return true if the dictionary has a given key.
+</description></method><method name="has_all"><return type="bool"></return><argument index="0" name="keys" type="Array"></argument><description>Return true if the dictionary has all of the keys in the given array.
+</description></method><method name="hash"><return type="int"></return><description>Return a hashed integer value representing the dictionary contents.
+</description></method><method name="keys"><return type="Array"></return><description>Return the list of keys in the [Dictionary].
+</description></method><method name="parse_json"><return type="int"></return><argument index="0" name="json" type="String"></argument><description>Parse JSON text to the dictionary. Return OK when successed or the error code when failed.
+Be aware that the JSON specification does not define integer or float types, but only a number type. Therefore, parsing a JSON text will convert every numerical values to [float] types.
+</description></method><method name="size"><return type="int"></return><description>Return the size of the dictionary (in pairs).
+</description></method><method name="to_json"><return type="String"></return><description>Return the dictionary as json text.
+</description></method><method name="values"><return type="Array"></return><description>Return the list of values in the [Dictionary].
+</description></method></methods><constants></constants></class>

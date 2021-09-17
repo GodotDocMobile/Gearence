@@ -1,7 +1,7 @@
-<class name="CapsuleShape" inherits="Shape" category="Core"><brief_description>
-		Capsule shape resource.</brief_description><description>
-		Capsule shape resource, which can be set into a [PhysicsBody] or area.</description><methods><method name="get_height" qualifiers="const"><return type="float"></return><description>
-				Return the capsule height.</description></method><method name="get_radius" qualifiers="const"><return type="float"></return><description>
-				Return the capsule radius.</description></method><method name="set_height"><argument index="0" name="height" type="float"></argument><description>
-				Set the capsule height.</description></method><method name="set_radius"><argument index="0" name="radius" type="float"></argument><description>
-				Set the capsule radius.</description></method></methods><constants></constants></class>
+<class name="CapsuleShape" inherits="Shape" category="Core"><brief_description>Capsule shape resource.
+</brief_description><description>Capsule shape resource, which can be set into a [PhysicsBody] or area.
+</description><methods><method name="get_height" qualifiers="const"><return type="float"></return><description>Return the capsule height.
+</description></method><method name="get_radius" qualifiers="const"><return type="float"></return><description>Return the capsule radius.
+</description></method><method name="set_height"><argument index="0" name="height" type="float"></argument><description>Set the capsule height.
+</description></method><method name="set_radius"><argument index="0" name="radius" type="float"></argument><description>Set the capsule radius.
+</description></method></methods><constants></constants></class>

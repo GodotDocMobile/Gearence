@@ -1,25 +1,25 @@
-<class name="Sample" inherits="Resource" category="Core"><brief_description>
-		Audio sample (sound) class.</brief_description><description>
-		Sample provides an audio sample class, containing audio data, together with some information for playback, such as format, mix rate and loop. It is used by sound playback routines.</description><methods><method name="create"><argument index="0" name="format" type="int"></argument><argument index="1" name="stereo" type="bool"></argument><argument index="2" name="length" type="int"></argument><description>
-				Create new data for the sample, with format (see FORMAT_* constants), stereo hint, and length in samples (not bytes).
-				Calling this method overrides previously existing data. Stereo samples are interleaved pairs of left and right points (in that order), but count as one sample for length purposes.</description></method><method name="get_data" qualifiers="const"><return type="RawArray"></return><description>
-				Return sample data as little endian.</description></method><method name="get_format" qualifiers="const"><return type="int"></return><description>
-				Return the sample format.</description></method><method name="get_length" qualifiers="const"><return type="int"></return><description>
-				Return the sample length in samples. Stereo samples count as one, even if they are made of a left and a right sample.</description></method><method name="get_loop_begin" qualifiers="const"><return type="int"></return><description>
-				Return the loop begin position.</description></method><method name="get_loop_end" qualifiers="const"><return type="int"></return><description>
-				Return the loop end position.</description></method><method name="get_loop_format" qualifiers="const"><return type="int"></return><description>
-				Return the loop format.</description></method><method name="get_mix_rate" qualifiers="const"><return type="int"></return><description>
-				Return the mix rate for the sample.</description></method><method name="is_stereo" qualifiers="const"><return type="bool"></return><description>
-				Return whether the current sample was created as stereo.</description></method><method name="set_data"><argument index="0" name="data" type="RawArray"></argument><description>
-				Set sample data. Data must be little endian, no matter the host platform, and exactly as long as to fit all samples. The length of this array can be calculated as follows:
-				Get the sample length ([method get_length]). If the sample format is FORMAT_PCM16, multiply it by 2. If the sample format is FORMAT_IMA_ADPCM, divide it by 2 (rounding any fraction up), then add 4. If the sample is stereo ([method is_stereo]), multiply it by 2.</description></method><method name="set_loop_begin"><argument index="0" name="pos" type="int"></argument><description>
-				Set the loop begin position. It must be a valid frame and less than the loop end position.</description></method><method name="set_loop_end"><argument index="0" name="pos" type="int"></argument><description>
-				Set the loop end position. It must be a valid frame and greater than the loop begin position.</description></method><method name="set_loop_format"><argument index="0" name="format" type="int"></argument><description>
-				Set the loop format (use LOOP_* constants as argument).</description></method><method name="set_mix_rate"><argument index="0" name="hz" type="int"></argument><description>
-				Set the mix rate for the sample (expected playback frequency).</description></method></methods><constants><constant name="FORMAT_PCM8" value="0">
-			8-bits signed PCM audio.</constant><constant name="FORMAT_PCM16" value="1">
-			16-bits signed little endian PCM audio.</constant><constant name="FORMAT_IMA_ADPCM" value="2">
-			IMA-ADPCM Audio.</constant><constant name="LOOP_NONE" value="0">
-			No loop enabled.</constant><constant name="LOOP_FORWARD" value="1">
-			Forward looping (when playback reaches loop end, goes back to loop begin).</constant><constant name="LOOP_PING_PONG" value="2">
-			Ping-pong looping (when playback reaches loop end, plays backward until loop begin). Not available in all platforms.</constant></constants></class>
+<class name="Sample" inherits="Resource" category="Core"><brief_description>Audio sample (sound) class.
+</brief_description><description>Sample provides an audio sample class, containing audio data, together with some information for playback, such as format, mix rate and loop. It is used by sound playback routines.
+</description><methods><method name="create"><argument index="0" name="format" type="int"></argument><argument index="1" name="stereo" type="bool"></argument><argument index="2" name="length" type="int"></argument><description>Create new data for the sample, with format (see FORMAT_* constants), stereo hint, and length in samples (not bytes).
+Calling this method overrides previously existing data. Stereo samples are interleaved pairs of left and right points (in that order), but count as one sample for length purposes.
+</description></method><method name="get_data" qualifiers="const"><return type="RawArray"></return><description>Return sample data as little endian.
+</description></method><method name="get_format" qualifiers="const"><return type="int"></return><description>Return the sample format.
+</description></method><method name="get_length" qualifiers="const"><return type="int"></return><description>Return the sample length in samples. Stereo samples count as one, even if they are made of a left and a right sample.
+</description></method><method name="get_loop_begin" qualifiers="const"><return type="int"></return><description>Return the loop begin position.
+</description></method><method name="get_loop_end" qualifiers="const"><return type="int"></return><description>Return the loop end position.
+</description></method><method name="get_loop_format" qualifiers="const"><return type="int"></return><description>Return the loop format.
+</description></method><method name="get_mix_rate" qualifiers="const"><return type="int"></return><description>Return the mix rate for the sample.
+</description></method><method name="is_stereo" qualifiers="const"><return type="bool"></return><description>Return whether the current sample was created as stereo.
+</description></method><method name="set_data"><argument index="0" name="data" type="RawArray"></argument><description>Set sample data. Data must be little endian, no matter the host platform, and exactly as long as to fit all samples. The length of this array can be calculated as follows:
+Get the sample length ([method get_length]). If the sample format is FORMAT_PCM16, multiply it by 2. If the sample format is FORMAT_IMA_ADPCM, divide it by 2 (rounding any fraction up), then add 4. If the sample is stereo ([method is_stereo]), multiply it by 2.
+</description></method><method name="set_loop_begin"><argument index="0" name="pos" type="int"></argument><description>Set the loop begin position. It must be a valid frame and less than the loop end position.
+</description></method><method name="set_loop_end"><argument index="0" name="pos" type="int"></argument><description>Set the loop end position. It must be a valid frame and greater than the loop begin position.
+</description></method><method name="set_loop_format"><argument index="0" name="format" type="int"></argument><description>Set the loop format (use LOOP_* constants as argument).
+</description></method><method name="set_mix_rate"><argument index="0" name="hz" type="int"></argument><description>Set the mix rate for the sample (expected playback frequency).
+</description></method></methods><constants><constant name="FORMAT_PCM8" value="0">8-bits signed PCM audio.
+</constant><constant name="FORMAT_PCM16" value="1">16-bits signed little endian PCM audio.
+</constant><constant name="FORMAT_IMA_ADPCM" value="2">IMA-ADPCM Audio.
+</constant><constant name="LOOP_NONE" value="0">No loop enabled.
+</constant><constant name="LOOP_FORWARD" value="1">Forward looping (when playback reaches loop end, goes back to loop begin).
+</constant><constant name="LOOP_PING_PONG" value="2">Ping-pong looping (when playback reaches loop end, plays backward until loop begin). Not available in all platforms.
+</constant></constants></class>

@@ -1,11 +1,11 @@
-<class name="AnimatedSprite3D" inherits="SpriteBase3D" category="Core"><brief_description></brief_description><description></description><methods><method name="get_animation" qualifiers="const"><return type="String"></return><description>
-				Return the name of the current animation set to the node.</description></method><method name="get_frame" qualifiers="const"><return type="int"></return><description>
-				Return the visible frame index.</description></method><method name="get_sprite_frames" qualifiers="const"><return type="SpriteFrames"></return><description>
-				Get the [SpriteFrames] resource, which contains all frames.</description></method><method name="is_playing" qualifiers="const"><return type="bool"></return><description>
-				Return true if an animation if currently being played.</description></method><method name="play"><argument index="0" name="anim" type="String" default="&quot;&quot;"></argument><description>
-				Play the animation set in parameter. If no parameter is provided, the current animation is played.</description></method><method name="set_animation"><argument index="0" name="animation" type="String"></argument><description>
-				Set the current animation of the node and reinits the frame counter of the animation.</description></method><method name="set_frame"><argument index="0" name="frame" type="int"></argument><description>
-				Set the visible sprite frame index (from the list of frames inside the [SpriteFrames] resource).</description></method><method name="set_sprite_frames"><argument index="0" name="sprite_frames" type="SpriteFrames"></argument><description>
-				Set the [SpriteFrames] resource, which contains all frames.</description></method><method name="stop"><description>
-				Stop the current animation (does not reset the frame counter).</description></method></methods><signals><signal name="frame_changed"><description>
-				Emitted when frame is changed.</description></signal></signals><constants></constants></class>
+<class name="AnimatedSprite3D" inherits="SpriteBase3D" category="Core"><brief_description></brief_description><description></description><methods><method name="get_animation" qualifiers="const"><return type="String"></return><description>Return the name of the current animation set to the node.
+</description></method><method name="get_frame" qualifiers="const"><return type="int"></return><description>Return the visible frame index.
+</description></method><method name="get_sprite_frames" qualifiers="const"><return type="SpriteFrames"></return><description>Get the [SpriteFrames] resource, which contains all frames.
+</description></method><method name="is_playing" qualifiers="const"><return type="bool"></return><description>Return true if an animation if currently being played.
+</description></method><method name="play"><argument index="0" name="anim" type="String" default="&quot;&quot;"></argument><description>Play the animation set in parameter. If no parameter is provided, the current animation is played.
+</description></method><method name="set_animation"><argument index="0" name="animation" type="String"></argument><description>Set the current animation of the node and reinits the frame counter of the animation.
+</description></method><method name="set_frame"><argument index="0" name="frame" type="int"></argument><description>Set the visible sprite frame index (from the list of frames inside the [SpriteFrames] resource).
+</description></method><method name="set_sprite_frames"><argument index="0" name="sprite_frames" type="SpriteFrames"></argument><description>Set the [SpriteFrames] resource, which contains all frames.
+</description></method><method name="stop"><description>Stop the current animation (does not reset the frame counter).
+</description></method></methods><signals><signal name="frame_changed"><description>Emitted when frame is changed.
+</description></signal></signals><constants></constants></class>

@@ -1,7 +1,7 @@
-<class name="GrooveJoint2D" inherits="Joint2D" category="Core"><brief_description>
-		Groove constraint for 2D physics.</brief_description><description>
-		Groove constraint for 2D physics. This is useful for making a body "slide" through a segment placed in another.</description><methods><method name="get_initial_offset" qualifiers="const"><return type="float"></return><description>
-				Set the final offset of the groove on body A.</description></method><method name="get_length" qualifiers="const"><return type="float"></return><description>
-				Return the length of the groove.</description></method><method name="set_initial_offset"><argument index="0" name="offset" type="float"></argument><description>
-				Set the initial offset of the groove on body A.</description></method><method name="set_length"><argument index="0" name="length" type="float"></argument><description>
-				Set the length of the groove.</description></method></methods><constants></constants></class>
+<class name="GrooveJoint2D" inherits="Joint2D" category="Core"><brief_description>Groove constraint for 2D physics.
+</brief_description><description>Groove constraint for 2D physics. This is useful for making a body "slide" through a segment placed in another.
+</description><methods><method name="get_initial_offset" qualifiers="const"><return type="float"></return><description>Set the final offset of the groove on body A.
+</description></method><method name="get_length" qualifiers="const"><return type="float"></return><description>Return the length of the groove.
+</description></method><method name="set_initial_offset"><argument index="0" name="offset" type="float"></argument><description>Set the initial offset of the groove on body A.
+</description></method><method name="set_length"><argument index="0" name="length" type="float"></argument><description>Set the length of the groove.
+</description></method></methods><constants></constants></class>

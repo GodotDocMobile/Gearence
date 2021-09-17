@@ -1,9 +1,9 @@
-<class name="Translation" inherits="Resource" category="Core"><brief_description>
-	Language Translation.</brief_description><description>
-	Translations are resources that can be loaded/unloaded on demand. They map a string to another string.</description><methods><method name="add_message"><argument index="0" name="src_message" type="String"></argument><argument index="1" name="xlated_message" type="String"></argument><description>
-			Add a message for translation.</description></method><method name="erase_message"><argument index="0" name="src_message" type="String"></argument><description>
-			Erase a message.</description></method><method name="get_locale" qualifiers="const"><return type="String"></return><description>
-			Return the locale of the translation.</description></method><method name="get_message" qualifiers="const"><return type="String"></return><argument index="0" name="src_message" type="String"></argument><description>
-			Return a message for translation.</description></method><method name="get_message_count" qualifiers="const"><return type="int"></return><description></description></method><method name="get_message_list" qualifiers="const"><return type="StringArray"></return><description>
-			Return all the messages (keys).</description></method><method name="set_locale"><argument index="0" name="locale" type="String"></argument><description>
-			Set the locale of the translation.</description></method></methods><constants></constants></class>
+<class name="Translation" inherits="Resource" category="Core"><brief_description>Language Translation.
+</brief_description><description>Translations are resources that can be loaded/unloaded on demand. They map a string to another string.
+</description><methods><method name="add_message"><argument index="0" name="src_message" type="String"></argument><argument index="1" name="xlated_message" type="String"></argument><description>Add a message for translation.
+</description></method><method name="erase_message"><argument index="0" name="src_message" type="String"></argument><description>Erase a message.
+</description></method><method name="get_locale" qualifiers="const"><return type="String"></return><description>Return the locale of the translation.
+</description></method><method name="get_message" qualifiers="const"><return type="String"></return><argument index="0" name="src_message" type="String"></argument><description>Return a message for translation.
+</description></method><method name="get_message_count" qualifiers="const"><return type="int"></return><description></description></method><method name="get_message_list" qualifiers="const"><return type="StringArray"></return><description>Return all the messages (keys).
+</description></method><method name="set_locale"><argument index="0" name="locale" type="String"></argument><description>Set the locale of the translation.
+</description></method></methods><constants></constants></class>

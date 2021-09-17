@@ -1,8 +1,8 @@
-<class name="Script" inherits="Resource" category="Core"><brief_description>
-		Base class for scripts.</brief_description><description>
-		Base class for scripts. Any script that is loaded becomes one of these resources, which can then create instances.</description><methods><method name="can_instance" qualifiers="const"><return type="bool"></return><description>
-				Return true if this script can be instance (ie not a library).</description></method><method name="get_source_code" qualifiers="const"><return type="String"></return><description>
-				Return the script source code (if available).</description></method><method name="has_source_code" qualifiers="const"><return type="bool"></return><description>
-				Return true if the script contains source code.</description></method><method name="instance_has" qualifiers="const"><return type="bool"></return><argument index="0" name="base_object" type="Object"></argument><description>
-				Return true if a given object uses an instance of this script.</description></method><method name="reload"><return type="int"></return><argument index="0" name="keep_state" type="bool" default="false"></argument><description></description></method><method name="set_source_code"><argument index="0" name="source" type="String"></argument><description>
-				Set the script source code.</description></method></methods><constants></constants></class>
+<class name="Script" inherits="Resource" category="Core"><brief_description>Base class for scripts.
+</brief_description><description>Base class for scripts. Any script that is loaded becomes one of these resources, which can then create instances.
+</description><methods><method name="can_instance" qualifiers="const"><return type="bool"></return><description>Return true if this script can be instance (ie not a library).
+</description></method><method name="get_source_code" qualifiers="const"><return type="String"></return><description>Return the script source code (if available).
+</description></method><method name="has_source_code" qualifiers="const"><return type="bool"></return><description>Return true if the script contains source code.
+</description></method><method name="instance_has" qualifiers="const"><return type="bool"></return><argument index="0" name="base_object" type="Object"></argument><description>Return true if a given object uses an instance of this script.
+</description></method><method name="reload"><return type="int"></return><argument index="0" name="keep_state" type="bool" default="false"></argument><description></description></method><method name="set_source_code"><argument index="0" name="source" type="String"></argument><description>Set the script source code.
+</description></method></methods><constants></constants></class>

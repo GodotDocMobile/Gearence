@@ -1,66 +1,66 @@
-<class name="Viewport" inherits="Node" category="Core"><brief_description>
-		Creates a sub-view into the screen.</brief_description><description>
-		A Viewport creates a different view into the screen, or a sub-view inside another viewport. Children 2D Nodes will display on it, and children Camera 3D nodes will render on it too.
-		Optionally, a viewport can have its own 2D or 3D world, so they don't share what they draw with other viewports.
-		If a viewport is a child of a [Control], it will automatically take up its same rect and position, otherwise they must be set manually.
-		Viewports can also choose to be audio listeners, so they generate positional audio depending on a 2D or 3D camera child of it.
-		Also, viewports can be assigned to different screens in case the devices have multiple screens.
-		Finally, viewports can also behave as render targets, in which case they will not be visible unless the associated texture is used to draw.</description><methods><method name="find_world" qualifiers="const"><return type="World"></return><description>
-				Return the 3D world of the viewport, or if no such present, the one of the parent viewport.</description></method><method name="find_world_2d" qualifiers="const"><return type="World2D"></return><description>
-				Return the 2D world of the viewport.</description></method><method name="get_camera" qualifiers="const"><return type="Camera"></return><description>
-				Return the active 3D camera.</description></method><method name="get_canvas_transform" qualifiers="const"><return type="Matrix32"></return><description>
-				Get the canvas transform of the viewport.</description></method><method name="get_final_transform" qualifiers="const"><return type="Matrix32"></return><description>
-				Get the total transform of the viewport.</description></method><method name="get_global_canvas_transform" qualifiers="const"><return type="Matrix32"></return><description>
-				Get the global canvas transform of the viewport.</description></method><method name="get_mouse_pos" qualifiers="const"><return type="Vector2"></return><description>
-				Get the mouse position, relative to the viewport.</description></method><method name="get_physics_object_picking"><return type="bool"></return><description>
-				Get whether picking for all physics objects inside the viewport is enabled.</description></method><method name="get_rect" qualifiers="const"><return type="Rect2"></return><description>
-				Return the viewport rect. If the viewport is child of a control, it will use the same rect as the parent. Otherwise, if the rect is empty, the viewport will use all the allowed space.</description></method><method name="get_render_target_clear_on_new_frame" qualifiers="const"><return type="bool"></return><description>
-				Return whether automatic clearing of the render target on each frame is enabled.</description></method><method name="get_render_target_filter" qualifiers="const"><return type="bool"></return><description>
-				Get whether the rendered texture has filters enabled.</description></method><method name="get_render_target_gen_mipmaps" qualifiers="const"><return type="bool"></return><description>
-				Get whether the rendered texture will have mipmaps generated.</description></method><method name="get_render_target_texture" qualifiers="const"><return type="RenderTargetTexture"></return><description>
-				Get the render target's texture, for use with various objects that you want to texture with the viewport.</description></method><method name="get_render_target_update_mode" qualifiers="const"><return type="int"></return><description>
-				Get when the render target would be updated, will be one of the [code]RENDER_TARGET_UPDATE_*[/code] constants.</description></method><method name="get_render_target_vflip" qualifiers="const"><return type="bool"></return><description>
-				Set whether the render target is flipped on the Y axis.</description></method><method name="get_screen_capture" qualifiers="const"><return type="Image"></return><description>
-				Return the captured screenshot after [method queue_screen_capture]. You might need to check more than one frame untill the right image is returned.</description></method><method name="get_size_override" qualifiers="const"><return type="Vector2"></return><description>
-				Get the size override set with [method set_size_override].</description></method><method name="get_viewport" qualifiers="const"><return type="RID"></return><description>
-				Get the viewport RID from the visual server.</description></method><method name="get_visible_rect" qualifiers="const"><return type="Rect2"></return><description>
-				Return the final, visible rect in global screen coordinates.</description></method><method name="get_world" qualifiers="const"><return type="World"></return><description>
-				Return the 3D world of the viewport.</description></method><method name="get_world_2d" qualifiers="const"><return type="World2D"></return><description></description></method><method name="gui_get_drag_data" qualifiers="const"><return type="Variant"></return><description>
-				Returs the drag data from the GUI, that was previously returned by [method Control.get_drag_data].</description></method><method name="gui_has_modal_stack" qualifiers="const"><return type="bool"></return><description>
-				Returs whether there are shown modals on-screen.</description></method><method name="has_transparent_background" qualifiers="const"><return type="bool"></return><description>
-				Return whether the viewport lets whatever is behind it to show.</description></method><method name="input"><argument index="0" name="local_event" type="InputEvent"></argument><description></description></method><method name="is_audio_listener" qualifiers="const"><return type="bool"></return><description>
-				Returns whether the viewport sends sounds to the speakers.</description></method><method name="is_audio_listener_2d" qualifiers="const"><return type="bool"></return><description>
-				Returns whether the viewport sends soundsfrom 2D emitters to the speakers.</description></method><method name="is_input_disabled" qualifiers="const"><return type="bool"></return><description>
-				Return whether input to the viewport is disabled.</description></method><method name="is_set_as_render_target" qualifiers="const"><return type="bool"></return><description>
-				Return whether the viewport is set as a render target by [method set_as_render_target].</description></method><method name="is_size_override_enabled" qualifiers="const"><return type="bool"></return><description>
-				Get the enabled status of the size override set with [method set_size_override].</description></method><method name="is_size_override_stretch_enabled" qualifiers="const"><return type="bool"></return><description>
-				Get the enabled status of the size strech override set with [method set_size_override_stretch].</description></method><method name="is_using_own_world" qualifiers="const"><return type="bool"></return><description>
-				Return whether the viewport is using a world separate from the parent viewport's world.</description></method><method name="queue_screen_capture"><description>
-				Queue a multithreaded screenshot, you can retrive it at a later frame via [method get_screen_capture].</description></method><method name="render_target_clear"><description>
-				Clear the render target manually.</description></method><method name="set_as_audio_listener"><argument index="0" name="enable" type="bool"></argument><description>
-				Makes the viewport send sounds to the speakers.</description></method><method name="set_as_audio_listener_2d"><argument index="0" name="enable" type="bool"></argument><description>
-				Makes the viewport send sounds from 2D emitters to the speakers.</description></method><method name="set_as_render_target"><argument index="0" name="enable" type="bool"></argument><description>
-				Set the viewport's render target mode.</description></method><method name="set_canvas_transform"><argument index="0" name="xform" type="Matrix32"></argument><description>
-				Set the canvas transform of the viewport, useful for changing the on-screen positions of all child [CanvasItem]\ s. This is relative to the global canvas transform of the viewport.</description></method><method name="set_disable_input"><argument index="0" name="disable" type="bool"></argument><description>
-				Set whether input to the viewport is disabled.</description></method><method name="set_global_canvas_transform"><argument index="0" name="xform" type="Matrix32"></argument><description>
-				Set the global canvas transform of the viewport. The canvas transform is relative to this.</description></method><method name="set_physics_object_picking"><argument index="0" name="enable" type="bool"></argument><description>
-				Enable/disable picking for all physics objects inside the viewport.</description></method><method name="set_rect"><argument index="0" name="rect" type="Rect2"></argument><description>
-				Set the viewport rect. If the viewport is child of a control, it will use the same rect as the parent.</description></method><method name="set_render_target_clear_on_new_frame"><argument index="0" name="enable" type="bool"></argument><description>
-				Enable/disable automatic clearing of the render target on each frame. You might find it better to disable this if you are using the viewport for rarely updated textures. To clear manually, check [method render_target_clear]</description></method><method name="set_render_target_filter"><argument index="0" name="enable" type="bool"></argument><description>
-				Set whether the rendered texture should have filters enabled. Disable if you want the texture's pixels be visible.</description></method><method name="set_render_target_gen_mipmaps"><argument index="0" name="enable" type="bool"></argument><description>
-				Set whether the rendered texture should have mipmaps generated. Mipmaps allow the texture to have better antialiasing from far away.</description></method><method name="set_render_target_to_screen_rect"><argument index="0" name="rect" type="Rect2"></argument><description>
-				Map a part of the screen to the render target directly.</description></method><method name="set_render_target_update_mode"><argument index="0" name="mode" type="int"></argument><description>
-				Set when the render target should be updated, has to be one of the [code]RENDER_TARGET_UPDATE_*[/code] constants.</description></method><method name="set_render_target_vflip"><argument index="0" name="enable" type="bool"></argument><description>
-				Set whether the render target should be flipped on the Y axis.</description></method><method name="set_size_override"><argument index="0" name="enable" type="bool"></argument><argument index="1" name="size" type="Vector2" default="Vector2(-1, -1)"></argument><argument index="2" name="margin" type="Vector2" default="Vector2(0, 0)"></argument><description>
-				Set the size of the viewport. If the enable parameter is true, it would use the override, otherwise it would use the default size. If the size parameter is equal to [code](-1, -1)[/code], it won't update the size.</description></method><method name="set_size_override_stretch"><argument index="0" name="enabled" type="bool"></argument><description>
-				Set whether the size override affects stretch as well.</description></method><method name="set_transparent_background"><argument index="0" name="enable" type="bool"></argument><description>
-				If this viewport is a child of another viewport, keep the previously drawn background visible.</description></method><method name="set_use_own_world"><argument index="0" name="enable" type="bool"></argument><description>
-				Make the viewport use a world separate from the parent viewport's world.</description></method><method name="set_world"><argument index="0" name="world" type="World"></argument><description>
-				Change the 3D world of the viewport.</description></method><method name="set_world_2d"><argument index="0" name="world_2d" type="World2D"></argument><description></description></method><method name="unhandled_input"><argument index="0" name="local_event" type="InputEvent"></argument><description></description></method><method name="update_worlds"><description>
-				Force update of the 2D and 3D worlds.</description></method><method name="warp_mouse"><argument index="0" name="to_pos" type="Vector2"></argument><description>
-				Warp the mouse to a position, relative to the viewport.</description></method></methods><signals><signal name="size_changed"><description>
-				Emitted when the size of the viewport is changed, whether by [method set_size_override], resize of window, or some other means.</description></signal></signals><constants><constant name="RENDER_TARGET_UPDATE_DISABLED" value="0">
-			Do not update the render target.</constant><constant name="RENDER_TARGET_UPDATE_ONCE" value="1">
-			Update the render target once, then switch to [code]RENDER_TARGET_UPDATE_DISABLED[/code]</constant><constant name="RENDER_TARGET_UPDATE_WHEN_VISIBLE" value="2">
-			Update the render target only when it is visible. This is the default value.</constant><constant name="RENDER_TARGET_UPDATE_ALWAYS" value="3">
-			Update the render target always.</constant></constants></class>
+<class name="Viewport" inherits="Node" category="Core"><brief_description>Creates a sub-view into the screen.
+</brief_description><description>A Viewport creates a different view into the screen, or a sub-view inside another viewport. Children 2D Nodes will display on it, and children Camera 3D nodes will render on it too.
+Optionally, a viewport can have its own 2D or 3D world, so they don't share what they draw with other viewports.
+If a viewport is a child of a [Control], it will automatically take up its same rect and position, otherwise they must be set manually.
+Viewports can also choose to be audio listeners, so they generate positional audio depending on a 2D or 3D camera child of it.
+Also, viewports can be assigned to different screens in case the devices have multiple screens.
+Finally, viewports can also behave as render targets, in which case they will not be visible unless the associated texture is used to draw.
+</description><methods><method name="find_world" qualifiers="const"><return type="World"></return><description>Return the 3D world of the viewport, or if no such present, the one of the parent viewport.
+</description></method><method name="find_world_2d" qualifiers="const"><return type="World2D"></return><description>Return the 2D world of the viewport.
+</description></method><method name="get_camera" qualifiers="const"><return type="Camera"></return><description>Return the active 3D camera.
+</description></method><method name="get_canvas_transform" qualifiers="const"><return type="Matrix32"></return><description>Get the canvas transform of the viewport.
+</description></method><method name="get_final_transform" qualifiers="const"><return type="Matrix32"></return><description>Get the total transform of the viewport.
+</description></method><method name="get_global_canvas_transform" qualifiers="const"><return type="Matrix32"></return><description>Get the global canvas transform of the viewport.
+</description></method><method name="get_mouse_pos" qualifiers="const"><return type="Vector2"></return><description>Get the mouse position, relative to the viewport.
+</description></method><method name="get_physics_object_picking"><return type="bool"></return><description>Get whether picking for all physics objects inside the viewport is enabled.
+</description></method><method name="get_rect" qualifiers="const"><return type="Rect2"></return><description>Return the viewport rect. If the viewport is child of a control, it will use the same rect as the parent. Otherwise, if the rect is empty, the viewport will use all the allowed space.
+</description></method><method name="get_render_target_clear_on_new_frame" qualifiers="const"><return type="bool"></return><description>Return whether automatic clearing of the render target on each frame is enabled.
+</description></method><method name="get_render_target_filter" qualifiers="const"><return type="bool"></return><description>Get whether the rendered texture has filters enabled.
+</description></method><method name="get_render_target_gen_mipmaps" qualifiers="const"><return type="bool"></return><description>Get whether the rendered texture will have mipmaps generated.
+</description></method><method name="get_render_target_texture" qualifiers="const"><return type="RenderTargetTexture"></return><description>Get the render target's texture, for use with various objects that you want to texture with the viewport.
+</description></method><method name="get_render_target_update_mode" qualifiers="const"><return type="int"></return><description>Get when the render target would be updated, will be one of the [code]RENDER_TARGET_UPDATE_*[/code] constants.
+</description></method><method name="get_render_target_vflip" qualifiers="const"><return type="bool"></return><description>Set whether the render target is flipped on the Y axis.
+</description></method><method name="get_screen_capture" qualifiers="const"><return type="Image"></return><description>Return the captured screenshot after [method queue_screen_capture]. You might need to check more than one frame untill the right image is returned.
+</description></method><method name="get_size_override" qualifiers="const"><return type="Vector2"></return><description>Get the size override set with [method set_size_override].
+</description></method><method name="get_viewport" qualifiers="const"><return type="RID"></return><description>Get the viewport RID from the visual server.
+</description></method><method name="get_visible_rect" qualifiers="const"><return type="Rect2"></return><description>Return the final, visible rect in global screen coordinates.
+</description></method><method name="get_world" qualifiers="const"><return type="World"></return><description>Return the 3D world of the viewport.
+</description></method><method name="get_world_2d" qualifiers="const"><return type="World2D"></return><description></description></method><method name="gui_get_drag_data" qualifiers="const"><return type="Variant"></return><description>Returs the drag data from the GUI, that was previously returned by [method Control.get_drag_data].
+</description></method><method name="gui_has_modal_stack" qualifiers="const"><return type="bool"></return><description>Returs whether there are shown modals on-screen.
+</description></method><method name="has_transparent_background" qualifiers="const"><return type="bool"></return><description>Return whether the viewport lets whatever is behind it to show.
+</description></method><method name="input"><argument index="0" name="local_event" type="InputEvent"></argument><description></description></method><method name="is_audio_listener" qualifiers="const"><return type="bool"></return><description>Returns whether the viewport sends sounds to the speakers.
+</description></method><method name="is_audio_listener_2d" qualifiers="const"><return type="bool"></return><description>Returns whether the viewport sends soundsfrom 2D emitters to the speakers.
+</description></method><method name="is_input_disabled" qualifiers="const"><return type="bool"></return><description>Return whether input to the viewport is disabled.
+</description></method><method name="is_set_as_render_target" qualifiers="const"><return type="bool"></return><description>Return whether the viewport is set as a render target by [method set_as_render_target].
+</description></method><method name="is_size_override_enabled" qualifiers="const"><return type="bool"></return><description>Get the enabled status of the size override set with [method set_size_override].
+</description></method><method name="is_size_override_stretch_enabled" qualifiers="const"><return type="bool"></return><description>Get the enabled status of the size strech override set with [method set_size_override_stretch].
+</description></method><method name="is_using_own_world" qualifiers="const"><return type="bool"></return><description>Return whether the viewport is using a world separate from the parent viewport's world.
+</description></method><method name="queue_screen_capture"><description>Queue a multithreaded screenshot, you can retrive it at a later frame via [method get_screen_capture].
+</description></method><method name="render_target_clear"><description>Clear the render target manually.
+</description></method><method name="set_as_audio_listener"><argument index="0" name="enable" type="bool"></argument><description>Makes the viewport send sounds to the speakers.
+</description></method><method name="set_as_audio_listener_2d"><argument index="0" name="enable" type="bool"></argument><description>Makes the viewport send sounds from 2D emitters to the speakers.
+</description></method><method name="set_as_render_target"><argument index="0" name="enable" type="bool"></argument><description>Set the viewport's render target mode.
+</description></method><method name="set_canvas_transform"><argument index="0" name="xform" type="Matrix32"></argument><description>Set the canvas transform of the viewport, useful for changing the on-screen positions of all child [CanvasItem]\ s. This is relative to the global canvas transform of the viewport.
+</description></method><method name="set_disable_input"><argument index="0" name="disable" type="bool"></argument><description>Set whether input to the viewport is disabled.
+</description></method><method name="set_global_canvas_transform"><argument index="0" name="xform" type="Matrix32"></argument><description>Set the global canvas transform of the viewport. The canvas transform is relative to this.
+</description></method><method name="set_physics_object_picking"><argument index="0" name="enable" type="bool"></argument><description>Enable/disable picking for all physics objects inside the viewport.
+</description></method><method name="set_rect"><argument index="0" name="rect" type="Rect2"></argument><description>Set the viewport rect. If the viewport is child of a control, it will use the same rect as the parent.
+</description></method><method name="set_render_target_clear_on_new_frame"><argument index="0" name="enable" type="bool"></argument><description>Enable/disable automatic clearing of the render target on each frame. You might find it better to disable this if you are using the viewport for rarely updated textures. To clear manually, check [method render_target_clear]
+</description></method><method name="set_render_target_filter"><argument index="0" name="enable" type="bool"></argument><description>Set whether the rendered texture should have filters enabled. Disable if you want the texture's pixels be visible.
+</description></method><method name="set_render_target_gen_mipmaps"><argument index="0" name="enable" type="bool"></argument><description>Set whether the rendered texture should have mipmaps generated. Mipmaps allow the texture to have better antialiasing from far away.
+</description></method><method name="set_render_target_to_screen_rect"><argument index="0" name="rect" type="Rect2"></argument><description>Map a part of the screen to the render target directly.
+</description></method><method name="set_render_target_update_mode"><argument index="0" name="mode" type="int"></argument><description>Set when the render target should be updated, has to be one of the [code]RENDER_TARGET_UPDATE_*[/code] constants.
+</description></method><method name="set_render_target_vflip"><argument index="0" name="enable" type="bool"></argument><description>Set whether the render target should be flipped on the Y axis.
+</description></method><method name="set_size_override"><argument index="0" name="enable" type="bool"></argument><argument index="1" name="size" type="Vector2" default="Vector2(-1, -1)"></argument><argument index="2" name="margin" type="Vector2" default="Vector2(0, 0)"></argument><description>Set the size of the viewport. If the enable parameter is true, it would use the override, otherwise it would use the default size. If the size parameter is equal to [code](-1, -1)[/code], it won't update the size.
+</description></method><method name="set_size_override_stretch"><argument index="0" name="enabled" type="bool"></argument><description>Set whether the size override affects stretch as well.
+</description></method><method name="set_transparent_background"><argument index="0" name="enable" type="bool"></argument><description>If this viewport is a child of another viewport, keep the previously drawn background visible.
+</description></method><method name="set_use_own_world"><argument index="0" name="enable" type="bool"></argument><description>Make the viewport use a world separate from the parent viewport's world.
+</description></method><method name="set_world"><argument index="0" name="world" type="World"></argument><description>Change the 3D world of the viewport.
+</description></method><method name="set_world_2d"><argument index="0" name="world_2d" type="World2D"></argument><description></description></method><method name="unhandled_input"><argument index="0" name="local_event" type="InputEvent"></argument><description></description></method><method name="update_worlds"><description>Force update of the 2D and 3D worlds.
+</description></method><method name="warp_mouse"><argument index="0" name="to_pos" type="Vector2"></argument><description>Warp the mouse to a position, relative to the viewport.
+</description></method></methods><signals><signal name="size_changed"><description>Emitted when the size of the viewport is changed, whether by [method set_size_override], resize of window, or some other means.
+</description></signal></signals><constants><constant name="RENDER_TARGET_UPDATE_DISABLED" value="0">Do not update the render target.
+</constant><constant name="RENDER_TARGET_UPDATE_ONCE" value="1">Update the render target once, then switch to [code]RENDER_TARGET_UPDATE_DISABLED[/code]
+</constant><constant name="RENDER_TARGET_UPDATE_WHEN_VISIBLE" value="2">Update the render target only when it is visible. This is the default value.
+</constant><constant name="RENDER_TARGET_UPDATE_ALWAYS" value="3">Update the render target always.
+</constant></constants></class>

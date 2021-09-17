@@ -1,8 +1,8 @@
-<class name="ButtonGroup" inherits="BoxContainer" category="Core"><brief_description>
-		Group of Buttons.</brief_description><description>
-		Group of [Button]. All direct and indirect children buttons become radios. Only one allows being pressed.</description><methods><method name="get_button_list" qualifiers="const"><return type="Array"></return><description>
-				Return the list of all the buttons in the group.</description></method><method name="get_focused_button" qualifiers="const"><return type="BaseButton"></return><description>
-				Return the focused button.</description></method><method name="get_pressed_button" qualifiers="const"><return type="BaseButton"></return><description>
-				Return the pressed button.</description></method><method name="get_pressed_button_index" qualifiers="const"><return type="int"></return><description>
-				Return the index of the pressed button (by tree order).</description></method><method name="set_pressed_button"><argument index="0" name="button" type="BaseButton"></argument><description>
-				Set the button to be pressed.</description></method></methods><signals><signal name="button_selected"><argument index="0" name="button" type="Object"></argument><description></description></signal></signals><constants></constants><theme_items><theme_item name="panel" type="StyleBox"></theme_item></theme_items></class>
+<class name="ButtonGroup" inherits="BoxContainer" category="Core"><brief_description>Group of Buttons.
+</brief_description><description>Group of [Button]. All direct and indirect children buttons become radios. Only one allows being pressed.
+</description><methods><method name="get_button_list" qualifiers="const"><return type="Array"></return><description>Return the list of all the buttons in the group.
+</description></method><method name="get_focused_button" qualifiers="const"><return type="BaseButton"></return><description>Return the focused button.
+</description></method><method name="get_pressed_button" qualifiers="const"><return type="BaseButton"></return><description>Return the pressed button.
+</description></method><method name="get_pressed_button_index" qualifiers="const"><return type="int"></return><description>Return the index of the pressed button (by tree order).
+</description></method><method name="set_pressed_button"><argument index="0" name="button" type="BaseButton"></argument><description>Set the button to be pressed.
+</description></method></methods><signals><signal name="button_selected"><argument index="0" name="button" type="Object"></argument><description></description></signal></signals><constants></constants><theme_items><theme_item name="panel" type="StyleBox"></theme_item></theme_items></class>

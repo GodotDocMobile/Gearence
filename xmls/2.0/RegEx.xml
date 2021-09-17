@@ -1,27 +1,27 @@
-<class name="RegEx" inherits="Reference" category="Core"><brief_description>
-	Simple regular expression matcher.</brief_description><description>
-	Class for finding text patterns in a string using regular expressions. Regular expressions are a way to define patterns of text to be searched.
-	This class only finds patterns in a string. It can not perform replacements.
-	Usage of regular expressions is too long to be explained here, but Internet is full of tutorials and detailed explanations.
-	Currently supported features:
-		Capturing [code]()[/code] and non-capturing [code](?:)[/code] groups
-		Any character [code].[/code]
-		Shorthand character classes [code]\w \W \s \S \d \D[/code]
-		User-defined character classes such as [code][A-Za-z][/code]
-		Simple quantifiers [code]?[/code], [code]*[/code] and [code]+[/code]
-		Range quantifiers [code]{x,y}[/code]
-		Lazy (non-greedy) quantifiers [code]*?[/code]
-		Beginning [code]^[/code] and end [code]$[/code] anchors
-		Alternation [code]|[/code]
-		Backreferences [code]\1[/code] and [code]\g{1}[/code]
-		POSIX character classes [code][[:alnum:]][/code]
-		Lookahead [code](?=)[/code], [code](?!)[/code] and lookbehind [code](?&lt;=)[/code], [code](?&lt;!)[/code]
-		ASCII [code]\xFF[/code] and Unicode [code]\uFFFF[/code] code points (in a style similar to Python)
-		Word boundaries [code]\b[/code], [code]\B[/code]</description><methods><method name="clear"><description>
-			This method resets the state of the object, as it was freshly created. Namely, it unassigns the regular expression of this object, and forgets all captures made by the last [method find].</description></method><method name="compile"><return type="int"></return><argument index="0" name="pattern" type="String"></argument><argument index="1" name="capture" type="int" default="9"></argument><description>
-			Compiles and assign the regular expression pattern to use. The limit on the number of capturing groups can be specified or made unlimited if negative.</description></method><method name="find" qualifiers="const"><return type="int"></return><argument index="0" name="text" type="String"></argument><argument index="1" name="start" type="int" default="0"></argument><argument index="2" name="end" type="int" default="-1"></argument><description>
-			This method tries to find the pattern within the string, and returns the position where it was found. It also stores any capturing group (see [method get_capture]) for further retrieval.</description></method><method name="get_capture" qualifiers="const"><return type="String"></return><argument index="0" name="capture" type="int"></argument><description>
-			Returns a captured group. A captured group is the part of a string that matches a part of the pattern delimited by parentheses (unless they are non-capturing parentheses [i](?:)[/i]).</description></method><method name="get_capture_count" qualifiers="const"><return type="int"></return><description>
-			Returns the number of capturing groups. A captured group is the part of a string that matches a part of the pattern delimited by parentheses (unless they are non-capturing parentheses [i](?:)[/i]).</description></method><method name="get_capture_start" qualifiers="const"><return type="int"></return><argument index="0" name="capture" type="int"></argument><description></description></method><method name="get_captures" qualifiers="const"><return type="StringArray"></return><description>
-			Return a list of all the captures made by the regular expression.</description></method><method name="is_valid" qualifiers="const"><return type="bool"></return><description>
-			Returns whether this object has a valid regular expression assigned.</description></method></methods><constants></constants></class>
+<class name="RegEx" inherits="Reference" category="Core"><brief_description>Simple regular expression matcher.
+</brief_description><description>Class for finding text patterns in a string using regular expressions. Regular expressions are a way to define patterns of text to be searched.
+This class only finds patterns in a string. It can not perform replacements.
+Usage of regular expressions is too long to be explained here, but Internet is full of tutorials and detailed explanations.
+Currently supported features:
+Capturing [code]()[/code] and non-capturing [code](?:)[/code] groups
+Any character [code].[/code]
+Shorthand character classes [code]\w \W \s \S \d \D[/code]
+User-defined character classes such as [code][A-Za-z][/code]
+Simple quantifiers [code]?[/code], [code]*[/code] and [code]+[/code]
+Range quantifiers [code]{x,y}[/code]
+Lazy (non-greedy) quantifiers [code]*?[/code]
+Beginning [code]^[/code] and end [code]$[/code] anchors
+Alternation [code]|[/code]
+Backreferences [code]\1[/code] and [code]\g{1}[/code]
+POSIX character classes [code][[:alnum:]][/code]
+Lookahead [code](?=)[/code], [code](?!)[/code] and lookbehind [code](?&lt;=)[/code], [code](?&lt;!)[/code]
+ASCII [code]\xFF[/code] and Unicode [code]\uFFFF[/code] code points (in a style similar to Python)
+Word boundaries [code]\b[/code], [code]\B[/code]
+</description><methods><method name="clear"><description>This method resets the state of the object, as it was freshly created. Namely, it unassigns the regular expression of this object, and forgets all captures made by the last [method find].
+</description></method><method name="compile"><return type="int"></return><argument index="0" name="pattern" type="String"></argument><argument index="1" name="capture" type="int" default="9"></argument><description>Compiles and assign the regular expression pattern to use. The limit on the number of capturing groups can be specified or made unlimited if negative.
+</description></method><method name="find" qualifiers="const"><return type="int"></return><argument index="0" name="text" type="String"></argument><argument index="1" name="start" type="int" default="0"></argument><argument index="2" name="end" type="int" default="-1"></argument><description>This method tries to find the pattern within the string, and returns the position where it was found. It also stores any capturing group (see [method get_capture]) for further retrieval.
+</description></method><method name="get_capture" qualifiers="const"><return type="String"></return><argument index="0" name="capture" type="int"></argument><description>Returns a captured group. A captured group is the part of a string that matches a part of the pattern delimited by parentheses (unless they are non-capturing parentheses [i](?:)[/i]).
+</description></method><method name="get_capture_count" qualifiers="const"><return type="int"></return><description>Returns the number of capturing groups. A captured group is the part of a string that matches a part of the pattern delimited by parentheses (unless they are non-capturing parentheses [i](?:)[/i]).
+</description></method><method name="get_capture_start" qualifiers="const"><return type="int"></return><argument index="0" name="capture" type="int"></argument><description></description></method><method name="get_captures" qualifiers="const"><return type="StringArray"></return><description>Return a list of all the captures made by the regular expression.
+</description></method><method name="is_valid" qualifiers="const"><return type="bool"></return><description>Returns whether this object has a valid regular expression assigned.
+</description></method></methods><constants></constants></class>

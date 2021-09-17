@@ -1,7 +1,7 @@
-<class name="Slider" inherits="Range" category="Core"><brief_description>
-		Base class for GUI Sliders.</brief_description><description>
-		Base class for GUI Sliders.</description><methods><method name="get_ticks" qualifiers="const"><return type="int"></return><description>
-				Return amounts of ticks to display on slider.</description></method><method name="get_ticks_on_borders" qualifiers="const"><return type="bool"></return><description>
-				Return true if ticks are visible on borders.</description></method><method name="set_ticks"><argument index="0" name="count" type="int"></argument><description>
-				Set amount of ticks to display in slider.</description></method><method name="set_ticks_on_borders"><argument index="0" name="ticks_on_border" type="bool"></argument><description>
-				Set true if ticks are visible on borders.</description></method></methods><constants></constants></class>
+<class name="Slider" inherits="Range" category="Core"><brief_description>Base class for GUI Sliders.
+</brief_description><description>Base class for GUI Sliders.
+</description><methods><method name="get_ticks" qualifiers="const"><return type="int"></return><description>Return amounts of ticks to display on slider.
+</description></method><method name="get_ticks_on_borders" qualifiers="const"><return type="bool"></return><description>Return true if ticks are visible on borders.
+</description></method><method name="set_ticks"><argument index="0" name="count" type="int"></argument><description>Set amount of ticks to display in slider.
+</description></method><method name="set_ticks_on_borders"><argument index="0" name="ticks_on_border" type="bool"></argument><description>Set true if ticks are visible on borders.
+</description></method></methods><constants></constants></class>

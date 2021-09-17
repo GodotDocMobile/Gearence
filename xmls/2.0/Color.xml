@@ -1,26 +1,26 @@
-<class name="Color" category="Built-In Types"><brief_description>
-	Color in RGBA format.</brief_description><description>
-	A color is represented as red, green and blue (r,g,b) components. Additionally, "a" represents the alpha component, often used for transparency. Values are in floating point and usually range from 0 to 1.  Some methods (such as set_modulate() ) may accept values &gt; 1.</description><methods><method name="Color"><return type="Color"></return><argument index="0" name="r" type="float"></argument><argument index="1" name="g" type="float"></argument><argument index="2" name="b" type="float"></argument><argument index="3" name="a" type="float"></argument><description>
-			Construct the color from an RGBA profile.</description></method><method name="Color"><return type="Color"></return><argument index="0" name="r" type="float"></argument><argument index="1" name="g" type="float"></argument><argument index="2" name="b" type="float"></argument><description>
-			Construct the color from an RGBA profile.</description></method><method name="Color"><return type="Color"></return><argument index="0" name="from" type="int"></argument><description>
-			Construct the color from an RGBA profile.</description></method><method name="Color"><return type="Color"></return><argument index="0" name="from" type="String"></argument><description>
-			Construct the color from an RGBA profile.</description></method><method name="blend"><return type="Color"></return><argument index="0" name="over" type="Color"></argument><description>
-			Return a new color blended with anothor one.</description></method><method name="contrasted"><return type="Color"></return><description>
-			Return the most contrasting color with this one.</description></method><method name="gray"><return type="float"></return><description>
-			Convert the color to gray.</description></method><method name="inverted"><return type="Color"></return><description>
-			Return the inverted color (1-r, 1-g, 1-b, 1-a).</description></method><method name="linear_interpolate"><return type="Color"></return><argument index="0" name="b" type="Color"></argument><argument index="1" name="t" type="float"></argument><description>
-			Return the linear interpolation with another color.</description></method><method name="to_32"><return type="int"></return><description>
-			Convert the color to a 32 its integer (each byte represents a RGBA).</description></method><method name="to_ARGB32"><return type="int"></return><description>
-			Convert color to ARGB32, more compatible with DirectX.</description></method><method name="to_html"><return type="String"></return><argument index="0" name="with_alpha" type="bool" default="True"></argument><description>
-			Return the HTML hexadecimal color string.</description></method></methods><members><member name="a" type="float">
-			Alpha (0 to 1)</member><member name="a8" type="int">
-			Alpha (0 to 255)</member><member name="b" type="float">
-			Blue (0 to 1)</member><member name="b8" type="int">
-			Blue (0 to 255)</member><member name="g" type="float">
-			Green (0 to 1)</member><member name="g8" type="int">
-			Green (0 to 255)</member><member name="h" type="float">
-			Hue (0 to 1)</member><member name="r" type="float">
-			Red (0 to 1)</member><member name="r8" type="int">
-			Red (0 to 255)</member><member name="s" type="float">
-			Saturation (0 to 1)</member><member name="v" type="float">
-			Value (0 to 1)</member></members><constants></constants></class>
+<class name="Color" category="Built-In Types"><brief_description>Color in RGBA format.
+</brief_description><description>A color is represented as red, green and blue (r,g,b) components. Additionally, "a" represents the alpha component, often used for transparency. Values are in floating point and usually range from 0 to 1.  Some methods (such as set_modulate() ) may accept values &gt; 1.
+</description><methods><method name="Color"><return type="Color"></return><argument index="0" name="r" type="float"></argument><argument index="1" name="g" type="float"></argument><argument index="2" name="b" type="float"></argument><argument index="3" name="a" type="float"></argument><description>Construct the color from an RGBA profile.
+</description></method><method name="Color"><return type="Color"></return><argument index="0" name="r" type="float"></argument><argument index="1" name="g" type="float"></argument><argument index="2" name="b" type="float"></argument><description>Construct the color from an RGBA profile.
+</description></method><method name="Color"><return type="Color"></return><argument index="0" name="from" type="int"></argument><description>Construct the color from an RGBA profile.
+</description></method><method name="Color"><return type="Color"></return><argument index="0" name="from" type="String"></argument><description>Construct the color from an RGBA profile.
+</description></method><method name="blend"><return type="Color"></return><argument index="0" name="over" type="Color"></argument><description>Return a new color blended with anothor one.
+</description></method><method name="contrasted"><return type="Color"></return><description>Return the most contrasting color with this one.
+</description></method><method name="gray"><return type="float"></return><description>Convert the color to gray.
+</description></method><method name="inverted"><return type="Color"></return><description>Return the inverted color (1-r, 1-g, 1-b, 1-a).
+</description></method><method name="linear_interpolate"><return type="Color"></return><argument index="0" name="b" type="Color"></argument><argument index="1" name="t" type="float"></argument><description>Return the linear interpolation with another color.
+</description></method><method name="to_32"><return type="int"></return><description>Convert the color to a 32 its integer (each byte represents a RGBA).
+</description></method><method name="to_ARGB32"><return type="int"></return><description>Convert color to ARGB32, more compatible with DirectX.
+</description></method><method name="to_html"><return type="String"></return><argument index="0" name="with_alpha" type="bool" default="True"></argument><description>Return the HTML hexadecimal color string.
+</description></method></methods><members><member name="a" type="float">Alpha (0 to 1)
+</member><member name="a8" type="int">Alpha (0 to 255)
+</member><member name="b" type="float">Blue (0 to 1)
+</member><member name="b8" type="int">Blue (0 to 255)
+</member><member name="g" type="float">Green (0 to 1)
+</member><member name="g8" type="int">Green (0 to 255)
+</member><member name="h" type="float">Hue (0 to 1)
+</member><member name="r" type="float">Red (0 to 1)
+</member><member name="r8" type="int">Red (0 to 255)
+</member><member name="s" type="float">Saturation (0 to 1)
+</member><member name="v" type="float">Value (0 to 1)
+</member></members><constants></constants></class>

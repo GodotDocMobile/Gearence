@@ -1,11 +1,11 @@
-<class name="ViewportSprite" inherits="Node2D" category="Core"><brief_description>
-		Displays a viewport as a sprite.</brief_description><description>
-		Used to display a [Viewport] node at some position in the world, without having to mess with [RenderTargetTexture]\ s.</description><methods><method name="get_modulate" qualifiers="const"><return type="Color"></return><description>
-				Get color modulation for the texture. All texture pixels are multiplied by this color.</description></method><method name="get_offset" qualifiers="const"><return type="Vector2"></return><description>
-				get the offset to the origin of the texture.</description></method><method name="get_viewport_path" qualifiers="const"><return type="NodePath"></return><description>
-				Return the path to the shown [Viewport] node.</description></method><method name="is_centered" qualifiers="const"><return type="bool"></return><description>
-				Return whether the viewport's texture is centered on the origin.</description></method><method name="set_centered"><argument index="0" name="centered" type="bool"></argument><description>
-				Set whether the viewport's texture should be centered on the origin.</description></method><method name="set_modulate"><argument index="0" name="modulate" type="Color"></argument><description>
-				Set color modulation for the texture. All texture pixels are multiplied by this color. Color may contain rgb values above 1 to achieve a highlight effect.</description></method><method name="set_offset"><argument index="0" name="offset" type="Vector2"></argument><description>
-				Set the offset to the origin of the texture.</description></method><method name="set_viewport_path"><argument index="0" name="path" type="NodePath"></argument><description>
-				Set the path to the shown [Viewport] node.</description></method></methods><constants></constants></class>
+<class name="ViewportSprite" inherits="Node2D" category="Core"><brief_description>Displays a viewport as a sprite.
+</brief_description><description>Used to display a [Viewport] node at some position in the world, without having to mess with [RenderTargetTexture]\ s.
+</description><methods><method name="get_modulate" qualifiers="const"><return type="Color"></return><description>Get color modulation for the texture. All texture pixels are multiplied by this color.
+</description></method><method name="get_offset" qualifiers="const"><return type="Vector2"></return><description>get the offset to the origin of the texture.
+</description></method><method name="get_viewport_path" qualifiers="const"><return type="NodePath"></return><description>Return the path to the shown [Viewport] node.
+</description></method><method name="is_centered" qualifiers="const"><return type="bool"></return><description>Return whether the viewport's texture is centered on the origin.
+</description></method><method name="set_centered"><argument index="0" name="centered" type="bool"></argument><description>Set whether the viewport's texture should be centered on the origin.
+</description></method><method name="set_modulate"><argument index="0" name="modulate" type="Color"></argument><description>Set color modulation for the texture. All texture pixels are multiplied by this color. Color may contain rgb values above 1 to achieve a highlight effect.
+</description></method><method name="set_offset"><argument index="0" name="offset" type="Vector2"></argument><description>Set the offset to the origin of the texture.
+</description></method><method name="set_viewport_path"><argument index="0" name="path" type="NodePath"></argument><description>Set the path to the shown [Viewport] node.
+</description></method></methods><constants></constants></class>

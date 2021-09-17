@@ -1,4 +1,4 @@
-<class name="EventStream" inherits="Resource" category="Core"><brief_description>
-	Base class for all event-based stream drivers.</brief_description><description>
-	Base class for all event-based stream drivers. Event streams are music expressed as a series of events (note on, note off, instrument change...), as opposed to audio streams, which are just audio data. Examples of event-based streams are MIDI files, of MOD music.
-	This class exposes no methods.</description><methods></methods><constants></constants></class>
+<class name="EventStream" inherits="Resource" category="Core"><brief_description>Base class for all event-based stream drivers.
+</brief_description><description>Base class for all event-based stream drivers. Event streams are music expressed as a series of events (note on, note off, instrument change...), as opposed to audio streams, which are just audio data. Examples of event-based streams are MIDI files, of MOD music.
+This class exposes no methods.
+</description><methods></methods><constants></constants></class>

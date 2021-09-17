@@ -1,10 +1,10 @@
-<class name="VisibilityEnabler2D" inherits="VisibilityNotifier2D" category="Core"><brief_description>
-		Enable certain nodes only when visible.</brief_description><description>
-		The VisibilityEnabler2D will disable [RigidBody2D], [AnimationPlayer], and other nodes when they are not visible. It will only affect other nodes within the same scene as the VisibilityEnabler2D itself.</description><methods><method name="is_enabler_enabled" qualifiers="const"><return type="bool"></return><argument index="0" name="enabler" type="int"></argument><description>
-				Returns whether the specified enabler was set to true or not.</description></method><method name="set_enabler"><argument index="0" name="enabler" type="int"></argument><argument index="1" name="enabled" type="bool"></argument><description>
-				Set an enabler to true for all nodes of its type to be disabled when the VisibilityEnabler2D is not in view. See the constants for enablers and what they affect.</description></method></methods><constants><constant name="ENABLER_FREEZE_BODIES" value="1">
-			This enabler will freeze [RigidBody2D] nodes.</constant><constant name="ENABLER_PAUSE_ANIMATIONS" value="0">
-			This enabler will pause [AnimationPlayer] nodes.</constant><constant name="ENABLER_PAUSE_PARTICLES" value="2">
-			This enabler will stop [Particles2D] nodes.</constant><constant name="ENABLER_PAUSE_ANIMATED_SPRITES" value="5"></constant><constant name="ENABLER_PARENT_PROCESS" value="3">
-			This enabler will stop the parent's _process function.</constant><constant name="ENABLER_PARENT_FIXED_PROCESS" value="4">
-			This enabler will stop the parent's _fixed_process function.</constant><constant name="ENABLER_MAX" value="6"></constant></constants></class>
+<class name="VisibilityEnabler2D" inherits="VisibilityNotifier2D" category="Core"><brief_description>Enable certain nodes only when visible.
+</brief_description><description>The VisibilityEnabler2D will disable [RigidBody2D], [AnimationPlayer], and other nodes when they are not visible. It will only affect other nodes within the same scene as the VisibilityEnabler2D itself.
+</description><methods><method name="is_enabler_enabled" qualifiers="const"><return type="bool"></return><argument index="0" name="enabler" type="int"></argument><description>Returns whether the specified enabler was set to true or not.
+</description></method><method name="set_enabler"><argument index="0" name="enabler" type="int"></argument><argument index="1" name="enabled" type="bool"></argument><description>Set an enabler to true for all nodes of its type to be disabled when the VisibilityEnabler2D is not in view. See the constants for enablers and what they affect.
+</description></method></methods><constants><constant name="ENABLER_FREEZE_BODIES" value="1">This enabler will freeze [RigidBody2D] nodes.
+</constant><constant name="ENABLER_PAUSE_ANIMATIONS" value="0">This enabler will pause [AnimationPlayer] nodes.
+</constant><constant name="ENABLER_PAUSE_PARTICLES" value="2">This enabler will stop [Particles2D] nodes.
+</constant><constant name="ENABLER_PAUSE_ANIMATED_SPRITES" value="5"></constant><constant name="ENABLER_PARENT_PROCESS" value="3">This enabler will stop the parent's _process function.
+</constant><constant name="ENABLER_PARENT_FIXED_PROCESS" value="4">This enabler will stop the parent's _fixed_process function.
+</constant><constant name="ENABLER_MAX" value="6"></constant></constants></class>
