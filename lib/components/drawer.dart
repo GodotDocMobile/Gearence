@@ -106,7 +106,7 @@ class GCRDrawerState extends State<GCRDrawer> {
                 padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                 child: ListTile(
                   title: Text("View Source"),
-                  subtitle: Text("You can create an issue!"),
+                  subtitle: Text("Issues are welcome!"),
                   onTap: () async {
                     const url =
                         'https://github.com/GodotDocMobile/godot_class_reference';

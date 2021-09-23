@@ -170,10 +170,13 @@ class _ClassEnumsState extends State<ClassEnums> {
       itemScrollController: _scrollController,
       itemPositionsListener: _itemPositionsListener,
       itemBuilder: (context, index) {
-        return Column(
-          children: [
-            _builtList[index],
-          ],
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              _builtList[index],
+            ],
+          ),
         );
       },
     );
