@@ -74,122 +74,125 @@ class _ClassMembersState extends State<ClassMembers> {
         itemPositionsListener: _itemPositionsListener,
         itemBuilder: (context, index) {
           final m = widget.clsContent.members[index];
-          return Column(
-            children: <Widget>[
-              ListTile(
-                title: Container(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  child: Text(
-                    m.name,
-                    style: TextStyle(
-                      fontSize: 25,
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: <Widget>[
+                ListTile(
+                  title: Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: Text(
+                      m.name,
+                      style: TextStyle(
+                        fontSize: 25,
 //                    color: godotColor,
+                      ),
                     ),
                   ),
-                ),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Row(
-                      children: [
-                        Text(
-                          'type',
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        ClassDB()
-                                .getDB()
-                                .any((element) => element.name == m.type)
-                            ? InkWell(
-                                child: Text(
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Row(
+                        children: [
+                          Text(
+                            'type',
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          ClassDB()
+                                  .getDB()
+                                  .any((element) => element.name == m.type)
+                              ? InkWell(
+                                  child: Text(
+                                    m.type,
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      color: godotColor,
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    TapEventArg _arg = TapEventArg(
+                                        className: m.type,
+                                        linkType: LinkType.Class,
+                                        fieldName: '');
+                                    widget.onLinkTap(_arg);
+                                  },
+                                )
+                              : Text(
                                   m.type,
                                   style: TextStyle(
                                     fontSize: 15,
-                                    color: godotColor,
+                                    color: Colors.black,
                                   ),
                                 ),
-                                onTap: () {
-                                  TapEventArg _arg = TapEventArg(
-                                      className: m.type,
-                                      linkType: LinkType.Class,
-                                      fieldName: '');
-                                  widget.onLinkTap(_arg);
-                                },
-                              )
-                            : Text(
-                                m.type,
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.black,
+                        ],
+                      ),
+                      Divider(
+                        indent: propertyIndent,
+                      ),
+                      m.setter == null || m.setter.length == 0
+                          ? SizedBox()
+                          : Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  'setter',
+                                  style: TextStyle(color: Colors.grey),
                                 ),
-                              ),
-                      ],
-                    ),
-                    Divider(
-                      indent: propertyIndent,
-                    ),
-                    m.setter == null || m.setter.length == 0
-                        ? SizedBox()
-                        : Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                'setter',
-                                style: TextStyle(color: Colors.grey),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                                child: Text(
-                                  m.setter + "(value)",
-                                  style: TextStyle(
-                                      color: _isDarkMode
-                                          ? Colors.white
-                                          : Colors.black),
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                                  child: Text(
+                                    m.setter + "(value)",
+                                    style: TextStyle(
+                                        color: _isDarkMode
+                                            ? Colors.white
+                                            : Colors.black),
+                                  ),
                                 ),
-                              ),
-                              Divider(
-                                indent: propertyIndent,
-                              ),
-                            ],
-                          ),
-                    m.getter == null || m.getter.length == 0
-                        ? SizedBox()
-                        : Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                'getter',
-                                style: TextStyle(color: Colors.grey),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                                child: Text(
-                                  m.getter + "()",
-                                  style: TextStyle(
-                                      color: _isDarkMode
-                                          ? Colors.white
-                                          : Colors.black),
+                                Divider(
+                                  indent: propertyIndent,
                                 ),
-                              ),
-                              Divider(
-                                indent: propertyIndent,
-                              ),
-                            ],
-                          ),
-                    DescriptionText(
-                      className: widget.clsContent.name,
-                      content: m.memberText,
-                      onLinkTap: widget.onLinkTap,
-                    ),
-                  ],
+                              ],
+                            ),
+                      m.getter == null || m.getter.length == 0
+                          ? SizedBox()
+                          : Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  'getter',
+                                  style: TextStyle(color: Colors.grey),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                                  child: Text(
+                                    m.getter + "()",
+                                    style: TextStyle(
+                                        color: _isDarkMode
+                                            ? Colors.white
+                                            : Colors.black),
+                                  ),
+                                ),
+                                Divider(
+                                  indent: propertyIndent,
+                                ),
+                              ],
+                            ),
+                      DescriptionText(
+                        className: widget.clsContent.name,
+                        content: m.memberText,
+                        onLinkTap: widget.onLinkTap,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Divider(
-                color: Colors.blueGrey,
-              )
-            ],
+                Divider(
+                  color: Colors.blueGrey,
+                )
+              ],
+            ),
           );
         });
   }

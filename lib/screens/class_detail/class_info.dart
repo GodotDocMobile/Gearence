@@ -32,7 +32,7 @@ class ClassInfo extends StatelessWidget {
     //tutorials
     //demos
     return ListView(
-      padding: EdgeInsets.all(6),
+      padding: EdgeInsets.all(10),
       children: <Widget>[
         //inherit chain
         Text(
