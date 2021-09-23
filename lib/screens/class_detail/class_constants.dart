@@ -73,46 +73,50 @@ class _ClassConstantsState extends State<ClassConstants> {
         itemPositionsListener: _itemPositionsListener,
         itemBuilder: (context, index) {
           final c = _onlyConstants[index];
-          return Column(
-            children: [
-              ListTile(
-                title: Row(
-                  children: <Widget>[
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      child: Text(
-                        c.name,
-                        // style: TextStyle(fontSize: 20),
-                      ),
-                    ),
-                  ],
-                ),
-                subtitle: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Text("value"),
-                        SizedBox(
-                          width: 10,
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                ListTile(
+                  title: Row(
+                    children: <Widget>[
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        child: Text(
+                          c.name,
+                          // style: TextStyle(fontSize: 20),
                         ),
-                        Text(c.value),
-                      ],
-                    ),
-                    Divider(
-                      indent: propertyIndent,
-                    ),
-                    DescriptionText(
-                      className: widget.clsContent.name,
-                      content: c.constantText,
-                      onLinkTap: widget.onLinkTap,
-                    ),
-                  ],
+                      ),
+                    ],
+                  ),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text("value"),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(c.value),
+                        ],
+                      ),
+                      Divider(
+                        indent: propertyIndent,
+                      ),
+                      DescriptionText(
+                        className: widget.clsContent.name,
+                        content: c.constantText,
+                        onLinkTap: widget.onLinkTap,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Divider(
-                color: Colors.blueGrey,
-              )
-            ],
+                Divider(
+                  color: Colors.blueGrey,
+                )
+              ],
+            ),
           );
         });
   }

@@ -70,70 +70,74 @@ class _ClassSignalsState extends State<ClassSignals> {
         itemPositionsListener: _itemPositionsListener,
         itemBuilder: (context, index) {
           final s = widget.clsContent.signals[index];
-          return Column(
-            children: [
-              ListTile(
-                title: Text(
-                  s.name,
-                  style: TextStyle(
-                    fontSize: 25,
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                ListTile(
+                  title: Text(
+                    s.name,
+                    style: TextStyle(
+                      fontSize: 25,
 //                    color: godotColor,
+                    ),
+                  ),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Column(
+                        children: s.arguments.map((e) {
+                          return Column(
+                            children: [
+                              Row(
+                                children: [
+                                  ClassDB().getDB().any(
+                                          (element) => element.name == e.type)
+                                      ? InkWell(
+                                          child: Text(
+                                            e.type,
+                                            style: TextStyle(
+                                              color: godotColor,
+                                            ),
+                                          ),
+                                          onTap: () {
+                                            TapEventArg _arg = TapEventArg(
+                                                className: e.type,
+                                                linkType: LinkType.Class,
+                                                fieldName: '');
+                                            widget.onLinkTap(_arg);
+                                          },
+                                        )
+                                      : Text(e.type),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    e.name,
+                                    style: TextStyle(fontSize: 15),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          );
+                        }).toList(),
+                      ),
+                      Divider(
+                        indent: propertyIndent,
+                      ),
+                      DescriptionText(
+                        className: widget.clsContent.name,
+                        content: s.description,
+                        onLinkTap: widget.onLinkTap,
+                      ),
+                    ],
                   ),
                 ),
-                subtitle: Column(
-                  children: [
-                    Column(
-                      children: s.arguments.map((e) {
-                        return Column(
-                          children: [
-                            Row(
-                              children: [
-                                ClassDB().getDB().any(
-                                        (element) => element.name == e.type)
-                                    ? InkWell(
-                                        child: Text(
-                                          e.type,
-                                          style: TextStyle(
-                                            color: godotColor,
-                                          ),
-                                        ),
-                                        onTap: () {
-                                          TapEventArg _arg = TapEventArg(
-                                              className: e.type,
-                                              linkType: LinkType.Class,
-                                              fieldName: '');
-                                          widget.onLinkTap(_arg);
-                                        },
-                                      )
-                                    : Text(e.type),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text(
-                                  e.name,
-                                  style: TextStyle(fontSize: 15),
-                                ),
-                              ],
-                            ),
-                          ],
-                        );
-                      }).toList(),
-                    ),
-                    Divider(
-                      indent: propertyIndent,
-                    ),
-                    DescriptionText(
-                      className: widget.clsContent.name,
-                      content: s.description,
-                      onLinkTap: widget.onLinkTap,
-                    ),
-                  ],
-                ),
-              ),
-              Divider(
-                color: Colors.blueGrey,
-              )
-            ],
+                Divider(
+                  color: Colors.blueGrey,
+                )
+              ],
+            ),
           );
         });
   }
