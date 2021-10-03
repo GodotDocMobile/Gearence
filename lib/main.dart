@@ -48,14 +48,6 @@ class _GCRAppState extends State<GCRApp> {
       future: StoredValues().readValue(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
-          // if (!StoredValues().themeChange.isListened()) {
-          //   StoredValues().themeChange.addListener(() {
-          //     print("in main");
-          //
-          //     // Navigator.pop(context, true);
-          //     setState(() {});
-          //   });
-          // }
 
           return ChangeNotifierProvider<ThemeChange>(
             create: (context) {
@@ -77,19 +69,6 @@ class _GCRAppState extends State<GCRApp> {
             },
           );
 
-          //   MaterialApp(
-          //   //hide debug banner
-          //   debugShowCheckedModeBanner: false,
-          //   theme: lightTheme,
-          //   darkTheme: darkTheme,
-          //   themeMode: Provider.of<ThemeChange>(context).isDark
-          //       ? ThemeMode.dark
-          //       : ThemeMode.light,
-          //   home: ClassSelect(),
-          //   builder: (BuildContext context, Widget child) {
-          //     return child;
-          //   },
-          // );
         } else {
           return Container(
             color: Colors.black,
