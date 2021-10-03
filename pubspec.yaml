@@ -1,6 +1,7 @@
 name: godotclassreference
 description: Class reference for Godot Engine.
 
+publish_to: none
 doc_time: 2020-08-12
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -12,7 +13,7 @@ doc_time: 2020-08-12
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 0.1.8+33
+version: 0.2.0+34
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -37,6 +38,12 @@ dependencies:
 
   flutter:
     sdk: flutter
+
+  flutter_highlight:
+    git:
+      url: https://github.com/GodotDocMobile/highlight.dart.git/
+      path: flutter_highlight
+      ref: generate-gdscript
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
