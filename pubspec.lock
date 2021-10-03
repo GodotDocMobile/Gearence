@@ -97,6 +97,15 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_highlight:
+    dependency: "direct main"
+    description:
+      path: flutter_highlight
+      ref: generate-gdscript
+      resolved-ref: e69693dca20dfde7fdd90809c3b76a11032303f6
+      url: "https://github.com/GodotDocMobile/highlight.dart.git/"
+    source: git
+    version: "0.7.0"
   flutter_launcher_icons:
     dependency: "direct main"
     description:
@@ -128,6 +137,15 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.2.0"
+  highlight:
+    dependency: transitive
+    description:
+      path: highlight
+      ref: generate-gdscript
+      resolved-ref: e69693dca20dfde7fdd90809c3b76a11032303f6
+      url: "https://github.com/GodotDocMobile/highlight.dart.git/"
+    source: git
+    version: "0.7.0"
   image:
     dependency: transitive
     description:
