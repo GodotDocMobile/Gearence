@@ -10,13 +10,25 @@
 [code]parts[/code]   - Array of Dictionaries {[code]files[/code], [code]copyright[/code], [code]license[/code]} describing subsections of the component
 </description></method><method name="get_donor_info" qualifiers="const"><return type="Dictionary" /><description>Returns a Dictionary of Arrays of donor names.
 {[code]platinum_sponsors[/code], [code]gold_sponsors[/code], [code]silver_sponsors[/code], [code]bronze_sponsors[/code], [code]mini_sponsors[/code], [code]gold_donors[/code], [code]silver_donors[/code], [code]bronze_donors[/code]}
-</description></method><method name="get_frames_drawn"><return type="int" /><description>Returns the total number of frames drawn. If the render loop is disabled with [code]--disable-render-loop[/code] via command line, this returns [code]0[/code]. See also [method get_idle_frames].
+</description></method><method name="get_frames_drawn"><return type="int" /><description>Returns the total number of frames drawn. On headless platforms, or if the render loop is disabled with [code]--disable-render-loop[/code] via command line, [method get_frames_drawn] always returns [code]0[/code]. See [method get_idle_frames].
 </description></method><method name="get_frames_per_second" qualifiers="const"><return type="float" /><description>Returns the frames per second of the running game.
-</description></method><method name="get_idle_frames" qualifiers="const"><return type="int" /><description>Returns the total number of frames passed since engine initialization which is advanced on each [b]idle frame[/b], regardless of whether the render loop is enabled. See also [method get_frames_drawn].
+</description></method><method name="get_idle_frames" qualifiers="const"><return type="int" /><description>Returns the total number of frames passed since engine initialization which is advanced on each [b]idle frame[/b], regardless of whether the render loop is enabled. See also [method get_frames_drawn] and [method get_physics_frames].
+[method get_idle_frames] can be used to run expensive logic less often without relying on a [Timer]:
+[codeblock]
+func _process(_delta):
+    if Engine.get_idle_frames() % 2 == 0:
+        pass  # Run expensive logic only once every 2 idle (render) frames here.
+[/codeblock]
 </description></method><method name="get_license_info" qualifiers="const"><return type="Dictionary" /><description>Returns Dictionary of licenses used by Godot and included third party components.
 </description></method><method name="get_license_text" qualifiers="const"><return type="String" /><description>Returns Godot license text.
 </description></method><method name="get_main_loop" qualifiers="const"><return type="MainLoop" /><description>Returns the main loop object (see [MainLoop] and [SceneTree]).
-</description></method><method name="get_physics_frames" qualifiers="const"><return type="int" /><description>Returns the total number of frames passed since engine initialization which is advanced on each [b]physics frame[/b].
+</description></method><method name="get_physics_frames" qualifiers="const"><return type="int" /><description>Returns the total number of frames passed since engine initialization which is advanced on each [b]physics frame[/b]. See also [method get_idle_frames].
+[method get_physics_frames] can be used to run expensive logic less often without relying on a [Timer]:
+[codeblock]
+func _physics_process(_delta):
+    if Engine.get_physics_frames() % 2 == 0:
+        pass  # Run expensive logic only once every 2 physics frames here.
+[/codeblock]
 </description></method><method name="get_physics_interpolation_fraction" qualifiers="const"><return type="float" /><description>Returns the fraction through the current physics tick we are at the time of rendering the frame. This can be used to implement fixed timestep interpolation.
 </description></method><method name="get_singleton" qualifiers="const"><return type="Object" /><argument index="0" name="name" type="String" /><description>Returns a global singleton with given [code]name[/code]. Often used for plugins, e.g. [code]GodotPayment[/code] on Android.
 </description></method><method name="get_version_info" qualifiers="const"><return type="Dictionary" /><description>Returns the current engine version information in a Dictionary.

@@ -22,6 +22,7 @@ An [Image] cannot be assigned to a [code]texture[/code] property of an object di
 </description></method><method name="flip_x"><return type="void" /><description>Flips the image horizontally.
 </description></method><method name="flip_y"><return type="void" /><description>Flips the image vertically.
 </description></method><method name="generate_mipmaps"><return type="int" enum="Error" /><argument index="0" name="renormalize" type="bool" default="false" /><description>Generates mipmaps for the image. Mipmaps are precalculated lower-resolution copies of the image that are automatically used if the image needs to be scaled down when rendered. They help improve image quality and performance when rendering. This method returns an error if the image is compressed, in a custom format, or if the image's width/height is [code]0[/code].
+[b]Note:[/b] Mipmap generation is done on the CPU, is single-threaded and is [i]always[/i] done on the main thread. This means generating mipmaps will result in noticeable stuttering during gameplay, even if [method generate_mipmaps] is called from a [Thread].
 </description></method><method name="get_data" qualifiers="const"><return type="PoolByteArray" /><description>Returns a copy of the image's raw data.
 </description></method><method name="get_format" qualifiers="const"><return type="int" enum="Image.Format" /><description>Returns the image's format. See [enum Format] constants.
 </description></method><method name="get_height" qualifiers="const"><return type="int" /><description>Returns the image's height.
