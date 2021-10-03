@@ -52,7 +52,17 @@ if "i" in "team":
 </description></method><method name="format"><return type="String" /><argument index="0" name="values" type="Variant" /><argument index="1" name="placeholder" type="String" default="&quot;{_}&quot;" /><description>Formats the string by replacing all occurrences of [code]placeholder[/code] with [code]values[/code].
 </description></method><method name="get_base_dir"><return type="String" /><description>If the string is a valid file path, returns the base directory name.
 </description></method><method name="get_basename"><return type="String" /><description>If the string is a valid file path, returns the full file path without the extension.
-</description></method><method name="get_extension"><return type="String" /><description>If the string is a valid file path, returns the extension.
+</description></method><method name="get_extension"><return type="String" /><description>Returns the extension without the leading period character ([code].[/code]) if the string is a valid file name or path. If the string does not contain an extension, returns an empty string instead.
+[codeblock]
+print("/path/to/file.txt".get_extension())  # "txt"
+print("file.txt".get_extension())  # "txt"
+print("file.sample.txt".get_extension())  # "txt"
+print(".txt".get_extension())  # "txt"
+print("file.txt.".get_extension())  # "" (empty string)
+print("file.txt..".get_extension())  # "" (empty string)
+print("txt".get_extension())  # "" (empty string)
+print("".get_extension())  # "" (empty string)
+[/codeblock]
 </description></method><method name="get_file"><return type="String" /><description>If the string is a valid file path, returns the filename.
 </description></method><method name="hash"><return type="int" /><description>Hashes the string and returns a 32-bit integer.
 </description></method><method name="hex_to_int"><return type="int" /><description>Converts a string containing a hexadecimal number into an integer. Hexadecimal strings are expected to be prefixed with "[code]0x[/code]" otherwise [code]0[/code] is returned.
