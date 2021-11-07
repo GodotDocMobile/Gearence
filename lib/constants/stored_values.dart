@@ -7,13 +7,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../bloc/theme_bloc.dart';
 
 class StoredValues {
-  SharedPreferences prefs;
+  SharedPreferences? prefs;
 
   // String docDate;
   ThemeChange themeChange = ThemeChange();
-  bool iconForNonNode;
+  bool? iconForNonNode;
 
-  ConfigContent configContent;
+  late ConfigContent configContent;
 
   static final StoredValues _instance = StoredValues._internal();
 
@@ -35,10 +35,10 @@ class StoredValues {
     prefs = await SharedPreferences.getInstance();
     var configString = await rootBundle.loadString('xmls/conf.json');
     configContent = ConfigContent.fromJson(jsonDecode(configString));
-    themeChange.isDark = prefs.getBool('darkTheme') == true;
-    iconForNonNode = prefs.getBool('iconForNonNodes') == null
+    themeChange.isDark = prefs!.getBool('darkTheme') == true;
+    iconForNonNode = prefs!.getBool('iconForNonNodes') == null
         ? true
-        : prefs.getBool('iconForNonNodes');
+        : prefs!.getBool('iconForNonNodes');
 
     return true;
   }

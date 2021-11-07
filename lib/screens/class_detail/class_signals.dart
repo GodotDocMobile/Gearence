@@ -8,23 +8,22 @@ import '../../constants/class_db.dart';
 import '../../constants/colors.dart';
 
 class ClassSignals extends StatefulWidget {
-  final ClassContent clsContent;
+  final ClassContent? clsContent;
   final Function(TapEventArg args) onLinkTap;
-  final Stream<TapEventArg> eventStream;
+  final Stream<TapEventArg?>? eventStream;
 
   ClassSignals(
-      {Key key, this.clsContent, this.eventStream, @required this.onLinkTap})
-      : assert(onLinkTap != null),
-        super(key: key);
+      {Key? key, this.clsContent, this.eventStream, required this.onLinkTap})
+      : super(key: key);
 
   @override
   _ClassSignalsState createState() => _ClassSignalsState();
 }
 
 class _ClassSignalsState extends State<ClassSignals> {
-  ItemScrollController _scrollController;
+  ItemScrollController? _scrollController;
 
-  ItemPositionsListener _itemPositionsListener;
+  ItemPositionsListener? _itemPositionsListener;
 
   double propertyIndent = 50;
 
@@ -33,20 +32,20 @@ class _ClassSignalsState extends State<ClassSignals> {
     super.initState();
     _scrollController = ItemScrollController();
     _itemPositionsListener = ItemPositionsListener.create();
-    widget.eventStream.listen((v) {
+    widget.eventStream!.listen((v) {
       try {
-        scrollTo(v);
+        scrollTo(v!);
       } catch (_) {}
     });
   }
 
   void scrollTo(TapEventArg args) {
-    if (widget.clsContent.name == args.className &&
+    if (widget.clsContent!.name == args.className &&
         args.linkType == LinkType.Signal) {
       final _targetIndex =
-          widget.clsContent.signals.indexWhere((w) => w.name == args.fieldName);
+          widget.clsContent!.signals!.indexWhere((w) => w.name == args.fieldName);
       if (_targetIndex != -1) {
-        _scrollController.scrollTo(
+        _scrollController!.scrollTo(
           curve: Curves.easeInOutCubic,
           index: _targetIndex,
           duration: Duration(milliseconds: 500),
@@ -57,26 +56,26 @@ class _ClassSignalsState extends State<ClassSignals> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.clsContent.signals == null ||
-        widget.clsContent.signals.length == 0) {
+    if (widget.clsContent!.signals == null ||
+        widget.clsContent!.signals!.length == 0) {
       return Center(
         child: Text('0 signal in thie class'),
       );
     }
 
     return ScrollablePositionedList.builder(
-        itemCount: widget.clsContent.signals.length,
+        itemCount: widget.clsContent!.signals!.length,
         itemScrollController: _scrollController,
         itemPositionsListener: _itemPositionsListener,
         itemBuilder: (context, index) {
-          final s = widget.clsContent.signals[index];
+          final s = widget.clsContent!.signals![index];
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
                 ListTile(
                   title: Text(
-                    s.name,
+                    s.name!,
                     style: TextStyle(
                       fontSize: 25,
 //                    color: godotColor,
@@ -86,7 +85,7 @@ class _ClassSignalsState extends State<ClassSignals> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Column(
-                        children: s.arguments.map((e) {
+                        children: s.arguments!.map((e) {
                           return Column(
                             children: [
                               Row(
@@ -95,25 +94,25 @@ class _ClassSignalsState extends State<ClassSignals> {
                                           (element) => element.name == e.type)
                                       ? InkWell(
                                           child: Text(
-                                            e.type,
+                                            e.type!,
                                             style: TextStyle(
                                               color: godotColor,
                                             ),
                                           ),
                                           onTap: () {
                                             TapEventArg _arg = TapEventArg(
-                                                className: e.type,
+                                                className: e.type!,
                                                 linkType: LinkType.Class,
                                                 fieldName: '');
                                             widget.onLinkTap(_arg);
                                           },
                                         )
-                                      : Text(e.type),
+                                      : Text(e.type!),
                                   SizedBox(
                                     width: 10,
                                   ),
                                   Text(
-                                    e.name,
+                                    e.name!,
                                     style: TextStyle(fontSize: 15),
                                   ),
                                 ],
@@ -126,8 +125,8 @@ class _ClassSignalsState extends State<ClassSignals> {
                         indent: propertyIndent,
                       ),
                       DescriptionText(
-                        className: widget.clsContent.name,
-                        content: s.description,
+                        className: widget.clsContent!.name!,
+                        content: s.description!,
                         onLinkTap: widget.onLinkTap,
                       ),
                     ],

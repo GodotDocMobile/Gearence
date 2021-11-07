@@ -6,9 +6,9 @@ import 'package:flutter_highlight/themes/atom-one-dark.dart';
 import '../constants/stored_values.dart';
 
 class CodeText extends StatelessWidget {
-  final String codeText;
+  final String? codeText;
 
-  const CodeText({Key key, this.codeText}) : super(key: key);
+  const CodeText({Key? key, this.codeText}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class CodeText extends StatelessWidget {
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: HighlightView(
-          codeText,
+          codeText!,
           language: 'gdscript',
           theme: StoredValues().themeChange.isDark
               ? atomOneDarkTheme

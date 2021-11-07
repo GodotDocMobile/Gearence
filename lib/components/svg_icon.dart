@@ -9,21 +9,19 @@ class SvgIcon extends StatelessWidget {
   final String className;
   final String version;
 
-  final int height;
-  final int width;
+  final int? height;
+  final int? width;
 
   String _correspondFilename = 'icon';
   bool _loadFailed = false;
 
   SvgIcon(
-      {@required this.className,
-      Key key,
-      @required this.version,
+      {required this.className,
+      Key? key,
+      required this.version,
       this.height,
       this.width})
-      : assert(className != null),
-        assert(version != null),
-        super(key: key) {
+      : super(key: key) {
     final _classNameLength = className.length; // '.xml' not included
     int _digit = 0;
 
@@ -81,7 +79,7 @@ class SvgIcon extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: snapshot.hasData && !_loadFailed
-                ? SvgPicture.string(snapshot.data)
+                ? SvgPicture.string(snapshot.data!)
                 : SvgPicture.asset('svgs/' + version + '/icon_node.svg'),
           ),
         );

@@ -2,6 +2,7 @@
 import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:xml/xml.dart' as xml;
+import 'package:xml/xml.dart';
 
 import '../bloc/xml_load_bloc.dart';
 import '../models/class_content.dart';
@@ -12,7 +13,7 @@ class ClassDB {
   XMLLoadBloc loadBloc = XMLLoadBloc();
 
   static final ClassDB _instance = ClassDB._internal();
-  String _version;
+  String? _version;
   bool loading = false;
 
   // String _loadingClass;
@@ -26,7 +27,7 @@ class ClassDB {
   updateList(List<ClassContent> list) {
     _classContent = List<ClassContent>.from(list);
     _classContent.sort((a, b) {
-      return a.name.compareTo(b.name);
+      return a.name!.compareTo(b.name!);
     });
   }
 
@@ -53,11 +54,11 @@ class ClassDB {
     _classContent.toSet().toList();
   }
 
-  Future<ClassContent> _loadSingle(String version, String classFileName,
+  Future<ClassContent> _loadSingle(String? version, String? classFileName,
       {bool skipCheck = true}) async {
     ClassContent _toRtn;
     var _existIndex = _classContent.indexWhere(
-        (element) => element.name == classFileName.replaceAll('.xml', ''));
+        (element) => element.name == classFileName!.replaceAll('.xml', ''));
 
     var _xmlLoaded =
         _existIndex != -1 && _classContent[_existIndex].version != null;
@@ -66,14 +67,15 @@ class ClassDB {
       _toRtn = _classContent[_existIndex];
     } else {
       final file = await rootBundle
-          .loadString('xmls/' + version + '/' + classFileName + '.xml');
+          .loadString('xmls/' + version! + '/' + classFileName! + '.xml');
       final rootNode = xml.XmlDocument.parse(file)
           .root
           .children
           .lastWhere((w) => w.nodeType != xml.XmlNodeType.TEXT);
 
-      ClassContent _xmlContent = ClassContent.fromXml(rootNode);
+      ClassContent _xmlContent = ClassContent.fromXml(rootNode as XmlElement);
       _xmlContent.inheritChain = _classContent[_existIndex].inheritChain;
+      _xmlContent.nodeType = _classContent[_existIndex].nodeType;
       _classContent[_existIndex] = _xmlContent;
 
       _toRtn = _xmlContent;
@@ -86,7 +88,7 @@ class ClassDB {
     return _toRtn;
   }
 
-  Future<ClassContent> getSingle(String version, String className) async {
+  Future<ClassContent> getSingle(String? version, String className) async {
     final _className = className;
 
     if (_classContent.any(

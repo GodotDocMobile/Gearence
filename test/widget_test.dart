@@ -88,7 +88,7 @@ void main() {
     expect(find.byType(ListTile), findsWidgets);
 
     bool endLoop = false;
-    ListTile prevHead;
+    ListTile? prevHead;
     int dragged = 0;
     while (!endLoop) {
       //scrolling down
@@ -97,13 +97,13 @@ void main() {
               of: find.byType(ListView), matching: find.byType(ListTile))
           .evaluate()
           .first
-          .widget;
+          .widget as ListTile;
 
       //tapping each ListTile
       final classes = find.byType(ListTile).evaluate();
       for (int i = 0; i < classes.length; i++) {
         ListTile one =
-            find.byWidget(classes.elementAt(i).widget).evaluate().first.widget;
+            find.byWidget(classes.elementAt(i).widget).evaluate().first.widget as ListTile;
         print(one.title);
         expect(find.byWidget(classes.elementAt(i).widget), findsOneWidget);
 //        print(find.byWidget(classes.elementAt(i).widget));

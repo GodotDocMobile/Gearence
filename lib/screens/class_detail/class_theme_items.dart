@@ -7,42 +7,41 @@ import '../../constants/colors.dart';
 import '../../models/class_content.dart';
 
 class ClassThemeItems extends StatefulWidget {
-  final ClassContent clsContent;
+  final ClassContent? clsContent;
   final Function(TapEventArg args) onLinkTap;
-  final Stream<TapEventArg> eventStream;
+  final Stream<TapEventArg?>? eventStream;
 
   ClassThemeItems(
-      {Key key, this.clsContent, this.eventStream, @required this.onLinkTap})
-      : assert(onLinkTap != null),
-        super(key: key);
+      {Key? key, this.clsContent, this.eventStream, required this.onLinkTap})
+      : super(key: key);
 
   @override
   _ClassThemeItemsState createState() => _ClassThemeItemsState();
 }
 
 class _ClassThemeItemsState extends State<ClassThemeItems> {
-  ItemScrollController _scrollController;
-  ItemPositionsListener _itemPositionsListener;
+  ItemScrollController? _scrollController;
+  ItemPositionsListener? _itemPositionsListener;
 
   @override
   void initState() {
     super.initState();
     _scrollController = ItemScrollController();
     _itemPositionsListener = ItemPositionsListener.create();
-    widget.eventStream.listen((v) {
+    widget.eventStream!.listen((v) {
       try {
-        scrollTo(v);
+        scrollTo(v!);
       } catch (_) {}
     });
   }
 
   void scrollTo(TapEventArg args) {
-    if (widget.clsContent.name == args.className &&
+    if (widget.clsContent!.name == args.className &&
         args.linkType == LinkType.ThemeItem) {
-      final _targetIndex = widget.clsContent.themeItems
+      final _targetIndex = widget.clsContent!.themeItems!
           .indexWhere((w) => w.name == args.fieldName);
       if (_targetIndex != -1) {
-        _scrollController.scrollTo(
+        _scrollController!.scrollTo(
           curve: Curves.easeInOutCubic,
           index: _targetIndex,
           duration: Duration(milliseconds: 500),
@@ -53,23 +52,23 @@ class _ClassThemeItemsState extends State<ClassThemeItems> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.clsContent.themeItems == null ||
-        widget.clsContent.themeItems.length == 0) {
+    if (widget.clsContent!.themeItems == null ||
+        widget.clsContent!.themeItems!.length == 0) {
       return Center(
         child: Text('0 theme item in this class'),
       );
     }
 
     return ScrollablePositionedList.builder(
-      itemCount: widget.clsContent.themeItems.length,
+      itemCount: widget.clsContent!.themeItems!.length,
       itemScrollController: _scrollController,
       itemPositionsListener: _itemPositionsListener,
       itemBuilder: (context, index) {
-        final t = widget.clsContent.themeItems[index];
+        final t = widget.clsContent!.themeItems![index];
         return Column(
           children: [
             ListTile(
-              title: Text(t.name),
+              title: Text(t.name!),
               subtitle: Row(
                 children: [
                   Text("type"),
@@ -79,20 +78,20 @@ class _ClassThemeItemsState extends State<ClassThemeItems> {
                   ClassDB().getDB().any((element) => element.name == t.type)
                       ? InkWell(
                           child: Text(
-                            t.type,
+                            t.type!,
                             style: TextStyle(
                               color: godotColor,
                             ),
                           ),
                           onTap: () {
                             TapEventArg _arg = TapEventArg(
-                                className: t.type,
+                                className: t.type!,
                                 linkType: LinkType.Class,
                                 fieldName: '');
                             widget.onLinkTap(_arg);
                           },
                         )
-                      : Text(t.type)
+                      : Text(t.type!)
                 ],
               ),
             ),

@@ -7,22 +7,21 @@ import '../../models/class_content.dart';
 import '../../models/constant.dart';
 
 class ClassConstants extends StatefulWidget {
-  final ClassContent clsContent;
+  final ClassContent? clsContent;
   final Function(TapEventArg args) onLinkTap;
-  final Stream<TapEventArg> eventStream;
+  final Stream<TapEventArg?>? eventStream;
 
   ClassConstants(
-      {Key key, this.clsContent, this.eventStream, @required this.onLinkTap})
-      : assert(onLinkTap != null),
-        super(key: key);
+      {Key? key, this.clsContent, this.eventStream, required this.onLinkTap})
+      : super(key: key);
 
   @override
   _ClassConstantsState createState() => _ClassConstantsState();
 }
 
 class _ClassConstantsState extends State<ClassConstants> {
-  ItemScrollController _scrollController;
-  ItemPositionsListener _itemPositionsListener;
+  ItemScrollController? _scrollController;
+  ItemPositionsListener? _itemPositionsListener;
 
   List<Constant> _onlyConstants = [];
 
@@ -34,21 +33,21 @@ class _ClassConstantsState extends State<ClassConstants> {
     _scrollController = ItemScrollController();
     _itemPositionsListener = ItemPositionsListener.create();
     _onlyConstants =
-        widget.clsContent.constants.where((w) => w.enumValue == null).toList();
-    widget.eventStream.listen((v) {
+        widget.clsContent!.constants!.where((w) => w.enumValue == null).toList();
+    widget.eventStream!.listen((v) {
       try {
-        scrollTo(v);
+        scrollTo(v!);
       } catch (_) {}
     });
   }
 
   void scrollTo(TapEventArg args) {
-    if (widget.clsContent.name == args.className &&
+    if (widget.clsContent!.name == args.className &&
         args.linkType == LinkType.Constant) {
       final _targetIndex =
           _onlyConstants.indexWhere((w) => w.name == args.fieldName);
       if (_targetIndex != -1) {
-        _scrollController.scrollTo(
+        _scrollController!.scrollTo(
           curve: Curves.easeInOutCubic,
           index: _targetIndex,
           duration: Duration(milliseconds: 500),
@@ -59,8 +58,8 @@ class _ClassConstantsState extends State<ClassConstants> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.clsContent.constants == null ||
-        widget.clsContent.constants.where((w) => w.enumValue == null).length ==
+    if (widget.clsContent!.constants == null ||
+        widget.clsContent!.constants!.where((w) => w.enumValue == null).length ==
             0) {
       return Center(
         child: Text('0 constant in this class'),
@@ -83,7 +82,7 @@ class _ClassConstantsState extends State<ClassConstants> {
                       Container(
                         width: MediaQuery.of(context).size.width * 0.8,
                         child: Text(
-                          c.name,
+                          c.name!,
                           // style: TextStyle(fontSize: 20),
                         ),
                       ),
@@ -98,15 +97,15 @@ class _ClassConstantsState extends State<ClassConstants> {
                           SizedBox(
                             width: 10,
                           ),
-                          Text(c.value),
+                          Text(c.value!),
                         ],
                       ),
                       Divider(
                         indent: propertyIndent,
                       ),
                       DescriptionText(
-                        className: widget.clsContent.name,
-                        content: c.constantText,
+                        className: widget.clsContent!.name!,
+                        content: c.constantText!,
                         onLinkTap: widget.onLinkTap,
                       ),
                     ],
