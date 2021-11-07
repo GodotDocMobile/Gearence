@@ -11,6 +11,8 @@ import '../theme/themes.dart';
 
 import 'class_detail.dart';
 
+// TODO: refactor this file
+
 class SearchScreen extends StatefulWidget {
   @override
   _SearchScreenState createState() => _SearchScreenState();
@@ -49,11 +51,24 @@ class _SearchScreenState extends State<SearchScreen> {
 
   bool _isDarkTheme;
 
+  // when user are in search,
+  // classes in class db may not be fully initialized
+  // which means xml files may not all mapped to class properties
+  // so a stream of fresh-loaded class is needed
   StreamSubscription<TapEventArg> _xmlSub;
 
   @override
   void initState() {
     super.initState();
+
+    _controller.addListener(() async {
+      var _lower = _controller.text.toLowerCase().replaceAll(' ', '');
+      if (_searchingTerm != _lower) {
+        _searchingTerm = _lower;
+        _onTextSubmit(_lower);
+      }
+    });
+
     _xmlSub = _searchBloc.argStream.listen((event) {
       if (event != null) {
         setState(() {
@@ -109,9 +124,9 @@ class _SearchScreenState extends State<SearchScreen> {
   void _onTextSubmit(String val) {
     if (_controller.text.length > 0) {
       _argList.clear();
-      val = val.toLowerCase().replaceAll(' ', '');
-      _searchingTerm = val;
       _doSearch(val);
+    }else{
+      _argList.clear();
     }
 
     if (_xmlSub != null) {
@@ -122,6 +137,7 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   void _xmlLoadSearch(ClassContent clsContent) {
+    // print("searching");
     if (_xmlSub != null) {
       if (_searching && _searchingTerm.length > 0) {
         _searchSingle(clsContent);
@@ -241,7 +257,7 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   void _doSearch(String term) async {
-    if (_searchingTerm != term || term.length <= 1) {
+    if (_searchingTerm != term) {
       return;
     }
 
