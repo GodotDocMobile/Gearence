@@ -3,22 +3,22 @@ import 'package:flutter/material.dart';
 import '../models/class_content.dart';
 
 class NodeTag extends StatelessWidget {
-  final ClassContent classContent;
+  final ClassContent? classContent;
 
-  const NodeTag({Key key, this.classContent}) : super(key: key);
+  const NodeTag({Key? key, this.classContent}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: tagColor[classContent.nodeType],
+        color: tagColor[classContent!.nodeType],
         borderRadius: BorderRadius.circular(5),
       ),
       width: 45,
       height: 20,
       child: Center(
         child: Text(
-          tagName[classContent.nodeType],
+          tagName[classContent!.nodeType]!,
           style: TextStyle(color: Colors.white, fontSize: 15),
         ),
       ),

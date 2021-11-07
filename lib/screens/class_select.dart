@@ -19,9 +19,9 @@ class ClassSelect extends StatefulWidget {
 }
 
 class _ClassSelectState extends State<ClassSelect> {
-  ClassListFilterBloc _filterBloc;
+  late ClassListFilterBloc _filterBloc;
 
-  List<ClassContent> _classes = [];
+  List<ClassContent>? _classes = [];
 
   Map<classNodeType, List<ClassContent>> sortedLists =
       new Map<classNodeType, List<ClassContent>>();
@@ -34,15 +34,15 @@ class _ClassSelectState extends State<ClassSelect> {
       sortedLists[e] = <ClassContent>[];
       // not == true here, because value could be null
       filterOptionValues
-          .add(StoredValues().prefs.getBool(filterOptionStoreKey[e]) != false);
+          .add(StoredValues().prefs!.getBool(filterOptionStoreKey[e]!) != false);
     }
   }
 
   static Future<List<ClassContent>> getXmlFiles() async {
-    String version = StoredValues().prefs.getString('version');
+    String? version = StoredValues().prefs!.getString('version');
     if (version == null || version.length == 0) {
       version = '3.3';
-      await StoredValues().prefs.setString('version', version);
+      await StoredValues().prefs!.setString('version', version);
     }
 
     final file = await rootBundle.loadString('xmls/files_' + version + '.json');
@@ -84,10 +84,10 @@ class _ClassSelectState extends State<ClassSelect> {
     ];
 
     for (var e in classNodeType.values) {
-      if (sortedLists[e].length > 0) {
+      if (sortedLists[e]!.length > 0) {
         int index = classNodeType.values.indexOf(e);
         ret.add(ListTile(
-          title: Text(filterName[e]),
+          title: Text(filterName[e]!),
           trailing: Switch(
               value: filterOptionValues[index],
               onChanged: (v) {
@@ -95,7 +95,7 @@ class _ClassSelectState extends State<ClassSelect> {
                   filterOptionValues[index] = v;
                 });
                 _filterBloc.argSink.add(FilterOption(e, v));
-                StoredValues().prefs.setBool(filterOptionStoreKey[e], v);
+                StoredValues().prefs!.setBool(filterOptionStoreKey[e]!, v);
               }),
         ));
       }
@@ -131,25 +131,25 @@ class _ClassSelectState extends State<ClassSelect> {
         });
   }
 
-  void _sortClasses(List<ClassContent> list) async {
+  void _sortClasses(List<ClassContent>? list) async {
     for (var e in classNodeType.values) {
-      if (sortedLists[e].length == 0) {
+      if (sortedLists[e]!.length == 0) {
         sortedLists[e] =
-            list.where((element) => element.nodeType == e).toList();
+            list!.where((element) => element.nodeType == e).toList();
       }
     }
   }
 
-  List<ClassContent> filterClasses(List<ClassContent> list) {
+  List<ClassContent> filterClasses(List<ClassContent>? list) {
     List<ClassContent> _rtnList = [];
     _sortClasses(list);
     for (var e in classNodeType.values) {
       if (filterOptionValues[classNodeType.values.indexOf(e)]) {
-        _rtnList.addAll(sortedLists[e]);
+        _rtnList.addAll(sortedLists[e]!);
       }
     }
     _rtnList.sort((a, b) {
-      return a.name.compareTo(b.name);
+      return a.name!.compareTo(b.name!);
     });
     return _rtnList;
   }
@@ -168,7 +168,7 @@ class _ClassSelectState extends State<ClassSelect> {
               drawer: GCRDrawer(),
               appBar: AppBar(
                 title: Text("Godot v" +
-                    StoredValues().prefs.getString('version') +
+                    StoredValues().prefs!.getString('version')! +
                     " classes"),
                 actions: <Widget>[
                   IconButton(
@@ -217,13 +217,13 @@ class _ClassSelectState extends State<ClassSelect> {
                             classContent: f,
                             key: UniqueKey(),
                           ),
-                          title: Text(f.name),
+                          title: Text(f.name!),
                           onTap: () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      ClassDetail(className: f.name),
+                                      ClassDetail(className: f.name!),
                                 ));
                           },
                           trailing: f.nodeType == classNodeType.None

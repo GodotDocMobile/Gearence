@@ -10,30 +10,28 @@ import '../../models/constant.dart';
 class ClassEnums extends StatefulWidget {
   final ClassContent clsContent;
   final Function(TapEventArg args) onLinkTap;
-  final Stream<TapEventArg> eventStream;
+  final Stream<TapEventArg?>? eventStream;
 
   ClassEnums(
-      {Key key,
-      @required this.clsContent,
+      {Key? key,
+      required this.clsContent,
       this.eventStream,
-      @required this.onLinkTap})
-      : assert(clsContent != null),
-        assert(onLinkTap != null),
-        super(key: key);
+      required this.onLinkTap})
+      : super(key: key);
 
   @override
   _ClassEnumsState createState() => _ClassEnumsState();
 }
 
 class _ClassEnumsState extends State<ClassEnums> {
-  ItemScrollController _scrollController;
-  ItemPositionsListener _itemPositionsListener;
-  StreamSubscription<TapEventArg> _tapSub;
+  ItemScrollController? _scrollController;
+  ItemPositionsListener? _itemPositionsListener;
+  late StreamSubscription<TapEventArg?> _tapSub;
 
-  List<String> _enumNames = [];
+  List<String?> _enumNames = [];
 
   List<Widget> _builtList = [];
-  List<String> _enumValues = [];
+  List<String?> _enumValues = [];
 
   double propertyIndent = 50;
 
@@ -41,16 +39,16 @@ class _ClassEnumsState extends State<ClassEnums> {
   void initState() {
     _scrollController = ItemScrollController();
     _itemPositionsListener = ItemPositionsListener.create();
-    _enumNames = widget.clsContent.constants
+    _enumNames = widget.clsContent.constants!
         .map((c) {
           return c.enumValue;
         })
         .toSet()
         .where((w) => w != null)
         .toList();
-    _tapSub = widget.eventStream.listen((v) {
+    _tapSub = widget.eventStream!.listen((v) {
       try {
-        scrollTo(v);
+        scrollTo(v!);
       } catch (_) {}
     });
     super.initState();
@@ -68,7 +66,7 @@ class _ClassEnumsState extends State<ClassEnums> {
       final _targetIndex =
           _enumValues.indexWhere((w) => w == args.fieldName.split('.').last);
       if (_targetIndex != -1) {
-        _scrollController.scrollTo(
+        _scrollController!.scrollTo(
           curve: Curves.easeInOutCubic,
           index: _targetIndex,
           duration: Duration(milliseconds: 500),
@@ -78,8 +76,8 @@ class _ClassEnumsState extends State<ClassEnums> {
   }
 
   int _getPositionCount() {
-    return widget.clsContent.constants.where((element) {
-      return element.enumValue != null && element.enumValue.length > 0;
+    return widget.clsContent.constants!.where((element) {
+      return element.enumValue != null && element.enumValue!.length > 0;
     }).length;
   }
 
@@ -89,8 +87,8 @@ class _ClassEnumsState extends State<ClassEnums> {
         ListTile(
           title: Text('${clsConstant.name} = ${clsConstant.value}'),
           subtitle: DescriptionText(
-            className: widget.clsContent.name,
-            content: clsConstant.constantText,
+            className: widget.clsContent.name!,
+            content: clsConstant.constantText!,
             onLinkTap: widget.onLinkTap,
           ),
         ),
@@ -108,11 +106,11 @@ class _ClassEnumsState extends State<ClassEnums> {
   void buildEnums() {
     _enumNames.sort();
     _enumNames.forEach((enumName) {
-      List<Constant> _belongEnum = widget.clsContent.constants.where((element) {
+      List<Constant> _belongEnum = widget.clsContent.constants!.where((element) {
         return element.enumValue != null && element.enumValue == enumName;
       }).toList();
       _belongEnum
-          .sort((a, b) => int.parse(a.value).compareTo(int.parse(b.value)));
+          .sort((a, b) => int.parse(a.value!).compareTo(int.parse(b.value!)));
 
       _enumValues.add(_belongEnum[0].name);
       _builtList.add(Column(
@@ -127,7 +125,7 @@ class _ClassEnumsState extends State<ClassEnums> {
                     style: TextStyle(color: Colors.grey, fontSize: 20),
                   ),
                   Text(
-                    enumName,
+                    enumName!,
                     style: TextStyle(fontSize: 20),
                   ),
                   Text(
@@ -153,8 +151,8 @@ class _ClassEnumsState extends State<ClassEnums> {
   @override
   Widget build(BuildContext context) {
     if (widget.clsContent.constants == null ||
-        widget.clsContent.constants
-                .where((w) => w != null && w.enumValue != null)
+        widget.clsContent.constants!
+                .where((w) => w.enumValue != null)
                 .length ==
             0) {
       return Center(

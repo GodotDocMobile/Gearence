@@ -1,16 +1,11 @@
-import 'package:flutter/material.dart';
-
 enum LinkType { Class, Method, Signal, Enum, Member, Constant, ThemeItem }
 
 class TapEventArg {
-  final LinkType linkType;
+  final LinkType? linkType;
   final String className;
   final String fieldName;
 
-  TapEventArg(
-      {this.linkType, @required this.className, @required this.fieldName})
-      : assert(className != null),
-        assert(fieldName != null);
+  TapEventArg({this.linkType, required this.className, required this.fieldName});
 
   String toString() {
     return 'class:' +
@@ -22,7 +17,7 @@ class TapEventArg {
   }
 }
 
-String linkTypeToString(LinkType input) {
+String linkTypeToString(LinkType? input) {
   switch (input) {
     case LinkType.Enum:
       return 'Enums';
@@ -42,7 +37,7 @@ String linkTypeToString(LinkType input) {
   }
 }
 
-LinkType linkTypeFromString(String input) {
+LinkType? linkTypeFromString(String input) {
   switch (input.trimRight().trimLeft().toLowerCase()) {
     case 'class':
       return LinkType.Class;

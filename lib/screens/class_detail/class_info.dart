@@ -7,19 +7,18 @@ import '../../models/class_content.dart';
 import '../../theme/default.dart';
 
 class ClassInfo extends StatelessWidget {
-  final ClassContent clsContent;
+  final ClassContent? clsContent;
   final Function(TapEventArg args) onLinkTap;
 
-  ClassInfo({Key key, this.clsContent, @required this.onLinkTap})
-      : assert(onLinkTap != null),
-        super(key: key);
+  ClassInfo({Key? key, this.clsContent, required this.onLinkTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final _childClasses = ClassDB()
         .getDB()
-        .where((element) => element.inherits == clsContent.name)
-        .map((e) => ' [' + e.name + '] ')
+        .where((element) => element.inherits == clsContent!.name)
+        .map((e) => ' [' + e.name! + '] ')
         .toList()
         .toString();
 
@@ -40,9 +39,9 @@ class ClassInfo extends StatelessWidget {
           style: TextStyle(color: Colors.grey),
         ),
         DescriptionText(
-          className: clsContent.name,
+          className: clsContent!.name!,
           content:
-              clsContent.inheritChain == null ? '' : clsContent.inheritChain,
+              clsContent!.inheritChain == null ? '' : clsContent!.inheritChain!,
           onLinkTap: onLinkTap,
         ),
         SizedBox(
@@ -55,7 +54,7 @@ class ClassInfo extends StatelessWidget {
           style: TextStyle(color: Colors.grey),
         ),
         DescriptionText(
-          className: clsContent.name,
+          className: clsContent!.name!,
           content: _childClasses.substring(1, _childClasses.length - 1),
           onLinkTap: onLinkTap,
         ),
@@ -69,8 +68,8 @@ class ClassInfo extends StatelessWidget {
           style: TextStyle(color: Colors.grey),
         ),
         DescriptionText(
-          className: clsContent.name,
-          content: clsContent.briefDescription,
+          className: clsContent!.name!,
+          content: clsContent!.briefDescription!,
           onLinkTap: onLinkTap,
         ),
         SizedBox(
@@ -78,7 +77,7 @@ class ClassInfo extends StatelessWidget {
         ),
 
         //version
-        (clsContent.version == null
+        (clsContent!.version == null
             ? SizedBox()
             : Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -89,7 +88,7 @@ class ClassInfo extends StatelessWidget {
                   ),
                   Padding(
                       padding: EdgeInsets.fromLTRB(10, 4, 0, 0),
-                      child: Text(clsContent.version)),
+                      child: Text(clsContent!.version!)),
                 ],
               )),
         SizedBox(
@@ -97,7 +96,7 @@ class ClassInfo extends StatelessWidget {
         ),
 
         //category
-        (clsContent.category == null
+        (clsContent!.category == null
             ? SizedBox()
             : Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -108,7 +107,7 @@ class ClassInfo extends StatelessWidget {
                   ),
                   Padding(
                       padding: EdgeInsets.fromLTRB(10, 4, 0, 0),
-                      child: Text(clsContent.category)),
+                      child: Text(clsContent!.category!)),
                   SizedBox(
                     height: 10,
                   ),
@@ -117,20 +116,20 @@ class ClassInfo extends StatelessWidget {
 
         //description
         DescriptionText(
-          className: clsContent.name,
-          content: clsContent.description,
+          className: clsContent!.name!,
+          content: clsContent!.description!,
           onLinkTap: onLinkTap,
         ),
 
         //tutorials
-        clsContent.demos != null && clsContent.demos.length > 0
+        clsContent!.demos != null && clsContent!.demos!.length > 0
             ? Column(
                 children: <Widget>[
                   Text(
                     'Demos:',
                     style: fieldNames,
                   ),
-                  Text(clsContent.demos)
+                  Text(clsContent!.demos!)
                 ],
               )
             : Container(),
@@ -139,11 +138,11 @@ class ClassInfo extends StatelessWidget {
         ),
 
         //demos
-        clsContent.demos != null && clsContent.demos.length > 0
+        clsContent!.demos != null && clsContent!.demos!.length > 0
             ? Column(
                 children: <Widget>[
                   Text('Tutorials:'),
-                  Text(clsContent.tutorials)
+                  Text(clsContent!.tutorials!)
                 ],
               )
             : Container(),

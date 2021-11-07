@@ -51,7 +51,7 @@ final Map<classNodeType, String> filterOptionStoreKey = {
   classNodeType.None: "showNonNodes",
 };
 
-// names of nodes in inherit chain
+// names of nodes to categorize them for filtering
 final Map<classNodeType, String> nodeName = {
   classNodeType.D2: "Node2D",
   classNodeType.D3: "Spatial",
@@ -74,23 +74,24 @@ enum classNodeType {
 }
 
 class ClassContent {
-  String name;
-  String inherits;
-  String category;
-  String version;
-  String briefDescription;
-  String demos;
-  List<Constant> constants;
-  String description;
-  List<Member> members;
-  List<Method> methods;
-  List<Signal> signals;
-  List<ThemeItem> themeItems;
-  String tutorials;
-  String inheritChain;
+  String? name;
+  String? inherits;
+  String? category;
+  String? version;
+  String? briefDescription;
+  String? demos;
+  List<Constant>? constants;
+  String? description;
+  List<Member>? members;
+  List<Method>? methods;
+  List<Signal>? signals;
+  List<ThemeItem>? themeItems;
+  String? tutorials;
 
-  /* the rest properties are not in the xml file nor json file index */
+  /* the following properties are not in xml files,
+   need to be set by hand or by external program */
   classNodeType nodeType = classNodeType.None;
+  String? inheritChain;
 
   ClassContent(
       {this.name,
@@ -132,7 +133,7 @@ class ClassContent {
     if (constantRoot.length > 0) {
       final constantNodes = constantRoot.first.children;
       toReturn.constants = constantNodes.map((f) {
-        final nodeAttr = f.attributes;
+        final List<XmlAttribute?> nodeAttr = f.attributes;
         return Constant(
             name: _getAttrByName(nodeAttr, 'name'),
             value: _getAttrByName(nodeAttr, 'value'),
@@ -148,7 +149,7 @@ class ClassContent {
     if (memberRoot.length > 0) {
       final memberNodes = memberRoot.first.children;
       toReturn.members = memberNodes.map((f) {
-        final nodeAttr = f.attributes;
+        final List<XmlAttribute?> nodeAttr = f.attributes;
         return Member(
             name: _getAttrByName(nodeAttr, 'name'),
             type: _getAttrByName(nodeAttr, 'type'),
@@ -165,12 +166,12 @@ class ClassContent {
       final methodNodes = methodRoot.first.children;
       toReturn.methods = methodNodes.map((f) {
         final element = f as XmlElement;
-        final nodeAttr = f.attributes;
+        final List<XmlAttribute?> nodeAttr = f.attributes;
 
         final argumentNodes = element.findElements('argument');
         final methodReturnNodes = element.findAllElements('return');
 
-        MethodReturn methodRtn;
+        MethodReturn? methodRtn;
         if (methodReturnNodes.length > 0) {
           final methodReturnAttr = methodReturnNodes.first.attributes;
           methodRtn = MethodReturn(
@@ -189,7 +190,7 @@ class ClassContent {
               defaultValue: _getAttrByName(argumentAttr, 'default'));
         }).toList();
 
-        _arguments.sort((a, b) => a.index.compareTo(b.index));
+        _arguments.sort((a, b) => a.index!.compareTo(b.index!));
 
         return Method(
             name: _getAttrByName(nodeAttr, 'name'),
@@ -206,7 +207,7 @@ class ClassContent {
       final signalNodes = signalRoot.first.children;
       toReturn.signals = signalNodes.map((f) {
         final element = f as XmlElement;
-        final nodeAttr = f.attributes;
+        final List<XmlAttribute?> nodeAttr = f.attributes;
         final argumentNodes = element.findElements('argument');
         return Signal(
             name: _getAttrByName(nodeAttr, 'name'),
@@ -226,7 +227,7 @@ class ClassContent {
     if (themeItemRoot.length > 0) {
       final themeItemNodes = themeItemRoot.first.children;
       toReturn.themeItems = themeItemNodes.map((f) {
-        final nodeAttr = f.attributes;
+        final List<XmlAttribute?> nodeAttr = f.attributes;
         return ThemeItem(
             name: _getAttrByName(nodeAttr, 'name'),
             type: _getAttrByName(nodeAttr, 'type'));
@@ -236,18 +237,20 @@ class ClassContent {
     return toReturn;
   }
 
-  static String _getAttrByName(List<XmlAttribute> attrs, String attrName) {
-    return attrs.singleWhere((w) => w.name.local == attrName, orElse: () {
-      return null;
-    })?.value;
+  static String? _getAttrByName(List<XmlAttribute?> attrs, String attrName) {
+    if (attrs.any((element) => element!.name.local == attrName)) {
+      return attrs
+          .firstWhere((element) => element!.name.local == attrName)
+          ?.value;
+    }
+    return null;
   }
 
   void setNodeType() {
-    if (this.inheritChain == null) {
-      return;
-    }
     for (var e in classNodeType.values) {
-      if (this.inheritChain.contains('[${nodeName[e]}]')) {
+      if ((this.inheritChain != null &&
+              this.inheritChain!.contains('[${nodeName[e]}]')) ||
+          this.name == nodeName[e]) {
         this.nodeType = e;
         return;
       }
