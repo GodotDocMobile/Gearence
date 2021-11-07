@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:godotclassreference/theme/default.dart';
+import 'package:godotclassreference/theme/themes.dart';
 
 import '../bloc/tap_event_bloc.dart';
 import '../bloc/tap_event_arg.dart';
-import '../components/node_tag.dart';
 import '../constants/class_db.dart';
 import '../constants/stored_values.dart';
 import '../models/class_content.dart';
@@ -86,6 +87,29 @@ class _ClassDetailState extends State<ClassDetail>
     }
   }
 
+  Widget itemCountContainer(int itemCount) {
+    return Row(
+      children: <Widget>[
+        SizedBox(
+          width: 5,
+        ),
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(Radius.circular(3)),
+          ),
+          height: 20,
+          child: Center(
+            child: Text(
+              " " + itemCount.toString() + " ",
+              style: TextStyle(color: Colors.black),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<ClassContent>(
@@ -126,51 +150,37 @@ class _ClassDetailState extends State<ClassDetail>
             }
           }
 
-          return Scaffold(
-            appBar: AppBar(
-              title:Text(widget.className),
-              bottom: TabBar(
+          return MediaQuery(
+            data: scaledMediaQueryData(context),
+            child: Scaffold(
+              appBar: AppBar(
+                title: Text(widget.className),
+                bottom: TabBar(
+                  indicatorColor: StoredValues().themeChange.isDark
+                      ? Theme.of(context).colorScheme.secondary
+                      : Colors.white,
+                  controller: tabController,
+                  isScrollable: true,
+                  tabs: _tabs.map((f) {
+                    return Tab(
+                      child: Row(
+                        children: <Widget>[
+                          Text(f.title!),
+                          f.showCnt
+                              ? itemCountContainer(f.itemCount!)
+                              : SizedBox()
+                        ],
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ),
+              body: TabBarView(
                 controller: tabController,
-                isScrollable: true,
-                tabs: _tabs.map((f) {
-                  return Tab(
-                    child: Row(
-                      children: <Widget>[
-                        Text(f.title!),
-                        f.showCnt
-                            ? Row(
-                                children: <Widget>[
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(3)),
-                                    ),
-                                    height: 20,
-                                    child: Center(
-                                      child: Text(
-                                        " " + f.itemCount.toString() + " ",
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              )
-                            : SizedBox()
-                      ],
-                    ),
-                  );
+                children: _tabs.map((c) {
+                  return c.child!;
                 }).toList(),
               ),
-            ),
-            body: TabBarView(
-              controller: tabController,
-              children: _tabs.map((c) {
-                return c.child!;
-              }).toList(),
             ),
           );
         }

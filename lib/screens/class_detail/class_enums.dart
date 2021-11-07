@@ -85,11 +85,26 @@ class _ClassEnumsState extends State<ClassEnums> {
     return Column(
       children: [
         ListTile(
-          title: Text('${clsConstant.name} = ${clsConstant.value}'),
-          subtitle: DescriptionText(
-            className: widget.clsContent.name!,
-            content: clsConstant.constantText!,
-            onLinkTap: widget.onLinkTap,
+          title: Text('${clsConstant.name}'),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Text("value  "),
+                  Text(
+                    clsConstant.value.toString(),
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                ],
+              ),
+              SizedBox(height: 10),
+              DescriptionText(
+                className: widget.clsContent.name!,
+                content: clsConstant.constantText!,
+                onLinkTap: widget.onLinkTap,
+              ),
+            ],
           ),
         ),
         appendDivider
@@ -106,7 +121,8 @@ class _ClassEnumsState extends State<ClassEnums> {
   void buildEnums() {
     _enumNames.sort();
     _enumNames.forEach((enumName) {
-      List<Constant> _belongEnum = widget.clsContent.constants!.where((element) {
+      List<Constant> _belongEnum =
+          widget.clsContent.constants!.where((element) {
         return element.enumValue != null && element.enumValue == enumName;
       }).toList();
       _belongEnum
@@ -124,13 +140,12 @@ class _ClassEnumsState extends State<ClassEnums> {
                     'enum ',
                     style: TextStyle(color: Colors.grey, fontSize: 20),
                   ),
-                  Text(
-                    enumName!,
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  Text(
-                    ':',
-                    style: TextStyle(fontSize: 20),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.6,
+                    child: Text(
+                      enumName! + ":",
+                      style: TextStyle(fontSize: 20),
+                    ),
                   ),
                 ]),
               ],
@@ -151,9 +166,7 @@ class _ClassEnumsState extends State<ClassEnums> {
   @override
   Widget build(BuildContext context) {
     if (widget.clsContent.constants == null ||
-        widget.clsContent.constants!
-                .where((w) => w.enumValue != null)
-                .length ==
+        widget.clsContent.constants!.where((w) => w.enumValue != null).length ==
             0) {
       return Center(
         child: Text('0 enum in this class'),
