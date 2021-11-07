@@ -15,7 +15,6 @@ class ThemeChange with ChangeNotifier {
 
   void switchTheme(bool value) {
     isDark = value;
-    // print(this.isListened());
     notifyListeners();
   }
 

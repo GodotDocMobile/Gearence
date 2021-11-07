@@ -32,8 +32,9 @@ class _ClassConstantsState extends State<ClassConstants> {
     super.initState();
     _scrollController = ItemScrollController();
     _itemPositionsListener = ItemPositionsListener.create();
-    _onlyConstants =
-        widget.clsContent!.constants!.where((w) => w.enumValue == null).toList();
+    _onlyConstants = widget.clsContent!.constants!
+        .where((w) => w.enumValue == null)
+        .toList();
     widget.eventStream!.listen((v) {
       try {
         scrollTo(v!);
@@ -59,7 +60,9 @@ class _ClassConstantsState extends State<ClassConstants> {
   @override
   Widget build(BuildContext context) {
     if (widget.clsContent!.constants == null ||
-        widget.clsContent!.constants!.where((w) => w.enumValue == null).length ==
+        widget.clsContent!.constants!
+                .where((w) => w.enumValue == null)
+                .length ==
             0) {
       return Center(
         child: Text('0 constant in this class'),
@@ -80,10 +83,9 @@ class _ClassConstantsState extends State<ClassConstants> {
                   title: Row(
                     children: <Widget>[
                       Container(
-                        width: MediaQuery.of(context).size.width * 0.8,
+                        width: MediaQuery.of(context).size.width * 0.88,
                         child: Text(
                           c.name!,
-                          // style: TextStyle(fontSize: 20),
                         ),
                       ),
                     ],
@@ -93,11 +95,11 @@ class _ClassConstantsState extends State<ClassConstants> {
                     children: [
                       Row(
                         children: [
-                          Text("value"),
-                          SizedBox(
-                            width: 10,
+                          Text("value  "),
+                          Text(
+                            c.value.toString(),
+                            style: Theme.of(context).textTheme.bodyText1,
                           ),
-                          Text(c.value!),
                         ],
                       ),
                       Divider(

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:godotclassreference/theme/themes.dart';
 
 import '../bloc/class_list_filter_bloc.dart';
 import '../components/class_icon.dart';
@@ -33,8 +34,8 @@ class _ClassSelectState extends State<ClassSelect> {
     for (var e in classNodeType.values) {
       sortedLists[e] = <ClassContent>[];
       // not == true here, because value could be null
-      filterOptionValues
-          .add(StoredValues().prefs!.getBool(filterOptionStoreKey[e]!) != false);
+      filterOptionValues.add(
+          StoredValues().prefs!.getBool(filterOptionStoreKey[e]!) != false);
     }
   }
 
@@ -154,6 +155,13 @@ class _ClassSelectState extends State<ClassSelect> {
     return _rtnList;
   }
 
+  void setScale(int value) {
+    setState(() {
+      StoredValues().prefs!.setInt('gcrFontSize', value);
+      StoredValues().fontSize = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -163,35 +171,38 @@ class _ClassSelectState extends State<ClassSelect> {
           if (snapshot.hasData) {
             _classes = snapshot.data;
             _sortClasses(_classes);
-            return Scaffold(
-              // resizeToAvoidBottomPadding: true,
-              drawer: GCRDrawer(),
-              appBar: AppBar(
-                title: Text("Godot v" +
-                    StoredValues().prefs!.getString('version')! +
-                    " classes"),
-                actions: <Widget>[
-                  IconButton(
-                    icon: Icon(Icons.filter_alt_outlined),
-                    onPressed: () {
-                      showFilterDialog();
-                    },
-                  ),
-                  IconButton(
-                    icon: Icon(
-                      Icons.search,
-                      color: Colors.white,
+            return MediaQuery(
+              data: scaledMediaQueryData(context),
+              child: Scaffold(
+                // resizeToAvoidBottomPadding: true,
+                drawer: GCRDrawer(setScaleFunc: setScale),
+                appBar: AppBar(
+                  title: Text("Godot v" +
+                      StoredValues().prefs!.getString('version')! +
+                      " classes"),
+                  actions: <Widget>[
+                    IconButton(
+                      icon: Icon(Icons.filter_alt_outlined),
+                      onPressed: () {
+                        showFilterDialog();
+                      },
                     ),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SearchScreen()));
-                    },
-                  )
-                ],
+                    IconButton(
+                      icon: Icon(
+                        Icons.search,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SearchScreen()));
+                      },
+                    )
+                  ],
+                ),
+                body: buildList(),
               ),
-              body: buildList(),
             );
           }
 
@@ -232,7 +243,6 @@ class _ClassSelectState extends State<ClassSelect> {
                         ),
                       ))
                   .toList());
-
           return _widget;
         });
   }

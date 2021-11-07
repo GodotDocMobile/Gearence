@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../screens/set_font_size.dart';
 import '../screens/class_select.dart';
 import '../constants/stored_values.dart';
 
 // ignore: must_be_immutable
 class GCRDrawer extends StatefulWidget {
-  const GCRDrawer({Key? key}) : super(key: key);
+  final Function(int)? setScaleFunc;
+
+  const GCRDrawer({Key? key, this.setScaleFunc}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -185,6 +188,18 @@ class GCRDrawerState extends State<GCRDrawer> {
                       StoredValues().themeChange.switchTheme(v);
                     },
                   ),
+                ),
+                ListTile(
+                  leading: Icon(Icons.text_fields),
+                  title: Text("Text size"),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              SetFontSize(setScaleFunc: widget.setScaleFunc),
+                        ));
+                  },
                 ),
                 ListTile(
                   leading: Icon(Icons.info),

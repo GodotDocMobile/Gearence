@@ -46,8 +46,8 @@ class _ClassMembersState extends State<ClassMembers> {
   void scrollTo(TapEventArg args) {
     if (widget.clsContent!.name == args.className &&
         args.linkType == LinkType.Member) {
-      final _targetIndex =
-          widget.clsContent!.members!.indexWhere((w) => w.name == args.fieldName);
+      final _targetIndex = widget.clsContent!.members!
+          .indexWhere((w) => w.name == args.fieldName);
       if (_targetIndex != -1) {
         _scrollController!.scrollTo(
           curve: Curves.easeInOutCubic,
