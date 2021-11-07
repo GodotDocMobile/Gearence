@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:godotclassreference/theme/themes.dart';
 
+import '../theme/themes.dart';
 import '../bloc/class_list_filter_bloc.dart';
 import '../components/class_icon.dart';
 import '../components/node_tag.dart';
@@ -42,7 +42,7 @@ class _ClassSelectState extends State<ClassSelect> {
   static Future<List<ClassContent>> getXmlFiles() async {
     String? version = StoredValues().prefs!.getString('version');
     if (version == null || version.length == 0) {
-      version = '3.3';
+      version = '3.4';
       await StoredValues().prefs!.setString('version', version);
     }
 

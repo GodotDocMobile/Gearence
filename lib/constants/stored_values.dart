@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
-import 'package:godotclassreference/models/config_content.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../models/config_content.dart';
 import '../bloc/theme_bloc.dart';
 
 class StoredValues {
