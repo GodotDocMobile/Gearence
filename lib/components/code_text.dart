@@ -5,7 +5,6 @@ import 'package:flutter_highlight/themes/atom-one-dark.dart';
 
 import '../constants/stored_values.dart';
 
-
 class CodeText extends StatelessWidget {
   final String codeText;
 
