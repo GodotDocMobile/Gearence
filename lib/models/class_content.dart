@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:xml/xml.dart';
 
 import 'constant.dart';
@@ -5,6 +6,72 @@ import 'member.dart';
 import 'method.dart';
 import 'signal.dart';
 import 'theme_item.dart';
+
+// names for node tag used in node_tag
+final Map<classNodeType, String> tagName = {
+  classNodeType.D2: "Node",
+  classNodeType.D3: "Node",
+  classNodeType.Control: "Node",
+  classNodeType.VisualScript: "VScript",
+  classNodeType.VisualShader: "VShader",
+  classNodeType.Other: "Node",
+  classNodeType.None: "",
+};
+
+// color for node tag used in node_tag
+final Map<classNodeType, Color> tagColor = {
+  classNodeType.D2: Color(0xffa5b7f3),
+  classNodeType.D3: Color(0xfffc9c9c),
+  classNodeType.Control: Color(0xffa5efac),
+  classNodeType.VisualScript: Colors.blueGrey,
+  classNodeType.VisualShader: Colors.blueGrey,
+  classNodeType.Other: Colors.blueGrey,
+  classNodeType.None: Colors.blueGrey,
+};
+
+// names for class_select filter classes pop up
+final Map<classNodeType, String> filterName = {
+  classNodeType.D2: "2D Nodes",
+  classNodeType.D3: "3D Nodes",
+  classNodeType.Control: "Control Nodes",
+  classNodeType.VisualScript: "Visual Script Nodes",
+  classNodeType.VisualShader: "Visual Shader Nodes",
+  classNodeType.Other: "Other Nodes",
+  classNodeType.None: "None Nodes",
+};
+
+// names for StoredValues
+final Map<classNodeType, String> filterOptionStoreKey = {
+  classNodeType.D2: "show2DNodes",
+  classNodeType.D3: "show3DNodes",
+  classNodeType.Control: "showControlNodes",
+  classNodeType.VisualScript: "showVisualScriptNodes",
+  classNodeType.VisualShader: "showVisualShaderNodes",
+  classNodeType.Other: "showOtherNodes",
+  classNodeType.None: "showNonNodes",
+};
+
+// names of nodes in inherit chain
+final Map<classNodeType, String> nodeName = {
+  classNodeType.D2: "Node2D",
+  classNodeType.D3: "Spatial",
+  classNodeType.Control: "Control",
+  classNodeType.VisualScript: "VisualScriptNode",
+  classNodeType.VisualShader: "VisualShaderNode",
+  classNodeType.Other: "Node",
+  classNodeType.None: "",
+};
+
+enum classNodeType {
+  D2,
+  D3,
+  Control,
+  VisualScript,
+  VisualShader,
+  // these two has to be in the tail
+  Other,
+  None,
+}
 
 class ClassContent {
   String name;
@@ -21,6 +88,9 @@ class ClassContent {
   List<ThemeItem> themeItems;
   String tutorials;
   String inheritChain;
+
+  /* the rest properties are not in the xml file nor json file index */
+  classNodeType nodeType = classNodeType.None;
 
   ClassContent(
       {this.name,
@@ -172,8 +242,15 @@ class ClassContent {
     })?.value;
   }
 
-  bool belong(String targetClassName) {
-    var _allNames = '[${this.name}]${this.inheritChain}';
-    return _allNames.contains('[$targetClassName]');
+  void setNodeType() {
+    if (this.inheritChain == null) {
+      return;
+    }
+    for (var e in classNodeType.values) {
+      if (this.inheritChain.contains('[${nodeName[e]}]')) {
+        this.nodeType = e;
+        return;
+      }
+    }
   }
 }

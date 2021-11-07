@@ -1,16 +1,16 @@
 import 'dart:async';
 
-enum FilterType { Node2D, Node3D, NodeControl,NodeVisualScript, NodeOther, NonNode }
+import '../models/class_content.dart';
 
 class FilterOption {
-  final FilterType type;
+  final classNodeType type;
   final bool value;
 
   FilterOption(this.type, this.value);
 }
 
 class ClassListFilterBloc {
-  final _filterStateController = StreamController<FilterOption>();
+  final _filterStateController = StreamController<FilterOption>.broadcast();
   StreamSink<FilterOption> get _inArgs => _filterStateController.sink;
   Stream<FilterOption> get argStream => _filterStateController.stream;
 

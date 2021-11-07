@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:godotclassreference/bloc/theme_bloc.dart';
 import 'package:provider/provider.dart';
 
+import 'bloc/theme_bloc.dart';
 import 'bloc/tap_event_bloc.dart';
 import 'constants/stored_values.dart';
 import 'theme/themes.dart';
@@ -48,7 +48,6 @@ class _GCRAppState extends State<GCRApp> {
       future: StoredValues().readValue(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
-
           return ChangeNotifierProvider<ThemeChange>(
             create: (context) {
               return StoredValues().themeChange;
@@ -68,7 +67,6 @@ class _GCRAppState extends State<GCRApp> {
                   });
             },
           );
-
         } else {
           return Container(
             color: Colors.black,

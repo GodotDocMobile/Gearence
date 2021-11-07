@@ -23,15 +23,20 @@ class _ClassSelectState extends State<ClassSelect> {
 
   List<ClassContent> _classes = [];
 
-  // ignore: non_constant_identifier_names
-  List<ClassContent> _2dNodes = [];
+  Map<classNodeType, List<ClassContent>> sortedLists =
+      new Map<classNodeType, List<ClassContent>>();
 
-  // ignore: non_constant_identifier_names
-  List<ClassContent> _3dNodes = [];
-  List<ClassContent> _controlNodes = [];
-  List<ClassContent> _visualNodes = [];
-  List<ClassContent> _otherNodes = [];
-  List<ClassContent> _nonNodes = [];
+  List<bool> filterOptionValues = <bool>[];
+
+  // this will create correspond list for each classNodeType
+  void initialize() {
+    for (var e in classNodeType.values) {
+      sortedLists[e] = <ClassContent>[];
+      // not == true here, because value could be null
+      filterOptionValues
+          .add(StoredValues().prefs.getBool(filterOptionStoreKey[e]) != false);
+    }
+  }
 
   static Future<List<ClassContent>> getXmlFiles() async {
     String version = StoredValues().prefs.getString('version');
@@ -49,6 +54,7 @@ class _ClassSelectState extends State<ClassSelect> {
       final _rtn = new ClassContent();
       _rtn.name = e['class_name'];
       _rtn.inheritChain = e['inherit_chain'];
+      _rtn.setNodeType();
       return _rtn;
     })).toList();
     ClassDB().updateList(_parsedList);
@@ -58,19 +64,44 @@ class _ClassSelectState extends State<ClassSelect> {
 
   @override
   void initState() {
-    _2dNodes.clear();
-    _3dNodes.clear();
-    _controlNodes.clear();
-    _otherNodes.clear();
-    _nonNodes.clear();
-    _filterBloc = ClassListFilterBloc();
-
+    _filterBloc = new ClassListFilterBloc();
+    initialize();
     super.initState();
   }
 
   @override
   void dispose() {
+    _filterBloc.dispose();
     super.dispose();
+  }
+
+  List<Widget> buildFilterOptions() {
+    List<Widget> ret = <Widget>[
+      Text(
+        'you can navigate and search filtered classes',
+        style: TextStyle(color: Colors.grey, fontSize: 13),
+      ),
+    ];
+
+    for (var e in classNodeType.values) {
+      if (sortedLists[e].length > 0) {
+        int index = classNodeType.values.indexOf(e);
+        ret.add(ListTile(
+          title: Text(filterName[e]),
+          trailing: Switch(
+              value: filterOptionValues[index],
+              onChanged: (v) {
+                setState(() {
+                  filterOptionValues[index] = v;
+                });
+                _filterBloc.argSink.add(FilterOption(e, v));
+                StoredValues().prefs.setBool(filterOptionStoreKey[e], v);
+              }),
+        ));
+      }
+    }
+
+    return ret;
   }
 
   Future<void> showFilterDialog() async {
@@ -78,189 +109,45 @@ class _ClassSelectState extends State<ClassSelect> {
         context: context,
         barrierDismissible: false,
         builder: (context) {
-          return StatefulBuilder(builder: (context, setState) {
-            return AlertDialog(
-              title: Text('Filter List Nodes'),
-              content: SingleChildScrollView(
-                child: ListBody(
-                  children: [
-                    Text(
-                      'you can navigate and search filtered classes',
-                      style: TextStyle(color: Colors.grey, fontSize: 13),
-                    ),
-                    ListTile(
-                      title: Text('2D Nodes'),
-                      trailing: Switch(
-                          value: StoredValues().show2DNodes,
-                          onChanged: (v) {
-                            setState(() {
-                              StoredValues().show2DNodes = v;
-                              _filterBloc.argSink
-                                  .add(FilterOption(FilterType.Node2D, v));
-                              StoredValues().prefs.setBool("show2DNodes", v);
-                            });
-                          }),
-                    ),
-                    ListTile(
-                      title: Text('3D Nodes'),
-                      trailing: Switch(
-                        value: StoredValues().show3DNodes,
-                        onChanged: (v) {
-                          setState(() {
-                            StoredValues().show3DNodes = v;
-                            _filterBloc.argSink
-                                .add(FilterOption(FilterType.Node3D, v));
-                            StoredValues().prefs.setBool("show3DNodes", v);
-                          });
-                        },
-                      ),
-                    ),
-                    ListTile(
-                      title: Text('Control Nodes'),
-                      trailing: Switch(
-                        value: StoredValues().showControlNodes,
-                        onChanged: (v) {
-                          setState(() {
-                            StoredValues().showControlNodes = v;
-                            _filterBloc.argSink
-                                .add(FilterOption(FilterType.NodeControl, v));
-                            StoredValues().prefs.setBool("showControlNodes", v);
-                          });
-                        },
-                      ),
-                    ),
-                    ListTile(
-                      title: Text('Visual Script Nodes'),
-                      trailing: Switch(
-                        value: StoredValues().showVisualScriptNodes,
-                        onChanged: (v) {
-                          setState(() {
-                            StoredValues().showVisualScriptNodes = v;
-                            _filterBloc.argSink.add(
-                                FilterOption(FilterType.NodeVisualScript, v));
-                            StoredValues()
-                                .prefs
-                                .setBool('showVisualScriptNodes', v);
-                          });
-                        },
-                      ),
-                    ),
-                    ListTile(
-                      title: Text('Other Nodes'),
-                      trailing: Switch(
-                        value: StoredValues().showOtherNodes,
-                        onChanged: (v) {
-                          setState(() {
-                            StoredValues().showOtherNodes = v;
-                            _filterBloc.argSink
-                                .add(FilterOption(FilterType.NodeOther, v));
-                            StoredValues().prefs.setBool("showOtherNodes", v);
-                          });
-                        },
-                      ),
-                    ),
-                    ListTile(
-                      title: Text('Non Nodes'),
-                      trailing: Switch(
-                        value: StoredValues().showNonNodes,
-                        onChanged: (v) {
-                          setState(() {
-                            StoredValues().showNonNodes = v;
-                            _filterBloc.argSink
-                                .add(FilterOption(FilterType.NonNode, v));
-                            StoredValues().prefs.setBool("showNonNodes", v);
-                          });
-                        },
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              actions: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Text("Close")),
-              ],
-            );
-          });
+          return AlertDialog(
+            title: Text('Filter List Nodes'),
+            content: SingleChildScrollView(
+              child: StreamBuilder<FilterOption>(
+                  stream: _filterBloc.argStream,
+                  builder: (context, snapshot) {
+                    return ListBody(
+                      children: buildFilterOptions(),
+                    );
+                  }),
+            ),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text("Close")),
+            ],
+          );
         });
   }
 
   void _sortClasses(List<ClassContent> list) async {
-    List<ClassContent> _filteredClasses = List<ClassContent>.from(list);
-
-    if (_visualNodes.length == 0) {
-      _visualNodes = _filteredClasses
-          .where((element) => element.belong('VisualScriptNode'))
-          .toList();
-    }
-
-    if (_2dNodes.length == 0) {
-      _2dNodes = _filteredClasses
-          .where((element) => element.belong('Node2D'))
-          .toList();
-    }
-
-    if (_3dNodes.length == 0) {
-      _3dNodes = _filteredClasses
-          .where((element) => element.belong('Spatial'))
-          .toList();
-    }
-
-    if (_controlNodes.length == 0) {
-      _controlNodes = _filteredClasses
-          .where((element) => element.belong('Control'))
-          .toList();
-    }
-
-    if (_otherNodes.length == 0) {
-      _otherNodes = _filteredClasses.where((element) {
-        var _allNames = '[${element.name}]${element.inheritChain}';
-        return _allNames.contains('[Node]') &&
-            !_allNames.contains('Node2D') &&
-            !_allNames.contains('[Spatial]') &&
-            !_allNames.contains('[Control]') &&
-            !_allNames.contains('[VisualScriptNode]');
-      }).toList();
-    }
-
-    if (_nonNodes.length == 0) {
-      _nonNodes = _filteredClasses.where((element) {
-        var _allNames = '[${element.name}]${element.inheritChain}';
-        return !_allNames.contains('[Node]');
-      }).toList();
+    for (var e in classNodeType.values) {
+      if (sortedLists[e].length == 0) {
+        sortedLists[e] =
+            list.where((element) => element.nodeType == e).toList();
+      }
     }
   }
 
   List<ClassContent> filterClasses(List<ClassContent> list) {
     List<ClassContent> _rtnList = [];
     _sortClasses(list);
-    if (StoredValues().show2DNodes) {
-      _rtnList.addAll(_2dNodes);
+    for (var e in classNodeType.values) {
+      if (filterOptionValues[classNodeType.values.indexOf(e)]) {
+        _rtnList.addAll(sortedLists[e]);
+      }
     }
-
-    if (StoredValues().show3DNodes) {
-      _rtnList.addAll(_3dNodes);
-    }
-
-    if (StoredValues().showControlNodes) {
-      _rtnList.addAll(_controlNodes);
-    }
-
-    if (StoredValues().showOtherNodes) {
-      _rtnList.addAll(_otherNodes);
-    }
-
-    if (StoredValues().showNonNodes) {
-      _rtnList.addAll(_nonNodes);
-    }
-
-    if (StoredValues().showVisualScriptNodes) {
-      _rtnList.addAll(_visualNodes);
-    }
-
     _rtnList.sort((a, b) {
       return a.name.compareTo(b.name);
     });
@@ -269,10 +156,8 @@ class _ClassSelectState extends State<ClassSelect> {
 
   @override
   Widget build(BuildContext context) {
-    Future<List<ClassContent>> jsonContent = getXmlFiles();
-
     return FutureBuilder(
-        future: jsonContent,
+        future: getXmlFiles(),
         builder:
             (BuildContext context, AsyncSnapshot<List<ClassContent>> snapshot) {
           if (snapshot.hasData) {
@@ -324,29 +209,6 @@ class _ClassSelectState extends State<ClassSelect> {
     return StreamBuilder<FilterOption>(
         stream: _filterBloc.argStream,
         builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            switch (snapshot.data.type) {
-              case FilterType.Node2D:
-                StoredValues().show2DNodes = snapshot.data.value;
-                break;
-              case FilterType.Node3D:
-                StoredValues().show3DNodes = snapshot.data.value;
-                break;
-              case FilterType.NodeControl:
-                StoredValues().showControlNodes = snapshot.data.value;
-                break;
-              case FilterType.NodeOther:
-                StoredValues().showOtherNodes = snapshot.data.value;
-                break;
-              case FilterType.NonNode:
-                StoredValues().showNonNodes = snapshot.data.value;
-                break;
-              case FilterType.NodeVisualScript:
-                StoredValues().showVisualScriptNodes = snapshot.data.value;
-                break;
-            }
-          }
-
           var _widget = ListView(
               children: filterClasses(_classes)
                   .map((f) => Card(
@@ -364,12 +226,9 @@ class _ClassSelectState extends State<ClassSelect> {
                                       ClassDetail(className: f.name),
                                 ));
                           },
-                          trailing:
-                              (f.belong('Node') || f.belong('VisualScriptNode'))
-                                  ? NodeTag(
-                                      classContent: f,
-                                    )
-                                  : null,
+                          trailing: f.nodeType == classNodeType.None
+                              ? null
+                              : NodeTag(classContent: f),
                         ),
                       ))
                   .toList());

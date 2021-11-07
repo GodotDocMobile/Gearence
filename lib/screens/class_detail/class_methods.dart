@@ -148,7 +148,8 @@ class _ClassMethodsState extends State<ClassMethods> {
                                             children: m.arguments.map((a) {
                                               return ClassDB().getDB().any(
                                                       (element) =>
-                                                          element.name == a.type)
+                                                          element.name ==
+                                                          a.type)
                                                   ? InkWell(
                                                       child: Text(
                                                         a.type,
@@ -160,9 +161,11 @@ class _ClassMethodsState extends State<ClassMethods> {
                                                       onTap: () {
                                                         TapEventArg _arg =
                                                             TapEventArg(
-                                                                className: a.type,
-                                                                linkType: LinkType
-                                                                    .Class,
+                                                                className:
+                                                                    a.type,
+                                                                linkType:
+                                                                    LinkType
+                                                                        .Class,
                                                                 fieldName: '');
                                                         widget.onLinkTap(_arg);
                                                       },
@@ -251,7 +254,9 @@ class _ClassMethodsState extends State<ClassMethods> {
                                     ),
                             ],
                           ),
-                          SizedBox(height: 10,),
+                          SizedBox(
+                            height: 10,
+                          ),
                         ],
                       ),
                       DescriptionText(
