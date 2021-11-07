@@ -22,14 +22,6 @@ class ClassInfo extends StatelessWidget {
         .toList()
         .toString();
 
-    //inherit chain
-    //child classes
-    //brief_description
-    //description
-    //version
-    //category
-    //tutorials
-    //demos
     return ListView(
       padding: EdgeInsets.all(10),
       children: <Widget>[

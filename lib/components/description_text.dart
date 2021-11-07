@@ -1,5 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:godotclassreference/theme/default.dart';
+import 'package:godotclassreference/theme/themes.dart';
 
 import '../components/code_text.dart';
 import '../components/inline_code.dart';
@@ -15,6 +17,7 @@ class DescriptionText extends StatelessWidget {
   final String content;
   final Function(TapEventArg args) onLinkTap;
   final TextStyle? style;
+  TextStyle? _style;
 
   DescriptionText(
       {Key? key,
@@ -33,7 +36,7 @@ class DescriptionText extends StatelessWidget {
     bool inlineCode = false;
     int pos = 0;
 
-    TextStyle _toApplyStyle = DefaultTextStyle.of(context).style;
+    TextStyle _toApplyStyle = _style!;
     while (pos < content.length) {
       int brkPos = content.indexOf('[', pos);
 
@@ -68,7 +71,7 @@ class DescriptionText extends StatelessWidget {
           _toRtn.add(TextSpan(
               text: text.replaceAll('\n', '\n\n'), style: _toApplyStyle));
         }
-        _toApplyStyle = DefaultTextStyle.of(context).style;
+        _toApplyStyle = _style!;
       }
 
       if (brkPos == content.length) {
@@ -130,7 +133,7 @@ class DescriptionText extends StatelessWidget {
                         : linkTarget);
                 this.onLinkTap(args);
               },
-            style: TextStyle(color: godotColor),
+            style: _toApplyStyle.copyWith(color: godotColor),
           ),
         );
         pos = brkEnd + 1;
@@ -147,7 +150,7 @@ class DescriptionText extends StatelessWidget {
                 );
                 this.onLinkTap(args);
               },
-            style: TextStyle(
+            style: _toApplyStyle.copyWith(
                 color: tag == className
                     ? (StoredValues().themeChange.currentTheme() ==
                             ThemeMode.dark
@@ -161,12 +164,12 @@ class DescriptionText extends StatelessWidget {
         // bold
         pos = brkEnd + 1;
         tagStack.add(tag);
-        _toApplyStyle = TextStyle(fontWeight: FontWeight.bold);
+        _toApplyStyle = _toApplyStyle.copyWith(fontWeight: FontWeight.bold);
       } else if (tag == 'i') {
         // italic
         pos = brkEnd + 1;
         tagStack.add(tag);
-        _toApplyStyle = TextStyle(fontStyle: FontStyle.italic);
+        _toApplyStyle = _toApplyStyle.copyWith(fontStyle: FontStyle.italic);
       } else if (tag == 'codeblock') {
         //should set font
         codeTag = true;
@@ -188,18 +191,20 @@ class DescriptionText extends StatelessWidget {
         //underline
         pos = brkEnd + 1;
         tagStack.add(tag);
-        _toApplyStyle = TextStyle(decoration: TextDecoration.underline);
+        _toApplyStyle =
+            _toApplyStyle.copyWith(decoration: TextDecoration.underline);
       } else if (tag == 's') {
 //        tagStack.add(value)
         pos = brkEnd + 1;
         tagStack.add(tag);
-        _toApplyStyle = TextStyle(decoration: TextDecoration.lineThrough);
+        _toApplyStyle =
+            _toApplyStyle.copyWith(decoration: TextDecoration.lineThrough);
       } else if (tag == 'url') {
         int end = content.indexOf('[', brkEnd);
         if (end == -1) {
           end = content.length;
         }
-        String url = content.substring(brkEnd + 1, end - brkEnd - 1);
+        String url = content.substring(brkEnd + 1, end - 1);
         _toRtn.add(TextSpan(text: url));
         pos = brkEnd + 1;
         tagStack.add(tag);
@@ -224,33 +229,33 @@ class DescriptionText extends StatelessWidget {
         else if (col == 'gray' || col == 'grey')
           color = hexToColor('#808080');
         else if (col == 'green')
-          color = hexToColor('008000');
+          color = hexToColor('#008000');
         else if (col == 'lime')
-          color = hexToColor('00FF00');
+          color = hexToColor('#00FF00');
         else if (col == 'maroon')
-          color = hexToColor('800000');
+          color = hexToColor('#800000');
         else if (col == 'navy')
-          color = hexToColor('000080');
+          color = hexToColor('#000080');
         else if (col == 'olive')
-          color = hexToColor('808000');
+          color = hexToColor('#808000');
         else if (col == 'purple')
-          color = hexToColor('800080');
+          color = hexToColor('#800080');
         else if (col == 'red')
-          color = hexToColor('FF0000');
+          color = hexToColor('#FF0000');
         else if (col == 'silver')
-          color = hexToColor('C0C0C0');
+          color = hexToColor('#C0C0C0');
         else if (col == 'teal')
-          color = hexToColor('008008');
+          color = hexToColor('#008008');
         else if (col == 'white')
-          color = hexToColor('FFFFFF');
+          color = hexToColor('#FFFFFF');
         else if (col == 'yellow')
-          color = hexToColor('FFFF00');
+          color = hexToColor('#FFFF00');
         else
           color = Color.fromARGB(1, 0, 0, 0);
 
         pos = brkEnd + 1;
         tagStack.add('color');
-        _toApplyStyle = TextStyle(color: color);
+        _toApplyStyle = _toApplyStyle.copyWith(color: color);
       } else if (tag.startsWith('font=')) {
         pos = brkEnd + 1;
         tagStack.add('font');
@@ -265,10 +270,14 @@ class DescriptionText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RichText(
-      text: TextSpan(
-        style: this.style == null ? DefaultTextStyle.of(context).style : style,
-        children: _parseText(context),
+    _style = scaledTestStyle(context);
+    return MediaQuery(
+      data: scaledMediaQueryData(context),
+      child: RichText(
+        text: TextSpan(
+          style: _style,
+          children: _parseText(context),
+        ),
       ),
     );
   }

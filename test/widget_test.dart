@@ -102,8 +102,11 @@ void main() {
       //tapping each ListTile
       final classes = find.byType(ListTile).evaluate();
       for (int i = 0; i < classes.length; i++) {
-        ListTile one =
-            find.byWidget(classes.elementAt(i).widget).evaluate().first.widget as ListTile;
+        ListTile one = find
+            .byWidget(classes.elementAt(i).widget)
+            .evaluate()
+            .first
+            .widget as ListTile;
         print(one.title);
         expect(find.byWidget(classes.elementAt(i).widget), findsOneWidget);
 //        print(find.byWidget(classes.elementAt(i).widget));

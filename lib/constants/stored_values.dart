@@ -12,6 +12,7 @@ class StoredValues {
   // String docDate;
   ThemeChange themeChange = ThemeChange();
   bool? iconForNonNode;
+  int? fontSize;
 
   late ConfigContent configContent;
 
@@ -39,7 +40,7 @@ class StoredValues {
     iconForNonNode = prefs!.getBool('iconForNonNodes') == null
         ? true
         : prefs!.getBool('iconForNonNodes');
-
+    fontSize = prefs!.getInt("gcrFontSize") ?? 0;
     return true;
   }
 }

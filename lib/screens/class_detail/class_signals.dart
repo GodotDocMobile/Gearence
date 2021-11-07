@@ -42,8 +42,8 @@ class _ClassSignalsState extends State<ClassSignals> {
   void scrollTo(TapEventArg args) {
     if (widget.clsContent!.name == args.className &&
         args.linkType == LinkType.Signal) {
-      final _targetIndex =
-          widget.clsContent!.signals!.indexWhere((w) => w.name == args.fieldName);
+      final _targetIndex = widget.clsContent!.signals!
+          .indexWhere((w) => w.name == args.fieldName);
       if (_targetIndex != -1) {
         _scrollController!.scrollTo(
           curve: Curves.easeInOutCubic,

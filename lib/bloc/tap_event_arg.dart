@@ -5,7 +5,8 @@ class TapEventArg {
   final String className;
   final String fieldName;
 
-  TapEventArg({this.linkType, required this.className, required this.fieldName});
+  TapEventArg(
+      {this.linkType, required this.className, required this.fieldName});
 
   String toString() {
     return 'class:' +
