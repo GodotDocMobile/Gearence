@@ -14,18 +14,15 @@ class DescriptionText extends StatelessWidget {
   final String className;
   final String content;
   final Function(TapEventArg args) onLinkTap;
-  final TextStyle style;
+  final TextStyle? style;
 
   DescriptionText(
-      {Key key,
-      @required this.className,
-      @required this.content,
-      this.onLinkTap,
+      {Key? key,
+      required this.className,
+      required this.content,
+      required this.onLinkTap,
       this.style})
-      : assert(className != null),
-        assert(content != null),
-        assert(onLinkTap != null),
-        super(key: key);
+      : super(key: key);
 
   // this is a full implementation of _add_text_to_rt
   List<InlineSpan> _parseText(BuildContext context) {

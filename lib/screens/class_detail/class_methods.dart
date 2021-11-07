@@ -9,24 +9,23 @@ import '../../constants/stored_values.dart';
 import '../../models/class_content.dart';
 
 class ClassMethods extends StatefulWidget {
-  final ClassContent clsContent;
+  final ClassContent? clsContent;
   final Function(TapEventArg args) onLinkTap;
-  final Stream<TapEventArg> eventStream;
+  final Stream<TapEventArg?>? eventStream;
 
   ClassMethods(
-      {Key key, this.clsContent, this.eventStream, @required this.onLinkTap})
-      : assert(onLinkTap != null),
-        super(key: key);
+      {Key? key, this.clsContent, this.eventStream, required this.onLinkTap})
+      : super(key: key);
 
   @override
   _ClassMethodsState createState() => _ClassMethodsState();
 }
 
 class _ClassMethodsState extends State<ClassMethods> {
-  ItemScrollController _scrollController;
-  ItemPositionsListener _itemPositionsListener;
+  ItemScrollController? _scrollController;
+  ItemPositionsListener? _itemPositionsListener;
 
-  bool _isDarkMode;
+  late bool _isDarkMode;
   double propertyIndent = 50;
 
   @override
@@ -35,20 +34,20 @@ class _ClassMethodsState extends State<ClassMethods> {
     _isDarkMode = StoredValues().themeChange.isDark;
     _scrollController = ItemScrollController();
     _itemPositionsListener = ItemPositionsListener.create();
-    widget.eventStream.listen((v) {
+    widget.eventStream!.listen((v) {
       try {
-        scrollTo(v);
+        scrollTo(v!);
       } catch (_) {}
     });
   }
 
   void scrollTo(TapEventArg args) {
-    if (widget.clsContent.name == args.className &&
+    if (widget.clsContent!.name == args.className &&
         args.linkType == LinkType.Method) {
       final _targetIndex =
-          widget.clsContent.methods.indexWhere((w) => w.name == args.fieldName);
+          widget.clsContent!.methods!.indexWhere((w) => w.name == args.fieldName);
       if (_targetIndex != -1) {
-        _scrollController.scrollTo(
+        _scrollController!.scrollTo(
           curve: Curves.easeInOutCubic,
           index: _targetIndex,
           duration: Duration(milliseconds: 500),
@@ -59,19 +58,19 @@ class _ClassMethodsState extends State<ClassMethods> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.clsContent.methods == null ||
-        widget.clsContent.methods.length == 0) {
+    if (widget.clsContent!.methods == null ||
+        widget.clsContent!.methods!.length == 0) {
       return Center(
         child: Text('0 method in this class'),
       );
     }
 
     return ScrollablePositionedList.builder(
-        itemCount: widget.clsContent.methods.length,
+        itemCount: widget.clsContent!.methods!.length,
         itemScrollController: _scrollController,
         itemPositionsListener: _itemPositionsListener,
         itemBuilder: (context, index) {
-          final m = widget.clsContent.methods[index];
+          final m = widget.clsContent!.methods![index];
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
@@ -80,7 +79,7 @@ class _ClassMethodsState extends State<ClassMethods> {
                   title: Container(
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: Text(
-                      m.name,
+                      m.name!,
                       softWrap: true,
                       style: TextStyle(
                         fontSize: 25,
@@ -101,10 +100,10 @@ class _ClassMethodsState extends State<ClassMethods> {
                           m.returnValue == null
                               ? Text('void')
                               : ClassDB().getDB().any((element) =>
-                                      element.name == m.returnValue.type)
+                                      element.name == m.returnValue!.type)
                                   ? InkWell(
                                       child: Text(
-                                        m.returnValue.type,
+                                        m.returnValue!.type!,
                                         style: TextStyle(
                                           fontSize: 15,
                                           color: godotColor,
@@ -112,14 +111,14 @@ class _ClassMethodsState extends State<ClassMethods> {
                                       ),
                                       onTap: () {
                                         TapEventArg _arg = TapEventArg(
-                                            className: m.returnValue.type,
+                                            className: m.returnValue!.type!,
                                             linkType: LinkType.Class,
                                             fieldName: '');
                                         widget.onLinkTap(_arg);
                                       },
                                     )
                                   : Text(
-                                      m.returnValue.type,
+                                      m.returnValue!.type!,
                                       style: TextStyle(
                                         fontSize: 15,
                                       ),
@@ -131,7 +130,7 @@ class _ClassMethodsState extends State<ClassMethods> {
                       ),
                       Column(
                         children: <Widget>[
-                          (m.arguments != null && m.arguments.length > 0
+                          (m.arguments != null && m.arguments!.length > 0
                               ? Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
@@ -145,14 +144,14 @@ class _ClassMethodsState extends State<ClassMethods> {
                                           Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
-                                            children: m.arguments.map((a) {
+                                            children: m.arguments!.map((a) {
                                               return ClassDB().getDB().any(
                                                       (element) =>
                                                           element.name ==
                                                           a.type)
                                                   ? InkWell(
                                                       child: Text(
-                                                        a.type,
+                                                        a.type!,
                                                         style: TextStyle(
                                                           fontSize: 15,
                                                           color: godotColor,
@@ -162,7 +161,7 @@ class _ClassMethodsState extends State<ClassMethods> {
                                                         TapEventArg _arg =
                                                             TapEventArg(
                                                                 className:
-                                                                    a.type,
+                                                                    a.type!,
                                                                 linkType:
                                                                     LinkType
                                                                         .Class,
@@ -171,7 +170,7 @@ class _ClassMethodsState extends State<ClassMethods> {
                                                       },
                                                     )
                                                   : Text(
-                                                      a.type,
+                                                      a.type!,
                                                       style: TextStyle(
                                                         fontSize: 15,
                                                       ),
@@ -184,9 +183,9 @@ class _ClassMethodsState extends State<ClassMethods> {
                                           Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
-                                            children: m.arguments.map((a) {
+                                            children: m.arguments!.map((a) {
                                               return Text(
-                                                a.name,
+                                                a.name!,
                                                 style: TextStyle(
                                                   fontSize: 15,
                                                   color: _isDarkMode
@@ -199,7 +198,7 @@ class _ClassMethodsState extends State<ClassMethods> {
                                           Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
-                                            children: m.arguments.map((a) {
+                                            children: m.arguments!.map((a) {
                                               return a.defaultValue == null
                                                   ? Text('')
                                                   : Row(
@@ -211,7 +210,7 @@ class _ClassMethodsState extends State<ClassMethods> {
                                                           ),
                                                         ),
                                                         Text(
-                                                          a.defaultValue,
+                                                          a.defaultValue!,
                                                           style: TextStyle(
                                                             color: _isDarkMode
                                                                 ? Colors.white
@@ -244,7 +243,7 @@ class _ClassMethodsState extends State<ClassMethods> {
                                           'qualifiers ',
                                         ),
                                         Text(
-                                          m.qualifiers,
+                                          m.qualifiers!,
                                           style: TextStyle(
                                               color: _isDarkMode
                                                   ? Colors.white
@@ -260,8 +259,8 @@ class _ClassMethodsState extends State<ClassMethods> {
                         ],
                       ),
                       DescriptionText(
-                        className: widget.clsContent.name,
-                        content: m.description,
+                        className: widget.clsContent!.name!,
+                        content: m.description!,
                         onLinkTap: widget.onLinkTap,
                       ),
                     ],

@@ -62,8 +62,8 @@ class _GCRAppState extends State<GCRApp> {
                       ? ThemeMode.dark
                       : ThemeMode.light,
                   home: ClassSelect(),
-                  builder: (BuildContext context, Widget child) {
-                    return child;
+                  builder: (BuildContext context, Widget? child) {
+                    return child!;
                   });
             },
           );

@@ -7,7 +7,7 @@ import '../constants/stored_values.dart';
 
 // ignore: must_be_immutable
 class GCRDrawer extends StatefulWidget {
-  const GCRDrawer({Key key}) : super(key: key);
+  const GCRDrawer({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -16,15 +16,15 @@ class GCRDrawer extends StatefulWidget {
 }
 
 class GCRDrawerState extends State<GCRDrawer> {
-  String godotVersion;
-  PackageInfo pi;
-  String docDate;
-  bool darkTheme;
+  String? godotVersion;
+  late PackageInfo pi;
+  String? docDate;
+  bool? darkTheme;
 
-  OverlayState overlayState;
-  OverlayEntry overlayEntry;
+  OverlayState? overlayState;
+  OverlayEntry? overlayEntry;
 
-  Color overlayBackground;
+  Color? overlayBackground;
 
   @override
   initState() {
@@ -32,7 +32,7 @@ class GCRDrawerState extends State<GCRDrawer> {
     StoredValues().themeChange.addListener(() async {
       if (overlayEntry != null) {
         await Future.delayed(Duration(milliseconds: 500));
-        overlayEntry.remove();
+        overlayEntry!.remove();
         overlayEntry = null;
       }
     });
@@ -68,15 +68,15 @@ class GCRDrawerState extends State<GCRDrawer> {
         ),
       );
     });
-    overlayState.insert(overlayEntry);
+    overlayState!.insert(overlayEntry!);
   }
 
   Future<bool> loadAll() async {
     pi = await PackageInfo.fromPlatform();
-    godotVersion = StoredValues().prefs.getString('version').substring(0);
-    darkTheme = StoredValues().prefs.getBool('darkTheme') == null
+    godotVersion = StoredValues().prefs!.getString('version')!.substring(0);
+    darkTheme = StoredValues().prefs!.getBool('darkTheme') == null
         ? false
-        : StoredValues().prefs.getBool('darkTheme');
+        : StoredValues().prefs!.getBool('darkTheme');
     docDate = StoredValues().configContent.updateDate;
     return true;
   }
@@ -91,7 +91,7 @@ class GCRDrawerState extends State<GCRDrawer> {
               Padding(
                 padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                 child: ListTile(
-                  title: Text(docDate),
+                  title: Text(docDate!),
                   subtitle: Text('Doc Last Update '),
                 ),
               ),
@@ -132,7 +132,7 @@ class GCRDrawerState extends State<GCRDrawer> {
     return FutureBuilder<bool>(
       future: loaded,
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-        if (snapshot.hasData && snapshot.data) {
+        if (snapshot.hasData && snapshot.data!) {
           return Drawer(
             child: ListView(
               padding: EdgeInsets.zero,
@@ -161,7 +161,7 @@ class GCRDrawerState extends State<GCRDrawer> {
                       setState(() {
                         godotVersion = v;
                       });
-                      StoredValues().prefs.setString('version', v);
+                      StoredValues().prefs!.setString('version', v!);
                       Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
@@ -175,10 +175,10 @@ class GCRDrawerState extends State<GCRDrawer> {
                   leading: Icon(Icons.brightness_6),
                   title: Text('Dark Theme'),
                   trailing: Switch(
-                    value: darkTheme,
+                    value: darkTheme!,
                     onChanged: (v) {
                       showLoading(context, v);
-                      StoredValues().prefs.setBool('darkTheme', v);
+                      StoredValues().prefs!.setBool('darkTheme', v);
                       setState(() {
                         darkTheme = v;
                       });
