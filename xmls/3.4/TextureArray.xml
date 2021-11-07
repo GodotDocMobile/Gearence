@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?><class name="TextureArray" inherits="TextureLayered" version="3.4"><brief_description>Array of textures stored in a single primitive.
+</brief_description><description>[TextureArray]s store an array of [Image]s in a single [Texture] primitive. Each layer of the texture array has its own mipmap chain. This makes it is a good alternative to texture atlases.
+[TextureArray]s must be displayed using shaders. After importing your file as a [TextureArray] and setting the appropriate Horizontal and Vertical Slices, display it by setting it as a uniform to a shader, for example:
+[codeblock]
+shader_type canvas_item;
+
+uniform sampler2DArray tex;
+uniform int index;
+
+void fragment() {
+    COLOR = texture(tex, vec3(UV.x, UV.y, float(index)));
+}
+[/codeblock]
+Set the integer uniform "index" to show a particular part of the texture as defined by the Horizontal and Vertical Slices in the importer.
+</description><tutorials></tutorials><methods><method name="create"><return type="void" /><argument index="0" name="width" type="int" /><argument index="1" name="height" type="int" /><argument index="2" name="depth" type="int" /><argument index="3" name="format" type="int" enum="Image.Format" /><argument index="4" name="flags" type="int" default="7" /><description>Creates the TextureArray with specified [code]width[/code], [code]height[/code], and [code]depth[/code]. See [enum Image.Format] for [code]format[/code] options. See [enum TextureLayered.Flags] enumerator for [code]flags[/code] options.
+</description></method></methods><constants></constants></class>

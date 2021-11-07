@@ -65,6 +65,16 @@ class SvgIcon extends StatelessWidget {
     return _svgContent;
   }
 
+  Widget svgRender(String data) {
+    Widget ret;
+    try {
+      ret = SvgPicture.string(data);
+    } catch (e) {
+      return SvgPicture.asset('svgs/' + version + '/icon_node.svg');
+    }
+    return ret;
+  }
+
   @override
   Widget build(BuildContext context) {
     if (version == '2.0') {
@@ -75,11 +85,10 @@ class SvgIcon extends StatelessWidget {
       future: getSVGContent(),
       builder: (context, snapshot) {
         return Container(
-//          color: Colors.black,
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: snapshot.hasData && !_loadFailed
-                ? SvgPicture.string(snapshot.data!)
+                ? svgRender(snapshot.data!)
                 : SvgPicture.asset('svgs/' + version + '/icon_node.svg'),
           ),
         );
