@@ -1,9 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:godotclassreference/constants/stored_values.dart';
-import 'package:godotclassreference/theme/default.dart';
-import 'package:godotclassreference/theme/themes.dart';
 
+import '../constants/stored_values.dart';
+import '../theme/themes.dart';
 import '../bloc/tap_event_arg.dart';
 import '../constants/class_db.dart';
 import '../models/class_content.dart';

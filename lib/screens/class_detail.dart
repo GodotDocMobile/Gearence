@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:godotclassreference/theme/default.dart';
-import 'package:godotclassreference/theme/themes.dart';
 
+import '../theme/themes.dart';
 import '../bloc/tap_event_bloc.dart';
 import '../bloc/tap_event_arg.dart';
 import '../constants/class_db.dart';

@@ -1,8 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:godotclassreference/theme/default.dart';
-import 'package:godotclassreference/theme/themes.dart';
 
+import '../theme/themes.dart';
 import '../components/code_text.dart';
 import '../components/inline_code.dart';
 import '../constants/class_db.dart';
@@ -17,7 +16,6 @@ class DescriptionText extends StatelessWidget {
   final String content;
   final Function(TapEventArg args) onLinkTap;
   final TextStyle? style;
-  TextStyle? _style;
 
   DescriptionText(
       {Key? key,
@@ -36,7 +34,7 @@ class DescriptionText extends StatelessWidget {
     bool inlineCode = false;
     int pos = 0;
 
-    TextStyle _toApplyStyle = _style!;
+    TextStyle _toApplyStyle = scaledTestStyle(context);
     while (pos < content.length) {
       int brkPos = content.indexOf('[', pos);
 
@@ -71,7 +69,7 @@ class DescriptionText extends StatelessWidget {
           _toRtn.add(TextSpan(
               text: text.replaceAll('\n', '\n\n'), style: _toApplyStyle));
         }
-        _toApplyStyle = _style!;
+        _toApplyStyle = scaledTestStyle(context);
       }
 
       if (brkPos == content.length) {
@@ -270,12 +268,11 @@ class DescriptionText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _style = scaledTestStyle(context);
     return MediaQuery(
       data: scaledMediaQueryData(context),
       child: RichText(
         text: TextSpan(
-          style: _style,
+          style: scaledTestStyle(context),
           children: _parseText(context),
         ),
       ),

@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_highlight/flutter_highlight.dart';
 import 'package:flutter_highlight/themes/github.dart';
 import 'package:flutter_highlight/themes/atom-one-dark.dart';
-import 'package:godotclassreference/theme/default.dart';
-import 'package:godotclassreference/theme/themes.dart';
 
+import '../theme/themes.dart';
 import '../constants/stored_values.dart';
 
 class CodeText extends StatelessWidget {
@@ -17,11 +16,8 @@ class CodeText extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(top: 10),
       decoration: BoxDecoration(
-          // color: Colors.red,
           borderRadius: BorderRadius.circular(5),
-          boxShadow: [BoxShadow(color: Colors.grey, spreadRadius: 3)]
-          // border: Border.all(color: Colors.grey),
-          ),
+          boxShadow: [BoxShadow(color: Colors.grey, spreadRadius: 3)]),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: HighlightView(
