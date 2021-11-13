@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
+import '../../components/link_text.dart';
 import '../../bloc/tap_event_arg.dart';
-import '../../constants/class_db.dart';
-import '../../constants/colors.dart';
 import '../../models/class_content.dart';
 
 class ClassThemeItems extends StatefulWidget {
@@ -65,41 +64,21 @@ class _ClassThemeItemsState extends State<ClassThemeItems> {
       itemPositionsListener: _itemPositionsListener,
       itemBuilder: (context, index) {
         final t = widget.clsContent!.themeItems![index];
-        return Column(
-          children: [
-            ListTile(
-              title: Text(t.name!),
-              subtitle: Row(
-                children: [
-                  Text("type"),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  ClassDB().getDB().any((element) => element.name == t.type)
-                      ? InkWell(
-                          child: Text(
-                            t.type!,
-                            style: TextStyle(
-                              color: godotColor,
-                            ),
-                          ),
-                          onTap: () {
-                            TapEventArg _arg = TapEventArg(
-                                className: t.type!,
-                                linkType: LinkType.Class,
-                                fieldName: '');
-                            widget.onLinkTap(_arg);
-                          },
-                        )
-                      : Text(t.type!)
-                ],
-              ),
+        return Column(children: [
+          ListTile(
+            title: Text(t.name!),
+            subtitle: Row(
+              children: [
+                Text("type"),
+                SizedBox(
+                  width: 10,
+                ),
+                LinkText(text: t.type!, onLinkTap: widget.onLinkTap)
+              ],
             ),
-            Divider(
-              color: Colors.blueGrey,
-            )
-          ],
-        );
+          ),
+          Divider(color: Colors.blueGrey)
+        ]);
       },
     );
   }
