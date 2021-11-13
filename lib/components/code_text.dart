@@ -23,7 +23,7 @@ class CodeText extends StatelessWidget {
         child: HighlightView(
           codeText!,
           language: 'gdscript',
-          textStyle: scaledTestStyle(context),
+          textStyle: scaledTextStyle(context),
           theme: StoredValues().themeChange.isDark
               ? atomOneDarkTheme
               : githubTheme,

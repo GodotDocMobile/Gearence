@@ -15,7 +15,7 @@ ThemeData lightTheme = ThemeData(
 const TEXT_SCALE_FACTOR = 0.1;
 const TEXT_STYLE_FACTOR = 2.5;
 
-TextStyle scaledTestStyle(BuildContext context) {
+TextStyle scaledTextStyle(BuildContext context) {
   return DefaultTextStyle.of(context)
       .style
       .copyWith(fontSize: 14 + StoredValues().fontSize! * TEXT_STYLE_FACTOR);
@@ -24,4 +24,12 @@ TextStyle scaledTestStyle(BuildContext context) {
 MediaQueryData scaledMediaQueryData(BuildContext context) {
   return MediaQuery.of(context).copyWith(
       textScaleFactor: 1 + StoredValues().fontSize! * TEXT_SCALE_FACTOR);
+}
+
+TextStyle nonScaleTextStyle(BuildContext context) {
+  return DefaultTextStyle.of(context).style.copyWith(fontSize: 14);
+}
+
+MediaQueryData nonScaledMediaQueryData(BuildContext context) {
+  return MediaQuery.of(context).copyWith(textScaleFactor: 1);
 }

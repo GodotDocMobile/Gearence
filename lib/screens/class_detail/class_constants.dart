@@ -77,47 +77,43 @@ class _ClassConstantsState extends State<ClassConstants> {
           final c = _onlyConstants[index];
           return Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                ListTile(
-                  title: Row(
-                    children: <Widget>[
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.88,
-                        child: Text(
-                          c.name!,
-                        ),
+            child: Column(children: [
+              ListTile(
+                title: Row(
+                  children: <Widget>[
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.88,
+                      child: Text(
+                        c.name!,
                       ),
-                    ],
-                  ),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Text("value  "),
-                          Text(
-                            c.value.toString(),
-                            style: Theme.of(context).textTheme.bodyText1,
-                          ),
-                        ],
-                      ),
-                      Divider(
-                        indent: propertyIndent,
-                      ),
-                      DescriptionText(
-                        className: widget.clsContent!.name!,
-                        content: c.constantText!,
-                        onLinkTap: widget.onLinkTap,
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                Divider(
-                  color: Colors.blueGrey,
-                )
-              ],
-            ),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text("value  "),
+                        Text(
+                          c.value.toString(),
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
+                      ],
+                    ),
+                    Divider(
+                      indent: propertyIndent,
+                    ),
+                    DescriptionText(
+                      className: widget.clsContent!.name!,
+                      content: c.constantText!,
+                      onLinkTap: widget.onLinkTap,
+                    ),
+                  ],
+                ),
+              ),
+              Divider(color: Colors.blueGrey)
+            ]),
           );
         });
   }

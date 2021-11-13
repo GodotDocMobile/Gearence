@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../theme/themes.dart';
 import '../models/class_content.dart';
 
 class NodeTag extends StatelessWidget {
@@ -10,7 +11,7 @@ class NodeTag extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MediaQuery(
-      data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+      data: nonScaledMediaQueryData(context),
       child: Container(
         decoration: BoxDecoration(
           color: tagColor[classContent!.nodeType],

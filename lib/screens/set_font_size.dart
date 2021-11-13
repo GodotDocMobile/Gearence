@@ -50,6 +50,7 @@ class _SetFontSizeState extends State<SetFontSize>
     if (!save) {
       StoredValues().fontSize = initFontSize.toInt();
     }
+    _streamController.close();
     super.dispose();
   }
 
@@ -82,7 +83,7 @@ class _SetFontSizeState extends State<SetFontSize>
       data: scaledMediaQueryData(context),
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Node"),
+          title: Text("DummyClass"),
           bottom: TabBar(
             indicatorColor: StoredValues().themeChange.isDark
                 ? Theme.of(context).colorScheme.secondary
@@ -114,7 +115,7 @@ class _SetFontSizeState extends State<SetFontSize>
                 ),
                 boxShadow: [
                   BoxShadow(
-                    spreadRadius: 5,
+                    spreadRadius: 1,
                     blurRadius: 5,
                     offset: Offset(0, 3),
                   )
@@ -180,7 +181,7 @@ class _SetFontSizeState extends State<SetFontSize>
 }
 
 ClassContent dummyClass = new ClassContent(
-    name: "ClassName",
+    name: "DummyClass",
     inherits: "ParentClass",
     inheritChain: "[Node] >> [Node2D] >> [Spatial] >> [Control]",
     briefDescription:

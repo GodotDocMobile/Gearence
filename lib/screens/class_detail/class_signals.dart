@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
+import '../../components/link_text.dart';
 import '../../components/description_text.dart';
 import '../../bloc/tap_event_arg.dart';
 import '../../models/class_content.dart';
-import '../../constants/class_db.dart';
-import '../../constants/colors.dart';
 
 class ClassSignals extends StatefulWidget {
   final ClassContent? clsContent;
@@ -59,7 +58,7 @@ class _ClassSignalsState extends State<ClassSignals> {
     if (widget.clsContent!.signals == null ||
         widget.clsContent!.signals!.length == 0) {
       return Center(
-        child: Text('0 signal in thie class'),
+        child: Text('0 signal in this class'),
       );
     }
 
@@ -71,72 +70,45 @@ class _ClassSignalsState extends State<ClassSignals> {
           final s = widget.clsContent!.signals![index];
           return Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                ListTile(
-                  title: Text(
-                    s.name!,
-                    style: TextStyle(
-                      fontSize: 25,
-//                    color: godotColor,
-                    ),
-                  ),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
-                        children: s.arguments!.map((e) {
-                          return Column(
-                            children: [
-                              Row(
-                                children: [
-                                  ClassDB().getDB().any(
-                                          (element) => element.name == e.type)
-                                      ? InkWell(
-                                          child: Text(
-                                            e.type!,
-                                            style: TextStyle(
-                                              color: godotColor,
-                                            ),
-                                          ),
-                                          onTap: () {
-                                            TapEventArg _arg = TapEventArg(
-                                                className: e.type!,
-                                                linkType: LinkType.Class,
-                                                fieldName: '');
-                                            widget.onLinkTap(_arg);
-                                          },
-                                        )
-                                      : Text(e.type!),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    e.name!,
-                                    style: TextStyle(fontSize: 15),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          );
-                        }).toList(),
-                      ),
-                      Divider(
-                        indent: propertyIndent,
-                      ),
-                      DescriptionText(
-                        className: widget.clsContent!.name!,
-                        content: s.description!,
-                        onLinkTap: widget.onLinkTap,
-                      ),
-                    ],
-                  ),
+            child: Column(children: [
+              ListTile(
+                title: Text(
+                  s.name!,
+                  style: TextStyle(fontSize: 25),
                 ),
-                Divider(
-                  color: Colors.blueGrey,
-                )
-              ],
-            ),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                        children: s.arguments!.map((e) {
+                      return Column(children: [
+                        Row(children: [
+                          LinkText(text: e.type!, onLinkTap: widget.onLinkTap),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            e.name!,
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        ]),
+                      ]);
+                    }).toList()),
+                    Divider(
+                      indent: propertyIndent,
+                    ),
+                    DescriptionText(
+                      className: widget.clsContent!.name!,
+                      content: s.description!,
+                      onLinkTap: widget.onLinkTap,
+                    ),
+                  ],
+                ),
+              ),
+              Divider(
+                color: Colors.blueGrey,
+              )
+            ]),
           );
         });
   }

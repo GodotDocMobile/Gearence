@@ -10,7 +10,7 @@ class FilterOption {
 }
 
 class ClassListFilterBloc {
-  final _filterStateController = StreamController<FilterOption>.broadcast();
+  final _filterStateController = StreamController<FilterOption>();
   StreamSink<FilterOption> get _inArgs => _filterStateController.sink;
   Stream<FilterOption> get argStream => _filterStateController.stream;
 
