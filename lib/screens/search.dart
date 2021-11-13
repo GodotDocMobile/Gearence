@@ -55,7 +55,7 @@ class _SearchScreenState extends State<SearchScreen> {
   // classes in class db may not be fully initialized
   // which means xml files may not all mapped to class properties
   // so a stream of fresh-loaded class is needed
-  StreamSubscription<TapEventArg>? _xmlSub;
+  late StreamSubscription<TapEventArg> _xmlSub;
 
   @override
   void initState() {
@@ -83,12 +83,10 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   void dispose() {
-    super.dispose();
     _controller.dispose();
     _searchBloc.dispose();
-    _xmlSub!.cancel().then((value) {
-      _xmlSub = null;
-    });
+    _xmlSub.cancel();
+    super.dispose();
   }
 
   List<TapEventArg> filterResult() {
@@ -127,24 +125,19 @@ class _SearchScreenState extends State<SearchScreen> {
       _argList.clear();
     }
 
-    if (_xmlSub != null) {
-      setState(() {
-        _searching = ClassDB().getDB().last.version == null;
-      });
-    }
+    setState(() {
+      _searching = ClassDB().getDB().last.version == null;
+    });
   }
 
   void _xmlLoadSearch(ClassContent clsContent) {
-    // print("searching");
-    if (_xmlSub != null) {
-      if (_searching && _searchingTerm.length > 0) {
-        _searchSingle(clsContent);
-      }
-
-      setState(() {
-        _searching = ClassDB().getDB().last.version == null;
-      });
+    if (_searching && _searchingTerm.length > 0) {
+      _searchSingle(clsContent);
     }
+
+    setState(() {
+      _searching = ClassDB().getDB().last.version == null;
+    });
   }
 
   void _searchSingle(ClassContent _class) {

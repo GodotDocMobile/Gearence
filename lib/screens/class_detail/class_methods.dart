@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
+import '../../components/link_text.dart';
 import '../../components/description_text.dart';
-import '../../constants/class_db.dart';
-import '../../constants/colors.dart';
 import '../../bloc/tap_event_arg.dart';
 import '../../constants/stored_values.dart';
 import '../../models/class_content.dart';
+import '../../models/method.dart';
 
 class ClassMethods extends StatefulWidget {
   final ClassContent? clsContent;
@@ -25,13 +25,11 @@ class _ClassMethodsState extends State<ClassMethods> {
   ItemScrollController? _scrollController;
   ItemPositionsListener? _itemPositionsListener;
 
-  late bool _isDarkMode;
   double propertyIndent = 50;
 
   @override
   void initState() {
     super.initState();
-    _isDarkMode = StoredValues().themeChange.isDark;
     _scrollController = ItemScrollController();
     _itemPositionsListener = ItemPositionsListener.create();
     widget.eventStream!.listen((v) {
@@ -56,6 +54,86 @@ class _ClassMethodsState extends State<ClassMethods> {
     }
   }
 
+  Widget buildTable(List<MethodArgument>? arguments) {
+    if (arguments != null && arguments.length == 0) {
+      return Container();
+    }
+
+    bool containsDefault = false;
+    TextStyle headerStyle = TextStyle(fontWeight: FontWeight.bold);
+
+    List<List<Widget>> tableCells = [
+      <Widget>[
+        Text("Type", style: headerStyle),
+        Text("Name", style: headerStyle),
+      ]
+    ];
+    arguments!.forEach((element) {
+      var _toAdd = <Widget>[];
+
+      // argument type
+      _toAdd.add(LinkText(text: element.type!, onLinkTap: widget.onLinkTap));
+
+      // argument name
+      _toAdd.add(Text(element.name!));
+
+      // argument default value (if any)
+      if (element.defaultValue != null) {
+        containsDefault = true;
+        _toAdd.add(Text(element.defaultValue!));
+      }
+      tableCells.add(_toAdd);
+    });
+
+    if (containsDefault) {
+      tableCells[0].add(Text("Default", style: headerStyle));
+      tableCells.forEach((element) {
+        if (element.length == 2) {
+          element.add(SizedBox());
+        }
+      });
+    }
+
+    // assemble table
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Text("arguments:"),
+      SizedBox(
+        height: 5,
+      ),
+      Container(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Table(
+            border: TableBorder.all(
+                width: 2,
+                color: StoredValues().themeChange.isDark
+                    ? Colors.white
+                    : Colors.black,
+                borderRadius: BorderRadius.circular(5)),
+            defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+            columnWidths: {
+              0: IntrinsicColumnWidth(),
+              1: IntrinsicColumnWidth(),
+              2: IntrinsicColumnWidth()
+            },
+            children: tableCells.map((e) {
+              return TableRow(
+                  children: e.map((i) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                    child: i,
+                  ),
+                );
+              }).toList());
+            }).toList(),
+          ),
+        ),
+      ),
+      Divider(),
+    ]);
+  }
+
   @override
   Widget build(BuildContext context) {
     if (widget.clsContent!.methods == null ||
@@ -73,204 +151,47 @@ class _ClassMethodsState extends State<ClassMethods> {
           final m = widget.clsContent!.methods![index];
           return Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                ListTile(
-                  title: Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    child: Text(
-                      m.name!,
-                      softWrap: true,
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
-                  ),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Row(
-                        children: [
-                          Text(
-                            'return',
-                          ),
-                          SizedBox(
-                            width: 15,
-                          ),
-                          m.returnValue == null
-                              ? Text('void')
-                              : ClassDB().getDB().any((element) =>
-                                      element.name == m.returnValue!.type)
-                                  ? InkWell(
-                                      child: Text(
-                                        m.returnValue!.type!,
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          color: godotColor,
-                                        ),
-                                      ),
-                                      onTap: () {
-                                        TapEventArg _arg = TapEventArg(
-                                            className: m.returnValue!.type!,
-                                            linkType: LinkType.Class,
-                                            fieldName: '');
-                                        widget.onLinkTap(_arg);
-                                      },
-                                    )
-                                  : Text(
-                                      m.returnValue!.type!,
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                      ),
-                                    ),
-                        ],
-                      ),
-                      Divider(
-                        indent: propertyIndent,
-                      ),
-                      Column(
-                        children: <Widget>[
-                          (m.arguments != null && m.arguments!.length > 0
-                              ? Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Text(
-                                      'arguments:',
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
-                                        children: <Widget>[
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: m.arguments!.map((a) {
-                                              return ClassDB().getDB().any(
-                                                      (element) =>
-                                                          element.name ==
-                                                          a.type)
-                                                  ? InkWell(
-                                                      child: Text(
-                                                        a.type!,
-                                                        style: TextStyle(
-                                                          fontSize: 15,
-                                                          color: godotColor,
-                                                        ),
-                                                      ),
-                                                      onTap: () {
-                                                        TapEventArg _arg =
-                                                            TapEventArg(
-                                                                className:
-                                                                    a.type!,
-                                                                linkType:
-                                                                    LinkType
-                                                                        .Class,
-                                                                fieldName: '');
-                                                        widget.onLinkTap(_arg);
-                                                      },
-                                                    )
-                                                  : Text(
-                                                      a.type!,
-                                                      style: TextStyle(
-                                                        fontSize: 15,
-                                                      ),
-                                                    );
-                                            }).toList(),
-                                          ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: m.arguments!.map((a) {
-                                              return Text(
-                                                a.name!,
-                                                style: TextStyle(
-                                                  fontSize: 15,
-                                                  color: _isDarkMode
-                                                      ? Colors.white
-                                                      : Colors.black,
-                                                ),
-                                              );
-                                            }).toList(),
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: m.arguments!.map((a) {
-                                              return a.defaultValue == null
-                                                  ? Text('')
-                                                  : Row(
-                                                      children: <Widget>[
-                                                        Text(
-                                                          ' = ',
-                                                          style: TextStyle(
-                                                            color: Colors.grey,
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          a.defaultValue!,
-                                                          style: TextStyle(
-                                                            color: _isDarkMode
-                                                                ? Colors.white
-                                                                : Colors.black,
-                                                          ),
-                                                        )
-                                                      ],
-                                                    );
-                                            }).toList(),
-                                          ),
-                                          Divider(
-                                            indent: propertyIndent,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Divider(
-                                      indent: propertyIndent,
-                                    ),
-                                  ],
-                                )
-                              : SizedBox()),
-                          Row(
-                            children: <Widget>[
-                              m.qualifiers == null
-                                  ? SizedBox()
-                                  : Row(
-                                      children: <Widget>[
-                                        Text(
-                                          'qualifiers ',
-                                        ),
-                                        Text(
-                                          m.qualifiers!,
-                                          style: TextStyle(
-                                              color: _isDarkMode
-                                                  ? Colors.white
-                                                  : Colors.black),
-                                        ),
-                                      ],
-                                    ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                        ],
-                      ),
-                      DescriptionText(
-                        className: widget.clsContent!.name!,
-                        content: m.description!,
-                        onLinkTap: widget.onLinkTap,
-                      ),
-                    ],
+            child: Column(children: [
+              ListTile(
+                title: Container(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  child: Text(
+                    m.name!,
+                    softWrap: true,
+                    style: TextStyle(fontSize: 25),
                   ),
                 ),
-                Divider(
-                  color: Colors.blueGrey,
-                )
-              ],
-            ),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Row(children: [
+                      Text(
+                        'return',
+                      ),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.7,
+                        child: m.returnValue == null
+                            ? Text('void')
+                            : LinkText(
+                                text: m.returnValue!.type!,
+                                onLinkTap: widget.onLinkTap),
+                      ),
+                    ]),
+                    Divider(),
+                    buildTable(m.arguments),
+                    DescriptionText(
+                      className: widget.clsContent!.name!,
+                      content: m.description!,
+                      onLinkTap: widget.onLinkTap,
+                    ),
+                  ],
+                ),
+              ),
+              Divider(color: Colors.blueGrey)
+            ]),
           );
         });
   }

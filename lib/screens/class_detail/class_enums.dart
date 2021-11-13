@@ -129,31 +129,27 @@ class _ClassEnumsState extends State<ClassEnums> {
           .sort((a, b) => int.parse(a.value!).compareTo(int.parse(b.value!)));
 
       _enumValues.add(_belongEnum[0].name);
-      _builtList.add(Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Column(
-              children: [
-                Row(children: [
-                  Text(
-                    'enum ',
-                    style: TextStyle(color: Colors.grey, fontSize: 20),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.6,
-                    child: Text(
-                      enumName! + ":",
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  ),
-                ]),
-              ],
-            ),
-          ),
-          _singleEnum(_belongEnum.first),
-        ],
-      ));
+      _builtList.add(Column(children: [
+        Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: Column(children: [
+            Row(children: [
+              Text(
+                'enum ',
+                style: TextStyle(color: Colors.grey, fontSize: 20),
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.6,
+                child: Text(
+                  enumName!,
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+            ]),
+          ]),
+        ),
+        _singleEnum(_belongEnum.first),
+      ]));
 
       for (var i = 1; i < _belongEnum.length; i++) {
         _builtList.add(_singleEnum(_belongEnum[i],
@@ -184,9 +180,7 @@ class _ClassEnumsState extends State<ClassEnums> {
         return Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
-            children: [
-              _builtList[index],
-            ],
+            children: [_builtList[index]],
           ),
         );
       },

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
+import '../../components/link_text.dart';
 import '../../components/description_text.dart';
-import '../../constants/class_db.dart';
-import '../../constants/colors.dart';
 import '../../bloc/tap_event_arg.dart';
 import '../../constants/stored_values.dart';
 import '../../models/class_content.dart';
@@ -99,32 +98,7 @@ class _ClassMembersState extends State<ClassMembers> {
                           SizedBox(
                             width: 10,
                           ),
-                          ClassDB()
-                                  .getDB()
-                                  .any((element) => element.name == m.type)
-                              ? InkWell(
-                                  child: Text(
-                                    m.type!,
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      color: godotColor,
-                                    ),
-                                  ),
-                                  onTap: () {
-                                    TapEventArg _arg = TapEventArg(
-                                        className: m.type!,
-                                        linkType: LinkType.Class,
-                                        fieldName: '');
-                                    widget.onLinkTap(_arg);
-                                  },
-                                )
-                              : Text(
-                                  m.type!,
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.black,
-                                  ),
-                                ),
+                          LinkText(text: m.type!, onLinkTap: widget.onLinkTap)
                         ],
                       ),
                       Divider(

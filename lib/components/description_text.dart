@@ -34,7 +34,7 @@ class DescriptionText extends StatelessWidget {
     bool inlineCode = false;
     int pos = 0;
 
-    TextStyle _toApplyStyle = scaledTestStyle(context);
+    TextStyle _toApplyStyle = scaledTextStyle(context);
     while (pos < content.length) {
       int brkPos = content.indexOf('[', pos);
 
@@ -69,7 +69,7 @@ class DescriptionText extends StatelessWidget {
           _toRtn.add(TextSpan(
               text: text.replaceAll('\n', '\n\n'), style: _toApplyStyle));
         }
-        _toApplyStyle = scaledTestStyle(context);
+        _toApplyStyle = scaledTextStyle(context);
       }
 
       if (brkPos == content.length) {
@@ -272,7 +272,7 @@ class DescriptionText extends StatelessWidget {
       data: scaledMediaQueryData(context),
       child: RichText(
         text: TextSpan(
-          style: scaledTestStyle(context),
+          style: scaledTextStyle(context),
           children: _parseText(context),
         ),
       ),

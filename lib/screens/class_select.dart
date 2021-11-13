@@ -76,7 +76,7 @@ class _ClassSelectState extends State<ClassSelect> {
     super.dispose();
   }
 
-  List<Widget> buildFilterOptions() {
+  List<Widget> buildFilterOptions(StateSetter setStateFunc) {
     List<Widget> ret = <Widget>[
       Text(
         'you can navigate and search filtered classes',
@@ -92,7 +92,7 @@ class _ClassSelectState extends State<ClassSelect> {
           trailing: Switch(
               value: filterOptionValues[index],
               onChanged: (v) {
-                setState(() {
+                setStateFunc(() {
                   filterOptionValues[index] = v;
                 });
                 _filterBloc.argSink.add(FilterOption(e, v));
@@ -110,25 +110,23 @@ class _ClassSelectState extends State<ClassSelect> {
         context: context,
         barrierDismissible: false,
         builder: (context) {
-          return AlertDialog(
-            title: Text('Filter List Nodes'),
-            content: SingleChildScrollView(
-              child: StreamBuilder<FilterOption>(
-                  stream: _filterBloc.argStream,
-                  builder: (context, snapshot) {
-                    return ListBody(
-                      children: buildFilterOptions(),
-                    );
-                  }),
-            ),
-            actions: [
-              TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text("Close")),
-            ],
-          );
+          return StatefulBuilder(builder: (context, setState) {
+            return AlertDialog(
+              title: Text('Filter List Nodes'),
+              content: SingleChildScrollView(
+                child: ListBody(
+                  children: buildFilterOptions(setState),
+                ),
+              ),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text("Close")),
+              ],
+            );
+          });
         });
   }
 
@@ -171,38 +169,34 @@ class _ClassSelectState extends State<ClassSelect> {
           if (snapshot.hasData) {
             _classes = snapshot.data;
             _sortClasses(_classes);
-            return MediaQuery(
-              data: scaledMediaQueryData(context),
-              child: Scaffold(
-                // resizeToAvoidBottomPadding: true,
-                drawer: GCRDrawer(setScaleFunc: setScale),
-                appBar: AppBar(
-                  title: Text("Godot v" +
-                      StoredValues().prefs!.getString('version')! +
-                      " classes"),
-                  actions: <Widget>[
-                    IconButton(
-                      icon: Icon(Icons.filter_alt_outlined),
-                      onPressed: () {
-                        showFilterDialog();
-                      },
+            return Scaffold(
+              drawer: GCRDrawer(setScaleFunc: setScale),
+              appBar: AppBar(
+                title: Text("Godot v" +
+                    StoredValues().prefs!.getString('version')! +
+                    " classes"),
+                actions: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.filter_alt_outlined),
+                    onPressed: () {
+                      showFilterDialog();
+                    },
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      Icons.search,
+                      color: Colors.white,
                     ),
-                    IconButton(
-                      icon: Icon(
-                        Icons.search,
-                        color: Colors.white,
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SearchScreen()));
-                      },
-                    )
-                  ],
-                ),
-                body: buildList(),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SearchScreen()));
+                    },
+                  )
+                ],
               ),
+              body: buildList(),
             );
           }
 
@@ -222,24 +216,27 @@ class _ClassSelectState extends State<ClassSelect> {
         builder: (context, snapshot) {
           var _widget = ListView(
               children: filterClasses(_classes)
-                  .map((f) => Card(
-                        child: ListTile(
-                          leading: ClassIcon(
-                            classContent: f,
-                            key: UniqueKey(),
+                  .map((f) => MediaQuery(
+                        data: scaledMediaQueryData(context),
+                        child: Card(
+                          child: ListTile(
+                            leading: ClassIcon(
+                              classContent: f,
+                              key: UniqueKey(),
+                            ),
+                            title: Text(f.name!),
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        ClassDetail(className: f.name!),
+                                  ));
+                            },
+                            trailing: f.nodeType == classNodeType.None
+                                ? null
+                                : NodeTag(classContent: f),
                           ),
-                          title: Text(f.name!),
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      ClassDetail(className: f.name!),
-                                ));
-                          },
-                          trailing: f.nodeType == classNodeType.None
-                              ? null
-                              : NodeTag(classContent: f),
                         ),
                       ))
                   .toList());

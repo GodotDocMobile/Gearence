@@ -89,15 +89,12 @@ class _ClassDetailState extends State<ClassDetail>
   Widget itemCountContainer(int itemCount) {
     return Row(
       children: <Widget>[
-        SizedBox(
-          width: 5,
-        ),
         Container(
+          margin: EdgeInsets.all(10.0),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.all(Radius.circular(3)),
           ),
-          height: 20,
           child: Center(
             child: Text(
               " " + itemCount.toString() + " ",
