@@ -1,0 +1,6 @@
+version: "Apple Swift version 5.5.1 (swiftlang-1300.0.31.4 clang-1300.0.29.6)"
+options: "bfb37f7b27b533ebf39f6069ffdbd2df451df3c77ea17aebecd62d010f8f0bd7"
+build_start_time: [1636356772, 54466009]
+build_end_time: [1636356772, 191986083]
+inputs:
+  "/Users/tin/Projects/godot_class_reference/ios/Runner/AppDelegate.swift": !private [1630499864, 810931205]
