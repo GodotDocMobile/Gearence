@@ -92,6 +92,7 @@ class ClassContent {
    need to be set by hand or by external program */
   classNodeType nodeType = classNodeType.None;
   String? inheritChain;
+  String? svgFileName;
 
   ClassContent(
       {this.name,
@@ -107,7 +108,8 @@ class ClassContent {
       this.signals,
       this.themeItems,
       this.tutorials,
-      this.inheritChain});
+      this.inheritChain,
+      this.svgFileName});
 
   static void fromJson(json) {}
 

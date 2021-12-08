@@ -76,6 +76,7 @@ class ClassDB {
       ClassContent _xmlContent = ClassContent.fromXml(rootNode as XmlElement);
       _xmlContent.inheritChain = _classContent[_existIndex].inheritChain;
       _xmlContent.nodeType = _classContent[_existIndex].nodeType;
+      _xmlContent.svgFileName = _classContent[_existIndex].svgFileName;
       _classContent[_existIndex] = _xmlContent;
 
       _toRtn = _xmlContent;
