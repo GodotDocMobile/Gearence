@@ -1,6 +1,6 @@
 #!/usr/bin/python3
+# TODO : refactor this file
 
-from typing import ContextManager
 from git import Repo
 import xml.etree.ElementTree as ET
 from os.path import isfile, join, exists
@@ -28,7 +28,8 @@ godot_repo = ""
 class ClassNode:
     inherit_chain = ""
     class_name = ""
-    parent_class = ""
+    parent_class = None
+    svg_file_name = None
 
     def __init__(self, name, parent_class=''):
         self.class_name = name
@@ -36,11 +37,17 @@ class ClassNode:
         pass
 
     @staticmethod
-    def parse_element(element):
+    def parse_element(element, svg_custom_path: bool):
         if 'inherits' in element.attrib:
-            return ClassNode(element.attrib['name'], element.attrib['inherits'])
+            ret = ClassNode(element.attrib['name'], element.attrib['inherits'])
         else:
-            return ClassNode(element.attrib['name'])
+            ret = ClassNode(element.attrib['name'])
+
+        svg_file_name = find_svg_file(ret.class_name, svg_custom_path)
+        if(svg_file_name is not None):
+            ret.svg_file_name = svg_file_name
+
+        return ret
 
     def toJSON(self):
         # return json.dump()
@@ -91,11 +98,47 @@ def _copy_and_trim(src_path, dest_path):
     _f = open(dest_path, 'w')
     _f.write(_remove_line_breaks(_content))
     _f.close()
-    pass
 
 
 def _remove_line_breaks(str):
     return re.sub('>\n', '>', re.sub('\n[\t]*', '\n', re.sub('>\n[\t]*<', '><', str)))
+
+
+def find_svg_file(class_name: str, custom_path: bool) -> str:
+    class_name = class_name.replace(".xml", "")
+    svg_name = ""
+    prev_is_number = False
+    for c in class_name:
+        if(c == "@"):
+            continue
+        if c.isupper() and not prev_is_number:
+            svg_name += "_"+c.lower()
+        elif c.isnumeric():
+            svg_name += "_"+c.lower()
+        else:
+            svg_name += c.lower()
+
+        if c.isnumeric():
+            prev_is_number = True
+        else:
+            prev_is_number = False
+
+    _svg_source_folder = join(godot_repo, "editor", "icons")
+    if custom_path:
+        _svg_source_folder = join(_svg_source_folder, "source")
+
+    svg_file = 'icon'+svg_name+".svg"
+    svg_file_path = join(_svg_source_folder, svg_file)
+    if not exists(svg_file_path):
+        svg_file = svg_file.replace("1d", "1_d").replace(
+            "2d", "2_d").replace("3d", "3_d")
+        svg_file_path = svg_file_path.replace(
+            "1d", "1_d").replace("2d", "2_d").replace("3d", "3_d")
+        if not exists(svg_file_path):
+            # print("svg {} not found".format(svg_file))
+            return None
+
+    return svg_file
 
 
 def find_child_classes(class_list, name):
@@ -124,6 +167,12 @@ def find_parent_class_chain(class_list, parent_name):
     return _chain_string
 
 
+def copy_svg_file(branch_name: str, svg_source_path: str, svg_file_name: str):
+    target_path = join("../svgs", branch_name, svg_file_name)
+    copyfile(svg_source_path, target_path)
+    pass
+
+
 def single_class_files(branch_name):
     _classes = []
     _nodes = [ClassNode(name='Node')]
@@ -137,14 +186,23 @@ def single_class_files(branch_name):
     print("[{}] this branch only contains single file")
     # print(tree.getroot().getchildren())
     for n in tree.getroot().getchildren():
-        print("[{}] dumping {}".format(branch_name, n.attrib["name"]))
+        # print("[{}] dumping {}".format(branch_name, n.attrib["name"]))
         # print(ET.tostring(n,encoding="unicode"))
         f = open(join(_folder_path, n.attrib["name"]+".xml"), "w")
         f.write(_remove_line_breaks(ET.tostring(n, encoding="unicode")[0:-1]))
         # print("done dumping")
         _files.append(n.attrib["name"]+".xml")
-        _class = ClassNode.parse_element(n)
+        _class = ClassNode.parse_element(n, True)
+        # copy svg file
+        if _class.svg_file_name is not None:
+            _svg_source_path = join(godot_repo, "editor",
+                                    "icons", "source", _class.svg_file_name)
+            copy_svg_file(branch_name=branch_name,
+                          svg_file_name=_class.svg_file_name,
+                          svg_source_path=_svg_source_path)
         _classes.append(_class)
+        print("[{}] process finished for {} ,have svg file:{}".format(
+            branch_name, n.attrib["name"], _class.svg_file_name is None))
 
     for c in _classes:
         if c.parent_class != "":
@@ -164,7 +222,6 @@ def single_class_files(branch_name):
 
 def multiple_class_files(branch_name):
     _classes = []
-    _nodes = [ClassNode(name='Node')]
 
     _folder_path = join("../xmls", branch_name)
     _remove_old_files(_folder_path, branch_name)
@@ -175,14 +232,25 @@ def multiple_class_files(branch_name):
     print("[{}] this branch contains multiple files".format(branch_name))
     print("[{}] processing regular docs".format(branch_name))
     for origin_file in listdir(_class_docs_folder):
-        print("[{}] procesing {}".format(branch_name, origin_file))
 
         _copy_and_trim(join(_class_docs_folder, origin_file),
                        join(_folder_path, origin_file))
         _files.append(origin_file)
         _xml_element = ET.parse(join(_folder_path, origin_file))
-        _class = ClassNode.parse_element(_xml_element.getroot())
+        _class = ClassNode.parse_element(_xml_element.getroot(), False)
+
+# copy svg file
+        if _class.svg_file_name is not None:
+            _svg_source_path = join(godot_repo, "editor",
+                                    "icons", _class.svg_file_name)
+            copy_svg_file(branch_name=branch_name,
+                          svg_file_name=_class.svg_file_name,
+                          svg_source_path=_svg_source_path)
+
         _classes.append(_class)
+
+        print("[{}] process finished for {} ,have svg file:{}".format(
+            branch_name, origin_file, _class.svg_file_name is None))
         pass
 
     print("[{}] processing module docs".format(branch_name))
@@ -201,8 +269,18 @@ def multiple_class_files(branch_name):
                 _files.append(_xml)
 
                 _xml_element = ET.parse(join(_folder_path, _xml))
-                _class = ClassNode.parse_element(_xml_element.getroot())
+                _class: ClassNode = ClassNode.parse_element(
+                    _xml_element.getroot(), False)
+                # copy svg file
+                if _class.svg_file_name is not None:
+                    _svg_source_path = join(godot_repo, "editor",
+                                            "icons", _class.svg_file_name)
+                    copy_svg_file(branch_name=branch_name,
+                                  svg_file_name=_class.svg_file_name,
+                                  svg_source_path=_svg_source_path)
                 _classes.append(_class)
+                print("[{}] process finished for {} ,have svg file: {}".format(
+                    branch_name, origin_file, _class.svg_file_name is None))
                 pass
             pass
 
@@ -236,34 +314,16 @@ def parse_argv():
     return parser.parse_args()
 
 
-def copy_svgs(branch_name, custom_path):
+def remove_old_svg_files(branch_name):
     print("removing old svg files.")
     _svg_target_folder = join("../svgs", branch_name)
 
     if exists(_svg_target_folder):
         for f in listdir(_svg_target_folder):
             remove(join(_svg_target_folder, f))
-            pass
     else:
         mkdir(_svg_target_folder)
     print("done removing old svg files.")
-
-    _svg_source_folder = join(godot_repo, "editor", "icons")
-    if custom_path:
-        _svg_source_folder = join(_svg_source_folder, "source")
-
-    if exists(_svg_source_folder):
-        print("moving svg files.")
-        for origin_file in listdir(_svg_source_folder):
-            if origin_file.find(".svg") > -1:
-                copyfile(join(_svg_source_folder, origin_file),
-                         join(_svg_target_folder, origin_file))
-                pass
-
-        print("done moving svg files.")
-    else:
-        print("no svg files in this version,skipping")
-    pass
 
 
 def copy_translations(branch_name):
@@ -340,11 +400,11 @@ if __name__ == "__main__":
 
         # copy_translations(b)
         if float(b) >= 3:
+            remove_old_svg_files(b)
             multiple_class_files(b)
-            copy_svgs(b, False)
             pass
         else:
-            copy_svgs(b, True)
+            remove_old_svg_files(b)
             single_class_files(b)
             pass
         pass

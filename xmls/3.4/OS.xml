@@ -107,7 +107,7 @@ This can be used to narrow down fully specified locale strings to only the "comm
 </description></method><method name="get_scancode_string" qualifiers="const"><return type="String" /><argument index="0" name="code" type="int" /><description>Returns the given scancode as a string (e.g. Return values: [code]"Escape"[/code], [code]"Shift+Escape"[/code]).
 See also [member InputEventKey.scancode] and [method InputEventKey.get_scancode_with_modifiers].
 </description></method><method name="get_screen_count" qualifiers="const"><return type="int" /><description>Returns the number of displays attached to the host machine.
-</description></method><method name="get_screen_dpi" qualifiers="const"><return type="int" /><argument index="0" name="screen" type="int" default="-1" /><description>Returns the dots per inch density of the specified screen. If [code]screen[/code] is [/code]-1[/code] (the default value), the current screen will be used.
+</description></method><method name="get_screen_dpi" qualifiers="const"><return type="int" /><argument index="0" name="screen" type="int" default="-1" /><description>Returns the dots per inch density of the specified screen. If [code]screen[/code] is [code]-1[/code] (the default value), the current screen will be used.
 [b]Note:[/b] On macOS, returned value is inaccurate if fractional display scaling mode is used.
 [b]Note:[/b] On Android devices, the actual screen densities are grouped into six generalized densities:
 [codeblock]
@@ -122,11 +122,11 @@ xxxhdpi - 640 dpi
 </description></method><method name="get_screen_max_scale" qualifiers="const"><return type="float" /><description>Return the greatest scale factor of all screens.
 [b]Note:[/b] On macOS returned value is [code]2.0[/code] if there is at least one hiDPI (Retina) screen in the system, and [code]1.0[/code] in all other cases.
 [b]Note:[/b] This method is implemented on macOS.
-</description></method><method name="get_screen_position" qualifiers="const"><return type="Vector2" /><argument index="0" name="screen" type="int" default="-1" /><description>Returns the position of the specified screen by index. If [code]screen[/code] is [/code]-1[/code] (the default value), the current screen will be used.
-</description></method><method name="get_screen_scale" qualifiers="const"><return type="float" /><argument index="0" name="screen" type="int" default="-1" /><description>Return the scale factor of the specified screen by index. If [code]screen[/code] is [/code]-1[/code] (the default value), the current screen will be used.
+</description></method><method name="get_screen_position" qualifiers="const"><return type="Vector2" /><argument index="0" name="screen" type="int" default="-1" /><description>Returns the position of the specified screen by index. If [code]screen[/code] is [code]-1[/code] (the default value), the current screen will be used.
+</description></method><method name="get_screen_scale" qualifiers="const"><return type="float" /><argument index="0" name="screen" type="int" default="-1" /><description>Return the scale factor of the specified screen by index. If [code]screen[/code] is [code]-1[/code] (the default value), the current screen will be used.
 [b]Note:[/b] On macOS returned value is [code]2.0[/code] for hiDPI (Retina) screen, and [code]1.0[/code] for all other cases.
 [b]Note:[/b] This method is implemented on macOS.
-</description></method><method name="get_screen_size" qualifiers="const"><return type="Vector2" /><argument index="0" name="screen" type="int" default="-1" /><description>Returns the dimensions in pixels of the specified screen. If [code]screen[/code] is [/code]-1[/code] (the default value), the current screen will be used.
+</description></method><method name="get_screen_size" qualifiers="const"><return type="Vector2" /><argument index="0" name="screen" type="int" default="-1" /><description>Returns the dimensions in pixels of the specified screen. If [code]screen[/code] is [code]-1[/code] (the default value), the current screen will be used.
 </description></method><method name="get_splash_tick_msec" qualifiers="const"><return type="int" /><description>Returns the amount of time in milliseconds it took for the boot logo to appear.
 </description></method><method name="get_static_memory_peak_usage" qualifiers="const"><return type="int" /><description>Returns the maximum amount of static memory used (only works in debug).
 </description></method><method name="get_static_memory_usage" qualifiers="const"><return type="int" /><description>Returns the amount of static memory being used by the program in bytes.

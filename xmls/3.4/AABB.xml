@@ -5,7 +5,14 @@ It uses floating-point coordinates. The 2D counterpart to [AABB] is [Rect2].
 </description><tutorials><link title="Math tutorial index">https://docs.godotengine.org/en/3.4/tutorials/math/index.html</link><link title="Vector math">https://docs.godotengine.org/en/3.4/tutorials/math/vector_math.html</link><link title="Advanced vector math">https://docs.godotengine.org/en/3.4/tutorials/math/vectors_advanced.html</link></tutorials><methods><method name="AABB"><return type="AABB" /><argument index="0" name="position" type="Vector3" /><argument index="1" name="size" type="Vector3" /><description>Constructs an [AABB] from a position and size.
 </description></method><method name="abs"><return type="AABB" /><description>Returns an AABB with equivalent position and size, modified so that the most-negative corner is the origin and the size is positive.
 </description></method><method name="encloses"><return type="bool" /><argument index="0" name="with" type="AABB" /><description>Returns [code]true[/code] if this [AABB] completely encloses another one.
-</description></method><method name="expand"><return type="AABB" /><argument index="0" name="to_point" type="Vector3" /><description>Returns this [AABB] expanded to include a given point.
+</description></method><method name="expand"><return type="AABB" /><argument index="0" name="to_point" type="Vector3" /><description>Returns a copy of this [AABB] expanded to include a given point.
+[b]Example:[/b]
+[codeblock]
+# position (-3, 2, 0), size (1, 1, 1)
+var box = AABB(Vector3(-3, 2, 0), Vector3(1, 1, 1))
+# position (-3, -1, 0), size (3, 4, 2), so we fit both the original AABB and Vector3(0, -1, 2)
+var box2 = box.expand(Vector3(0, -1, 2))
+[/codeblock]
 </description></method><method name="get_area"><return type="float" /><description>Returns the volume of the [AABB].
 </description></method><method name="get_endpoint"><return type="Vector3" /><argument index="0" name="idx" type="int" /><description>Gets the position of the 8 endpoints of the [AABB] in space.
 </description></method><method name="get_longest_axis"><return type="Vector3" /><description>Returns the normalized longest axis of the [AABB].

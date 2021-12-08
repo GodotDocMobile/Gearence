@@ -55,6 +55,7 @@ class _ClassSelectState extends State<ClassSelect> {
       final _rtn = new ClassContent();
       _rtn.name = e['class_name'];
       _rtn.inheritChain = e['inherit_chain'];
+      _rtn.svgFileName = e['svg_file_name'];
       _rtn.setNodeType();
       return _rtn;
     })).toList();

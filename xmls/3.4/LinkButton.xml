@@ -6,11 +6,11 @@ See also [BaseButton] which contains common properties and methods associated wi
 </member></members><constants><constant name="UNDERLINE_MODE_ALWAYS" value="0" enum="UnderlineMode">The LinkButton will always show an underline at the bottom of its text.
 </constant><constant name="UNDERLINE_MODE_ON_HOVER" value="1" enum="UnderlineMode">The LinkButton will show an underline at the bottom of its text when the mouse cursor is over it.
 </constant><constant name="UNDERLINE_MODE_NEVER" value="2" enum="UnderlineMode">The LinkButton will never show an underline at the bottom of its text.
-</constant></constants><theme_items><theme_item name="focus" data_type="style" type="StyleBox">[StyleBox] used when the [LinkButton] is focused. It is displayed over the current [StyleBox], so using [StyleBoxEmpty] will just disable the focus visual effect.
-</theme_item><theme_item name="font" data_type="font" type="Font">[Font] of the [LinkButton]'s text.
-</theme_item><theme_item name="font_color" data_type="color" type="Color" default="Color( 0.88, 0.88, 0.88, 1 )">Default text [Color] of the [LinkButton].
+</constant></constants><theme_items><theme_item name="font_color" data_type="color" type="Color" default="Color( 0.88, 0.88, 0.88, 1 )">Default text [Color] of the [LinkButton].
 </theme_item><theme_item name="font_color_focus" data_type="color" type="Color" default="Color( 0.94, 0.94, 0.94, 1 )">Text [Color] used when the [LinkButton] is focused. Only replaces the normal text color of the button. Disabled, hovered, and pressed states take precedence over this color.
 </theme_item><theme_item name="font_color_hover" data_type="color" type="Color" default="Color( 0.94, 0.94, 0.94, 1 )">Text [Color] used when the [LinkButton] is being hovered.
 </theme_item><theme_item name="font_color_pressed" data_type="color" type="Color" default="Color( 1, 1, 1, 1 )">Text [Color] used when the [LinkButton] is being pressed.
 </theme_item><theme_item name="underline_spacing" data_type="constant" type="int" default="2">The vertical space between the baseline of text and the underline.
+</theme_item><theme_item name="font" data_type="font" type="Font">[Font] of the [LinkButton]'s text.
+</theme_item><theme_item name="focus" data_type="style" type="StyleBox">[StyleBox] used when the [LinkButton] is focused. It is displayed over the current [StyleBox], so using [StyleBoxEmpty] will just disable the focus visual effect.
 </theme_item></theme_items></class>
