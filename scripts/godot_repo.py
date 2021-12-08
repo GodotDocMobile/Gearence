@@ -6,7 +6,7 @@ import xml.etree.ElementTree as ET
 from os.path import isfile, join, exists
 from os import listdir, mkdir, remove
 import re
-from shutil import copyfile
+from shutil import copy, copyfile
 import datetime
 # import yaml
 import json
@@ -100,6 +100,27 @@ def _copy_and_trim(src_path, dest_path):
     _f.close()
 
 
+def _copy_and_shrink_svg(src_path, dest_path):
+    _f = open(src_path, 'r')
+    _content = _f.read()
+    _f.close()
+
+    _f = open(dest_path, 'w')
+    replacements = [
+        ('>\n[\t]*<', '><'),
+        ('\n[\t]*', '\n'),
+        ('>\n', '>'),
+        ('"\n[ ]*', '" '),
+        ('>[ ]*<', '><'),
+        ('\n[ ]*', ' '),
+    ]
+    shrinked_svg_content = _content
+    for old, new in replacements:
+        shrinked_svg_content = re.sub(old, new, shrinked_svg_content)
+    _f.write(shrinked_svg_content)
+    _f.close()
+
+
 def _remove_line_breaks(str):
     return re.sub('>\n', '>', re.sub('\n[\t]*', '\n', re.sub('>\n[\t]*<', '><', str)))
 
@@ -169,7 +190,7 @@ def find_parent_class_chain(class_list, parent_name):
 
 def copy_svg_file(branch_name: str, svg_source_path: str, svg_file_name: str):
     target_path = join("../svgs", branch_name, svg_file_name)
-    copyfile(svg_source_path, target_path)
+    _copy_and_shrink_svg(svg_source_path, target_path)
     pass
 
 
