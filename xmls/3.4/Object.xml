@@ -76,6 +76,7 @@ Each [Dictionary] contains three String entries:
 - [code]signal_name[/code] is the name of the connected signal.
 - [code]method_name[/code] is the name of the method to which the signal is connected.
 </description></method><method name="get_indexed" qualifiers="const"><return type="Variant" /><argument index="0" name="property" type="NodePath" /><description>Gets the object's property indexed by the given [NodePath]. The node path should be relative to the current object and can use the colon character ([code]:[/code]) to access nested properties. Examples: [code]"position:x"[/code] or [code]"material:next_pass:blend_mode"[/code].
+[b]Note:[/b] Even though the method takes [NodePath] argument, it doesn't support actual paths to [Node]s in the scene tree, only colon-separated sub-property paths. For the purpose of nodes, use [method Node.get_node_and_resource] instead.
 </description></method><method name="get_instance_id" qualifiers="const"><return type="int" /><description>Returns the object's unique instance ID.
 This ID can be saved in [EncodedObjectAsID], and can be used to retrieve the object instance with [method @GDScript.instance_from_id].
 </description></method><method name="get_meta" qualifiers="const"><return type="Variant" /><argument index="0" name="name" type="String" /><description>Returns the object's metadata entry for the given [code]name[/code].

@@ -10,7 +10,7 @@ class ClassIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SvgIcon(
-      className: classContent!.name!,
+      svgFileName: classContent!.svgFileName,
       version: StoredValues().prefs!.getString('version')!,
     );
   }
