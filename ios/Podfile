@@ -23,15 +23,6 @@ def flutter_root
   raise "FLUTTER_ROOT not found in #{generated_xcode_build_settings_path}. Try deleting Generated.xcconfig, then run flutter pub get"
 end
 
-# add the Firebase pod for Google Analytics
-# pod 'Firebase/Core'
-# pod 'Firebase/Analytics'
-# add pods for any other desired Firebase products
-# https://firebase.google.com/docs/ios/setup#available-pods
-  # Plugin Pods
-#  pod 'Firebase/AdMob'
-#  pod 'Google-Mobile-Ads-SDK'
-
 require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelper'), flutter_root)
 
 flutter_ios_podfile_setup
