@@ -126,7 +126,7 @@ class _ClassEnumsState extends State<ClassEnums> {
         return element.enumValue != null && element.enumValue == enumName;
       }).toList();
       _belongEnum
-          .sort((a, b) => int.parse(a.value!).compareTo(int.parse(b.value!)));
+          .sort((a, b) => int.parse(a.value!).compareTo(int.tryParse(b.value!)??0));
 
       _enumValues.add(_belongEnum[0].name);
       _builtList.add(Column(children: [
