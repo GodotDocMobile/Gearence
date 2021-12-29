@@ -23,10 +23,10 @@ This is equivalent to [code]apply_impulse(Vector3(0, 0, 0), impulse)[/code].
 </description></method><method name="get_space_state"><return type="PhysicsDirectSpaceState" /><description>Returns the current state of the space, useful for queries.
 </description></method><method name="get_velocity_at_local_position" qualifiers="const"><return type="Vector3" /><argument index="0" name="local_position" type="Vector3" /><description>Returns the body's velocity at the given relative position, including both translation and rotation.
 </description></method><method name="integrate_forces"><return type="void" /><description>Calls the built-in force integration code.
-</description></method></methods><members><member name="angular_velocity" type="Vector3" setter="set_angular_velocity" getter="get_angular_velocity">The body's rotational velocity.
+</description></method></methods><members><member name="angular_velocity" type="Vector3" setter="set_angular_velocity" getter="get_angular_velocity">The body's rotational velocity in axis-angle format. The magnitude of the vector is the rotation rate in [i]radians[/i] per second.
 </member><member name="center_of_mass" type="Vector3" setter="" getter="get_center_of_mass"></member><member name="inverse_inertia" type="Vector3" setter="" getter="get_inverse_inertia">The inverse of the inertia of the body.
 </member><member name="inverse_mass" type="float" setter="" getter="get_inverse_mass">The inverse of the mass of the body.
-</member><member name="linear_velocity" type="Vector3" setter="set_linear_velocity" getter="get_linear_velocity">The body's linear velocity.
+</member><member name="linear_velocity" type="Vector3" setter="set_linear_velocity" getter="get_linear_velocity">The body's linear velocity in units per second.
 </member><member name="principal_inertia_axes" type="Basis" setter="" getter="get_principal_inertia_axes"></member><member name="sleeping" type="bool" setter="set_sleep_state" getter="is_sleeping">If [code]true[/code], this body is currently sleeping (not active).
 </member><member name="step" type="float" setter="" getter="get_step">The timestep (delta) used for the simulation.
 </member><member name="total_angular_damp" type="float" setter="" getter="get_total_angular_damp">The rate at which the body stops rotating, if there are not any other forces moving it.

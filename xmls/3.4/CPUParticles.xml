@@ -17,7 +17,7 @@ See also [Particles], which provides the same functionality with hardware accele
 </member><member name="angle" type="float" setter="set_param" getter="get_param" default="0.0">Initial rotation applied to each particle, in degrees.
 </member><member name="angle_curve" type="Curve" setter="set_param_curve" getter="get_param_curve">Each particle's rotation will be animated along this [Curve].
 </member><member name="angle_random" type="float" setter="set_param_randomness" getter="get_param_randomness" default="0.0">Rotation randomness ratio.
-</member><member name="angular_velocity" type="float" setter="set_param" getter="get_param" default="0.0">Initial angular velocity applied to each particle. Sets the speed of rotation of the particle.
+</member><member name="angular_velocity" type="float" setter="set_param" getter="get_param" default="0.0">Initial angular velocity applied to each particle in [i]degrees[/i] per second. Sets the speed of rotation of the particle.
 </member><member name="angular_velocity_curve" type="Curve" setter="set_param_curve" getter="get_param_curve">Each particle's angular velocity will vary along this [Curve].
 </member><member name="angular_velocity_random" type="float" setter="set_param_randomness" getter="get_param_randomness" default="0.0">Angular velocity randomness ratio.
 </member><member name="anim_offset" type="float" setter="set_param" getter="get_param" default="0.0">Particle animation offset.
