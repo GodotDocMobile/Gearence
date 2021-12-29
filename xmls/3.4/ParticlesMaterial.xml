@@ -11,11 +11,11 @@ When a randomness ratio is applied to a property it is used to scale that proper
 </description></method><method name="set_param_randomness"><return type="void" /><argument index="0" name="param" type="int" enum="ParticlesMaterial.Parameter" /><argument index="1" name="randomness" type="float" /><description>Sets the randomness ratio for the specified [enum Parameter].
 </description></method><method name="set_param_texture"><return type="void" /><argument index="0" name="param" type="int" enum="ParticlesMaterial.Parameter" /><argument index="1" name="texture" type="Texture" /><description>Sets the [Texture] for the specified [enum Parameter].
 </description></method></methods><members><member name="angle" type="float" setter="set_param" getter="get_param" default="0.0">Initial rotation applied to each particle, in degrees.
-Only applied when [member flag_disable_z] or [member flag_rotate_y] are [code]true[/code] or the [SpatialMaterial] being used to draw the particle is using [constant SpatialMaterial.BILLBOARD_PARTICLES].
+[b]Note:[/b] Only applied when [member flag_disable_z] or [member flag_rotate_y] are [code]true[/code] or the [SpatialMaterial] being used to draw the particle is using [constant SpatialMaterial.BILLBOARD_PARTICLES].
 </member><member name="angle_curve" type="Texture" setter="set_param_texture" getter="get_param_texture">Each particle's rotation will be animated along this [CurveTexture].
 </member><member name="angle_random" type="float" setter="set_param_randomness" getter="get_param_randomness" default="0.0">Rotation randomness ratio.
-</member><member name="angular_velocity" type="float" setter="set_param" getter="get_param" default="0.0">Initial angular velocity applied to each particle. Sets the speed of rotation of the particle.
-Only applied when [member flag_disable_z] or [member flag_rotate_y] are [code]true[/code] or the [SpatialMaterial] being used to draw the particle is using [constant SpatialMaterial.BILLBOARD_PARTICLES].
+</member><member name="angular_velocity" type="float" setter="set_param" getter="get_param" default="0.0">Initial angular velocity applied to each particle in [i]degrees[/i] per second. Sets the speed of rotation of the particle.
+[b]Note:[/b] Only applied when [member flag_disable_z] or [member flag_rotate_y] are [code]true[/code] or the [SpatialMaterial] being used to draw the particle is using [constant SpatialMaterial.BILLBOARD_PARTICLES].
 </member><member name="angular_velocity_curve" type="Texture" setter="set_param_texture" getter="get_param_texture">Each particle's angular velocity will vary along this [CurveTexture].
 </member><member name="angular_velocity_random" type="float" setter="set_param_randomness" getter="get_param_randomness" default="0.0">Angular velocity randomness ratio.
 </member><member name="anim_offset" type="float" setter="set_param" getter="get_param" default="0.0">Particle animation offset.
@@ -56,7 +56,7 @@ Only applied when [member flag_disable_z] or [member flag_rotate_y] are [code]tr
 </member><member name="linear_accel_curve" type="Texture" setter="set_param_texture" getter="get_param_texture">Each particle's linear acceleration will vary along this [CurveTexture].
 </member><member name="linear_accel_random" type="float" setter="set_param_randomness" getter="get_param_randomness" default="0.0">Linear acceleration randomness ratio.
 </member><member name="orbit_velocity" type="float" setter="set_param" getter="get_param">Orbital velocity applied to each particle. Makes the particles circle around origin. Specified in number of full rotations around origin per second.
-Only available when [member flag_disable_z] is [code]true[/code].
+[b]Note:[/b] Only available when [member flag_disable_z] is [code]true[/code].
 </member><member name="orbit_velocity_curve" type="Texture" setter="set_param_texture" getter="get_param_texture">Each particle's orbital velocity will vary along this [CurveTexture].
 </member><member name="orbit_velocity_random" type="float" setter="set_param_randomness" getter="get_param_randomness">Orbital velocity randomness ratio.
 </member><member name="radial_accel" type="float" setter="set_param" getter="get_param" default="0.0">Radial acceleration applied to each particle. Makes particle accelerate away from origin.

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?><class name="String" version="3.4"><brief_description>Built-in string class.
 </brief_description><description>This is the built-in string class (and the one used by GDScript). It supports Unicode and provides all necessary means for string handling. Strings are reference-counted and use a copy-on-write approach, so passing them around is cheap in resources.
-</description><tutorials><link>https://docs.godotengine.org/en/3.4/getting_started/scripting/gdscript/gdscript_format_string.html</link></tutorials><methods><method name="String"><return type="String" /><argument index="0" name="from" type="bool" /><description>Constructs a new String from the given [bool].
+</description><tutorials><link>https://docs.godotengine.org/en/3.4/tutorials/scripting/gdscript/gdscript_format_string.html</link></tutorials><methods><method name="String"><return type="String" /><argument index="0" name="from" type="bool" /><description>Constructs a new String from the given [bool].
 </description></method><method name="String"><return type="String" /><argument index="0" name="from" type="int" /><description>Constructs a new String from the given [int].
 </description></method><method name="String"><return type="String" /><argument index="0" name="from" type="float" /><description>Constructs a new String from the given [float].
 </description></method><method name="String"><return type="String" /><argument index="0" name="from" type="Vector2" /><description>Constructs a new String from the given [Vector2].
@@ -36,7 +36,7 @@
 To get a boolean result from a string comparison, use the [code]==[/code] operator instead. See also [method nocasecmp_to].
 </description></method><method name="count"><return type="int" /><argument index="0" name="what" type="String" /><argument index="1" name="from" type="int" default="0" /><argument index="2" name="to" type="int" default="0" /><description>Returns the number of occurrences of substring [code]what[/code] between [code]from[/code] and [code]to[/code] positions. If [code]from[/code] and [code]to[/code] equals 0 the whole string will be used. If only [code]to[/code] equals 0 the remained substring will be used.
 </description></method><method name="countn"><return type="int" /><argument index="0" name="what" type="String" /><argument index="1" name="from" type="int" default="0" /><argument index="2" name="to" type="int" default="0" /><description>Returns the number of occurrences of substring [code]what[/code] (ignoring case) between [code]from[/code] and [code]to[/code] positions. If [code]from[/code] and [code]to[/code] equals 0 the whole string will be used. If only [code]to[/code] equals 0 the remained substring will be used.
-</description></method><method name="dedent"><return type="String" /><description>Returns a copy of the string with indentation (leading tabs and spaces) removed.
+</description></method><method name="dedent"><return type="String" /><description>Returns a copy of the string with indentation (leading tabs and spaces) removed. See also [method indent] to add indentation.
 </description></method><method name="empty"><return type="bool" /><description>Returns [code]true[/code] if the length of the string equals [code]0[/code].
 </description></method><method name="ends_with"><return type="bool" /><argument index="0" name="text" type="String" /><description>Returns [code]true[/code] if the string ends with the given string.
 </description></method><method name="erase"><argument index="0" name="position" type="int" /><argument index="1" name="chars" type="int" /><description>Erases [code]chars[/code] characters from the string starting from [code]position[/code].
@@ -83,6 +83,9 @@ var bytes = 133790307
 var size = String.humanize_size(bytes)
 print(size) # prints "127.5 MiB"
 [/codeblock]
+</description></method><method name="indent"><return type="String" /><argument index="0" name="prefix" type="String" /><description>Returns a copy of the string with lines indented with [code]prefix[/code].
+For example, the string can be indented with two tabs using [code]"\t\t"[/code], or four spaces using [code]"    "[/code]. The prefix can be any string so it can also be used to comment out strings with e.g. [code]"# "[/code]. See also [method dedent] to remove indentation.
+[b]Note:[/b] Empty lines are kept empty.
 </description></method><method name="insert"><return type="String" /><argument index="0" name="position" type="int" /><argument index="1" name="what" type="String" /><description>Returns a copy of the string with the substring [code]what[/code] inserted at the given position.
 </description></method><method name="is_abs_path"><return type="bool" /><description>If the string is a path to a file or directory, returns [code]true[/code] if the path is absolute.
 </description></method><method name="is_rel_path"><return type="bool" /><description>If the string is a path to a file or directory, returns [code]true[/code] if the path is relative.

@@ -222,9 +222,12 @@ def single_class_files(branch_name):
                           svg_file_name=_class.svg_file_name,
                           svg_source_path=_svg_source_path)
         _classes.append(_class)
-        print("[{}] process finished for {} ,have svg file:{}".format(
-            branch_name, n.attrib["name"], _class.svg_file_name is None))
-
+        if _class.svg_file_name is None:
+            print("[{}] process finished for {}".format(
+                branch_name, n.attrib["name"]))
+        else:
+            print("[{}] process finished for {}, *with svg file copied*".format(
+                branch_name, n.attrib["name"]))
     for c in _classes:
         if c.parent_class != "":
             c.inherit_chain = find_parent_class_chain(_classes, c.parent_class)
@@ -270,8 +273,12 @@ def multiple_class_files(branch_name):
 
         _classes.append(_class)
 
-        print("[{}] process finished for {} ,have svg file:{}".format(
-            branch_name, origin_file, _class.svg_file_name is None))
+        if _class.svg_file_name is None:
+            print("[{}] process finished for {}".format(
+                branch_name, origin_file))
+        else:
+            print("[{}] process finished for {}, *with svg file copied*".format(
+                branch_name, origin_file))
         pass
 
     print("[{}] processing module docs".format(branch_name))
@@ -284,8 +291,8 @@ def multiple_class_files(branch_name):
             _xmls = [f for f in listdir(_folder) if isfile(
                 join(_folder, f)) and f[-4:] == '.xml']
             for _xml in _xmls:
-                print("[{}] [module {}] processing {}".format(
-                    branch_name, m, _xml))
+                # print("[{}] [module {}] processing {}".format(
+                #     branch_name, m, _xml))
                 _copy_and_trim(join(_folder, _xml), join(_folder_path, _xml))
                 _files.append(_xml)
 
@@ -300,8 +307,12 @@ def multiple_class_files(branch_name):
                                   svg_file_name=_class.svg_file_name,
                                   svg_source_path=_svg_source_path)
                 _classes.append(_class)
-                print("[{}] process finished for {} ,have svg file: {}".format(
-                    branch_name, origin_file, _class.svg_file_name is None))
+                if _class.svg_file_name is None:
+                    print("[{}] [module {}] process finished for {}".format(
+                        branch_name, m, _xml))
+                else:
+                    print("[{}] [module {}] process finished for {}, *with svg file copied*".format(
+                        branch_name, m, _xml))
                 pass
             pass
 
