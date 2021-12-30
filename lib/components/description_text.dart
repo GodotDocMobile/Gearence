@@ -50,12 +50,13 @@ class DescriptionText extends StatelessWidget {
             brkPos = content.indexOf('[', brkPos + 1);
           }
           text = content.substring(pos, brkPos);
-
+          _toRtn.add(TextSpan(text: "\n"));
           _toRtn.add(WidgetSpan(
             child: CodeText(
               codeText: text,
             ),
           ));
+          _toRtn.add(TextSpan(text: "\n\n"));
         } else if (inlineCode) {
           _toRtn.add(WidgetSpan(
             child: InlineCode(
