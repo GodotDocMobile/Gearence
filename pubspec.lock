@@ -215,7 +215,7 @@ packages:
       name: path_provider_linux
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.1.2"
+    version: "2.1.4"
   path_provider_platform_interface:
     dependency: transitive
     description:
@@ -264,7 +264,7 @@ packages:
       name: provider
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "6.0.1"
+    version: "6.0.2"
   scrollable_positioned_list:
     dependency: "direct main"
     description:
@@ -278,7 +278,7 @@ packages:
       name: shared_preferences
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.0.9"
+    version: "2.0.11"
   shared_preferences_android:
     dependency: transitive
     description:
@@ -451,7 +451,7 @@ packages:
       name: win32
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.3.1"
+    version: "2.3.3"
   xdg_directories:
     dependency: transitive
     description:

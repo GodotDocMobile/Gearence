@@ -113,8 +113,8 @@ class GCRDrawerState extends State<GCRDrawer> {
                   onTap: () async {
                     const url =
                         'https://github.com/GodotDocMobile/godot_class_reference';
-                    if (await canLaunch(url)) {
-                      await launch(url);
+                    if (!await launch(url)) {
+                      print("can not launch url $url");
                     }
                   },
                 ),
@@ -213,8 +213,8 @@ class GCRDrawerState extends State<GCRDrawer> {
                   onTap: () async {
                     const url =
                         'https://hosted.weblate.org/projects/godot-engine/godot-class-reference/';
-                    if (await canLaunch(url)) {
-                      await launch(url);
+                    if (await launch(url)) {
+                      print("can not launch url $url");
                     }
                   },
                 ),
