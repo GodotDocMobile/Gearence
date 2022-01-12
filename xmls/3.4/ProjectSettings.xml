@@ -502,7 +502,7 @@ Use the default unless correcting for a problem on particular hardware.
 Although you can have many occluders in a scene, each frame the system will choose from these the most relevant based on a screen space metric, in order to give the best overall performance.
 </member><member name="rendering/portals/advanced/flip_imported_portals" type="bool" setter="" getter="" default="false">The default convention is for portal normals to point outward (face outward) from the source room.
 If you accidentally build your level with portals facing the wrong way, this setting can fix the problem.
-It will flip named portal meshes (i.e. [code]-portal[/code]) on the initial convertion to [Portal] nodes.
+It will flip named portal meshes (i.e. [code]-portal[/code]) on the initial conversion to [Portal] nodes.
 </member><member name="rendering/portals/debug/logging" type="bool" setter="" getter="" default="true">Show conversion logs.
 [b]Note:[/b] This will automatically be disabled in exports.
 </member><member name="rendering/portals/gameplay/use_signals" type="bool" setter="" getter="" default="true">If [code]true[/code], gameplay callbacks will be sent as [code]signals[/code]. If [code]false[/code], they will be sent as [code]notifications[/code].

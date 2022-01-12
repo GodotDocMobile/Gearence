@@ -19,7 +19,7 @@ When there is no item at that point, -1 will be returned if [code]exact[/code] i
 </description></method><method name="get_item_text" qualifiers="const"><return type="String" /><argument index="0" name="idx" type="int" /><description>Returns the text associated with the specified index.
 </description></method><method name="get_item_tooltip" qualifiers="const"><return type="String" /><argument index="0" name="idx" type="int" /><description>Returns the tooltip hint associated with the specified index.
 </description></method><method name="get_selected_items"><return type="PoolIntArray" /><description>Returns an array with the indexes of the selected items.
-</description></method><method name="get_v_scroll"><return type="VScrollBar" /><description>Returns the [Object] ID associated with the list.
+</description></method><method name="get_v_scroll"><return type="VScrollBar" /><description>Returns the vertical scrollbar.
 [b]Warning:[/b] This is a required internal node, removing and freeing it may cause a crash. If you wish to hide it or any of its children, use their [member CanvasItem.visible] property.
 </description></method><method name="is_anything_selected"><return type="bool" /><description>Returns [code]true[/code] if one or more items are selected.
 </description></method><method name="is_item_disabled" qualifiers="const"><return type="bool" /><argument index="0" name="idx" type="int" /><description>Returns [code]true[/code] if the item at the specified index is disabled.
