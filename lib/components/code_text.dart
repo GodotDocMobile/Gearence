@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_highlight/flutter_highlight.dart';
+import 'package:flutter_highlight/themes/a11y-light.dart';
+import 'package:flutter_highlight/themes/arduino-light.dart';
+import 'package:flutter_highlight/themes/atelier-forest-light.dart';
 import 'package:flutter_highlight/themes/github.dart';
 import 'package:flutter_highlight/themes/atom-one-dark.dart';
+import 'package:flutter_highlight/themes/paraiso-light.dart';
 
 import '../theme/themes.dart';
 import '../constants/stored_values.dart';
@@ -26,7 +30,7 @@ class CodeText extends StatelessWidget {
           textStyle: scaledTextStyle(context),
           theme: StoredValues().themeChange.isDark
               ? atomOneDarkTheme
-              : githubTheme,
+              : arduinoLightTheme,
           padding: EdgeInsets.all(10),
         ),
       ),
