@@ -7,7 +7,7 @@
 </description></method><method name="get_presets" qualifiers="const"><return type="PoolColorArray" /><description>Returns the list of colors in the presets of the color picker.
 </description></method></methods><members><member name="color" type="Color" setter="set_pick_color" getter="get_pick_color" default="Color( 1, 1, 1, 1 )">The currently selected color.
 </member><member name="deferred_mode" type="bool" setter="set_deferred_mode" getter="is_deferred_mode" default="false">If [code]true[/code], the color will apply only after the user releases the mouse button, otherwise it will apply immediately even in mouse motion event (which can cause performance issues).
-</member><member name="edit_alpha" type="bool" setter="set_edit_alpha" getter="is_editing_alpha" default="true">If [code]true[/code], shows an alpha channel slider (transparency).
+</member><member name="edit_alpha" type="bool" setter="set_edit_alpha" getter="is_editing_alpha" default="true">If [code]true[/code], shows an alpha channel slider (opacity).
 </member><member name="hsv_mode" type="bool" setter="set_hsv_mode" getter="is_hsv_mode" default="false">If [code]true[/code], allows editing the color with Hue/Saturation/Value sliders.
 [b]Note:[/b] Cannot be enabled if raw mode is on.
 </member><member name="presets_enabled" type="bool" setter="set_presets_enabled" getter="are_presets_enabled" default="true">If [code]true[/code], the "add preset" button is enabled.

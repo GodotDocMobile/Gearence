@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?><class name="CharFXTransform" inherits="Reference" version="3.4"><brief_description>Controls how an individual character will be displayed in a [RichTextEffect].
 </brief_description><description>By setting various properties on this object, you can control how individual characters will be displayed in a [RichTextEffect].
-</description><tutorials><link>https://docs.godotengine.org/en/3.4/tutorials/ui/bbcode_in_richtextlabel.html</link><link>https://github.com/Eoin-ONeill-Yokai/Godot-Rich-Text-Effect-Test-Project</link></tutorials><methods></methods><members><member name="absolute_index" type="int" setter="set_absolute_index" getter="get_absolute_index" default="0">The index of the current character (starting from 0). Setting this property won't affect drawing.
+</description><tutorials><link>https://docs.godotengine.org/en/3.4/tutorials/ui/bbcode_in_richtextlabel.html</link><link>https://github.com/Eoin-ONeill-Yokai/Godot-Rich-Text-Effect-Test-Project</link></tutorials><methods></methods><members><member name="absolute_index" type="int" setter="set_absolute_index" getter="get_absolute_index" default="0">The index of the current character (starting from 0) for the [RichTextLabel]'s BBCode text. Setting this property won't affect drawing.
 </member><member name="character" type="int" setter="set_character" getter="get_character" default="0">The Unicode codepoint the character will use. This only affects non-whitespace characters. [method @GDScript.ord] can be useful here. For example, the following will replace all characters with asterisks:
 [codeblock]
 # `char_fx` is the CharFXTransform parameter from `_process_custom_fx()`.
@@ -16,6 +16,6 @@ For example, the opening BBCode tag [code][example foo=hello bar=true baz=42 col
 {"foo": "hello", "bar": true, "baz": 42, "color": Color(1, 1, 1, 1)}
 [/codeblock]
 </member><member name="offset" type="Vector2" setter="set_offset" getter="get_offset" default="Vector2( 0, 0 )">The position offset the character will be drawn with (in pixels).
-</member><member name="relative_index" type="int" setter="set_relative_index" getter="get_relative_index" default="0">The index of the current character (starting from 0). Setting this property won't affect drawing.
+</member><member name="relative_index" type="int" setter="set_relative_index" getter="get_relative_index" default="0">The index of the current character (starting from 0) for this [RichTextEffect] custom block. Setting this property won't affect drawing.
 </member><member name="visible" type="bool" setter="set_visibility" getter="is_visible" default="true">If [code]true[/code], the character will be drawn. If [code]false[/code], the character will be hidden. Characters around hidden characters will reflow to take the space of hidden characters. If this is not desired, set their [member color] to [code]Color(1, 1, 1, 0)[/code] instead.
 </member></members><constants></constants></class>
