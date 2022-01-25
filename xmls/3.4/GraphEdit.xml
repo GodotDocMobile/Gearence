@@ -47,7 +47,7 @@ It is greatly advised to enable low-processor usage mode (see [member OS.low_pro
 </theme_item><theme_item name="selection_fill" data_type="color" type="Color" default="Color( 1, 1, 1, 0.3 )">The fill color of the selection rectangle.
 </theme_item><theme_item name="selection_stroke" data_type="color" type="Color" default="Color( 1, 1, 1, 0.8 )">The outline color of the selection rectangle.
 </theme_item><theme_item name="bezier_len_neg" data_type="constant" type="int" default="160"></theme_item><theme_item name="bezier_len_pos" data_type="constant" type="int" default="80"></theme_item><theme_item name="port_grab_distance_horizontal" data_type="constant" type="int" default="24">The horizontal range within which a port can be grabbed (on both sides).
-</theme_item><theme_item name="port_grab_distance_vertical" data_type="constant" type="int" default="6">The vertical range within which a port can be grabbed (on both sides).
+</theme_item><theme_item name="port_grab_distance_vertical" data_type="constant" type="int" default="26">The vertical range within which a port can be grabbed (on both sides).
 </theme_item><theme_item name="minimap" data_type="icon" type="Texture"></theme_item><theme_item name="minus" data_type="icon" type="Texture">The icon for the zoom out button.
 </theme_item><theme_item name="more" data_type="icon" type="Texture">The icon for the zoom in button.
 </theme_item><theme_item name="reset" data_type="icon" type="Texture">The icon for the zoom reset button.
