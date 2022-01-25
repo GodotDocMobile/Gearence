@@ -18,7 +18,7 @@ git clone https://github.com/godotengine/godot.git
 ```bash
 pip install GitPython 
 ```
-* run the python script,which will update docs and svg files for published Godot versions(2.0,2.1,3.0,3.1,3.2)
+* run the python script,which will update docs and svg files for published Godot versions(2.0 to 3.4)
 ```bash
 cd scripts # must enter scripts folder
 ./godot_repo.py --godot_path [your godot repo path]
