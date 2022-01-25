@@ -39,29 +39,37 @@ class _ClassSelectState extends State<ClassSelect> {
     }
   }
 
-  static Future<List<ClassContent>> getXmlFiles() async {
+  static Future<bool> getXmlFiles() async {
     String? version = StoredValues().prefs!.getString('version');
     if (version == null || version.length == 0) {
       version = '3.4';
       await StoredValues().prefs!.setString('version', version);
     }
 
-    final file = await rootBundle.loadString('xmls/files_' + version + '.json');
-    final decoded = json.decode(file);
+    ClassDB _db = ClassDB();
+    if (_db.getDB().length == 0 || _db.version != version) {
+      final file =
+          await rootBundle.loadString('xmls/files_' + version + '.json');
+      final decoded = json.decode(file);
 
-    final _decodedList = decoded as List;
-    final List<ClassContent> _parsedList =
-        List<ClassContent>.from(_decodedList.map((e) {
-      final _rtn = new ClassContent();
-      _rtn.name = e['class_name'];
-      _rtn.inheritChain = e['inherit_chain'];
-      _rtn.svgFileName = e['svg_file_name'];
-      _rtn.setNodeType();
-      return _rtn;
-    })).toList();
-    ClassDB().updateList(_parsedList);
-    ClassDB().updateDB(version);
-    return _parsedList;
+      final _decodedList = decoded as List;
+      final List<ClassContent> _parsedList =
+          List<ClassContent>.from(_decodedList.map((e) {
+        final _rtn = new ClassContent();
+        _rtn.name = e['class_name'];
+        _rtn.inheritChain = e['inherit_chain'];
+        _rtn.svgFileName = e['svg_file_name'];
+        _rtn.setNodeType();
+        return _rtn;
+      })).toList();
+
+      ClassDB().loadFromParseJson(_parsedList, version);
+    }
+    if (_db.getDB().last.version == null ||
+        _db.getDB().last.version?.isEmpty == true) {
+      ClassDB().loadFromXmls();
+    }
+    return true;
   }
 
   @override
@@ -165,10 +173,9 @@ class _ClassSelectState extends State<ClassSelect> {
   Widget build(BuildContext context) {
     return FutureBuilder(
         future: getXmlFiles(),
-        builder:
-            (BuildContext context, AsyncSnapshot<List<ClassContent>> snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
           if (snapshot.hasData) {
-            _classes = snapshot.data;
+            _classes = ClassDB().getDB();
             _sortClasses(_classes);
             return Scaffold(
               drawer: GCRDrawer(setScaleFunc: setScale),

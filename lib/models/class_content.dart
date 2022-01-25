@@ -113,28 +113,25 @@ class ClassContent {
 
   static void fromJson(json) {}
 
-  static ClassContent fromXml(XmlElement node) {
-    ClassContent toReturn = ClassContent();
-
+  void fromXml(XmlElement node) {
     final rootAttrs = node.attributes;
 
     // attribute fields
-    toReturn.name = _getAttrByName(rootAttrs, 'name');
+    this.name = _getAttrByName(rootAttrs, 'name');
 
-    toReturn.inherits = _getAttrByName(rootAttrs, 'inherits');
+    this.inherits = _getAttrByName(rootAttrs, 'inherits');
 
-    toReturn.category = _getAttrByName(rootAttrs, 'category');
+    this.category = _getAttrByName(rootAttrs, 'category');
 
-    toReturn.version = _getAttrByName(rootAttrs, 'version');
+    this.version = _getAttrByName(rootAttrs, 'version');
 
-    toReturn.briefDescription =
-        node.findElements('brief_description').first.text;
+    this.briefDescription = node.findElements('brief_description').first.text;
 
     // constants
     final constantRoot = node.findElements('constants');
     if (constantRoot.length > 0) {
       final constantNodes = constantRoot.first.children;
-      toReturn.constants = constantNodes.map((f) {
+      this.constants = constantNodes.map((f) {
         final List<XmlAttribute?> nodeAttr = f.attributes;
         return Constant(
             name: _getAttrByName(nodeAttr, 'name'),
@@ -144,13 +141,13 @@ class ClassContent {
       }).toList();
     }
 
-    toReturn.description = node.findElements('description').first.text;
+    this.description = node.findElements('description').first.text;
 
     // members
     final memberRoot = node.findElements('members');
     if (memberRoot.length > 0) {
       final memberNodes = memberRoot.first.children;
-      toReturn.members = memberNodes.map((f) {
+      this.members = memberNodes.map((f) {
         final List<XmlAttribute?> nodeAttr = f.attributes;
         return Member(
             name: _getAttrByName(nodeAttr, 'name'),
@@ -166,7 +163,7 @@ class ClassContent {
     final methodRoot = node.findElements('methods');
     if (methodRoot.length > 0) {
       final methodNodes = methodRoot.first.children;
-      toReturn.methods = methodNodes.map((f) {
+      this.methods = methodNodes.map((f) {
         final element = f as XmlElement;
         final List<XmlAttribute?> nodeAttr = f.attributes;
 
@@ -207,7 +204,7 @@ class ClassContent {
     final signalRoot = node.findElements('signals');
     if (signalRoot.length > 0) {
       final signalNodes = signalRoot.first.children;
-      toReturn.signals = signalNodes.map((f) {
+      this.signals = signalNodes.map((f) {
         final element = f as XmlElement;
         final List<XmlAttribute?> nodeAttr = f.attributes;
         final argumentNodes = element.findElements('argument');
@@ -228,15 +225,13 @@ class ClassContent {
     final themeItemRoot = node.findElements('theme_items');
     if (themeItemRoot.length > 0) {
       final themeItemNodes = themeItemRoot.first.children;
-      toReturn.themeItems = themeItemNodes.map((f) {
+      this.themeItems = themeItemNodes.map((f) {
         final List<XmlAttribute?> nodeAttr = f.attributes;
         return ThemeItem(
             name: _getAttrByName(nodeAttr, 'name'),
             type: _getAttrByName(nodeAttr, 'type'));
       }).toList();
     }
-
-    return toReturn;
   }
 
   static String? _getAttrByName(List<XmlAttribute?> attrs, String attrName) {
