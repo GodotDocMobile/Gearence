@@ -13,10 +13,8 @@ class ClassDB {
   XMLLoadBloc loadBloc = XMLLoadBloc();
 
   static final ClassDB _instance = ClassDB._internal();
-  String? _version;
+  String? version;
   bool loading = false;
-
-  // String _loadingClass;
 
   factory ClassDB() {
     return _instance;
@@ -24,34 +22,25 @@ class ClassDB {
 
   ClassDB._internal();
 
-  updateList(List<ClassContent> list) {
+  loadFromParseJson(List<ClassContent> list, String version) {
+    this.version = version;
     _classContent = List<ClassContent>.from(list);
     _classContent.sort((a, b) {
       return a.name!.compareTo(b.name!);
     });
+    loading = false;
   }
 
-  updateDB(String version) async {
-//    print("loading");
+  loadFromXmls() async {
     if (!loading) {
       loading = true;
-      _version = version;
-      _updateDB(version);
+      for (var _classFileName in _classContent) {
+        if (!loading) break;
+        await _loadSingle(version, _classFileName.name);
+      }
+      _classContent.toSet().toList();
       loading = false;
     }
-  }
-
-  void _updateDB(String version) async {
-    final _updatingVersion = version;
-    for (var _classFileName in _classContent) {
-      if (_updatingVersion != _version) {
-        break;
-      }
-      // _loadingClass = _classFileName.name;
-      await _loadSingle(version, _classFileName.name);
-      // _loadingClass = null;
-    }
-    _classContent.toSet().toList();
   }
 
   Future<ClassContent> _loadSingle(String? version, String? classFileName,
@@ -73,13 +62,9 @@ class ClassDB {
           .children
           .lastWhere((w) => w.nodeType != xml.XmlNodeType.TEXT);
 
-      ClassContent _xmlContent = ClassContent.fromXml(rootNode as XmlElement);
-      _xmlContent.inheritChain = _classContent[_existIndex].inheritChain;
-      _xmlContent.nodeType = _classContent[_existIndex].nodeType;
-      _xmlContent.svgFileName = _classContent[_existIndex].svgFileName;
-      _classContent[_existIndex] = _xmlContent;
+      _classContent[_existIndex].fromXml(rootNode as XmlElement);
 
-      _toRtn = _xmlContent;
+      _toRtn = _classContent[_existIndex];
     }
 
     if (skipCheck) {
