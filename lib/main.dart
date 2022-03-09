@@ -2,46 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'bloc/theme_bloc.dart';
-import 'bloc/tap_event_bloc.dart';
 import 'constants/stored_values.dart';
 import 'theme/themes.dart';
 import 'screens/class_select.dart';
 
 void main() => runApp(GCRApp());
 
-class GCRApp extends StatefulWidget {
-  @override
-  _GCRAppState createState() => _GCRAppState();
-}
-
-class _GCRAppState extends State<GCRApp> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    TapEventBloc().dispose();
-    super.dispose();
-  }
-
-  Future<void> showThemeChangeLoading() {
-    print("showing theme change");
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return SimpleDialog(
-            title: Text('Loading'),
-            children: [
-              Center(
-                child: CircularProgressIndicator(),
-              ),
-            ],
-          );
-        });
-  }
-
+class GCRApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<bool>(

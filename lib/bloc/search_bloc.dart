@@ -1,26 +1,13 @@
-import 'dart:async';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'tap_event_arg.dart';
 
-class SearchBloc {
-  final _searchStateController = StreamController<TapEventArg>();
-  StreamSink<TapEventArg> get _inArgs => _searchStateController.sink;
-  Stream<TapEventArg> get argStream => _searchStateController.stream;
+abstract class SearchEvent {}
 
-  final _searchEventController = StreamController<TapEventArg>();
-  Sink<TapEventArg> get argSink => _searchEventController.sink;
+class SearchBloc extends Cubit<TapEventArg> {
+  SearchBloc() : super(TapEventArg(className: '-', fieldName: '-'));
 
-  SearchBloc() {
-    _searchEventController.stream.listen(_onAdd);
-  }
-
-  void _onAdd(TapEventArg data) {
-    // print(data);
-    _inArgs.add(data);
-  }
-
-  void dispose() {
-    _searchEventController.close();
-    _searchStateController.close();
+  void add(TapEventArg eventArg) {
+    emit(eventArg);
   }
 }

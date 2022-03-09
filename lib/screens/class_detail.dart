@@ -32,7 +32,7 @@ class _ClassDetailState extends State<ClassDetail>
   Future<ClassContent>? _classContent;
   late List<ClassTab> _tabs;
 
-  late TapEventBloc _bloc;
+  TapEventBloc _bloc = storedValues.tapEventBloc;
 
   String className = '';
 
@@ -40,22 +40,16 @@ class _ClassDetailState extends State<ClassDetail>
   void initState() {
     super.initState();
     className = widget.className;
-    _bloc = TapEventBloc();
     _classContent = getClassDetail();
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      if (widget.args != null) {
-        Future.delayed(Duration(milliseconds: 200), () {
-          _bloc.argSink.add(widget.args);
-        });
-      }
-    });
+    if (storedValues.tapEventBloc.state.fieldName.isEmpty) {
+      _bloc.reached();
+    }
   }
 
   @override
   void dispose() {
     super.dispose();
     tabController!.dispose();
-    _bloc.dispose();
   }
 
   Future<ClassContent> getClassDetail() async {
@@ -65,15 +59,16 @@ class _ClassDetailState extends State<ClassDetail>
   }
 
   void onLinkTap(TapEventArg args) async {
+    _bloc.add(args);
     if (args.className == widget.className) {
       //navigation within class
       int _toFocusTabIndex =
           _tabs.indexWhere((w) => w.title == linkTypeToString(args.linkType));
       tabController!
           .animateTo(_toFocusTabIndex, duration: Duration(milliseconds: 100));
-      Future.delayed(Duration(milliseconds: 120), () {
-        _bloc.argSink.add(args);
-      });
+      if (args.fieldName.isEmpty) {
+        _bloc.reached();
+      }
     } else {
       Navigator.push(
           context,
@@ -112,7 +107,7 @@ class _ClassDetailState extends State<ClassDetail>
       future: _classContent,
       builder: (BuildContext context, AsyncSnapshot<ClassContent> snapshot) {
         if (snapshot.hasData) {
-          _tabs = getClassTabs(snapshot.data!, _bloc.argStream, this.onLinkTap);
+          _tabs = getClassTabs(snapshot.data!, this.onLinkTap);
           // append theme item tab if needed
           if (snapshot.data!.themeItems != null &&
               snapshot.data!.themeItems!.length > 0) {
@@ -122,7 +117,7 @@ class _ClassDetailState extends State<ClassDetail>
                 child: ClassThemeItems(
                   clsContent: snapshot.data,
                   onLinkTap: onLinkTap,
-                  eventStream: _bloc.argStream,
+                  // eventStream: _bloc.argStream,
                 ),
                 showCnt: true,
                 itemCount: snapshot.data!.themeItems!.length,
@@ -211,8 +206,8 @@ class ClassTab {
   final Stream<TapEventArg>? eventStream;
 }
 
-List<ClassTab> getClassTabs(ClassContent clsContent,
-    Stream<TapEventArg?> eventStream, Function(TapEventArg args) onLinkTap) {
+List<ClassTab> getClassTabs(
+    ClassContent clsContent, Function(TapEventArg args) onLinkTap) {
   return <ClassTab>[
     ClassTab(
       title: "Info",
@@ -226,7 +221,7 @@ List<ClassTab> getClassTabs(ClassContent clsContent,
       child: ClassEnums(
         clsContent: clsContent,
         onLinkTap: onLinkTap,
-        eventStream: eventStream,
+        // eventStream: eventStream,
       ),
       showCnt: true,
       itemCount: clsContent.constants == null
@@ -238,7 +233,7 @@ List<ClassTab> getClassTabs(ClassContent clsContent,
       child: ClassConstants(
         clsContent: clsContent,
         onLinkTap: onLinkTap,
-        eventStream: eventStream,
+        // eventStream: eventStream,
       ),
       showCnt: true,
       itemCount: clsContent.constants == null
@@ -250,7 +245,7 @@ List<ClassTab> getClassTabs(ClassContent clsContent,
       child: ClassMembers(
         clsContent: clsContent,
         onLinkTap: onLinkTap,
-        eventStream: eventStream,
+        // eventStream: eventStream,
       ),
       showCnt: true,
       itemCount: clsContent.members == null ? 0 : clsContent.members!.length,
@@ -260,7 +255,7 @@ List<ClassTab> getClassTabs(ClassContent clsContent,
       child: ClassMethods(
         clsContent: clsContent,
         onLinkTap: onLinkTap,
-        eventStream: eventStream,
+        // eventStream: eventStream,
       ),
       showCnt: true,
       itemCount: clsContent.methods == null ? 0 : clsContent.methods!.length,
@@ -270,7 +265,7 @@ List<ClassTab> getClassTabs(ClassContent clsContent,
       child: ClassSignals(
         clsContent: clsContent,
         onLinkTap: onLinkTap,
-        eventStream: eventStream,
+        // eventStream: eventStream,
       ),
       showCnt: true,
       itemCount: clsContent.signals == null ? 0 : clsContent.signals!.length,

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../theme/themes.dart';
 import '../bloc/class_list_filter_bloc.dart';
@@ -20,7 +21,7 @@ class ClassSelect extends StatefulWidget {
 }
 
 class _ClassSelectState extends State<ClassSelect> {
-  late ClassListFilterBloc _filterBloc;
+  ClassListFilterBloc _filterBloc = ClassListFilterBloc();
 
   List<ClassContent>? _classes = [];
 
@@ -74,21 +75,20 @@ class _ClassSelectState extends State<ClassSelect> {
 
   @override
   void initState() {
-    _filterBloc = new ClassListFilterBloc();
     initialize();
     super.initState();
   }
 
   @override
   void dispose() {
-    _filterBloc.dispose();
+    _filterBloc.close();
     super.dispose();
   }
 
   List<Widget> buildFilterOptions(StateSetter setStateFunc) {
     List<Widget> ret = <Widget>[
       Text(
-        'you can navigate and search filtered classes',
+        'filtered classes are accessible in search and in-class links',
         style: TextStyle(color: Colors.grey, fontSize: 13),
       ),
     ];
@@ -104,7 +104,7 @@ class _ClassSelectState extends State<ClassSelect> {
                 setStateFunc(() {
                   filterOptionValues[index] = v;
                 });
-                _filterBloc.argSink.add(FilterOption(e, v));
+                _filterBloc.add(FilterOption(e, v));
                 StoredValues().prefs!.setBool(filterOptionStoreKey[e]!, v);
               }),
         ));
@@ -219,36 +219,36 @@ class _ClassSelectState extends State<ClassSelect> {
   }
 
   Widget buildList() {
-    return StreamBuilder<FilterOption>(
-        stream: _filterBloc.argStream,
-        builder: (context, snapshot) {
-          var _widget = ListView(
-              children: filterClasses(_classes)
-                  .map((f) => MediaQuery(
-                        data: scaledMediaQueryData(context),
-                        child: Card(
-                          child: ListTile(
-                            leading: ClassIcon(
-                              classContent: f,
-                              key: UniqueKey(),
-                            ),
-                            title: Text(f.name!),
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        ClassDetail(className: f.name!),
-                                  ));
-                            },
-                            trailing: f.nodeType == classNodeType.None
-                                ? null
-                                : NodeTag(classContent: f),
+    return BlocBuilder(
+      bloc: _filterBloc,
+      builder: (context, state) {
+        return ListView(
+            children: filterClasses(_classes)
+                .map((f) => MediaQuery(
+                      data: scaledMediaQueryData(context),
+                      child: Card(
+                        child: ListTile(
+                          leading: ClassIcon(
+                            classContent: f,
+                            key: UniqueKey(),
                           ),
+                          title: Text(f.name!),
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      ClassDetail(className: f.name!),
+                                ));
+                          },
+                          trailing: f.nodeType == classNodeType.None
+                              ? null
+                              : NodeTag(classContent: f),
                         ),
-                      ))
-                  .toList());
-          return _widget;
-        });
+                      ),
+                    ))
+                .toList());
+      },
+    );
   }
 }

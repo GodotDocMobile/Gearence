@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
+import 'package:godotclassreference/bloc/tap_event_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/config_content.dart';
@@ -13,6 +14,8 @@ class StoredValues {
   ThemeChange themeChange = ThemeChange();
   bool? iconForNonNode;
   int? fontSize;
+
+  TapEventBloc tapEventBloc = TapEventBloc();
 
   late ConfigContent configContent;
 
@@ -44,3 +47,5 @@ class StoredValues {
     return true;
   }
 }
+
+final StoredValues storedValues = StoredValues();

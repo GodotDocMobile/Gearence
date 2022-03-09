@@ -50,6 +50,7 @@ dependencies:
   cupertino_icons: ^1.0.4
   gettext: ^1.2.0
   provider: ^6.0.1
+  flutter_bloc: ^8.0.1
 
 dev_dependencies:
   flutter_test:
