@@ -1,25 +1,11 @@
-import 'dart:async';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'tap_event_arg.dart';
 
-class TapEventBloc {
-  final _argStateController = StreamController<TapEventArg?>.broadcast();
-  StreamSink<TapEventArg?> get _inArgs => _argStateController.sink;
-  Stream<TapEventArg?> get argStream => _argStateController.stream;
+class TapEventBloc extends Cubit<TapEventArg> {
+  TapEventBloc() : super(TapEventArg(className: '', fieldName: ''));
 
-  final _argEventController = StreamController<TapEventArg?>();
-  Sink<TapEventArg?> get argSink => _argEventController.sink;
+  void add(TapEventArg tapEventArg) => emit(tapEventArg);
 
-  TapEventBloc() {
-    _argEventController.stream.listen(_onAdd);
-  }
-
-  void _onAdd(TapEventArg? data) {
-    _inArgs.add(data);
-  }
-
-  void dispose() {
-    _argEventController.close();
-    _argStateController.close();
-  }
+  void reached() => emit(TapEventArg(className: '', fieldName: ''));
 }

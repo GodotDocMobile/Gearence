@@ -37,7 +37,7 @@ class _SetFontSizeState extends State<SetFontSize>
     dummyNode.members = node.members;
     dummyNode.methods = node.methods;
     dummyNode.signals = node.signals;
-    _tabs = getClassTabs(dummyNode, _streamController.stream, (args) {});
+    _tabs = getClassTabs(dummyNode, (args) {});
     tabController = TabController(
       vsync: this,
       length: _tabs.length,

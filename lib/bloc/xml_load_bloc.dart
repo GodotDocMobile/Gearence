@@ -1,25 +1,15 @@
-import 'dart:async';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../models/class_content.dart';
 
-class XMLLoadBloc {
-  final _loadStateController = StreamController<ClassContent>.broadcast();
-  StreamSink<ClassContent> get _inArgs => _loadStateController.sink;
-  Stream<ClassContent> get argStream => _loadStateController.stream;
+abstract class XMLLoadEvent {}
 
-  final _loadEventController = StreamController<ClassContent>();
-  Sink<ClassContent> get argSink => _loadEventController.sink;
+class XMLLoaded extends XMLLoadEvent {}
 
-  XMLLoadBloc() {
-    _loadEventController.stream.listen(_onAdd);
-  }
+class XMLLoadFinish extends XMLLoadEvent {}
 
-  void _onAdd(ClassContent data) {
-    _inArgs.add(data);
-  }
-
-  void dispose() {
-    _loadEventController.close();
-    _loadStateController.close();
+class XMLLoadBloc extends Bloc<XMLLoadEvent, ClassContent> {
+  XMLLoadBloc() : super(ClassContent()) {
+    on<XMLLoadFinish>((event, emit) {});
   }
 }

@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
+import '../../bloc/tap_event_bloc.dart';
 import '../../components/link_text.dart';
 import '../../components/description_text.dart';
 import '../../bloc/tap_event_arg.dart';
+import '../../constants/stored_values.dart';
 import '../../models/class_content.dart';
 
 class ClassSignals extends StatefulWidget {
   final ClassContent? clsContent;
   final Function(TapEventArg args) onLinkTap;
-  final Stream<TapEventArg?>? eventStream;
 
-  ClassSignals(
-      {Key? key, this.clsContent, this.eventStream, required this.onLinkTap})
-      : super(key: key);
+  ClassSignals({
+    Key? key,
+    this.clsContent,
+    // this.eventStream,
+    required this.onLinkTap,
+  }) : super(key: key);
 
   @override
   _ClassSignalsState createState() => _ClassSignalsState();
@@ -31,10 +36,13 @@ class _ClassSignalsState extends State<ClassSignals> {
     super.initState();
     _scrollController = ItemScrollController();
     _itemPositionsListener = ItemPositionsListener.create();
-    widget.eventStream!.listen((v) {
-      try {
-        scrollTo(v!);
-      } catch (_) {}
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      if (storedValues.tapEventBloc.state.fieldName.isNotEmpty) {
+        try {
+          scrollTo(storedValues.tapEventBloc.state);
+        } catch (_) {}
+        storedValues.tapEventBloc.reached();
+      }
     });
   }
 
@@ -62,54 +70,67 @@ class _ClassSignalsState extends State<ClassSignals> {
       );
     }
 
-    return ScrollablePositionedList.builder(
-        itemCount: widget.clsContent!.signals!.length,
-        itemScrollController: _scrollController,
-        itemPositionsListener: _itemPositionsListener,
-        itemBuilder: (context, index) {
-          final s = widget.clsContent!.signals![index];
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(children: [
-              ListTile(
-                title: Text(
-                  s.name!,
-                  style: TextStyle(fontSize: 25),
+    return BlocListener<TapEventBloc, TapEventArg>(
+      bloc: storedValues.tapEventBloc,
+      listener: (context, state) {
+        if (state.className == widget.clsContent!.name &&
+            state.linkType == LinkType.Signal) {
+          try {
+            scrollTo(storedValues.tapEventBloc.state);
+          } catch (_) {}
+          storedValues.tapEventBloc.reached();
+        }
+      },
+      child: ScrollablePositionedList.builder(
+          itemCount: widget.clsContent!.signals!.length,
+          itemScrollController: _scrollController,
+          itemPositionsListener: _itemPositionsListener,
+          itemBuilder: (context, index) {
+            final s = widget.clsContent!.signals![index];
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(children: [
+                ListTile(
+                  title: Text(
+                    s.name!,
+                    style: TextStyle(fontSize: 25),
+                  ),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Column(
+                          children: s.arguments!.map((e) {
+                        return Column(children: [
+                          Row(children: [
+                            LinkText(
+                                text: e.type!, onLinkTap: widget.onLinkTap),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              e.name!,
+                              style: TextStyle(fontSize: 15),
+                            ),
+                          ]),
+                        ]);
+                      }).toList()),
+                      Divider(
+                        indent: propertyIndent,
+                      ),
+                      DescriptionText(
+                        className: widget.clsContent!.name!,
+                        content: s.description!,
+                        onLinkTap: widget.onLinkTap,
+                      ),
+                    ],
+                  ),
                 ),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Column(
-                        children: s.arguments!.map((e) {
-                      return Column(children: [
-                        Row(children: [
-                          LinkText(text: e.type!, onLinkTap: widget.onLinkTap),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            e.name!,
-                            style: TextStyle(fontSize: 15),
-                          ),
-                        ]),
-                      ]);
-                    }).toList()),
-                    Divider(
-                      indent: propertyIndent,
-                    ),
-                    DescriptionText(
-                      className: widget.clsContent!.name!,
-                      content: s.description!,
-                      onLinkTap: widget.onLinkTap,
-                    ),
-                  ],
-                ),
-              ),
-              Divider(
-                color: Colors.blueGrey,
-              )
-            ]),
-          );
-        });
+                Divider(
+                  color: Colors.blueGrey,
+                )
+              ]),
+            );
+          }),
+    );
   }
 }
