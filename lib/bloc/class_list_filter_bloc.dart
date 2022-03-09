@@ -1,4 +1,4 @@
-import 'dart:async';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../models/class_content.dart';
 
@@ -9,24 +9,8 @@ class FilterOption {
   FilterOption(this.type, this.value);
 }
 
-class ClassListFilterBloc {
-  final _filterStateController = StreamController<FilterOption>();
-  StreamSink<FilterOption> get _inArgs => _filterStateController.sink;
-  Stream<FilterOption> get argStream => _filterStateController.stream;
+class ClassListFilterBloc extends Cubit<FilterOption> {
+  ClassListFilterBloc() : super(FilterOption(classNodeType.None, true));
 
-  final _filterEventController = StreamController<FilterOption>();
-  Sink<FilterOption> get argSink => _filterEventController.sink;
-
-  ClassListFilterBloc() {
-    _filterEventController.stream.listen(_onAdd);
-  }
-
-  void _onAdd(FilterOption data) {
-    _inArgs.add(data);
-  }
-
-  void dispose() {
-    _filterEventController.close();
-    _filterStateController.close();
-  }
+  void add(FilterOption filterOption) => emit(filterOption);
 }

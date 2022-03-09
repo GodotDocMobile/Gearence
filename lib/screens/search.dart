@@ -1,6 +1,6 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:godotclassreference/bloc/xml_load_bloc.dart';
 
 import '../bloc/search_bloc.dart';
 import '../bloc/tap_event_arg.dart';
@@ -51,12 +51,6 @@ class _SearchScreenState extends State<SearchScreen> {
 
   late bool _isDarkTheme;
 
-  // when user are in search,
-  // classes in class db may not be fully initialized
-  // which means xml files may not all mapped to class properties
-  // so a stream of fresh-loaded class is needed
-  late StreamSubscription<TapEventArg> _xmlSub;
-
   @override
   void initState() {
     super.initState();
@@ -69,23 +63,12 @@ class _SearchScreenState extends State<SearchScreen> {
       }
     });
 
-    _xmlSub = _searchBloc.argStream.listen((event) {
-      setState(() {
-        if (_argList.length == 0 ||
-            _argList.last.fieldName != event.fieldName) {
-          _argList.add(event);
-        }
-      });
-    });
     _isDarkTheme = StoredValues().themeChange.isDark;
-    ClassDB().loadBloc.argStream.listen(_xmlLoadSearch);
   }
 
   @override
   void dispose() {
     _controller.dispose();
-    _searchBloc.dispose();
-    _xmlSub.cancel();
     super.dispose();
   }
 
@@ -118,12 +101,10 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   void _onTextSubmit(String val) {
+    _argList.clear();
     if (_controller.text.length > 0) {
-      _argList.clear();
       _doSearch(val);
-    } else {
-      _argList.clear();
-    }
+    } else {}
 
     setState(() {
       _searching = ClassDB().getDB().last.version == null;
@@ -149,7 +130,7 @@ class _SearchScreenState extends State<SearchScreen> {
     }
 
     if (_classNameContains) {
-      _searchBloc.argSink.add(TapEventArg(
+      _searchBloc.add(TapEventArg(
           linkType: LinkType.Class, className: _class.name!, fieldName: ''));
     }
 
@@ -159,7 +140,7 @@ class _SearchScreenState extends State<SearchScreen> {
         if (_caseSensitive
             ? element.name!.contains(_searchingTerm)
             : element.name!.toLowerCase().contains(_searchingTerm)) {
-          _searchBloc.argSink.add(TapEventArg(
+          _searchBloc.add(TapEventArg(
               linkType: LinkType.Method,
               className: _class.name!,
               fieldName: element.name!));
@@ -173,7 +154,7 @@ class _SearchScreenState extends State<SearchScreen> {
         if (_caseSensitive
             ? element.name!.contains(_searchingTerm)
             : element.name!.toLowerCase().contains(_searchingTerm)) {
-          _searchBloc.argSink.add(TapEventArg(
+          _searchBloc.add(TapEventArg(
               linkType: LinkType.Signal,
               className: _class.name!,
               fieldName: element.name!));
@@ -190,14 +171,14 @@ class _SearchScreenState extends State<SearchScreen> {
           if (element.enumValue != null) {
             //search enum values
             if (element.enumValue!.length > 0) {
-              _searchBloc.argSink.add(TapEventArg(
+              _searchBloc.add(TapEventArg(
                   linkType: LinkType.Enum,
                   className: _class.name!,
                   fieldName: "${element.enumValue}.${element.name}"));
             }
           } else {
             //search constants
-            _searchBloc.argSink.add(TapEventArg(
+            _searchBloc.add(TapEventArg(
                 linkType: LinkType.Constant,
                 className: _class.name!,
                 fieldName: element.name!));
@@ -210,7 +191,7 @@ class _SearchScreenState extends State<SearchScreen> {
             (_caseSensitive
                 ? element.enumValue!.contains(_searchingTerm)
                 : element.enumValue!.toLowerCase().contains(_searchingTerm))) {
-          _searchBloc.argSink.add(TapEventArg(
+          _searchBloc.add(TapEventArg(
               linkType: LinkType.Enum,
               className: _class.name!,
               fieldName: "${element.enumValue}.${element.name}"));
@@ -224,7 +205,7 @@ class _SearchScreenState extends State<SearchScreen> {
         if (_caseSensitive
             ? element.name!.contains(_searchingTerm)
             : element.name!.toLowerCase().contains(_searchingTerm)) {
-          _searchBloc.argSink.add(TapEventArg(
+          _searchBloc.add(TapEventArg(
               linkType: LinkType.Member,
               className: _class.name!,
               fieldName: element.name!));
@@ -238,7 +219,7 @@ class _SearchScreenState extends State<SearchScreen> {
         if (_caseSensitive
             ? element.name!.contains(_searchingTerm)
             : element.name!.toLowerCase().contains(_searchingTerm)) {
-          _searchBloc.argSink.add(TapEventArg(
+          _searchBloc.add(TapEventArg(
               linkType: LinkType.ThemeItem,
               className: _class.name!,
               fieldName: element.name!));
@@ -323,60 +304,83 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor:
-            _isDarkTheme ? darkTheme.backgroundColor : Colors.white,
-        iconTheme: IconThemeData(
-            color: _isDarkTheme ? darkTheme.iconTheme.color : Colors.black),
-        title: TextField(
-          autofocus: true,
-          controller: _controller,
-          decoration: InputDecoration(
-              border: InputBorder.none,
-              hintText: 'Enter a search term',
-              hintStyle: TextStyle(color: Colors.white54)),
-          onSubmitted: _onTextSubmit,
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.clear),
-            onPressed: () {
-              _controller.clear();
-            },
-          )
-        ],
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(48.0),
-          child: ListTile(
-            title: DropdownButton<String>(
-              icon: Icon(Icons.list),
-              value: _searchCat,
-              items: _options.map((e) {
-                return DropdownMenuItem<String>(
-                  value: e,
-                  child: Text(e),
-                );
-              }).toList(),
-              onChanged: (v) {
-                final _idx = _options.indexOf(v!);
-                _searchClass = _idx < 2;
-                _searchMethod = _idx == 0 || _idx == 2;
-                _searchMember = _idx == 0 || _idx == 3;
-                _searchSignal = _idx == 0 || _idx == 4;
-                _searchConstant = _idx == 0 || _idx == 5;
-                _searchEnum = _idx == 0 || _idx == 6;
-                _searchThemeItem = _idx == 0 || _idx == 7;
-                setState(() {
-                  _searchCat = v;
-                });
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<XMLLoadBloc, ClassContent>(
+            bloc: ClassDB().loadBloc,
+            listener: (context, state) {
+              if (state.version?.isEmpty == true) {
+              } else {
+                _xmlLoadSearch(state);
+              }
+            }),
+        BlocListener<SearchBloc, TapEventArg>(
+          bloc: _searchBloc,
+          listener: (context, state) {
+            setState(() {
+              if (_argList.length == 0 ||
+                  _argList.last.fieldName != state.fieldName) {
+                _argList.add(state);
+              }
+            });
+          },
+        )
+      ],
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor:
+              _isDarkTheme ? darkTheme.backgroundColor : Colors.white,
+          iconTheme: IconThemeData(
+              color: _isDarkTheme ? darkTheme.iconTheme.color : Colors.black),
+          title: TextField(
+            autofocus: true,
+            controller: _controller,
+            decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: 'Enter a search term',
+                hintStyle: TextStyle(color: Colors.white54)),
+            onSubmitted: _onTextSubmit,
+          ),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.clear),
+              onPressed: () {
+                _controller.clear();
               },
+            )
+          ],
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(48.0),
+            child: ListTile(
+              title: DropdownButton<String>(
+                icon: Icon(Icons.list),
+                value: _searchCat,
+                items: _options.map((e) {
+                  return DropdownMenuItem<String>(
+                    value: e,
+                    child: Text(e),
+                  );
+                }).toList(),
+                onChanged: (v) {
+                  final _idx = _options.indexOf(v!);
+                  _searchClass = _idx < 2;
+                  _searchMethod = _idx == 0 || _idx == 2;
+                  _searchMember = _idx == 0 || _idx == 3;
+                  _searchSignal = _idx == 0 || _idx == 4;
+                  _searchConstant = _idx == 0 || _idx == 5;
+                  _searchEnum = _idx == 0 || _idx == 6;
+                  _searchThemeItem = _idx == 0 || _idx == 7;
+                  setState(() {
+                    _searchCat = v;
+                  });
+                },
+              ),
             ),
           ),
         ),
-      ),
-      body: ListView(
-        children: _buildSearchResult(),
+        body: ListView(
+          children: _buildSearchResult(),
+        ),
       ),
     );
   }

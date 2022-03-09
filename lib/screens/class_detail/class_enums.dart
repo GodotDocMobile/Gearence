@@ -1,22 +1,21 @@
-import 'dart:async';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:flutter/material.dart';
 
+import '../../bloc/tap_event_bloc.dart';
 import '../../components/description_text.dart';
 import '../../bloc/tap_event_arg.dart';
 import '../../models/class_content.dart';
 import '../../models/constant.dart';
+import '../../constants/stored_values.dart';
 
 class ClassEnums extends StatefulWidget {
   final ClassContent clsContent;
   final Function(TapEventArg args) onLinkTap;
-  final Stream<TapEventArg?>? eventStream;
 
-  ClassEnums(
-      {Key? key,
-      required this.clsContent,
-      this.eventStream,
-      required this.onLinkTap})
+  // final Stream<TapEventArg?>? eventStream;
+
+  ClassEnums({Key? key, required this.clsContent, required this.onLinkTap})
       : super(key: key);
 
   @override
@@ -26,7 +25,8 @@ class ClassEnums extends StatefulWidget {
 class _ClassEnumsState extends State<ClassEnums> {
   ItemScrollController? _scrollController;
   ItemPositionsListener? _itemPositionsListener;
-  late StreamSubscription<TapEventArg?> _tapSub;
+
+  // late StreamSubscription<TapEventArg?> _tapSub;
 
   List<String?> _enumNames = [];
 
@@ -46,17 +46,21 @@ class _ClassEnumsState extends State<ClassEnums> {
         .toSet()
         .where((w) => w != null)
         .toList();
-    _tapSub = widget.eventStream!.listen((v) {
-      try {
-        scrollTo(v!);
-      } catch (_) {}
+
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      if (storedValues.tapEventBloc.state.fieldName.isNotEmpty) {
+        try {
+          scrollTo(storedValues.tapEventBloc.state);
+        } catch (_) {}
+        storedValues.tapEventBloc.reached();
+      }
     });
     super.initState();
   }
 
   @override
   void dispose() {
-    _tapSub.cancel();
+    // _tapSub.cancel();
     super.dispose();
   }
 
@@ -171,19 +175,31 @@ class _ClassEnumsState extends State<ClassEnums> {
 
     buildEnums();
 
-    return ScrollablePositionedList.builder(
-      // padding: EdgeInsets.all(5),
-      itemCount: _getPositionCount(),
-      itemScrollController: _scrollController,
-      itemPositionsListener: _itemPositionsListener,
-      itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [_builtList[index]],
-          ),
-        );
+    return BlocListener<TapEventBloc, TapEventArg>(
+      bloc: storedValues.tapEventBloc,
+      listener: (context, state) {
+        if (state.className == widget.clsContent.name &&
+            state.linkType == LinkType.Enum) {
+          try {
+            scrollTo(storedValues.tapEventBloc.state);
+          } catch (_) {}
+          storedValues.tapEventBloc.reached();
+        }
       },
+      child: ScrollablePositionedList.builder(
+        // padding: EdgeInsets.all(5),
+        itemCount: _getPositionCount(),
+        itemScrollController: _scrollController,
+        itemPositionsListener: _itemPositionsListener,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [_builtList[index]],
+            ),
+          );
+        },
+      ),
     );
   }
 }

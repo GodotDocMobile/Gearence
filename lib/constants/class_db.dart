@@ -68,7 +68,8 @@ class ClassDB {
     }
 
     if (skipCheck) {
-      loadBloc.argSink.add(_toRtn);
+      // loadBloc.argSink.add(_toRtn);
+      loadBloc.add(XMLLoadFinish());
     }
 
     return _toRtn;
