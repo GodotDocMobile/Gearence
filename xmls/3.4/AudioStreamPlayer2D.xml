@@ -7,7 +7,7 @@ See also [AudioStreamPlayer] to play a sound non-positionally.
 </description></method><method name="play"><return type="void" /><argument index="0" name="from_position" type="float" default="0.0" /><description>Plays the audio from the given position [code]from_position[/code], in seconds.
 </description></method><method name="seek"><return type="void" /><argument index="0" name="to_position" type="float" /><description>Sets the position from which audio will be played, in seconds.
 </description></method><method name="stop"><return type="void" /><description>Stops the audio.
-</description></method></methods><members><member name="area_mask" type="int" setter="set_area_mask" getter="get_area_mask" default="1">Areas in which this sound plays.
+</description></method></methods><members><member name="area_mask" type="int" setter="set_area_mask" getter="get_area_mask" default="1">Determines which [Area2D] layers affect the sound for reverb and audio bus effects. Areas can be used to redirect [AudioStream]s so that they play in a certain audio bus. An example of how you might use this is making a "water" area so that sounds played in the water are redirected through an audio bus to make them sound like they are being played underwater.
 </member><member name="attenuation" type="float" setter="set_attenuation" getter="get_attenuation" default="1.0">Dampens audio over distance with this as an exponent.
 </member><member name="autoplay" type="bool" setter="set_autoplay" getter="is_autoplay_enabled" default="false">If [code]true[/code], audio plays when added to scene tree.
 </member><member name="bus" type="String" setter="set_bus" getter="get_bus" default="&quot;Master&quot;">Bus on which this audio is playing.
