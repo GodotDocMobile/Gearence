@@ -37,6 +37,9 @@ If you wish to access a shell built-in or perform a composite command, a platfor
 OS.execute("CMD.exe", ["/C", "cd %TEMP% &amp;&amp; dir"], true, output)
 [/codeblock]
 [b]Note:[/b] This method is implemented on Android, iOS, Linux, macOS and Windows.
+[b]Note:[/b] To execute a Windows command interpreter built-in command, specify [code]cmd.exe[/code] in [code]path[/code], [code]/c[/code] as the first argument, and the desired command as the second argument.
+[b]Note:[/b] To execute a PowerShell built-in command, specify [code]powershell.exe[/code] in [code]path[/code], [code]-Command[/code] as the first argument, and the desired command as the second argument.
+[b]Note:[/b] To execute a Unix shell built-in command, specify shell executable name in [code]path[/code], [code]-c[/code] as the first argument, and the desired command as the second argument.
 </description></method><method name="find_scancode_from_string" qualifiers="const"><return type="int" /><argument index="0" name="string" type="String" /><description>Returns the scancode of the given string (e.g. "Escape").
 </description></method><method name="get_audio_driver_count" qualifiers="const"><return type="int" /><description>Returns the total number of available audio drivers.
 </description></method><method name="get_audio_driver_name" qualifiers="const"><return type="String" /><argument index="0" name="driver" type="int" /><description>Returns the audio driver name for the given index.

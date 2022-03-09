@@ -86,8 +86,8 @@ If [code]deep[/code] is [code]true[/code], a deep copy is performed: all nested 
 if 2 in [2, 4, 6, 8]:
     pass
 [/codeblock]
-</description></method><method name="hash"><return type="int" /><description>Returns a hashed integer value representing the array and its contents.
-[b]Note:[/b] Arrays with equal contents can still produce different hashes. Only the exact same arrays will produce the same hashed integer value.
+</description></method><method name="hash"><return type="int" /><description>Returns a hashed 32-bit integer value representing the array and its contents.
+[b]Note:[/b] [Array]s with equal content will always produce identical hash values. However, the reverse is not true. Returning identical hash values does [i]not[/i] imply the arrays are equal, because different arrays can have identical hash values due to hash collisions.
 </description></method><method name="insert"><argument index="0" name="position" type="int" /><argument index="1" name="value" type="Variant" /><description>Inserts a new element at a given position in the array. The position must be valid, or at the end of the array ([code]pos == size()[/code]).
 [b]Note:[/b] This method acts in-place and doesn't return a value.
 [b]Note:[/b] On large arrays, this method will be slower if the inserted element is close to the beginning of the array (index 0). This is because all elements placed after the newly inserted element have to be reindexed.
