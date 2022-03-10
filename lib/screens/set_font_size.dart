@@ -197,6 +197,8 @@ This is [u]underline text.[/u]
 This is [s] crossed text.[/s]
 This is [url] url text.[/url]
 This is [url=https://godotengine.org/] a link to official godot engine website.[/url] which is not implemented yet.
+This is link to Node
+This is link to [Node]
 Next is color text
 
 [color=aqua]aqua[/color]

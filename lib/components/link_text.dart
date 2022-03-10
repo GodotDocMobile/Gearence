@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import '../bloc/tap_event_arg.dart';
 import '../constants/class_db.dart';
 import '../constants/colors.dart';
@@ -16,10 +18,11 @@ class LinkText extends StatelessWidget {
         ? InkWell(
             child: Text(
               text,
-              style: TextStyle(
+              style: GoogleFonts.robotoMono(
+                  textStyle: TextStyle(
                 fontSize: 15,
                 color: godotColor,
-              ),
+              )),
             ),
             onTap: () {
               onLinkTap(
