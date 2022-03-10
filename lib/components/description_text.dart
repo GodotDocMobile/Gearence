@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../theme/themes.dart';
 import '../components/code_text.dart';
@@ -132,7 +135,8 @@ class DescriptionText extends StatelessWidget {
                         : linkTarget);
                 this.onLinkTap(args);
               },
-            style: _toApplyStyle.copyWith(color: godotColor),
+            style: GoogleFonts.robotoMono(
+                textStyle: _toApplyStyle.copyWith(color: godotColor)),
           ),
         );
         pos = brkEnd + 1;
@@ -149,13 +153,16 @@ class DescriptionText extends StatelessWidget {
                 );
                 this.onLinkTap(args);
               },
-            style: _toApplyStyle.copyWith(
-                color: tag == className
-                    ? (StoredValues().themeChange.currentTheme() ==
-                            ThemeMode.dark
-                        ? Colors.white
-                        : Colors.black)
-                    : godotColor),
+            style: GoogleFonts.robotoMono(
+              textStyle: _toApplyStyle.copyWith(
+                  fontFeatures: [FontFeature.tabularFigures()],
+                  color: tag == className
+                      ? (StoredValues().themeChange.currentTheme() ==
+                              ThemeMode.dark
+                          ? Colors.white
+                          : Colors.black)
+                      : godotColor),
+            ),
           ),
         );
         pos = brkEnd + 1;
