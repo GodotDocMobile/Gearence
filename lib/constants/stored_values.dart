@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
+import 'package:godotclassreference/bloc/blocs.dart';
 import 'package:godotclassreference/bloc/tap_event_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,6 +15,9 @@ class StoredValues {
   ThemeChange themeChange = ThemeChange();
   bool? iconForNonNode;
   int? fontSize;
+
+  // bool? monoSpaceFont;
+  MonospaceFontBloc monospaced = MonospaceFontBloc();
 
   TapEventBloc tapEventBloc = TapEventBloc();
 
@@ -40,10 +44,9 @@ class StoredValues {
     var configString = await rootBundle.loadString('xmls/conf.json');
     configContent = ConfigContent.fromJson(jsonDecode(configString));
     themeChange.isDark = prefs!.getBool('darkTheme') == true;
-    iconForNonNode = prefs!.getBool('iconForNonNodes') == null
-        ? true
-        : prefs!.getBool('iconForNonNodes');
+    iconForNonNode = prefs!.getBool('iconForNonNodes') ?? true;
     fontSize = prefs!.getInt("gcrFontSize") ?? 0;
+    monospaced.monospaced = prefs!.getBool('monoSpaceFont') ?? false;
     return true;
   }
 }
