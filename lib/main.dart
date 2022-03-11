@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:godotclassreference/bloc/blocs.dart';
 import 'package:provider/provider.dart';
 
 import 'bloc/theme_bloc.dart';
@@ -21,17 +22,23 @@ class GCRApp extends StatelessWidget {
             },
             builder: (context, widget) {
               return MaterialApp(
-                  //hide debug banner
-                  debugShowCheckedModeBanner: false,
-                  theme: lightTheme,
-                  darkTheme: darkTheme,
-                  themeMode: Provider.of<ThemeChange>(context).isDark
-                      ? ThemeMode.dark
-                      : ThemeMode.light,
-                  home: ClassSelect(),
-                  builder: (BuildContext context, Widget? child) {
-                    return child!;
-                  });
+                //hide debug banner
+                debugShowCheckedModeBanner: false,
+                theme: lightTheme,
+                darkTheme: darkTheme,
+                themeMode: Provider.of<ThemeChange>(context).isDark
+                    ? ThemeMode.dark
+                    : ThemeMode.light,
+                home: ChangeNotifierProvider<MonospaceFontBloc>(
+                  create: (context) {
+                    return storedValues.monospaced;
+                  },
+                  builder: (context, widget) {
+                    return ClassSelect();
+                  },
+                ),
+                // home: ClassSelect(),
+              );
             },
           );
         } else {

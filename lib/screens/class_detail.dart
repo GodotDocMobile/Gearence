@@ -44,12 +44,15 @@ class _ClassDetailState extends State<ClassDetail>
     if (storedValues.tapEventBloc.state.fieldName.isEmpty) {
       _bloc.reached();
     }
+    if (widget.args != null) {
+      storedValues.tapEventBloc.add(widget.args!);
+    }
   }
 
   @override
   void dispose() {
-    super.dispose();
     tabController!.dispose();
+    super.dispose();
   }
 
   Future<ClassContent> getClassDetail() async {

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import '../constants/colors.dart';
 import '../constants/stored_values.dart';
+import '../bloc/blocs.dart';
 
 ThemeData darkTheme = ThemeData(
   primarySwatch: godotColor as MaterialColor?,
@@ -33,4 +35,17 @@ TextStyle nonScaleTextStyle(BuildContext context) {
 
 MediaQueryData nonScaledMediaQueryData(BuildContext context) {
   return MediaQuery.of(context).copyWith(textScaleFactor: 1);
+}
+
+TextStyle monoOptionalStyle(BuildContext context, {TextStyle? style}) {
+  if (Provider.of<MonospaceFontBloc?>(context)?.monospaced ==
+              true || // this is for main screen
+          storedValues.monospaced.monospaced // this is for class detail screen
+      ) {
+    if (style != null) {
+      return GoogleFonts.jetBrainsMono(textStyle: style);
+    }
+    return GoogleFonts.jetBrainsMono();
+  }
+  return style ?? DefaultTextStyle.of(context).style;
 }

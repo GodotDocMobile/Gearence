@@ -232,7 +232,10 @@ class _ClassSelectState extends State<ClassSelect> {
                             classContent: f,
                             key: UniqueKey(),
                           ),
-                          title: Text(f.name!),
+                          title: Text(
+                            f.name!,
+                            style: monoOptionalStyle(context),
+                          ),
                           onTap: () {
                             Navigator.push(
                                 context,

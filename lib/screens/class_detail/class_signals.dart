@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:godotclassreference/theme/themes.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../bloc/tap_event_bloc.dart';
@@ -93,7 +94,8 @@ class _ClassSignalsState extends State<ClassSignals> {
                 ListTile(
                   title: Text(
                     s.name!,
-                    style: TextStyle(fontSize: 25),
+                    style: monoOptionalStyle(context,
+                        style: TextStyle(fontSize: 25)),
                   ),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

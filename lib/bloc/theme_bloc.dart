@@ -5,20 +5,8 @@ class ThemeChange with ChangeNotifier {
 
   ThemeChange();
 
-  bool isListened() {
-    return this.hasListeners;
-  }
-
-  bool currentThemeIsDark() {
-    return isDark;
-  }
-
   void switchTheme(bool value) {
     isDark = value;
     notifyListeners();
-  }
-
-  ThemeMode currentTheme() {
-    return isDark ? ThemeMode.dark : ThemeMode.light;
   }
 }

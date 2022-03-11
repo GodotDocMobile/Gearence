@@ -23,6 +23,7 @@ class GCRDrawerState extends State<GCRDrawer> {
   late PackageInfo pi;
   String? docDate;
   bool? darkTheme;
+  bool? monoSpaceFont;
 
   OverlayState? overlayState;
   OverlayEntry? overlayEntry;
@@ -76,11 +77,10 @@ class GCRDrawerState extends State<GCRDrawer> {
 
   Future<bool> loadAll() async {
     pi = await PackageInfo.fromPlatform();
-    godotVersion = StoredValues().prefs!.getString('version')!.substring(0);
-    darkTheme = StoredValues().prefs!.getBool('darkTheme') == null
-        ? false
-        : StoredValues().prefs!.getBool('darkTheme');
-    docDate = StoredValues().configContent.updateDate;
+    godotVersion = storedValues.prefs!.getString('version')!.substring(0);
+    darkTheme = storedValues.prefs!.getBool('darkTheme') ?? false;
+    docDate = storedValues.configContent.updateDate;
+    monoSpaceFont = storedValues.monospaced.monospaced;
     return true;
   }
 
@@ -191,7 +191,7 @@ class GCRDrawerState extends State<GCRDrawer> {
                 ),
                 ListTile(
                   leading: Icon(Icons.text_fields),
-                  title: Text("Text size"),
+                  title: Text("Set text size"),
                   onTap: () {
                     Navigator.push(
                         context,
@@ -200,6 +200,20 @@ class GCRDrawerState extends State<GCRDrawer> {
                               SetFontSize(setScaleFunc: widget.setScaleFunc),
                         ));
                   },
+                ),
+                ListTile(
+                  leading: Icon(Icons.font_download_outlined),
+                  title: Text('Monospace font'),
+                  trailing: Switch(
+                    value: monoSpaceFont!,
+                    onChanged: (v) {
+                      storedValues.prefs!.setBool('monoSpaceFont', v);
+                      setState(() {
+                        storedValues.monospaced.setMonospaced(v);
+                        monoSpaceFont = v;
+                      });
+                    },
+                  ),
                 ),
                 ListTile(
                   leading: Icon(Icons.info),

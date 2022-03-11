@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:godotclassreference/theme/themes.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../bloc/tap_event_bloc.dart';
@@ -84,12 +85,20 @@ class _ClassMethodsState extends State<ClassMethods> {
       _toAdd.add(LinkText(text: element.type!, onLinkTap: widget.onLinkTap));
 
       // argument name
-      _toAdd.add(Text(element.name!));
+      _toAdd.add(
+        Text(
+          element.name!,
+          style: monoOptionalStyle(context),
+        ),
+      );
 
       // argument default value (if any)
       if (element.defaultValue != null) {
         containsDefault = true;
-        _toAdd.add(Text(element.defaultValue!));
+        _toAdd.add(Text(
+          element.defaultValue!,
+          style: monoOptionalStyle(context),
+        ));
       }
       tableCells.add(_toAdd);
     });
@@ -178,7 +187,10 @@ class _ClassMethodsState extends State<ClassMethods> {
                     child: Text(
                       m.name!,
                       softWrap: true,
-                      style: TextStyle(fontSize: 25),
+                      style: monoOptionalStyle(
+                        context,
+                        style: TextStyle(fontSize: 25),
+                      ),
                     ),
                   ),
                   subtitle: Column(
@@ -194,7 +206,10 @@ class _ClassMethodsState extends State<ClassMethods> {
                         Container(
                           width: MediaQuery.of(context).size.width * 0.7,
                           child: m.returnValue == null
-                              ? Text('void')
+                              ? Text(
+                                  'void',
+                                  style: monoOptionalStyle(context),
+                                )
                               : LinkText(
                                   text: m.returnValue!.type!,
                                   onLinkTap: widget.onLinkTap),
