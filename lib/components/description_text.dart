@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../theme/themes.dart';
 import '../components/code_text.dart';
@@ -122,22 +121,21 @@ class DescriptionText extends StatelessWidget {
 //        String linkTag = tag.substring(0, tag.indexOf(' ')).padRight(6);
         _toRtn.add(
           TextSpan(
-            text: linkTarget + (tag.startsWith('method ') ? '()' : ''),
-            recognizer: TapGestureRecognizer()
-              ..onTap = () {
-                TapEventArg args = TapEventArg(
-                    linkType: linkTypeFromString(tag.split(' ').first),
-                    className: linkTarget.contains('.')
-                        ? linkTarget.split('.').first
-                        : className,
-                    fieldName: linkTarget.contains('.')
-                        ? linkTarget.split('.').last
-                        : linkTarget);
-                this.onLinkTap(args);
-              },
-            style: GoogleFonts.robotoMono(
-                textStyle: _toApplyStyle.copyWith(color: godotColor)),
-          ),
+              text: linkTarget + (tag.startsWith('method ') ? '()' : ''),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                  TapEventArg args = TapEventArg(
+                      linkType: linkTypeFromString(tag.split(' ').first),
+                      className: linkTarget.contains('.')
+                          ? linkTarget.split('.').first
+                          : className,
+                      fieldName: linkTarget.contains('.')
+                          ? linkTarget.split('.').last
+                          : linkTarget);
+                  this.onLinkTap(args);
+                },
+              style: monoOptionalStyle(context,
+                  style: _toApplyStyle.copyWith(color: godotColor))),
         );
         pos = brkEnd + 1;
       } else if (ClassDB().getDB().any((element) => element.name == tag)) {
@@ -153,16 +151,14 @@ class DescriptionText extends StatelessWidget {
                 );
                 this.onLinkTap(args);
               },
-            style: GoogleFonts.robotoMono(
-              textStyle: _toApplyStyle.copyWith(
-                  fontFeatures: [FontFeature.tabularFigures()],
-                  color: tag == className
-                      ? (StoredValues().themeChange.currentTheme() ==
-                              ThemeMode.dark
-                          ? Colors.white
-                          : Colors.black)
-                      : godotColor),
-            ),
+            style: monoOptionalStyle(context,
+                style: _toApplyStyle.copyWith(
+                    fontFeatures: [FontFeature.tabularFigures()],
+                    color: tag == className
+                        ? (StoredValues().themeChange.isDark
+                            ? Colors.white
+                            : Colors.black)
+                        : godotColor)),
           ),
         );
         pos = brkEnd + 1;

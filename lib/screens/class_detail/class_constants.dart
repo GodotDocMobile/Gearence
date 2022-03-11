@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:godotclassreference/bloc/tap_event_bloc.dart';
+import 'package:godotclassreference/theme/themes.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../components/description_text.dart';
@@ -102,6 +103,7 @@ class _ClassConstantsState extends State<ClassConstants> {
                         width: MediaQuery.of(context).size.width * 0.88,
                         child: Text(
                           c.name!,
+                          style: monoOptionalStyle(context),
                         ),
                       ),
                     ],

@@ -8,6 +8,7 @@ import '../../bloc/tap_event_arg.dart';
 import '../../models/class_content.dart';
 import '../../models/constant.dart';
 import '../../constants/stored_values.dart';
+import '../../theme/themes.dart';
 
 class ClassEnums extends StatefulWidget {
   final ClassContent clsContent;
@@ -89,7 +90,10 @@ class _ClassEnumsState extends State<ClassEnums> {
     return Column(
       children: [
         ListTile(
-          title: Text('${clsConstant.name}'),
+          title: Text(
+            '${clsConstant.name}',
+            style: monoOptionalStyle(context),
+          ),
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -146,7 +150,8 @@ class _ClassEnumsState extends State<ClassEnums> {
                 width: MediaQuery.of(context).size.width * 0.6,
                 child: Text(
                   enumName!,
-                  style: TextStyle(fontSize: 20),
+                  style: monoOptionalStyle(context,
+                      style: TextStyle(fontSize: 20)),
                 ),
               ),
             ]),

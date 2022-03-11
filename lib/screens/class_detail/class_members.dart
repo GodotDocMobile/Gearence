@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:godotclassreference/theme/themes.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../bloc/tap_event_bloc.dart';
@@ -100,9 +101,11 @@ class _ClassMembersState extends State<ClassMembers> {
                       width: MediaQuery.of(context).size.width * 0.8,
                       child: Text(
                         m.name!,
-                        style: TextStyle(
-                          fontSize: 25,
-//                    color: godotColor,
+                        style: monoOptionalStyle(
+                          context,
+                          style: TextStyle(
+                            fontSize: 25,
+                          ),
                         ),
                       ),
                     ),
@@ -137,10 +140,13 @@ class _ClassMembersState extends State<ClassMembers> {
                                     padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                                     child: Text(
                                       m.setter! + "(value)",
-                                      style: TextStyle(
-                                          color: _isDarkMode
-                                              ? Colors.white
-                                              : Colors.black),
+                                      style: monoOptionalStyle(
+                                        context,
+                                        style: TextStyle(
+                                            color: _isDarkMode
+                                                ? Colors.white
+                                                : Colors.black),
+                                      ),
                                     ),
                                   ),
                                   Divider(
@@ -161,10 +167,13 @@ class _ClassMembersState extends State<ClassMembers> {
                                     padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                                     child: Text(
                                       m.getter! + "()",
-                                      style: TextStyle(
-                                          color: _isDarkMode
-                                              ? Colors.white
-                                              : Colors.black),
+                                      style: monoOptionalStyle(
+                                        context,
+                                        style: TextStyle(
+                                            color: _isDarkMode
+                                                ? Colors.white
+                                                : Colors.black),
+                                      ),
                                     ),
                                   ),
                                   Divider(
