@@ -4,8 +4,8 @@ import 'package:godotclassreference/bloc/tap_event_bloc.dart';
 import 'package:godotclassreference/theme/themes.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-import '../../components/description_text.dart';
 import '../../bloc/tap_event_arg.dart';
+import '../../components/description_text.dart';
 import '../../constants/stored_values.dart';
 import '../../models/class_content.dart';
 import '../../models/constant.dart';
@@ -97,16 +97,12 @@ class _ClassConstantsState extends State<ClassConstants> {
               padding: const EdgeInsets.all(8.0),
               child: Column(children: [
                 ListTile(
-                  title: Row(
-                    children: <Widget>[
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.88,
-                        child: Text(
-                          c.name!,
-                          style: monoOptionalStyle(context),
-                        ),
-                      ),
-                    ],
+                  title: Container(
+                    width: MediaQuery.of(context).size.width * 0.88,
+                    child: Text(
+                      c.name!,
+                      style: monoOptionalStyle(context),
+                    ),
                   ),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
