@@ -23,7 +23,8 @@ class CodeText extends StatelessWidget {
         child: HighlightView(
           codeText!,
           language: 'gdscript',
-          textStyle: scaledTextStyle(context),
+          textStyle:
+              scaledTextStyle(context).copyWith(fontFamily: 'JetbrainsMono'),
           theme: StoredValues().themeChange.isDark
               ? atomOneDarkTheme
               : arduinoLightTheme,
