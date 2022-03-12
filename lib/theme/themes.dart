@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/colors.dart';
@@ -43,9 +42,9 @@ TextStyle monoOptionalStyle(BuildContext context, {TextStyle? style}) {
           storedValues.monospaced.monospaced // this is for class detail screen
       ) {
     if (style != null) {
-      return GoogleFonts.jetBrainsMono(textStyle: style);
+      return style.copyWith(fontFamily: 'JetbrainsMono');
     }
-    return GoogleFonts.jetBrainsMono();
+    return TextStyle(fontFamily: 'JetbrainsMono');
   }
   return style ?? DefaultTextStyle.of(context).style;
 }
