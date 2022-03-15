@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:godotclassreference/bloc/xml_load_bloc.dart';
 
+import '../bloc/xml_load_bloc.dart';
 import '../bloc/search_bloc.dart';
 import '../bloc/tap_event_arg.dart';
 import '../constants/class_db.dart';
@@ -318,10 +318,7 @@ class _SearchScreenState extends State<SearchScreen> {
           bloc: _searchBloc,
           listener: (context, state) {
             setState(() {
-              if (_argList.length == 0 ||
-                  _argList.last.fieldName != state.fieldName) {
-                _argList.add(state);
-              }
+              _argList.add(state);
             });
           },
         )
