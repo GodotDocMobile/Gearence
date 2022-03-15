@@ -41,7 +41,8 @@ class _ClassDetailState extends State<ClassDetail>
     super.initState();
     className = widget.className;
     _classContent = getClassDetail();
-    if (storedValues.tapEventBloc.state.fieldName.isEmpty) {
+    if (storedValues.tapEventBloc.state.className.isNotEmpty &&
+        storedValues.tapEventBloc.state.fieldName.isEmpty) {
       _bloc.reached();
     }
     if (widget.args != null) {

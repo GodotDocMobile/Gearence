@@ -163,6 +163,7 @@ class _ClassMethodsState extends State<ClassMethods> {
 
     return BlocListener<TapEventBloc, TapEventArg>(
       bloc: storedValues.tapEventBloc,
+      listenWhen: (previous, current) => ModalRoute.of(context)!.isCurrent,
       listener: (context, state) {
         if (state.className == widget.clsContent!.name &&
             state.linkType == LinkType.Method) {
@@ -189,7 +190,7 @@ class _ClassMethodsState extends State<ClassMethods> {
                       softWrap: true,
                       style: monoOptionalStyle(
                         context,
-                        style: TextStyle(fontSize: 25),
+                        baseStyle: TextStyle(fontSize: 25),
                       ),
                     ),
                   ),

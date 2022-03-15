@@ -78,6 +78,7 @@ class _ClassConstantsState extends State<ClassConstants> {
 
     return BlocListener<TapEventBloc, TapEventArg>(
       bloc: storedValues.tapEventBloc,
+      listenWhen: (previous, current) => ModalRoute.of(context)!.isCurrent,
       listener: (context, state) {
         if (state.className == widget.clsContent!.name &&
             state.linkType == LinkType.Constant) {
