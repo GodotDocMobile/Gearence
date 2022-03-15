@@ -151,7 +151,7 @@ class _ClassEnumsState extends State<ClassEnums> {
                 child: Text(
                   enumName!,
                   style: monoOptionalStyle(context,
-                      style: TextStyle(fontSize: 20)),
+                      baseStyle: TextStyle(fontSize: 20)),
                 ),
               ),
             ]),
@@ -182,6 +182,7 @@ class _ClassEnumsState extends State<ClassEnums> {
 
     return BlocListener<TapEventBloc, TapEventArg>(
       bloc: storedValues.tapEventBloc,
+      listenWhen: (previous, current) => ModalRoute.of(context)!.isCurrent,
       listener: (context, state) {
         if (state.className == widget.clsContent.name &&
             state.linkType == LinkType.Enum) {

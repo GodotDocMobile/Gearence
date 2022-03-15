@@ -20,7 +20,7 @@ class LinkText extends StatelessWidget {
               text,
               style: monoOptionalStyle(
                 context,
-                style: TextStyle(
+                baseStyle: TextStyle(
                   fontSize: 15,
                   color: godotColor,
                 ),

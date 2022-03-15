@@ -36,15 +36,15 @@ MediaQueryData nonScaledMediaQueryData(BuildContext context) {
   return MediaQuery.of(context).copyWith(textScaleFactor: 1);
 }
 
-TextStyle monoOptionalStyle(BuildContext context, {TextStyle? style}) {
+TextStyle monoOptionalStyle(BuildContext context, {TextStyle? baseStyle}) {
   if (Provider.of<MonospaceFontBloc?>(context)?.monospaced ==
               true || // this is for main screen
           storedValues.monospaced.monospaced // this is for class detail screen
       ) {
-    if (style != null) {
-      return style.copyWith(fontFamily: 'JetbrainsMono');
+    if (baseStyle != null) {
+      return baseStyle.copyWith(fontFamily: 'JetbrainsMono');
     }
     return TextStyle(fontFamily: 'JetbrainsMono');
   }
-  return style ?? DefaultTextStyle.of(context).style;
+  return baseStyle ?? DefaultTextStyle.of(context).style;
 }

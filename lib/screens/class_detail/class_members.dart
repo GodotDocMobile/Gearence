@@ -77,6 +77,7 @@ class _ClassMembersState extends State<ClassMembers> {
 
     return BlocListener<TapEventBloc, TapEventArg>(
       bloc: storedValues.tapEventBloc,
+      listenWhen: (previous, current) => ModalRoute.of(context)!.isCurrent,
       listener: (context, state) {
         if (state.className == widget.clsContent!.name &&
             state.linkType == LinkType.Member) {
@@ -103,7 +104,7 @@ class _ClassMembersState extends State<ClassMembers> {
                         m.name!,
                         style: monoOptionalStyle(
                           context,
-                          style: TextStyle(
+                          baseStyle: TextStyle(
                             fontSize: 25,
                           ),
                         ),
@@ -142,7 +143,7 @@ class _ClassMembersState extends State<ClassMembers> {
                                       m.setter! + "(value)",
                                       style: monoOptionalStyle(
                                         context,
-                                        style: TextStyle(
+                                        baseStyle: TextStyle(
                                             color: _isDarkMode
                                                 ? Colors.white
                                                 : Colors.black),
@@ -169,7 +170,7 @@ class _ClassMembersState extends State<ClassMembers> {
                                       m.getter! + "()",
                                       style: monoOptionalStyle(
                                         context,
-                                        style: TextStyle(
+                                        baseStyle: TextStyle(
                                             color: _isDarkMode
                                                 ? Colors.white
                                                 : Colors.black),
