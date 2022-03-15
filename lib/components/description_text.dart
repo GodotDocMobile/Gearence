@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import '../theme/themes.dart';
@@ -118,49 +117,52 @@ class DescriptionText extends StatelessWidget {
           tag.startsWith('enum ') ||
           tag.startsWith('constant ')) {
         String linkTarget = tag.substring(tag.indexOf(' ') + 1, tag.length);
-//        String linkTag = tag.substring(0, tag.indexOf(' ')).padRight(6);
         _toRtn.add(
-          TextSpan(
-              text: linkTarget + (tag.startsWith('method ') ? '()' : ''),
-              recognizer: TapGestureRecognizer()
-                ..onTap = () {
-                  TapEventArg args = TapEventArg(
-                      linkType: linkTypeFromString(tag.split(' ').first),
-                      className: linkTarget.contains('.')
-                          ? linkTarget.split('.').first
-                          : className,
-                      fieldName: linkTarget.contains('.')
-                          ? linkTarget.split('.').last
-                          : linkTarget);
-                  this.onLinkTap(args);
-                },
-              style: monoOptionalStyle(context,
-                  style: _toApplyStyle.copyWith(color: godotColor))),
+          WidgetSpan(
+            child: InkWell(
+              child: Text(
+                linkTarget + (tag.startsWith('method ') ? '()' : ''),
+                style: monoOptionalStyle(context,
+                    baseStyle: _toApplyStyle.copyWith(color: godotColor)),
+              ),
+              onTap: () {
+                TapEventArg args = TapEventArg(
+                    linkType: linkTypeFromString(tag.split(' ').first),
+                    className: linkTarget.contains('.')
+                        ? linkTarget.split('.').first
+                        : className,
+                    fieldName: linkTarget.contains('.')
+                        ? linkTarget.split('.').last
+                        : linkTarget);
+                this.onLinkTap(args);
+              },
+            ),
+          ),
         );
         pos = brkEnd + 1;
       } else if (ClassDB().getDB().any((element) => element.name == tag)) {
-        _toRtn.add(
-          TextSpan(
-            text: tag,
-            recognizer: TapGestureRecognizer()
-              ..onTap = () {
+        _toRtn.add(WidgetSpan(
+          child: InkWell(
+              child: Text(
+                tag,
+                style: monoOptionalStyle(context,
+                    baseStyle: _toApplyStyle.copyWith(
+                        fontFeatures: [FontFeature.tabularFigures()],
+                        color: tag == className
+                            ? (StoredValues().themeChange.isDark
+                                ? Colors.white
+                                : Colors.black)
+                            : godotColor)),
+              ),
+              onTap: () {
                 TapEventArg args = TapEventArg(
                   linkType: LinkType.Class,
                   className: tag,
                   fieldName: '',
                 );
                 this.onLinkTap(args);
-              },
-            style: monoOptionalStyle(context,
-                style: _toApplyStyle.copyWith(
-                    fontFeatures: [FontFeature.tabularFigures()],
-                    color: tag == className
-                        ? (StoredValues().themeChange.isDark
-                            ? Colors.white
-                            : Colors.black)
-                        : godotColor)),
-          ),
-        );
+              }),
+        ));
         pos = brkEnd + 1;
       } else if (tag == 'b') {
         // bold

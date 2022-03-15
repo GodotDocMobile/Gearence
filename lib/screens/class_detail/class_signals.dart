@@ -73,6 +73,7 @@ class _ClassSignalsState extends State<ClassSignals> {
 
     return BlocListener<TapEventBloc, TapEventArg>(
       bloc: storedValues.tapEventBloc,
+      listenWhen: (previous, current) => ModalRoute.of(context)!.isCurrent,
       listener: (context, state) {
         if (state.className == widget.clsContent!.name &&
             state.linkType == LinkType.Signal) {
@@ -95,7 +96,7 @@ class _ClassSignalsState extends State<ClassSignals> {
                   title: Text(
                     s.name!,
                     style: monoOptionalStyle(context,
-                        style: TextStyle(fontSize: 25)),
+                        baseStyle: TextStyle(fontSize: 25)),
                   ),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
