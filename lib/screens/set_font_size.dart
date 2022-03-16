@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:godotclassreference/bloc/tap_event_bloc.dart';
 
 import '../constants/stored_values.dart';
 import '../theme/themes.dart';
@@ -37,7 +39,7 @@ class _SetFontSizeState extends State<SetFontSize>
     dummyNode.members = node.members;
     dummyNode.methods = node.methods;
     dummyNode.signals = node.signals;
-    _tabs = getClassTabs(dummyNode, (args) {});
+    _tabs = getClassTabs(dummyNode);
     tabController = TabController(
       vsync: this,
       length: _tabs.length,
@@ -79,100 +81,109 @@ class _SetFontSizeState extends State<SetFontSize>
 
   @override
   Widget build(BuildContext context) {
-    return MediaQuery(
-      data: scaledMediaQueryData(context),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text("DummyClass"),
-          bottom: TabBar(
-            indicatorColor: StoredValues().themeChange.isDark
-                ? Theme.of(context).colorScheme.secondary
-                : Colors.white,
-            controller: tabController,
-            isScrollable: true,
-            tabs: _tabs.map((f) {
-              return Tab(
-                child: Row(
-                  children: <Widget>[
-                    Text(f.title!),
-                    f.showCnt ? itemCountContainer(f.itemCount!) : SizedBox()
-                  ],
-                ),
-              );
-            }).toList(),
+    return BlocListener<TapEventBloc, TapEventArg>(
+      listenWhen: (previous, current) {
+        return current.className.isNotEmpty;
+      },
+      bloc: storedValues.tapEventBloc,
+      listener: (context, state) {
+        storedValues.tapEventBloc.reached();
+      },
+      child: MediaQuery(
+        data: scaledMediaQueryData(context),
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text("DummyClass"),
+            bottom: TabBar(
+              indicatorColor: StoredValues().themeChange.isDark
+                  ? Theme.of(context).colorScheme.secondary
+                  : Colors.white,
+              controller: tabController,
+              isScrollable: true,
+              tabs: _tabs.map((f) {
+                return Tab(
+                  child: Row(
+                    children: <Widget>[
+                      Text(f.title!),
+                      f.showCnt ? itemCountContainer(f.itemCount!) : SizedBox()
+                    ],
+                  ),
+                );
+              }).toList(),
+            ),
           ),
-        ),
-        bottomSheet: BottomAppBar(
-          child: MediaQuery(
-            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-            child: Container(
-              padding: EdgeInsets.only(left: 10, right: 10),
-              decoration: BoxDecoration(
-                color: Theme.of(context).canvasColor,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  topRight: Radius.circular(10),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    spreadRadius: 1,
-                    blurRadius: 5,
-                    offset: Offset(0, 3),
-                  )
-                ],
-              ),
-              height: 100,
-              child: Column(children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "A",
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      child: Slider(
-                        value: settingsFontSize.toDouble(),
-                        min: 0,
-                        max: 4,
-                        divisions: 4,
-                        onChanged: (v) {
-                          setState(() {
-                            StoredValues().fontSize = v.toInt();
-                            settingsFontSize = v.toInt();
-                          });
-                        },
-                      ),
-                    ),
-                    Text(
-                      "A",
-                      style: TextStyle(fontSize: 30),
+          bottomSheet: BottomAppBar(
+            child: MediaQuery(
+              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+              child: Container(
+                padding: EdgeInsets.only(left: 10, right: 10),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).canvasColor,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      spreadRadius: 1,
+                      blurRadius: 5,
+                      offset: Offset(0, 3),
                     )
                   ],
                 ),
-                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  MaterialButton(
-                    child: Text("Save"),
-                    onPressed: () {
-                      save = true;
-                      widget.setScaleFunc!(settingsFontSize.toInt());
-                      Navigator.of(context).pop();
-                    },
-                    color: Colors.blue,
+                height: 100,
+                child: Column(children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "A",
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        child: Slider(
+                          value: settingsFontSize.toDouble(),
+                          min: 0,
+                          max: 4,
+                          divisions: 4,
+                          onChanged: (v) {
+                            setState(() {
+                              StoredValues().fontSize = v.toInt();
+                              settingsFontSize = v.toInt();
+                            });
+                          },
+                        ),
+                      ),
+                      Text(
+                        "A",
+                        style: TextStyle(fontSize: 30),
+                      )
+                    ],
                   ),
-                ])
-              ]),
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    MaterialButton(
+                      child: Text("Save"),
+                      onPressed: () {
+                        save = true;
+                        widget.setScaleFunc!(settingsFontSize.toInt());
+                        Navigator.of(context).pop();
+                      },
+                      color: Colors.blue,
+                    ),
+                  ])
+                ]),
+              ),
             ),
           ),
-        ),
-        body: Padding(
-          padding: EdgeInsets.only(
-              bottom: 100 + MediaQuery.of(context).padding.bottom),
-          child: TabBarView(
-            controller: tabController,
-            children: _tabs.map((c) {
-              return c.child!;
-            }).toList(),
+          body: Padding(
+            padding: EdgeInsets.only(
+                bottom: 100 + MediaQuery.of(context).padding.bottom),
+            child: TabBarView(
+              controller: tabController,
+              children: _tabs.map((c) {
+                return c.child!;
+              }).toList(),
+            ),
           ),
         ),
       ),
