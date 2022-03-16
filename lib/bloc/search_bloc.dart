@@ -5,13 +5,10 @@ import 'tap_event_arg.dart';
 
 abstract class SearchEvent {}
 
-class SearchBloc extends Cubit<SearchEventArg> {
-  SearchBloc()
-      : super(SearchEventArg(
-            tapEventArg: TapEventArg(className: '-', fieldName: '-'),
-            rank: 10));
+class SearchBloc extends Cubit<TapEventArg> {
+  SearchBloc() : super(TapEventArg(className: '-', fieldName: '-'));
 
-  void add(SearchEventArg eventArg) {
+  void add(TapEventArg eventArg) {
     emit(eventArg);
   }
 }
