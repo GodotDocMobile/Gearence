@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:godotclassreference/constants/stored_values.dart';
 
 import '../theme/themes.dart';
 import '../bloc/tap_event_arg.dart';
@@ -7,10 +8,13 @@ import '../constants/colors.dart';
 
 class LinkText extends StatelessWidget {
   final String text;
-  final Function(TapEventArg args) onLinkTap;
+  // final Function(TapEventArg args) onLinkTap;
 
-  const LinkText({Key? key, required this.text, required this.onLinkTap})
-      : super(key: key);
+  const LinkText({
+    Key? key,
+    required this.text,
+    // required this.onLinkTap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,13 +31,19 @@ class LinkText extends StatelessWidget {
               ),
             ),
             onTap: () {
-              onLinkTap(
-                TapEventArg(
-                  className: text,
+              storedValues.tapEventBloc.add(TapEventArg(
+                      className: text,
                   linkType: LinkType.Class,
                   fieldName: '',
                 ),
               );
+              // onLinkTap(
+              //   TapEventArg(
+              //     className: text,
+              //     linkType: LinkType.Class,
+              //     fieldName: '',
+              //   ),
+              // );
             },
           )
         : Text(

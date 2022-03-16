@@ -13,15 +13,10 @@ import '../../models/method.dart';
 
 class ClassMethods extends StatefulWidget {
   final ClassContent? clsContent;
-  final Function(TapEventArg args) onLinkTap;
-
-  // final Stream<TapEventArg?>? eventStream;
 
   ClassMethods({
     Key? key,
     this.clsContent,
-    // this.eventStream,
-    required this.onLinkTap,
   }) : super(key: key);
 
   @override
@@ -82,7 +77,10 @@ class _ClassMethodsState extends State<ClassMethods> {
       var _toAdd = <Widget>[];
 
       // argument type
-      _toAdd.add(LinkText(text: element.type!, onLinkTap: widget.onLinkTap));
+      _toAdd.add(LinkText(
+        text: element.type!,
+        // onLinkTap: widget.onLinkTap,
+      ));
 
       // argument name
       _toAdd.add(
@@ -213,7 +211,8 @@ class _ClassMethodsState extends State<ClassMethods> {
                                 )
                               : LinkText(
                                   text: m.returnValue!.type!,
-                                  onLinkTap: widget.onLinkTap),
+                                  // onLinkTap: widget.onLinkTap,
+                                ),
                         ),
                       ]),
                       Divider(),
@@ -221,7 +220,7 @@ class _ClassMethodsState extends State<ClassMethods> {
                       DescriptionText(
                         className: widget.clsContent!.name!,
                         content: m.description!,
-                        onLinkTap: widget.onLinkTap,
+                        // onLinkTap: widget.onLinkTap,
                       ),
                     ],
                   ),
