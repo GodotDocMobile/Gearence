@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:godotclassreference/bloc/search_arg.dart';
 
 import '../bloc/xml_load_bloc.dart';
 import '../bloc/search_bloc.dart';
@@ -72,29 +73,36 @@ class _SearchScreenState extends State<SearchScreen> {
     super.dispose();
   }
 
-  List<TapEventArg> filterResult() {
-    List<TapEventArg> _rtn = List<TapEventArg>.from(_argList);
+  List<SearchEventArg> filterResult() {
+    List<SearchEventArg> _rtn = List<SearchEventArg>.from(_argList);
 
     if (!_searchClass) {
-      _rtn.removeWhere((element) => element.linkType == LinkType.Class);
+      _rtn.removeWhere(
+          (element) => element.tapEventArg.linkType == LinkType.Class);
     }
     if (!_searchMethod) {
-      _rtn.removeWhere((element) => element.linkType == LinkType.Method);
+      _rtn.removeWhere(
+          (element) => element.tapEventArg.linkType == LinkType.Method);
     }
     if (!_searchMember) {
-      _rtn.removeWhere((element) => element.linkType == LinkType.Member);
+      _rtn.removeWhere(
+          (element) => element.tapEventArg.linkType == LinkType.Member);
     }
     if (!_searchSignal) {
-      _rtn.removeWhere((element) => element.linkType == LinkType.Signal);
+      _rtn.removeWhere(
+          (element) => element.tapEventArg.linkType == LinkType.Signal);
     }
     if (!_searchConstant) {
-      _rtn.removeWhere((element) => element.linkType == LinkType.Constant);
+      _rtn.removeWhere(
+          (element) => element.tapEventArg.linkType == LinkType.Constant);
     }
     if (!_searchEnum) {
-      _rtn.removeWhere((element) => element.linkType == LinkType.Enum);
+      _rtn.removeWhere(
+          (element) => element.tapEventArg.linkType == LinkType.Enum);
     }
     if (!_searchThemeItem) {
-      _rtn.removeWhere((element) => element.linkType == LinkType.ThemeItem);
+      _rtn.removeWhere(
+          (element) => element.tapEventArg.linkType == LinkType.ThemeItem);
     }
 
     return _rtn;
@@ -121,6 +129,15 @@ class _SearchScreenState extends State<SearchScreen> {
     });
   }
 
+  double _calculateRank(String value) {
+    if (value.length == _searchingTerm.length) {
+      return 0;
+    }
+    int before = value.indexOf(_searchingTerm);
+    int after = value.length - before - _searchingTerm.length;
+    return before * 1 + after * 0.5;
+  }
+
   void _searchSingle(ClassContent _class) {
     var _classNameContains = false;
     if (_caseSensitive) {
@@ -130,8 +147,10 @@ class _SearchScreenState extends State<SearchScreen> {
     }
 
     if (_classNameContains) {
-      _searchBloc.add(TapEventArg(
-          linkType: LinkType.Class, className: _class.name!, fieldName: ''));
+      _searchBloc.add(SearchEventArg(
+          tapEventArg: TapEventArg(
+              linkType: LinkType.Class, className: _class.name!, fieldName: ''),
+          rank: _calculateRank(_class.name!)));
     }
 
     //search methods
@@ -140,10 +159,12 @@ class _SearchScreenState extends State<SearchScreen> {
         if (_caseSensitive
             ? element.name!.contains(_searchingTerm)
             : element.name!.toLowerCase().contains(_searchingTerm)) {
-          _searchBloc.add(TapEventArg(
-              linkType: LinkType.Method,
-              className: _class.name!,
-              fieldName: element.name!));
+          _searchBloc.add(SearchEventArg(
+              tapEventArg: TapEventArg(
+                  linkType: LinkType.Method,
+                  className: _class.name!,
+                  fieldName: element.name!),
+              rank: _calculateRank(element.name!)));
         }
       });
     }
@@ -154,10 +175,12 @@ class _SearchScreenState extends State<SearchScreen> {
         if (_caseSensitive
             ? element.name!.contains(_searchingTerm)
             : element.name!.toLowerCase().contains(_searchingTerm)) {
-          _searchBloc.add(TapEventArg(
-              linkType: LinkType.Signal,
-              className: _class.name!,
-              fieldName: element.name!));
+          _searchBloc.add(SearchEventArg(
+              tapEventArg: TapEventArg(
+                  linkType: LinkType.Signal,
+                  className: _class.name!,
+                  fieldName: element.name!),
+              rank: _calculateRank(element.name!)));
         }
       });
     }
@@ -171,17 +194,25 @@ class _SearchScreenState extends State<SearchScreen> {
           if (element.enumValue != null) {
             //search enum values
             if (element.enumValue!.length > 0) {
-              _searchBloc.add(TapEventArg(
-                  linkType: LinkType.Enum,
-                  className: _class.name!,
-                  fieldName: "${element.enumValue}.${element.name}"));
+              _searchBloc.add(
+                SearchEventArg(
+                    tapEventArg: TapEventArg(
+                        linkType: LinkType.Enum,
+                        className: _class.name!,
+                        fieldName: "${element.enumValue}.${element.name}"),
+                    rank: _calculateRank(element.name!)),
+              );
             }
           } else {
             //search constants
-            _searchBloc.add(TapEventArg(
-                linkType: LinkType.Constant,
-                className: _class.name!,
-                fieldName: element.name!));
+            _searchBloc.add(
+              SearchEventArg(
+                  tapEventArg: TapEventArg(
+                      linkType: LinkType.Constant,
+                      className: _class.name!,
+                      fieldName: element.name!),
+                  rank: _calculateRank(element.name!)),
+            );
           }
         }
 
@@ -191,10 +222,14 @@ class _SearchScreenState extends State<SearchScreen> {
             (_caseSensitive
                 ? element.enumValue!.contains(_searchingTerm)
                 : element.enumValue!.toLowerCase().contains(_searchingTerm))) {
-          _searchBloc.add(TapEventArg(
-              linkType: LinkType.Enum,
-              className: _class.name!,
-              fieldName: "${element.enumValue}.${element.name}"));
+          _searchBloc.add(
+            SearchEventArg(
+                tapEventArg: TapEventArg(
+                    linkType: LinkType.Enum,
+                    className: _class.name!,
+                    fieldName: "${element.enumValue}.${element.name}"),
+                rank: _calculateRank(element.name!)),
+          );
         }
       });
     }
@@ -205,10 +240,14 @@ class _SearchScreenState extends State<SearchScreen> {
         if (_caseSensitive
             ? element.name!.contains(_searchingTerm)
             : element.name!.toLowerCase().contains(_searchingTerm)) {
-          _searchBloc.add(TapEventArg(
-              linkType: LinkType.Member,
-              className: _class.name!,
-              fieldName: element.name!));
+          _searchBloc.add(
+            SearchEventArg(
+                tapEventArg: TapEventArg(
+                    linkType: LinkType.Member,
+                    className: _class.name!,
+                    fieldName: element.name!),
+                rank: _calculateRank(element.name!)),
+          );
         }
       });
     }
@@ -219,10 +258,14 @@ class _SearchScreenState extends State<SearchScreen> {
         if (_caseSensitive
             ? element.name!.contains(_searchingTerm)
             : element.name!.toLowerCase().contains(_searchingTerm)) {
-          _searchBloc.add(TapEventArg(
-              linkType: LinkType.ThemeItem,
-              className: _class.name!,
-              fieldName: element.name!));
+          _searchBloc.add(
+            SearchEventArg(
+                tapEventArg: TapEventArg(
+                    linkType: LinkType.ThemeItem,
+                    className: _class.name!,
+                    fieldName: element.name!),
+                rank: _calculateRank(element.name!)),
+          );
         }
       });
     }
@@ -237,12 +280,7 @@ class _SearchScreenState extends State<SearchScreen> {
       term = term.toLowerCase();
     }
     _searching = true;
-    for (int i = 0; i < ClassDB().getDB().length; i++) {
-      if (ClassDB().getDB()[i].version == null) {
-        break;
-      }
-      _searchSingle(ClassDB().getDB()[i]);
-    }
+    ClassDB().getDB().forEach(_searchSingle);
   }
 
   List<Widget> _buildSearchResult() {
@@ -256,9 +294,13 @@ class _SearchScreenState extends State<SearchScreen> {
       return _rtn;
     }
 
-    var _filteredList = filterResult();
+    final _filteredList = filterResult();
+    _filteredList.sort((a, b) {
+      return a.rank.compareTo(b.rank);
+    });
 
-    List<Widget> _toRtnList = _filteredList.map((e) {
+    List<Widget> _toRtnList = _filteredList.map((s) {
+      final e = s.tapEventArg;
       if (e.linkType == LinkType.Class) {
         return ListTile(
           title: Text(e.linkType.toString().substring(9) + " : " + e.className),
@@ -314,7 +356,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 _xmlLoadSearch(state);
               }
             }),
-        BlocListener<SearchBloc, TapEventArg>(
+        BlocListener<SearchBloc, SearchEventArg>(
           bloc: _searchBloc,
           listener: (context, state) {
             setState(() {
