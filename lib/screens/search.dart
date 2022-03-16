@@ -133,9 +133,9 @@ class _SearchScreenState extends State<SearchScreen> {
     if (value.length == _searchingTerm.length) {
       return 0;
     }
-    int before = value.indexOf(_searchingTerm);
+    int before = value.toLowerCase().indexOf(_searchingTerm.toLowerCase());
     int after = value.length - before - _searchingTerm.length;
-    return before * 1 + after * 0.5;
+    return before * 1 + (after < 0 ? 0 : after) * 0.1;
   }
 
   void _searchSingle(ClassContent _class) {
@@ -187,6 +187,29 @@ class _SearchScreenState extends State<SearchScreen> {
 
     //search constants & enum values
     if (_class.constants != null && _class.constants!.length > 0) {
+      final containEnumNames = _class.constants!
+          .where((element) =>
+              element.enumValue != null &&
+              element.enumValue!.toLowerCase().contains(_searchingTerm))
+          .map((e) => e.enumValue)
+          .toSet() // this act like distinct
+          .toList();
+
+      containEnumNames.forEach((enumName) {
+        // we will find the smallest value of each enumName
+        final firstValue = _class.constants!
+            .where((element) => element.enumValue == enumName)
+            .first;
+
+        _searchBloc.add(SearchEventArg(
+          tapEventArg: TapEventArg(
+              linkType: LinkType.Enum,
+              className: _class.name!,
+              fieldName: "$enumName:.${firstValue.name}"),
+          rank: _calculateRank(enumName!),
+        ));
+      });
+
       _class.constants!.forEach((element) {
         if (_caseSensitive
             ? element.name!.contains(_searchingTerm)
@@ -214,22 +237,6 @@ class _SearchScreenState extends State<SearchScreen> {
                   rank: _calculateRank(element.name!)),
             );
           }
-        }
-
-        //search enum names,but will show enum values as well
-        if (element.enumValue != null &&
-            element.enumValue!.length > 0 &&
-            (_caseSensitive
-                ? element.enumValue!.contains(_searchingTerm)
-                : element.enumValue!.toLowerCase().contains(_searchingTerm))) {
-          _searchBloc.add(
-            SearchEventArg(
-                tapEventArg: TapEventArg(
-                    linkType: LinkType.Enum,
-                    className: _class.name!,
-                    fieldName: "${element.enumValue}.${element.name}"),
-                rank: _calculateRank(element.name!)),
-          );
         }
       });
     }
@@ -318,7 +325,13 @@ class _SearchScreenState extends State<SearchScreen> {
         );
       }
       return ListTile(
-        title: Text(e.linkType.toString().substring(9) + " : " + e.fieldName),
+        title: Text(e.linkType.toString().substring(9) +
+            " : " +
+            e.fieldName.substring(
+                0,
+                e.fieldName.indexOf(":") < 0
+                    ? e.fieldName.length
+                    : e.fieldName.indexOf(":"))),
         subtitle: Text("Class:" + e.className),
         onTap: () {
           Navigator.push(
