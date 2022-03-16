@@ -12,12 +12,8 @@ import '../../models/constant.dart';
 
 class ClassConstants extends StatefulWidget {
   final ClassContent? clsContent;
-  final Function(TapEventArg args) onLinkTap;
 
-  // final Stream<TapEventArg?>? eventStream;
-
-  ClassConstants({Key? key, this.clsContent, required this.onLinkTap})
-      : super(key: key);
+  ClassConstants({Key? key, this.clsContent}) : super(key: key);
 
   @override
   _ClassConstantsState createState() => _ClassConstantsState();
@@ -123,7 +119,7 @@ class _ClassConstantsState extends State<ClassConstants> {
                       DescriptionText(
                         className: widget.clsContent!.name!,
                         content: c.constantText!,
-                        onLinkTap: widget.onLinkTap,
+                        // onLinkTap: widget.onLinkTap,
                       ),
                     ],
                   ),

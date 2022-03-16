@@ -12,13 +12,10 @@ import '../../models/class_content.dart';
 
 class ClassSignals extends StatefulWidget {
   final ClassContent? clsContent;
-  final Function(TapEventArg args) onLinkTap;
 
   ClassSignals({
     Key? key,
     this.clsContent,
-    // this.eventStream,
-    required this.onLinkTap,
   }) : super(key: key);
 
   @override
@@ -106,7 +103,9 @@ class _ClassSignalsState extends State<ClassSignals> {
                         return Column(children: [
                           Row(children: [
                             LinkText(
-                                text: e.type!, onLinkTap: widget.onLinkTap),
+                              text: e.type!,
+                              // onLinkTap: widget.onLinkTap,
+                            ),
                             SizedBox(
                               width: 10,
                             ),
@@ -123,7 +122,7 @@ class _ClassSignalsState extends State<ClassSignals> {
                       DescriptionText(
                         className: widget.clsContent!.name!,
                         content: s.description!,
-                        onLinkTap: widget.onLinkTap,
+                        // onLinkTap: widget.onLinkTap,
                       ),
                     ],
                   ),

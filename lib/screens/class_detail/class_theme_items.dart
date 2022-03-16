@@ -11,15 +11,10 @@ import '../../models/class_content.dart';
 
 class ClassThemeItems extends StatefulWidget {
   final ClassContent? clsContent;
-  final Function(TapEventArg args) onLinkTap;
-
-  // final Stream<TapEventArg?>? eventStream;
 
   ClassThemeItems({
     Key? key,
     this.clsContent,
-    // this.eventStream,
-    required this.onLinkTap,
   }) : super(key: key);
 
   @override
@@ -35,11 +30,6 @@ class _ClassThemeItemsState extends State<ClassThemeItems> {
     super.initState();
     _scrollController = ItemScrollController();
     _itemPositionsListener = ItemPositionsListener.create();
-    // widget.eventStream!.listen((v) {
-    //   try {
-    //     scrollTo(v!);
-    //   } catch (_) {}
-    // });
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       if (storedValues.tapEventBloc.state.fieldName.isNotEmpty) {
         try {
@@ -104,7 +94,10 @@ class _ClassThemeItemsState extends State<ClassThemeItems> {
                   SizedBox(
                     width: 10,
                   ),
-                  LinkText(text: t.type!, onLinkTap: widget.onLinkTap)
+                  LinkText(
+                    text: t.type!,
+                    // onLinkTap: widget.onLinkTap,
+                  )
                 ],
               ),
             ),

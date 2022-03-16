@@ -12,12 +12,8 @@ import '../../theme/themes.dart';
 
 class ClassEnums extends StatefulWidget {
   final ClassContent clsContent;
-  final Function(TapEventArg args) onLinkTap;
 
-  // final Stream<TapEventArg?>? eventStream;
-
-  ClassEnums({Key? key, required this.clsContent, required this.onLinkTap})
-      : super(key: key);
+  ClassEnums({Key? key, required this.clsContent}) : super(key: key);
 
   @override
   _ClassEnumsState createState() => _ClassEnumsState();
@@ -27,14 +23,10 @@ class _ClassEnumsState extends State<ClassEnums> {
   ItemScrollController? _scrollController;
   ItemPositionsListener? _itemPositionsListener;
 
-  // late StreamSubscription<TapEventArg?> _tapSub;
-
   List<String?> _enumNames = [];
 
   List<Widget> _builtList = [];
   List<String?> _enumValues = [];
-
-  double propertyIndent = 50;
 
   @override
   void initState() {
@@ -57,12 +49,6 @@ class _ClassEnumsState extends State<ClassEnums> {
       }
     });
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    // _tapSub.cancel();
-    super.dispose();
   }
 
   void scrollTo(TapEventArg args) {
@@ -110,7 +96,7 @@ class _ClassEnumsState extends State<ClassEnums> {
               DescriptionText(
                 className: widget.clsContent.name!,
                 content: clsConstant.constantText!,
-                onLinkTap: widget.onLinkTap,
+                // onLinkTap: widget.onLinkTap,
               ),
             ],
           ),
@@ -120,7 +106,7 @@ class _ClassEnumsState extends State<ClassEnums> {
                 color: Colors.blueGrey,
               )
             : Divider(
-                indent: propertyIndent,
+                indent: 50,
               ),
       ],
     );

@@ -15,14 +15,14 @@ import '../bloc/tap_event_arg.dart';
 class DescriptionText extends StatelessWidget {
   final String className;
   final String content;
-  final Function(TapEventArg args) onLinkTap;
+  // final Function(TapEventArg args) onLinkTap;
   final TextStyle? style;
 
   DescriptionText(
       {Key? key,
       required this.className,
       required this.content,
-      required this.onLinkTap,
+      // required this.onLinkTap,
       this.style})
       : super(key: key);
 
@@ -134,7 +134,8 @@ class DescriptionText extends StatelessWidget {
                     fieldName: linkTarget.contains('.')
                         ? linkTarget.split('.').last
                         : linkTarget);
-                this.onLinkTap(args);
+                // this.onLinkTap(args);
+                storedValues.tapEventBloc.add(args);
               },
             ),
           ),
@@ -160,7 +161,8 @@ class DescriptionText extends StatelessWidget {
                   className: tag,
                   fieldName: '',
                 );
-                this.onLinkTap(args);
+                // this.onLinkTap(args);
+                storedValues.tapEventBloc.add(args);
               }),
         ));
         pos = brkEnd + 1;

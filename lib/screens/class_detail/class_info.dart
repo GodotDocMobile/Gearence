@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 
 import '../../components/description_text.dart';
-import '../../bloc/tap_event_arg.dart';
 import '../../constants/class_db.dart';
 import '../../models/class_content.dart';
 import '../../theme/default.dart';
 
 class ClassInfo extends StatelessWidget {
   final ClassContent? clsContent;
-  final Function(TapEventArg args) onLinkTap;
 
-  ClassInfo({Key? key, this.clsContent, required this.onLinkTap})
-      : super(key: key);
+  ClassInfo({Key? key, this.clsContent}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +31,7 @@ class ClassInfo extends StatelessWidget {
           className: clsContent!.name!,
           content:
               clsContent!.inheritChain == null ? '' : clsContent!.inheritChain!,
-          onLinkTap: onLinkTap,
+          // onLinkTap: onLinkTap,
         ),
         SizedBox(
           height: 10,
@@ -48,7 +45,7 @@ class ClassInfo extends StatelessWidget {
         DescriptionText(
           className: clsContent!.name!,
           content: _childClasses.substring(1, _childClasses.length - 1),
-          onLinkTap: onLinkTap,
+          // onLinkTap: onLinkTap,
         ),
         SizedBox(
           height: 10,
@@ -62,7 +59,7 @@ class ClassInfo extends StatelessWidget {
         DescriptionText(
           className: clsContent!.name!,
           content: clsContent!.briefDescription!,
-          onLinkTap: onLinkTap,
+          // onLinkTap: onLinkTap,
         ),
         SizedBox(
           height: 10,
@@ -110,7 +107,7 @@ class ClassInfo extends StatelessWidget {
         DescriptionText(
           className: clsContent!.name!,
           content: clsContent!.description!,
-          onLinkTap: onLinkTap,
+          // onLinkTap: onLinkTap,
         ),
 
         //tutorials

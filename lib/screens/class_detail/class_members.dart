@@ -12,15 +12,10 @@ import '../../models/class_content.dart';
 
 class ClassMembers extends StatefulWidget {
   final ClassContent? clsContent;
-  final Function(TapEventArg args) onLinkTap;
-
-  // final Stream<TapEventArg?>? eventStream;
 
   ClassMembers({
     Key? key,
     this.clsContent,
-    // this.eventStream,
-    required this.onLinkTap,
   }) : super(key: key);
 
   @override
@@ -122,7 +117,10 @@ class _ClassMembersState extends State<ClassMembers> {
                             SizedBox(
                               width: 10,
                             ),
-                            LinkText(text: m.type!, onLinkTap: widget.onLinkTap)
+                            LinkText(
+                              text: m.type!,
+                              // onLinkTap: widget.onLinkTap,
+                            )
                           ],
                         ),
                         Divider(
@@ -185,7 +183,7 @@ class _ClassMembersState extends State<ClassMembers> {
                         DescriptionText(
                           className: widget.clsContent!.name!,
                           content: m.memberText!,
-                          onLinkTap: widget.onLinkTap,
+                          // onLinkTap: widget.onLinkTap,
                         ),
                       ],
                     ),

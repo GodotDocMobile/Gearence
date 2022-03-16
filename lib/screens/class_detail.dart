@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../theme/themes.dart';
 import '../bloc/tap_event_bloc.dart';
@@ -63,9 +64,7 @@ class _ClassDetailState extends State<ClassDetail>
   }
 
   void onLinkTap(TapEventArg args) async {
-    _bloc.add(args);
     if (args.className == widget.className) {
-      //navigation within class
       int _toFocusTabIndex =
           _tabs.indexWhere((w) => w.title == linkTypeToString(args.linkType));
       tabController!
@@ -107,86 +106,92 @@ class _ClassDetailState extends State<ClassDetail>
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<ClassContent>(
-      future: _classContent,
-      builder: (BuildContext context, AsyncSnapshot<ClassContent> snapshot) {
-        if (snapshot.hasData) {
-          _tabs = getClassTabs(snapshot.data!, this.onLinkTap);
-          // append theme item tab if needed
-          if (snapshot.data!.themeItems != null &&
-              snapshot.data!.themeItems!.length > 0) {
-            _tabs.add(
-              ClassTab(
-                title: 'Theme Items',
-                child: ClassThemeItems(
-                  clsContent: snapshot.data,
-                  onLinkTap: onLinkTap,
-                  // eventStream: _bloc.argStream,
+    return BlocListener<TapEventBloc, TapEventArg>(
+      bloc: storedValues.tapEventBloc,
+      listenWhen: (previous, current) =>
+          current.className.isNotEmpty && ModalRoute.of(context)!.isCurrent,
+      listener: (context, state) {
+        onLinkTap(state);
+      },
+      child: FutureBuilder<ClassContent>(
+        future: _classContent,
+        builder: (BuildContext context, AsyncSnapshot<ClassContent> snapshot) {
+          if (snapshot.hasData) {
+            _tabs = getClassTabs(snapshot.data!);
+            // append theme item tab if needed
+            if (snapshot.data!.themeItems != null &&
+                snapshot.data!.themeItems!.length > 0) {
+              _tabs.add(
+                ClassTab(
+                  title: 'Theme Items',
+                  child: ClassThemeItems(
+                    clsContent: snapshot.data,
+                  ),
+                  showCnt: true,
+                  itemCount: snapshot.data!.themeItems!.length,
                 ),
-                showCnt: true,
-                itemCount: snapshot.data!.themeItems!.length,
-              ),
-            );
-          }
-
-          if (tabController == null) {
-            tabController = TabController(
-              vsync: this,
-              length: _tabs.length,
-            );
-          }
-
-          if (widget.args != null &&
-              widget.args!.className == snapshot.data!.name) {
-            int _tabIndex = _tabs.indexWhere(
-                (w) => w.title == linkTypeToString(widget.args!.linkType));
-            if (_tabIndex != -1) {
-              tabController!.animateTo(_tabIndex);
+              );
             }
-          }
 
-          return MediaQuery(
-            data: scaledMediaQueryData(context),
-            child: Scaffold(
-              appBar: AppBar(
-                title: Text(widget.className),
-                bottom: TabBar(
-                  indicatorColor: StoredValues().themeChange.isDark
-                      ? Theme.of(context).colorScheme.secondary
-                      : Colors.white,
+            if (tabController == null) {
+              tabController = TabController(
+                vsync: this,
+                length: _tabs.length,
+              );
+            }
+
+            if (widget.args != null &&
+                widget.args!.className == snapshot.data!.name) {
+              int _tabIndex = _tabs.indexWhere(
+                  (w) => w.title == linkTypeToString(widget.args!.linkType));
+              if (_tabIndex != -1) {
+                tabController!.animateTo(_tabIndex);
+              }
+            }
+
+            return MediaQuery(
+              data: scaledMediaQueryData(context),
+              child: Scaffold(
+                appBar: AppBar(
+                  title: Text(widget.className),
+                  bottom: TabBar(
+                    indicatorColor: StoredValues().themeChange.isDark
+                        ? Theme.of(context).colorScheme.secondary
+                        : Colors.white,
+                    controller: tabController,
+                    isScrollable: true,
+                    tabs: _tabs.map((f) {
+                      return Tab(
+                        child: Row(
+                          children: <Widget>[
+                            Text(f.title!),
+                            f.showCnt
+                                ? itemCountContainer(f.itemCount!)
+                                : SizedBox()
+                          ],
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+                body: TabBarView(
                   controller: tabController,
-                  isScrollable: true,
-                  tabs: _tabs.map((f) {
-                    return Tab(
-                      child: Row(
-                        children: <Widget>[
-                          Text(f.title!),
-                          f.showCnt
-                              ? itemCountContainer(f.itemCount!)
-                              : SizedBox()
-                        ],
-                      ),
-                    );
+                  children: _tabs.map((c) {
+                    return c.child!;
                   }).toList(),
                 ),
               ),
-              body: TabBarView(
-                controller: tabController,
-                children: _tabs.map((c) {
-                  return c.child!;
-                }).toList(),
-              ),
+            );
+          }
+          return Container(
+            color:
+                StoredValues().themeChange.isDark ? Colors.black : Colors.white,
+            child: Center(
+              child: CircularProgressIndicator(),
             ),
           );
-        }
-        return Container(
-          color:
-              StoredValues().themeChange.isDark ? Colors.black : Colors.white,
-          child: Center(
-            child: CircularProgressIndicator(),
-          ),
-        );
-      },
+        },
+      ),
     );
   }
 }
@@ -210,22 +215,18 @@ class ClassTab {
   final Stream<TapEventArg>? eventStream;
 }
 
-List<ClassTab> getClassTabs(
-    ClassContent clsContent, Function(TapEventArg args) onLinkTap) {
+List<ClassTab> getClassTabs(ClassContent clsContent) {
   return <ClassTab>[
     ClassTab(
       title: "Info",
       child: ClassInfo(
         clsContent: clsContent,
-        onLinkTap: onLinkTap,
       ),
     ),
     ClassTab(
       title: "Enums",
       child: ClassEnums(
         clsContent: clsContent,
-        onLinkTap: onLinkTap,
-        // eventStream: eventStream,
       ),
       showCnt: true,
       itemCount: clsContent.constants == null
@@ -236,8 +237,6 @@ List<ClassTab> getClassTabs(
       title: "Constants",
       child: ClassConstants(
         clsContent: clsContent,
-        onLinkTap: onLinkTap,
-        // eventStream: eventStream,
       ),
       showCnt: true,
       itemCount: clsContent.constants == null
@@ -248,8 +247,6 @@ List<ClassTab> getClassTabs(
       title: "Members",
       child: ClassMembers(
         clsContent: clsContent,
-        onLinkTap: onLinkTap,
-        // eventStream: eventStream,
       ),
       showCnt: true,
       itemCount: clsContent.members == null ? 0 : clsContent.members!.length,
@@ -258,8 +255,6 @@ List<ClassTab> getClassTabs(
       title: "Methods",
       child: ClassMethods(
         clsContent: clsContent,
-        onLinkTap: onLinkTap,
-        // eventStream: eventStream,
       ),
       showCnt: true,
       itemCount: clsContent.methods == null ? 0 : clsContent.methods!.length,
@@ -268,8 +263,6 @@ List<ClassTab> getClassTabs(
       title: "Signals",
       child: ClassSignals(
         clsContent: clsContent,
-        onLinkTap: onLinkTap,
-        // eventStream: eventStream,
       ),
       showCnt: true,
       itemCount: clsContent.signals == null ? 0 : clsContent.signals!.length,
