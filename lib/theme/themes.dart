@@ -36,7 +36,7 @@ MediaQueryData nonScaledMediaQueryData(BuildContext context) {
   return MediaQuery.of(context).copyWith(textScaleFactor: 1);
 }
 
-TextStyle monoOptionalStyle(BuildContext context, {TextStyle? baseStyle}) {
+TextStyle? monoOptionalStyle(BuildContext context, {TextStyle? baseStyle}) {
   if (Provider.of<MonospaceFontBloc?>(context)?.monospaced ==
               true || // this is for main screen
           storedValues.monospaced.monospaced // this is for class detail screen
@@ -46,5 +46,5 @@ TextStyle monoOptionalStyle(BuildContext context, {TextStyle? baseStyle}) {
     }
     return TextStyle(fontFamily: 'JetbrainsMono');
   }
-  return baseStyle ?? DefaultTextStyle.of(context).style;
+  return baseStyle ?? null;
 }
