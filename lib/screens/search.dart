@@ -285,20 +285,14 @@ class _SearchScreenState extends State<SearchScreen> {
     // eg. NodeType:.NODE_NONE, we will ignore [:.NODE_NONE]
     if (aValue.contains(':')) {
       aValue = aValue.substring(0, aValue.indexOf(':'));
-    }
-
-    if (bValue.contains(':')) {
-      bValue = bValue.substring(0, bValue.indexOf(':'));
-    }
-
-    // we will not check character before "."
-    // eg. NodeType.NODE_TEXT, we will ignore [NodeType.]
-    if (aValue.contains('.')) {
+    } else if (aValue.contains('.') && !aValue.contains('/')) {
       final pos = aValue.indexOf('.');
       aValue = aValue.substring(pos).padLeft(pos, 'z');
     }
 
-    if (bValue.contains('.')) {
+    if (bValue.contains(':')) {
+      bValue = bValue.substring(0, bValue.indexOf(':'));
+    } else if (bValue.contains('.') && !aValue.contains('/')) {
       final pos = bValue.indexOf('.');
       bValue = bValue.substring(pos).padLeft(pos, 'z');
     }
