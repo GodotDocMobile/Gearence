@@ -24,7 +24,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   final _searchBloc = SearchBloc();
 
-  final _argList = [];
+  final List<TapEventArg> _argList = [];
 
   final _options = [
     'All',
@@ -73,36 +73,29 @@ class _SearchScreenState extends State<SearchScreen> {
     super.dispose();
   }
 
-  List<SearchEventArg> filterResult() {
-    List<SearchEventArg> _rtn = List<SearchEventArg>.from(_argList);
+  List<TapEventArg> filterResult() {
+    List<TapEventArg> _rtn = List<TapEventArg>.from(_argList);
 
     if (!_searchClass) {
-      _rtn.removeWhere(
-          (element) => element.tapEventArg.linkType == LinkType.Class);
+      _rtn.removeWhere((element) => element.linkType == LinkType.Class);
     }
     if (!_searchMethod) {
-      _rtn.removeWhere(
-          (element) => element.tapEventArg.linkType == LinkType.Method);
+      _rtn.removeWhere((element) => element.linkType == LinkType.Method);
     }
     if (!_searchMember) {
-      _rtn.removeWhere(
-          (element) => element.tapEventArg.linkType == LinkType.Member);
+      _rtn.removeWhere((element) => element.linkType == LinkType.Member);
     }
     if (!_searchSignal) {
-      _rtn.removeWhere(
-          (element) => element.tapEventArg.linkType == LinkType.Signal);
+      _rtn.removeWhere((element) => element.linkType == LinkType.Signal);
     }
     if (!_searchConstant) {
-      _rtn.removeWhere(
-          (element) => element.tapEventArg.linkType == LinkType.Constant);
+      _rtn.removeWhere((element) => element.linkType == LinkType.Constant);
     }
     if (!_searchEnum) {
-      _rtn.removeWhere(
-          (element) => element.tapEventArg.linkType == LinkType.Enum);
+      _rtn.removeWhere((element) => element.linkType == LinkType.Enum);
     }
     if (!_searchThemeItem) {
-      _rtn.removeWhere(
-          (element) => element.tapEventArg.linkType == LinkType.ThemeItem);
+      _rtn.removeWhere((element) => element.linkType == LinkType.ThemeItem);
     }
 
     return _rtn;
@@ -129,15 +122,6 @@ class _SearchScreenState extends State<SearchScreen> {
     });
   }
 
-  double _calculateRank(String value) {
-    if (value.length == _searchingTerm.length) {
-      return 0;
-    }
-    int before = value.toLowerCase().indexOf(_searchingTerm.toLowerCase());
-    int after = value.length - before - _searchingTerm.length;
-    return before * 1 + (after < 0 ? 0 : after) * 0.1;
-  }
-
   void _searchSingle(ClassContent _class) {
     var _classNameContains = false;
     if (_caseSensitive) {
@@ -147,10 +131,10 @@ class _SearchScreenState extends State<SearchScreen> {
     }
 
     if (_classNameContains) {
-      _searchBloc.add(SearchEventArg(
-          tapEventArg: TapEventArg(
-              linkType: LinkType.Class, className: _class.name!, fieldName: ''),
-          rank: _calculateRank(_class.name!)));
+      _searchBloc.add(
+        TapEventArg(
+            linkType: LinkType.Class, className: _class.name!, fieldName: ''),
+      );
     }
 
     //search methods
@@ -159,12 +143,12 @@ class _SearchScreenState extends State<SearchScreen> {
         if (_caseSensitive
             ? element.name!.contains(_searchingTerm)
             : element.name!.toLowerCase().contains(_searchingTerm)) {
-          _searchBloc.add(SearchEventArg(
-              tapEventArg: TapEventArg(
-                  linkType: LinkType.Method,
-                  className: _class.name!,
-                  fieldName: element.name!),
-              rank: _calculateRank(element.name!)));
+          _searchBloc.add(
+            TapEventArg(
+                linkType: LinkType.Method,
+                className: _class.name!,
+                fieldName: element.name!),
+          );
         }
       });
     }
@@ -175,12 +159,12 @@ class _SearchScreenState extends State<SearchScreen> {
         if (_caseSensitive
             ? element.name!.contains(_searchingTerm)
             : element.name!.toLowerCase().contains(_searchingTerm)) {
-          _searchBloc.add(SearchEventArg(
-              tapEventArg: TapEventArg(
-                  linkType: LinkType.Signal,
-                  className: _class.name!,
-                  fieldName: element.name!),
-              rank: _calculateRank(element.name!)));
+          _searchBloc.add(
+            TapEventArg(
+                linkType: LinkType.Signal,
+                className: _class.name!,
+                fieldName: element.name!),
+          );
         }
       });
     }
@@ -201,13 +185,13 @@ class _SearchScreenState extends State<SearchScreen> {
             .where((element) => element.enumValue == enumName)
             .first;
 
-        _searchBloc.add(SearchEventArg(
-          tapEventArg: TapEventArg(
+        _searchBloc.add(
+          TapEventArg(
               linkType: LinkType.Enum,
               className: _class.name!,
+              // we ill ignore characters after ":", including ":", but we need those to navigate
               fieldName: "$enumName:.${firstValue.name}"),
-          rank: _calculateRank(enumName!),
-        ));
+        );
       });
 
       _class.constants!.forEach((element) {
@@ -218,23 +202,19 @@ class _SearchScreenState extends State<SearchScreen> {
             //search enum values
             if (element.enumValue!.length > 0) {
               _searchBloc.add(
-                SearchEventArg(
-                    tapEventArg: TapEventArg(
-                        linkType: LinkType.Enum,
-                        className: _class.name!,
-                        fieldName: "${element.enumValue}.${element.name}"),
-                    rank: _calculateRank(element.name!)),
+                TapEventArg(
+                    linkType: LinkType.Enum,
+                    className: _class.name!,
+                    fieldName: "${element.enumValue}.${element.name}"),
               );
             }
           } else {
             //search constants
             _searchBloc.add(
-              SearchEventArg(
-                  tapEventArg: TapEventArg(
-                      linkType: LinkType.Constant,
-                      className: _class.name!,
-                      fieldName: element.name!),
-                  rank: _calculateRank(element.name!)),
+              TapEventArg(
+                  linkType: LinkType.Constant,
+                  className: _class.name!,
+                  fieldName: element.name!),
             );
           }
         }
@@ -248,12 +228,10 @@ class _SearchScreenState extends State<SearchScreen> {
             ? element.name!.contains(_searchingTerm)
             : element.name!.toLowerCase().contains(_searchingTerm)) {
           _searchBloc.add(
-            SearchEventArg(
-                tapEventArg: TapEventArg(
-                    linkType: LinkType.Member,
-                    className: _class.name!,
-                    fieldName: element.name!),
-                rank: _calculateRank(element.name!)),
+            TapEventArg(
+                linkType: LinkType.Member,
+                className: _class.name!,
+                fieldName: element.name!),
           );
         }
       });
@@ -266,12 +244,10 @@ class _SearchScreenState extends State<SearchScreen> {
             ? element.name!.contains(_searchingTerm)
             : element.name!.toLowerCase().contains(_searchingTerm)) {
           _searchBloc.add(
-            SearchEventArg(
-                tapEventArg: TapEventArg(
-                    linkType: LinkType.ThemeItem,
-                    className: _class.name!,
-                    fieldName: element.name!),
-                rank: _calculateRank(element.name!)),
+            TapEventArg(
+                linkType: LinkType.ThemeItem,
+                className: _class.name!,
+                fieldName: element.name!),
           );
         }
       });
@@ -290,6 +266,77 @@ class _SearchScreenState extends State<SearchScreen> {
     ClassDB().getDB().forEach(_searchSingle);
   }
 
+  int matchedCompare(TapEventArg a, TapEventArg b) {
+    String aValue = "";
+    String bValue = "";
+    if (a.linkType == LinkType.Class) {
+      aValue = a.className;
+    } else {
+      aValue = a.fieldName;
+    }
+
+    if (b.linkType == LinkType.Class) {
+      bValue = b.className;
+    } else {
+      bValue = b.fieldName;
+    }
+
+    // we will not check characters after ":"
+    // eg. NodeType:.NODE_NONE, we will ignore [:.NODE_NONE]
+    if (aValue.contains(':')) {
+      aValue = aValue.substring(0, aValue.indexOf(':'));
+    }
+
+    if (bValue.contains(':')) {
+      bValue = bValue.substring(0, bValue.indexOf(':'));
+    }
+
+    // we will not check character before "."
+    // eg. NodeType.NODE_TEXT, we will ignore [NodeType.]
+    if (aValue.contains('.')) {
+      final pos = aValue.indexOf('.');
+      aValue = aValue.substring(pos).padLeft(pos, 'z');
+    }
+
+    if (bValue.contains('.')) {
+      final pos = bValue.indexOf('.');
+      bValue = bValue.substring(pos).padLeft(pos, 'z');
+    }
+
+    aValue = aValue.toLowerCase();
+    bValue = bValue.toLowerCase();
+
+    int posCmp = aValue
+        .toLowerCase()
+        .indexOf(_searchingTerm)
+        .compareTo(bValue.toLowerCase().indexOf(_searchingTerm));
+    if (posCmp != 0) {
+      return posCmp;
+    }
+
+    int beforeCmp = aValue
+        .substring(0, aValue.indexOf(_searchingTerm))
+        .compareTo(bValue.substring(0, bValue.indexOf(_searchingTerm)));
+
+    if (beforeCmp != 0) {
+      return beforeCmp;
+    }
+
+    int ifAfterCmp = aValue
+        .substring(aValue.indexOf(_searchingTerm))
+        .length
+        .compareTo(bValue.substring(bValue.indexOf(_searchingTerm)).length);
+    if (ifAfterCmp != 0) {
+      return ifAfterCmp;
+    }
+
+    int afterCmp = aValue
+        .substring(aValue.indexOf(_searchingTerm))
+        .compareTo(bValue.substring(bValue.indexOf(_searchingTerm)));
+
+    return afterCmp;
+  }
+
   List<Widget> _buildSearchResult() {
     _argList.remove(null);
     if (_argList.length == 0) {
@@ -302,12 +349,9 @@ class _SearchScreenState extends State<SearchScreen> {
     }
 
     final _filteredList = filterResult();
-    _filteredList.sort((a, b) {
-      return a.rank.compareTo(b.rank);
-    });
+    _filteredList.sort(matchedCompare);
 
-    List<Widget> _toRtnList = _filteredList.map((s) {
-      final e = s.tapEventArg;
+    List<Widget> _toRtnList = _filteredList.map((e) {
       if (e.linkType == LinkType.Class) {
         return ListTile(
           title: Text(e.linkType.toString().substring(9) + " : " + e.className),
@@ -369,7 +413,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 _xmlLoadSearch(state);
               }
             }),
-        BlocListener<SearchBloc, SearchEventArg>(
+        BlocListener<SearchBloc, TapEventArg>(
           bloc: _searchBloc,
           listener: (context, state) {
             setState(() {
