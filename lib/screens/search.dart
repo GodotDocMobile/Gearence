@@ -348,7 +348,24 @@ class _SearchScreenState extends State<SearchScreen> {
     List<Widget> _toRtnList = _filteredList.map((e) {
       if (e.linkType == LinkType.Class) {
         return ListTile(
-          title: Text(e.linkType.toString().substring(9) + " : " + e.className),
+          title: Container(
+            width: MediaQuery.of(context).size.width * 0.5,
+            child: Row(
+              children: [
+                Text(
+                  e.linkType.toString().substring(9) + ": ",
+                  style: TextStyle(
+                      color: storedValues.themeChange.isDark
+                          ? Colors.white60
+                          : Colors.black54),
+                ),
+                Text(
+                  e.className,
+                  style: monoOptionalStyle(context),
+                )
+              ],
+            ),
+          ),
           onTap: () {
             Navigator.push(
               context,
@@ -363,14 +380,42 @@ class _SearchScreenState extends State<SearchScreen> {
         );
       }
       return ListTile(
-        title: Text(e.linkType.toString().substring(9) +
-            " : " +
-            e.fieldName.substring(
-                0,
-                e.fieldName.indexOf(":") < 0
-                    ? e.fieldName.length
-                    : e.fieldName.indexOf(":"))),
-        subtitle: Text("Class:" + e.className),
+        title: RichText(
+          textScaleFactor: 1.1,
+          text: TextSpan(children: [
+            TextSpan(
+              text: e.linkType.toString().substring(9) + ": ",
+              style: TextStyle(
+                  color: storedValues.themeChange.isDark
+                      ? Colors.white60
+                      : Colors.black54),
+            ),
+            TextSpan(
+              text: e.fieldName.substring(
+                  0,
+                  e.fieldName.indexOf(":") < 0
+                      ? e.fieldName.length
+                      : e.fieldName.indexOf(":")),
+              style: monoOptionalStyle(context,
+                  baseStyle: TextStyle(
+                      color: storedValues.themeChange.isDark
+                          ? Colors.white
+                          : Colors.black)),
+            )
+          ]),
+        ),
+        subtitle: RichText(
+          text: TextSpan(
+            children: [
+              TextSpan(text: "Class:"),
+              TextSpan(text: e.className, style: monoOptionalStyle(context))
+            ],
+            style: TextStyle(
+                color: storedValues.themeChange.isDark
+                    ? Colors.white38
+                    : Colors.black38),
+          ),
+        ),
         onTap: () {
           Navigator.push(
             context,
