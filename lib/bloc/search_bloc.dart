@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:godotclassreference/bloc/search_arg.dart';
 
 import 'tap_event_arg.dart';
 
