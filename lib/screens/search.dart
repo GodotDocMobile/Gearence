@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:godotclassreference/bloc/search_arg.dart';
 
 import '../bloc/xml_load_bloc.dart';
 import '../bloc/search_bloc.dart';
