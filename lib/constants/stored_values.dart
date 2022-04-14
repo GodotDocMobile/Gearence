@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
-import 'package:godotclassreference/bloc/blocs.dart';
-import 'package:godotclassreference/bloc/tap_event_bloc.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../models/config_content.dart';
-import '../bloc/theme_bloc.dart';
+import '/models/config_content.dart';
+import '/bloc/blocs.dart';
+import '/bloc/tap_event_bloc.dart';
 
 class StoredValues {
   SharedPreferences? prefs;
@@ -22,13 +22,11 @@ class StoredValues {
   TapEventBloc tapEventBloc = TapEventBloc();
 
   late ConfigContent configContent;
+  late PackageInfo packageInfo;
 
   static final StoredValues _instance = StoredValues._internal();
 
   factory StoredValues() {
-    if (_instance.prefs == null) {
-      _instance.readValue();
-    }
 
     return _instance;
   }
@@ -40,6 +38,7 @@ class StoredValues {
       return true;
     }
 
+    packageInfo = await PackageInfo.fromPlatform();
     prefs = await SharedPreferences.getInstance();
     var configString = await rootBundle.loadString('xmls/conf.json');
     configContent = ConfigContent.fromJson(jsonDecode(configString));
