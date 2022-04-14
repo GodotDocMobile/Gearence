@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../screens/set_font_size.dart';
-import '../screens/class_select.dart';
-import '../constants/stored_values.dart';
+import '/screens/set_font_size.dart';
+import '/screens/class_select.dart';
+import '/constants/stored_values.dart';
 
 // ignore: must_be_immutable
 class GCRDrawer extends StatefulWidget {
@@ -20,7 +19,6 @@ class GCRDrawer extends StatefulWidget {
 
 class GCRDrawerState extends State<GCRDrawer> {
   String? godotVersion;
-  late PackageInfo pi;
   String? docDate;
   bool? darkTheme;
   bool? monoSpaceFont;
@@ -76,7 +74,6 @@ class GCRDrawerState extends State<GCRDrawer> {
   }
 
   Future<bool> loadAll() async {
-    pi = await PackageInfo.fromPlatform();
     godotVersion = storedValues.prefs!.getString('version')!.substring(0);
     darkTheme = storedValues.prefs!.getBool('darkTheme') ?? false;
     docDate = storedValues.configContent.updateDate;
@@ -101,7 +98,7 @@ class GCRDrawerState extends State<GCRDrawer> {
               Padding(
                 padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                 child: ListTile(
-                  title: Text(pi.version),
+                  title: Text(storedValues.packageInfo.version),
                   subtitle: Text("Version"),
                 ),
               ),
