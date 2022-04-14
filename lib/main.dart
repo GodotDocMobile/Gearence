@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:godotclassreference/bloc/blocs.dart';
 import 'package:provider/provider.dart';
 
-import 'bloc/theme_bloc.dart';
-import 'constants/stored_values.dart';
-import 'theme/themes.dart';
-import 'screens/class_select.dart';
+import '/bloc/blocs.dart';
+import '/constants/stored_values.dart';
+import '/theme/themes.dart';
+import '/screens/class_select.dart';
 
-void main() => runApp(GCRApp());
+void main() async {
+  runApp(GCRApp());
+}
 
 class GCRApp extends StatelessWidget {
   @override
@@ -37,7 +38,6 @@ class GCRApp extends StatelessWidget {
                     return ClassSelect();
                   },
                 ),
-                // home: ClassSelect(),
               );
             },
           );
