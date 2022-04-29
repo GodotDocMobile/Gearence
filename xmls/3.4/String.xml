@@ -99,27 +99,26 @@ For example, the string can be indented with two tabs using [code]"\t\t"[/code],
 [code]: / \ ? * " | % &lt; &gt;[/code]
 </description></method><method name="is_valid_float"><return type="bool" /><description>Returns [code]true[/code] if this string contains a valid float. This is inclusive of integers, and also supports exponents:
 [codeblock]
-print("1.7".is_valid_float()) # Prints "true"
-print("24".is_valid_float()) # Prints "true"
-print("7e3".is_valid_float()) # Prints "true"
-print("24".is_valid_float()) # Prints "true"
-print("Hello".is_valid_float()) # Prints "false"
+print("1.7".is_valid_float()) # Prints "True"
+print("24".is_valid_float()) # Prints "True"
+print("7e3".is_valid_float()) # Prints "True"
+print("Hello".is_valid_float()) # Prints "False"
 [/codeblock]
 </description></method><method name="is_valid_hex_number"><return type="bool" /><argument index="0" name="with_prefix" type="bool" default="false" /><description>Returns [code]true[/code] if this string contains a valid hexadecimal number. If [code]with_prefix[/code] is [code]true[/code], then a validity of the hexadecimal number is determined by [code]0x[/code] prefix, for instance: [code]0xDEADC0DE[/code].
 </description></method><method name="is_valid_html_color"><return type="bool" /><description>Returns [code]true[/code] if this string contains a valid color in hexadecimal HTML notation. Other HTML notations such as named colors or [code]hsl()[/code] colors aren't considered valid by this method and will return [code]false[/code].
 </description></method><method name="is_valid_identifier"><return type="bool" /><description>Returns [code]true[/code] if this string is a valid identifier. A valid identifier may contain only letters, digits and underscores ([code]_[/code]) and the first character may not be a digit.
 [codeblock]
-print("good_ident_1".is_valid_identifier()) # Prints "true"
-print("1st_bad_ident".is_valid_identifier()) # Prints "false"
-print("bad_ident_#2".is_valid_identifier()) # Prints "false"
+print("good_ident_1".is_valid_identifier()) # Prints "True"
+print("1st_bad_ident".is_valid_identifier()) # Prints "False"
+print("bad_ident_#2".is_valid_identifier()) # Prints "False"
 [/codeblock]
 </description></method><method name="is_valid_integer"><return type="bool" /><description>Returns [code]true[/code] if this string contains a valid integer.
 [codeblock]
-print("7".is_valid_int()) # Prints "true"
-print("14.6".is_valid_int()) # Prints "false"
-print("L".is_valid_int()) # Prints "false"
-print("+3".is_valid_int()) # Prints "true"
-print("-12".is_valid_int()) # Prints "true"
+print("7".is_valid_int()) # Prints "True"
+print("14.6".is_valid_int()) # Prints "False"
+print("L".is_valid_int()) # Prints "False"
+print("+3".is_valid_int()) # Prints "True"
+print("-12".is_valid_int()) # Prints "True"
 [/codeblock]
 </description></method><method name="is_valid_ip_address"><return type="bool" /><description>Returns [code]true[/code] if this string contains only a well-formatted IPv4 or IPv6 address. This method considers [url=https://en.wikipedia.org/wiki/Reserved_IP_addresses]reserved IP addresses[/url] such as [code]0.0.0.0[/code] as valid.
 </description></method><method name="json_escape"><return type="String" /><description>Returns a copy of the string with special characters escaped using the JSON standard.
@@ -160,8 +159,8 @@ Example:
 var some_string = "One,Two,Three,Four"
 var some_array = some_string.rsplit(",", true, 1)
 print(some_array.size()) # Prints 2
-print(some_array[0]) # Prints "Four"
-print(some_array[1]) # Prints "Three,Two,One"
+print(some_array[0]) # Prints "One,Two,Three"
+print(some_array[1]) # Prints "Four"
 [/codeblock]
 </description></method><method name="rstrip"><return type="String" /><argument index="0" name="chars" type="String" /><description>Returns a copy of the string with characters removed from the right. The [code]chars[/code] argument is a string specifying the set of characters to be removed.
 [b]Note:[/b] The [code]chars[/code] is not a suffix. See [method trim_suffix] method that will remove a single suffix string rather than a set of characters.
@@ -169,7 +168,7 @@ print(some_array[1]) # Prints "Three,Two,One"
 </description></method><method name="sha1_text"><return type="String" /><description>Returns the SHA-1 hash of the string as a string.
 </description></method><method name="sha256_buffer"><return type="PoolByteArray" /><description>Returns the SHA-256 hash of the string as an array of bytes.
 </description></method><method name="sha256_text"><return type="String" /><description>Returns the SHA-256 hash of the string as a string.
-</description></method><method name="similarity"><return type="float" /><argument index="0" name="text" type="String" /><description>Returns the similarity index ([url=https://en.wikipedia.org/wiki/S%C3%B8rensen%E2%80%93Dice_coefficient]Sorensen-Dice coefficient[/url]) this string compared to another. 1.0 means totally similar and 0.0 means totally dissimilar.
+</description></method><method name="similarity"><return type="float" /><argument index="0" name="text" type="String" /><description>Returns the similarity index ([url=https://en.wikipedia.org/wiki/S%C3%B8rensen%E2%80%93Dice_coefficient]Sorensen-Dice coefficient[/url]) of this string compared to another. A result of 1.0 means totally similar, while 0.0 means totally dissimilar.
 [codeblock]
 print("ABC123".similarity("ABC123")) # Prints "1"
 print("ABC123".similarity("XYZ456")) # Prints "0"

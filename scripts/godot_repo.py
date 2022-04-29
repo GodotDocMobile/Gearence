@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 # TODO : refactor this file
 
+from typing import List
 from git import Repo
 import xml.etree.ElementTree as ET
 from os.path import isfile, join, exists
@@ -62,8 +63,10 @@ def _write_file_index(branch_name, file_name_arr):
     f.close()
     pass
 
+# def sort_key(node:ClassNode):
+#     return node.class_name
 
-def _write_class_index(branch_name, class_arr):
+def _write_class_index(branch_name, class_arr:list[ClassNode]):
     files_json = json.dumps(class_arr)
     f = open(join("../xmls", "files_"+branch_name+".json"), "w")
     f.write(files_json)
@@ -206,7 +209,7 @@ def single_class_files(branch_name):
     tree = ET.parse(join(godot_repo, "doc/base/classes.xml"))
     print("[{}] this branch only contains single file")
     # print(tree.getroot().getchildren())
-    for n in tree.getroot().getchildren():
+    for n in tree.getroot():
         # print("[{}] dumping {}".format(branch_name, n.attrib["name"]))
         # print(ET.tostring(n,encoding="unicode"))
         f = open(join(_folder_path, n.attrib["name"]+".xml"), "w")
@@ -234,6 +237,7 @@ def single_class_files(branch_name):
             pass
         c.parent_class = None
         pass
+    _classes.sort(key=lambda x:x.class_name)
     _write_class_index(
         branch_name, [_remove_parent_class(ob.__dict__) for ob in _classes])
 
@@ -322,6 +326,8 @@ def multiple_class_files(branch_name):
             pass
         c.parent_class = None
         pass
+
+    _classes.sort(key=lambda x:x.class_name)
     _write_class_index(
         branch_name, [_remove_parent_class(ob.__dict__) for ob in _classes])
 
