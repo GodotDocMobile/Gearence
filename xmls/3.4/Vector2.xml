@@ -10,7 +10,7 @@ Equivalent to the result of [method @GDScript.atan2] when called with the vector
 </description></method><method name="angle_to"><return type="float" /><argument index="0" name="to" type="Vector2" /><description>Returns the angle to the given vector, in radians.
 [url=https://raw.githubusercontent.com/godotengine/godot-docs/master/img/vector2_angle_to.png]Illustration of the returned angle.[/url]
 </description></method><method name="angle_to_point"><return type="float" /><argument index="0" name="to" type="Vector2" /><description>Returns the angle between the line connecting the two points and the X axis, in radians.
-[url=https://raw.githubusercontent.com/godotengine/godot-docs/master/img/vector2_angle_to_point.png]Illustration of the returned angle.[/url]
+[url=https://raw.githubusercontent.com/godotengine/godot-docs/3.4/img/vector2_angle_to_point.png]Illustration of the returned angle.[/url]
 </description></method><method name="aspect"><return type="float" /><description>Returns the aspect ratio of this vector, the ratio of [member x] to [member y].
 </description></method><method name="bounce"><return type="Vector2" /><argument index="0" name="n" type="Vector2" /><description>Returns the vector "bounced off" from a plane defined by the given normal.
 </description></method><method name="ceil"><return type="Vector2" /><description>Returns the vector with all components rounded up (towards positive infinity).
