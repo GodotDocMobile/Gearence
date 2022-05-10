@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_highlight/flutter_highlight.dart';
 import 'package:flutter_highlight/themes/arduino-light.dart';
@@ -18,17 +19,23 @@ class CodeText extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
           boxShadow: [BoxShadow(color: Colors.grey, spreadRadius: 3)]),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: HighlightView(
-          codeText!,
-          language: 'gdscript',
-          textStyle:
-              scaledTextStyle(context).copyWith(fontFamily: 'JetbrainsMono'),
-          theme: StoredValues().themeChange.isDark
-              ? atomOneDarkTheme
-              : arduinoLightTheme,
-          padding: EdgeInsets.all(10),
+      child: ScrollConfiguration(
+        behavior: ScrollConfiguration.of(context).copyWith(dragDevices: {
+          PointerDeviceKind.mouse,
+          PointerDeviceKind.touch,
+        }),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: HighlightView(
+            codeText!,
+            language: 'gdscript',
+            textStyle:
+                scaledTextStyle(context).copyWith(fontFamily: 'JetbrainsMono'),
+            theme: StoredValues().themeChange.isDark
+                ? atomOneDarkTheme
+                : arduinoLightTheme,
+            padding: EdgeInsets.all(10),
+          ),
         ),
       ),
     );

@@ -51,6 +51,7 @@ dependencies:
   provider: ^6.0.1
   flutter_bloc: ^8.0.1
   package_info_plus: ^1.4.2
+  window_manager: ^0.2.3
 
 dev_dependencies:
   flutter_test:
