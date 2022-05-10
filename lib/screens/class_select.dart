@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:godotclassreference/helpers/sematic_helpers.dart';
 
 import '../theme/themes.dart';
 import '../bloc/class_list_filter_bloc.dart';
@@ -185,12 +186,14 @@ class _ClassSelectState extends State<ClassSelect> {
                     " classes"),
                 actions: <Widget>[
                   IconButton(
+                    tooltip: 'Filter classes shown on the list',
                     icon: Icon(Icons.filter_alt_outlined),
                     onPressed: () {
                       showFilterDialog();
                     },
                   ),
                   IconButton(
+                    tooltip: 'Search',
                     icon: Icon(
                       Icons.search,
                       color: Colors.white,
@@ -227,26 +230,33 @@ class _ClassSelectState extends State<ClassSelect> {
                 .map((f) => MediaQuery(
                       data: scaledMediaQueryData(context),
                       child: Card(
-                        child: ListTile(
-                          leading: ClassIcon(
-                            classContent: f,
-                            key: UniqueKey(),
+                        child: Semantics(
+                          label: getSpacedClassName(f.name!),
+                          onTapHint: 'Read class detail',
+                          child: ListTile(
+                            leading: ClassIcon(
+                              classContent: f,
+                              key: UniqueKey(),
+                            ),
+                            title: Semantics(
+                              excludeSemantics: true,
+                              child: Text(
+                                f.name!,
+                                style: monoOptionalStyle(context),
+                              ),
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        ClassDetail(className: f.name!),
+                                  ));
+                            },
+                            trailing: f.nodeType == classNodeType.None
+                                ? null
+                                : NodeTag(classContent: f),
                           ),
-                          title: Text(
-                            f.name!,
-                            style: monoOptionalStyle(context),
-                          ),
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      ClassDetail(className: f.name!),
-                                ));
-                          },
-                          trailing: f.nodeType == classNodeType.None
-                              ? null
-                              : NodeTag(classContent: f),
                         ),
                       ),
                     ))

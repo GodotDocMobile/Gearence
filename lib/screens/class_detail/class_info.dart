@@ -23,14 +23,17 @@ class ClassInfo extends StatelessWidget {
       padding: EdgeInsets.all(10),
       children: <Widget>[
         //inherit chain
-        Text(
-          'Inherits:',
-          style: TextStyle(color: Colors.grey),
+        ExcludeSemantics(
+          child: Text(
+            'Inherits:',
+            style: TextStyle(color: Colors.grey),
+          ),
         ),
         DescriptionText(
           className: clsContent!.name!,
           content:
               clsContent!.inheritChain == null ? '' : clsContent!.inheritChain!,
+          descriptionUsedBy: DescriptionUsedBy.Inherits,
           // onLinkTap: onLinkTap,
         ),
         SizedBox(
@@ -38,13 +41,16 @@ class ClassInfo extends StatelessWidget {
         ),
 
         //child classes
-        Text(
-          'Child Classes:',
-          style: TextStyle(color: Colors.grey),
+        ExcludeSemantics(
+          child: Text(
+            'Child Classes:',
+            style: TextStyle(color: Colors.grey),
+          ),
         ),
         DescriptionText(
           className: clsContent!.name!,
           content: _childClasses.substring(1, _childClasses.length - 1),
+          descriptionUsedBy: DescriptionUsedBy.ChildClasses,
           // onLinkTap: onLinkTap,
         ),
         SizedBox(
@@ -52,13 +58,16 @@ class ClassInfo extends StatelessWidget {
         ),
 
         //brief_description
-        Text(
-          'Brief Description:',
-          style: TextStyle(color: Colors.grey),
+        ExcludeSemantics(
+          child: Text(
+            'Brief Description:',
+            style: TextStyle(color: Colors.grey),
+          ),
         ),
         DescriptionText(
           className: clsContent!.name!,
           content: clsContent!.briefDescription!,
+          descriptionUsedBy: DescriptionUsedBy.BriefDescription,
           // onLinkTap: onLinkTap,
         ),
         SizedBox(
@@ -107,6 +116,7 @@ class ClassInfo extends StatelessWidget {
         DescriptionText(
           className: clsContent!.name!,
           content: clsContent!.description!,
+          descriptionUsedBy: DescriptionUsedBy.Description,
           // onLinkTap: onLinkTap,
         ),
 
