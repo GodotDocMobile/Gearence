@@ -146,44 +146,51 @@ class GCRDrawerState extends State<GCRDrawer> {
                   ),
                   child: Container(),
                 ),
-                ListTile(
-                  leading: Icon(Icons.compare_arrows),
-                  title: Text("Godot Version"),
-                  trailing: DropdownButton<String>(
-                    value: godotVersion,
-                    items: StoredValues().configContent.branches.map((i) {
-                      return DropdownMenuItem<String>(
-                        value: i,
-                        child: Text(i),
-                      );
-                    }).toList(),
-                    onChanged: (v) {
-                      setState(() {
-                        godotVersion = v;
-                      });
-                      StoredValues().prefs!.setString('version', v!);
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ClassSelect(),
-                          ),
-                          (Route<dynamic> route) => false);
-                    },
+                MergeSemantics(
+                  child: ListTile(
+                    leading: Icon(Icons.compare_arrows),
+                    title: Text("Godot Version"),
+                    trailing: Semantics(
+                      onTapHint: 'Change godot version',
+                      child: DropdownButton<String>(
+                        value: godotVersion,
+                        items: StoredValues().configContent.branches.map((i) {
+                          return DropdownMenuItem<String>(
+                            value: i,
+                            child: Text(i),
+                          );
+                        }).toList(),
+                        onChanged: (v) {
+                          setState(() {
+                            godotVersion = v;
+                          });
+                          StoredValues().prefs!.setString('version', v!);
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ClassSelect(),
+                              ),
+                              (Route<dynamic> route) => false);
+                        },
+                      ),
+                    ),
                   ),
                 ),
-                ListTile(
-                  leading: Icon(Icons.brightness_6),
-                  title: Text('Dark Theme'),
-                  trailing: Switch(
-                    value: darkTheme!,
-                    onChanged: (v) {
-                      showLoading(context, v);
-                      StoredValues().prefs!.setBool('darkTheme', v);
-                      setState(() {
-                        darkTheme = v;
-                      });
-                      StoredValues().themeChange.switchTheme(v);
-                    },
+                MergeSemantics(
+                  child: ListTile(
+                    leading: Icon(Icons.brightness_6),
+                    title: Text('Dark Theme'),
+                    trailing: Switch(
+                      value: darkTheme!,
+                      onChanged: (v) {
+                        showLoading(context, v);
+                        StoredValues().prefs!.setBool('darkTheme', v);
+                        setState(() {
+                          darkTheme = v;
+                        });
+                        StoredValues().themeChange.switchTheme(v);
+                      },
+                    ),
                   ),
                 ),
                 ListTile(
@@ -198,18 +205,20 @@ class GCRDrawerState extends State<GCRDrawer> {
                         ));
                   },
                 ),
-                ListTile(
-                  leading: Icon(Icons.font_download_outlined),
-                  title: Text('Monospace font'),
-                  trailing: Switch(
-                    value: monoSpaceFont!,
-                    onChanged: (v) {
-                      storedValues.prefs!.setBool('monoSpaceFont', v);
-                      setState(() {
-                        storedValues.monospaced.setMonospaced(v);
-                        monoSpaceFont = v;
-                      });
-                    },
+                MergeSemantics(
+                  child: ListTile(
+                    leading: Icon(Icons.font_download_outlined),
+                    title: Text('Monospace font'),
+                    trailing: Switch(
+                      value: monoSpaceFont!,
+                      onChanged: (v) {
+                        storedValues.prefs!.setBool('monoSpaceFont', v);
+                        setState(() {
+                          storedValues.monospaced.setMonospaced(v);
+                          monoSpaceFont = v;
+                        });
+                      },
+                    ),
                   ),
                 ),
                 ListTile(

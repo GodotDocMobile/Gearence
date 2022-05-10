@@ -1,29 +1,42 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:godotclassreference/helpers/sematic_helpers.dart';
 
-import '../theme/themes.dart';
-import '../components/code_text.dart';
-import '../components/inline_code.dart';
-import '../constants/class_db.dart';
-import '../constants/colors.dart';
-import '../constants/stored_values.dart';
-import '../bloc/tap_event_arg.dart';
+import '/theme/themes.dart';
+import '/components/code_text.dart';
+// import '/components/inline_code.dart';
+import '/constants/class_db.dart';
+import '/constants/colors.dart';
+import '/constants/stored_values.dart';
+import '/bloc/tap_event_arg.dart';
 
 //logic check godot/editor/editor_help.cpp _add_text_to_rt
+
+enum DescriptionUsedBy {
+  Inherits,
+  ChildClasses,
+  BriefDescription,
+  Description,
+  Normal
+}
 
 class DescriptionText extends StatelessWidget {
   final String className;
   final String content;
   // final Function(TapEventArg args) onLinkTap;
   final TextStyle? style;
+  final DescriptionUsedBy descriptionUsedBy;
+
+  String hintText = '';
 
   DescriptionText(
       {Key? key,
       required this.className,
       required this.content,
       // required this.onLinkTap,
-      this.style})
+      this.style,
+      this.descriptionUsedBy = DescriptionUsedBy.Normal})
       : super(key: key);
 
   // this is a full implementation of _add_text_to_rt
@@ -33,7 +46,7 @@ class DescriptionText extends StatelessWidget {
     List<String> tagStack = [];
     bool codeTag = false;
     bool inlineCode = false;
-    int pos = 0;
+    int pos = 0; // read position
 
     TextStyle _toApplyStyle = scaledTextStyle(context);
     while (pos < content.length) {
@@ -58,18 +71,33 @@ class DescriptionText extends StatelessWidget {
             ),
           ));
           _toRtn.add(TextSpan(text: "\n\n"));
-        } else if (inlineCode) {
-          _toRtn.add(WidgetSpan(
-            child: InlineCode(
-              codeText: text,
-            ),
-          ));
         } else {
-          if (text.characters.last == '\n') {
-            text = text.substring(0, text.length - 1);
+          if (inlineCode) {
+            _toRtn.add(TextSpan(text: text, semanticsLabel: ''));
+          } else {
+            if (text.characters.last == '\n' &&
+                pos + text.length >= content.length) {
+              text = text.substring(0, text.length - 1);
+            }
+
+            text = text.replaceAll('\n', '\n\n');
+
+            _toRtn.add(
+              TextSpan(text: text, semanticsLabel: '', style: _toApplyStyle),
+            );
           }
-          _toRtn.add(TextSpan(
-              text: text.replaceAll('\n', '\n\n'), style: _toApplyStyle));
+
+          //semantic handling
+          if (descriptionUsedBy == DescriptionUsedBy.Inherits) {
+            // we describe 'A inherits from B' with 'A >> B'
+            // and we desplay inherit chain in this way,
+            // so replace them for friendlier screen reading experience
+            text = text.replaceAll('>>', ', which inherits ');
+          }
+
+          text = text.replaceAll('/', ' divided by').replaceAll('*', ' times ');
+
+          hintText = "$hintText $text";
         }
         _toApplyStyle = scaledTextStyle(context);
       }
@@ -82,9 +110,11 @@ class DescriptionText extends StatelessWidget {
 
       if (brkEnd == -1) {
         String text = content.substring(brkPos, content.length);
-        if (!codeTag) {
-          text = text.replaceAll('\n', '\n\n');
-        }
+        // if (!codeTag) {
+        //   text = text.replaceAll('\n', '\n\n');
+        // }
+
+        hintText = "$hintText $text";
         _toRtn.add(TextSpan(text: text));
 
         break;
@@ -117,53 +147,59 @@ class DescriptionText extends StatelessWidget {
           tag.startsWith('enum ') ||
           tag.startsWith('constant ')) {
         String linkTarget = tag.substring(tag.indexOf(' ') + 1, tag.length);
+        hintText = "$hintText $linkTarget";
         _toRtn.add(
           WidgetSpan(
-            child: InkWell(
-              child: Text(
-                linkTarget + (tag.startsWith('method ') ? '()' : ''),
-                style: monoOptionalStyle(context,
-                    baseStyle: _toApplyStyle.copyWith(color: godotColor)),
+            child: Semantics(
+              label: tag,
+              child: InkWell(
+                child: Text(
+                  linkTarget + (tag.startsWith('method ') ? '()' : ''),
+                  style: monoOptionalStyle(context,
+                      baseStyle: _toApplyStyle.copyWith(color: godotColor)),
+                ),
+                onTap: () {
+                  TapEventArg args = TapEventArg(
+                      linkType: linkTypeFromString(tag.split(' ').first),
+                      className: linkTarget.contains('.')
+                          ? linkTarget.split('.').first
+                          : className,
+                      fieldName: linkTarget.contains('.')
+                          ? linkTarget.split('.').last
+                          : linkTarget);
+                  // this.onLinkTap(args);
+                  storedValues.tapEventBloc.add(args);
+                },
               ),
-              onTap: () {
-                TapEventArg args = TapEventArg(
-                    linkType: linkTypeFromString(tag.split(' ').first),
-                    className: linkTarget.contains('.')
-                        ? linkTarget.split('.').first
-                        : className,
-                    fieldName: linkTarget.contains('.')
-                        ? linkTarget.split('.').last
-                        : linkTarget);
-                // this.onLinkTap(args);
-                storedValues.tapEventBloc.add(args);
-              },
             ),
           ),
         );
         pos = brkEnd + 1;
       } else if (ClassDB().getDB().any((element) => element.name == tag)) {
+        hintText = "$hintText ${getSpacedClassName(tag)}";
         _toRtn.add(WidgetSpan(
-          child: InkWell(
-              child: Text(
-                tag,
-                style: monoOptionalStyle(context,
-                    baseStyle: _toApplyStyle.copyWith(
-                        fontFeatures: [FontFeature.tabularFigures()],
-                        color: tag == className
-                            ? (StoredValues().themeChange.isDark
-                                ? Colors.white
-                                : Colors.black)
-                            : godotColor)),
-              ),
-              onTap: () {
-                TapEventArg args = TapEventArg(
-                  linkType: LinkType.Class,
-                  className: tag,
-                  fieldName: '',
-                );
-                // this.onLinkTap(args);
-                storedValues.tapEventBloc.add(args);
-              }),
+          child: Semantics(
+            label: "class ${getSpacedClassName(tag)}",
+            child: InkWell(
+                child: ExcludeSemantics(
+                  child: Text(
+                    tag,
+                    style: monoOptionalStyle(context,
+                        baseStyle: _toApplyStyle.copyWith(
+                            fontFeatures: [FontFeature.tabularFigures()],
+                            color: godotColor)),
+                  ),
+                ),
+                onTap: () {
+                  TapEventArg args = TapEventArg(
+                    linkType: LinkType.Class,
+                    className: tag,
+                    fieldName: '',
+                  );
+                  // this.onLinkTap(args);
+                  storedValues.tapEventBloc.add(args);
+                }),
+          ),
         ));
         pos = brkEnd + 1;
       } else if (tag == 'b') {
@@ -211,11 +247,14 @@ class DescriptionText extends StatelessWidget {
           end = content.length;
         }
         String url = content.substring(brkEnd + 1, end - 1);
+
+        hintText = "$hintText $url";
         _toRtn.add(TextSpan(text: url));
         pos = brkEnd + 1;
         tagStack.add(tag);
       } else if (tag.startsWith('url=')) {
         String url = tag.substring(4, tag.length);
+        hintText = "$hintText $url";
         _toRtn.add(TextSpan(text: url));
         pos = brkEnd + 1;
         tagStack.add('url');
@@ -276,12 +315,32 @@ class DescriptionText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final parsed = _parseText(context);
+    switch (descriptionUsedBy) {
+      case DescriptionUsedBy.Inherits:
+        hintText = "inherit chain: $hintText";
+        break;
+      case DescriptionUsedBy.ChildClasses:
+        hintText = "child classes: $hintText";
+        break;
+      case DescriptionUsedBy.BriefDescription:
+        hintText = "brief description: $hintText";
+        break;
+      case DescriptionUsedBy.Description:
+        hintText = "description: $hintText";
+        break;
+      case DescriptionUsedBy.Normal:
+        break;
+    }
     return MediaQuery(
       data: scaledMediaQueryData(context),
-      child: RichText(
-        text: TextSpan(
-          style: scaledTextStyle(context),
-          children: _parseText(context),
+      child: Semantics(
+        label: hintText,
+        child: RichText(
+          text: TextSpan(
+            style: scaledTextStyle(context),
+            children: parsed,
+          ),
         ),
       ),
     );
