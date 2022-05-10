@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:window_manager/window_manager.dart';
 
 import '/bloc/blocs.dart';
 import '/constants/stored_values.dart';
@@ -7,6 +10,21 @@ import '/theme/themes.dart';
 import '/screens/class_select.dart';
 
 void main() async {
+  if (Platform.isLinux || Platform.isMacOS || Platform.isWindows) {
+    WidgetsFlutterBinding.ensureInitialized();
+    await windowManager.ensureInitialized();
+
+    WindowOptions windowOptions = WindowOptions(
+      minimumSize: Size(400, 600),
+      center: true,
+    );
+
+    windowManager.waitUntilReadyToShow(windowOptions, () async {
+      await windowManager.show();
+      await windowManager.focus();
+    });
+  }
+
   runApp(GCRApp());
 }
 
