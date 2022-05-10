@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:godotclassreference/helpers/sematic_helpers.dart';
 
 import '../theme/themes.dart';
 import '../bloc/tap_event_bloc.dart';
@@ -153,7 +154,9 @@ class _ClassDetailState extends State<ClassDetail>
               data: scaledMediaQueryData(context),
               child: Scaffold(
                 appBar: AppBar(
-                  title: Text(widget.className),
+                  title: Semantics(
+                      label: getSpacedClassName(widget.className),
+                      child: ExcludeSemantics(child: Text(widget.className))),
                   bottom: TabBar(
                     indicatorColor: StoredValues().themeChange.isDark
                         ? Theme.of(context).colorScheme.secondary

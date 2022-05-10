@@ -11,8 +11,6 @@ import '../theme/themes.dart';
 
 import 'class_detail.dart';
 
-// TODO: refactor this file
-
 class SearchScreen extends StatefulWidget {
   @override
   _SearchScreenState createState() => _SearchScreenState();
@@ -347,22 +345,25 @@ class _SearchScreenState extends State<SearchScreen> {
     List<Widget> _toRtnList = _filteredList.map((e) {
       if (e.linkType == LinkType.Class) {
         return ListTile(
-          title: Container(
-            width: MediaQuery.of(context).size.width * 0.5,
-            child: Row(
-              children: [
-                Text(
-                  e.linkType.toString().substring(9) + ": ",
-                  style: TextStyle(
-                      color: storedValues.themeChange.isDark
-                          ? Colors.white60
-                          : Colors.black54),
-                ),
-                Text(
-                  e.className,
-                  style: monoOptionalStyle(context),
-                )
-              ],
+          title: Semantics(
+            onTapHint: 'Navigate to this item',
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.5,
+              child: Row(
+                children: [
+                  Text(
+                    e.linkType.toString().substring(9) + ": ",
+                    style: TextStyle(
+                        color: storedValues.themeChange.isDark
+                            ? Colors.white60
+                            : Colors.black54),
+                  ),
+                  Text(
+                    e.className,
+                    style: monoOptionalStyle(context),
+                  )
+                ],
+              ),
             ),
           ),
           onTap: () {
@@ -477,6 +478,7 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
           actions: <Widget>[
             IconButton(
+              tooltip: 'Clear search term',
               icon: Icon(Icons.clear),
               onPressed: () {
                 _controller.clear();
@@ -486,28 +488,34 @@ class _SearchScreenState extends State<SearchScreen> {
           bottom: PreferredSize(
             preferredSize: Size.fromHeight(48.0),
             child: ListTile(
-              title: DropdownButton<String>(
-                icon: Icon(Icons.list),
-                value: _searchCat,
-                items: _options.map((e) {
-                  return DropdownMenuItem<String>(
-                    value: e,
-                    child: Text(e),
-                  );
-                }).toList(),
-                onChanged: (v) {
-                  final _idx = _options.indexOf(v!);
-                  _searchClass = _idx < 2;
-                  _searchMethod = _idx == 0 || _idx == 2;
-                  _searchMember = _idx == 0 || _idx == 3;
-                  _searchSignal = _idx == 0 || _idx == 4;
-                  _searchConstant = _idx == 0 || _idx == 5;
-                  _searchEnum = _idx == 0 || _idx == 6;
-                  _searchThemeItem = _idx == 0 || _idx == 7;
-                  setState(() {
-                    _searchCat = v;
-                  });
-                },
+              title: Semantics(
+                onTapHint: 'Change search fields',
+                child: DropdownButton<String>(
+                  icon: Icon(Icons.list),
+                  value: _searchCat,
+                  items: _options.map((e) {
+                    return DropdownMenuItem<String>(
+                      value: e,
+                      child: Semantics(
+                        child: Text(e),
+                        onTapHint: 'Set search fields to $e',
+                      ),
+                    );
+                  }).toList(),
+                  onChanged: (v) {
+                    final _idx = _options.indexOf(v!);
+                    _searchClass = _idx < 2;
+                    _searchMethod = _idx == 0 || _idx == 2;
+                    _searchMember = _idx == 0 || _idx == 3;
+                    _searchSignal = _idx == 0 || _idx == 4;
+                    _searchConstant = _idx == 0 || _idx == 5;
+                    _searchEnum = _idx == 0 || _idx == 6;
+                    _searchThemeItem = _idx == 0 || _idx == 7;
+                    setState(() {
+                      _searchCat = v;
+                    });
+                  },
+                ),
               ),
             ),
           ),
