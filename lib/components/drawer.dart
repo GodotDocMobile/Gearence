@@ -18,10 +18,7 @@ class GCRDrawer extends StatefulWidget {
 }
 
 class GCRDrawerState extends State<GCRDrawer> {
-  String? godotVersion;
-  String? docDate;
-  bool? darkTheme;
-  bool? monoSpaceFont;
+  String? docDate = storedValues.configContent.updateDate;
 
   OverlayState? overlayState;
   OverlayEntry? overlayEntry;
@@ -73,14 +70,6 @@ class GCRDrawerState extends State<GCRDrawer> {
     overlayState!.insert(overlayEntry!);
   }
 
-  Future<bool> loadAll() async {
-    godotVersion = storedValues.prefs!.getString('version')!.substring(0);
-    darkTheme = storedValues.prefs!.getBool('darkTheme') ?? false;
-    docDate = storedValues.configContent.updateDate;
-    monoSpaceFont = storedValues.monospaced.monospaced;
-    return true;
-  }
-
   Future<void> showAboutDialog() {
     return showDialog(
         context: context,
@@ -128,128 +117,107 @@ class GCRDrawerState extends State<GCRDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    final loaded = loadAll();
-    return FutureBuilder<bool>(
-      future: loaded,
-      builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-        if (snapshot.hasData && snapshot.data!) {
-          return Drawer(
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: <Widget>[
-                DrawerHeader(
-                  decoration: BoxDecoration(
-                    color: Color(0xFF303d68),
-                    image: DecorationImage(
-                        image: AssetImage("drawer_header.png"),
-                        fit: BoxFit.fitWidth),
-                  ),
-                  child: Container(),
-                ),
-                MergeSemantics(
-                  child: ListTile(
-                    leading: Icon(Icons.compare_arrows),
-                    title: Text("Godot Version"),
-                    trailing: Semantics(
-                      onTapHint: 'Change godot version',
-                      child: DropdownButton<String>(
-                        value: godotVersion,
-                        items: StoredValues().configContent.branches.map((i) {
-                          return DropdownMenuItem<String>(
-                            value: i,
-                            child: Text(i),
-                          );
-                        }).toList(),
-                        onChanged: (v) {
-                          setState(() {
-                            godotVersion = v;
-                          });
-                          StoredValues().prefs!.setString('version', v!);
-                          Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ClassSelect(),
-                              ),
-                              (Route<dynamic> route) => false);
-                        },
-                      ),
-                    ),
-                  ),
-                ),
-                MergeSemantics(
-                  child: ListTile(
-                    leading: Icon(Icons.brightness_6),
-                    title: Text('Dark Theme'),
-                    trailing: Switch(
-                      value: darkTheme!,
-                      onChanged: (v) {
-                        showLoading(context, v);
-                        StoredValues().prefs!.setBool('darkTheme', v);
-                        setState(() {
-                          darkTheme = v;
-                        });
-                        StoredValues().themeChange.switchTheme(v);
-                      },
-                    ),
-                  ),
-                ),
-                ListTile(
-                  leading: Icon(Icons.text_fields),
-                  title: Text("Set text size"),
-                  onTap: () {
-                    Navigator.push(
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          DrawerHeader(
+            decoration: BoxDecoration(
+              color: Color(0xFF303d68),
+              image: DecorationImage(
+                  image: AssetImage("drawer_header.png"), fit: BoxFit.fitWidth),
+            ),
+            child: Container(),
+          ),
+          MergeSemantics(
+            child: ListTile(
+              leading: Icon(Icons.compare_arrows),
+              title: Text("Godot Version"),
+              trailing: Semantics(
+                onTapHint: 'Change godot version',
+                child: DropdownButton<String>(
+                  value: storedValues.version,
+                  items: StoredValues().configContent.branches.map((i) {
+                    return DropdownMenuItem<String>(
+                      value: i,
+                      child: Text(i),
+                    );
+                  }).toList(),
+                  onChanged: (v) {
+                    setState(() {
+                      storedValues.version = v!;
+                    });
+                    Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              SetFontSize(setScaleFunc: widget.setScaleFunc),
-                        ));
+                          builder: (context) => ClassSelect(),
+                        ),
+                        (Route<dynamic> route) => false);
                   },
                 ),
-                MergeSemantics(
-                  child: ListTile(
-                    leading: Icon(Icons.font_download_outlined),
-                    title: Text('Monospace font'),
-                    trailing: Switch(
-                      value: monoSpaceFont!,
-                      onChanged: (v) {
-                        storedValues.prefs!.setBool('monoSpaceFont', v);
-                        setState(() {
-                          storedValues.monospaced.setMonospaced(v);
-                          monoSpaceFont = v;
-                        });
-                      },
-                    ),
-                  ),
-                ),
-                ListTile(
-                  leading: Icon(Icons.info),
-                  title: Text("About"),
-                  onTap: () {
-                    showAboutDialog();
-                  },
-                ),
-                ListTile(
-                  title: Text('I WANT TRANSLATION!'),
-                  onTap: () async {
-                    const url =
-                        'https://hosted.weblate.org/projects/godot-engine/godot-class-reference/';
-                    if (await launch(url)) {
-                      print("can not launch url $url");
-                    }
-                  },
-                ),
-              ],
+              ),
             ),
-          );
-        }
-        return Container(
-          color:
-              StoredValues().themeChange.isDark ? Colors.black : Colors.white,
-          child: Center(
-            child: CircularProgressIndicator(),
           ),
-        );
-      },
+          MergeSemantics(
+            child: ListTile(
+              leading: Icon(Icons.brightness_6),
+              title: Text('Dark Theme'),
+              trailing: Switch(
+                value: storedValues.isDarkTheme,
+                onChanged: (v) {
+                  showLoading(context, v);
+                  setState(() {
+                    storedValues.isDarkTheme = v;
+                  });
+                },
+              ),
+            ),
+          ),
+          ListTile(
+            leading: Icon(Icons.text_fields),
+            title: Text("Set text size"),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        SetFontSize(setScaleFunc: widget.setScaleFunc),
+                  ));
+            },
+          ),
+          MergeSemantics(
+            child: ListTile(
+              leading: Icon(Icons.font_download_outlined),
+              title: Text('Monospace font'),
+              trailing: Switch(
+                value: storedValues.isMonospaced,
+                onChanged: (v) {
+                  setState(() {
+                    storedValues.isMonospaced = v;
+                  });
+                },
+              ),
+            ),
+          ),
+          ListTile(
+            leading: Icon(Icons.info),
+            title: Text("About"),
+            onTap: () {
+              showAboutDialog();
+            },
+          ),
+          ListTile(
+            title: Text('I WANT TRANSLATION!'),
+            onTap: () async {
+              const url =
+                  'https://hosted.weblate.org/projects/godot-engine/godot-class-reference/';
+              if (await launch(url)) {
+                print("can not launch url $url");
+              }
+            },
+          ),
+        ],
+      ),
     );
   }
 }
