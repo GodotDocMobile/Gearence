@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class MonospaceFontBloc with ChangeNotifier {
-  bool monospaced = false;
+  late bool monospaced;
 
   MonospaceFontBloc();
 

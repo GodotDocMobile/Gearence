@@ -38,6 +38,8 @@ class GCRApp extends StatelessWidget {
     storedValues.configContent = ConfigContent.fromJson(
         jsonDecode(await rootBundle.loadString('xmls/conf.json')));
     storedValues.packageInfo = await PackageInfo.fromPlatform();
+    storedValues.themeChange.isDark = storedValues.isDarkTheme;
+    storedValues.monospaced.monospaced = storedValues.isMonospaced;
     return true;
   }
 
