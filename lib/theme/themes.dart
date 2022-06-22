@@ -20,12 +20,12 @@ const TEXT_STYLE_FACTOR = 2.5;
 TextStyle scaledTextStyle(BuildContext context) {
   return DefaultTextStyle.of(context)
       .style
-      .copyWith(fontSize: 14 + StoredValues().fontSize! * TEXT_STYLE_FACTOR);
+      .copyWith(fontSize: 14 + storedValues.fontSize * TEXT_STYLE_FACTOR);
 }
 
 MediaQueryData scaledMediaQueryData(BuildContext context) {
-  return MediaQuery.of(context).copyWith(
-      textScaleFactor: 1 + StoredValues().fontSize! * TEXT_SCALE_FACTOR);
+  return MediaQuery.of(context)
+      .copyWith(textScaleFactor: 1 + storedValues.fontSize * TEXT_SCALE_FACTOR);
 }
 
 TextStyle nonScaleTextStyle(BuildContext context) {
@@ -39,7 +39,7 @@ MediaQueryData nonScaledMediaQueryData(BuildContext context) {
 TextStyle? monoOptionalStyle(BuildContext context, {TextStyle? baseStyle}) {
   if (Provider.of<MonospaceFontBloc?>(context)?.monospaced ==
               true || // this is for main screen
-          storedValues.monospaced.monospaced // this is for class detail screen
+          storedValues.isMonospaced // this is for class detail screen
       ) {
     if (baseStyle != null) {
       return baseStyle.copyWith(fontFamily: 'JetbrainsMono');

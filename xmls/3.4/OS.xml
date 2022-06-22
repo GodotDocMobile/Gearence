@@ -56,6 +56,10 @@ for argument in OS.get_cmdline_args():
     if argument.find("=") &gt; -1:
         var key_value = argument.split("=")
         arguments[key_value[0].lstrip("--")] = key_value[1]
+    else:
+        # Options without an argument will be present in the dictionary,
+        # with the value set to an empty string.
+        arguments[argument.lstrip("--")] = ""
 [/codeblock]
 </description></method><method name="get_config_dir" qualifiers="const"><return type="String" /><description>Returns the [i]global[/i] user configuration directory according to the operating system's standards. On desktop platforms, this path can be overridden by setting the [code]XDG_CONFIG_HOME[/code] environment variable before starting the project. See [url=https://docs.godotengine.org/en/latest/tutorials/io/data_paths.html]File paths in Godot projects[/url] in the documentation for more information. See also [method get_cache_dir] and [method get_data_dir].
 Not to be confused with [method get_user_data_dir], which returns the [i]project-specific[/i] user data path.
