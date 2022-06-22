@@ -59,7 +59,7 @@ class _ClassDetailState extends State<ClassDetail>
   }
 
   Future<ClassContent> getClassDetail() async {
-    final version = StoredValues().prefs!.getString('version');
+    final version = storedValues.version;
 
     return await ClassDB().getSingle(version, widget.className);
   }

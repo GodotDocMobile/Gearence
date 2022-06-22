@@ -22,8 +22,8 @@ class SetFontSize extends StatefulWidget {
 
 class _SetFontSizeState extends State<SetFontSize>
     with SingleTickerProviderStateMixin {
-  int settingsFontSize = StoredValues().fontSize!;
-  int initFontSize = StoredValues().fontSize!;
+  int settingsFontSize = storedValues.fontSize;
+  int initFontSize = storedValues.fontSize;
   bool save = false;
 
   ClassContent dummyNode = dummyClass;

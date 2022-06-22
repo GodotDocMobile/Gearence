@@ -20,7 +20,6 @@ There are 3 caveats to keep in mind when using [ProximityGroup]:
 - The larger the grid radius, the more coordinates and the more [SceneTree] groups are created. This can have a performance impact if too many groups are created.
 - If the [ProximityGroup] node is transformed in any way (or is removed from the scene tree), the groupings will have to be recalculated. This can also have a performance impact.
 - If your [member grid_radius] is smaller than [code]Vector3(1, 1, 1)[/code], it will be rounded up to [code]Vector3(1, 1, 1)[/code]. Therefore, small grid radius values may lead to unwanted groupings.
-[/codeblock]
 [b]Note:[/b] [ProximityGroup] will be removed in Godot 4.0 in favor of more effective and faster [VisibilityNotifier] functionality. For most use cases, [method Vector3.distance_to] or [method Vector3.distance_squared_to] are fast enough too, especially if you call them less often using a [Timer] node.
 </description><tutorials></tutorials><methods><method name="broadcast"><return type="void" /><argument index="0" name="method" type="String" /><argument index="1" name="parameters" type="Variant" /><description>Calls on all intersecting [ProximityGroup] the given method and parameters.
 If the [member dispatch_mode] is set to [constant MODE_PROXY] (the default), all calls are delegated to their respective parent [Node].

@@ -1,14 +1,14 @@
-//this is a singleton class
 import 'dart:async';
+
 import 'package:flutter/services.dart';
-import 'package:xml/xml.dart' as xml;
 import 'package:xml/xml.dart';
 
 import '../bloc/xml_load_bloc.dart';
 import '../models/class_content.dart';
 
+// refactor this
 class ClassDB {
-  List<ClassContent> _classContent = [];
+  List<ClassContent> _classList = [];
 
   XMLLoadBloc loadBloc = XMLLoadBloc();
 
@@ -24,21 +24,21 @@ class ClassDB {
 
   loadFromParseJson(List<ClassContent> list, String version) {
     this.version = version;
-    _classContent = List<ClassContent>.from(list);
-    _classContent.sort((a, b) {
-      return a.name!.compareTo(b.name!);
-    });
+    _classList = List<ClassContent>.from(list);
+    // _classContent.sort((a, b) {
+    //   return a.name!.compareTo(b.name!);
+    // });
     loading = false;
   }
 
   loadFromXmls() async {
     if (!loading) {
       loading = true;
-      for (var _classFileName in _classContent) {
+      for (var _classContent in _classList) {
         if (!loading) break;
-        await _loadSingle(version, _classFileName.name);
+        await _loadSingle(version, _classContent.name);
       }
-      _classContent.toSet().toList();
+      _classList.toSet().toList();
       loading = false;
     }
   }
@@ -46,25 +46,25 @@ class ClassDB {
   Future<ClassContent> _loadSingle(String? version, String? classFileName,
       {bool skipCheck = true}) async {
     ClassContent _toRtn;
-    var _existIndex = _classContent.indexWhere(
+    var _existIndex = _classList.indexWhere(
         (element) => element.name == classFileName!.replaceAll('.xml', ''));
 
     var _xmlLoaded =
-        _existIndex != -1 && _classContent[_existIndex].version != null;
+        _existIndex != -1 && _classList[_existIndex].version != null;
 
     if (_xmlLoaded) {
-      _toRtn = _classContent[_existIndex];
+      _toRtn = _classList[_existIndex];
     } else {
       final file = await rootBundle
           .loadString('xmls/' + version! + '/' + classFileName! + '.xml');
-      final rootNode = xml.XmlDocument.parse(file)
+      final rootNode = XmlDocument.parse(file)
           .root
           .children
-          .lastWhere((w) => w.nodeType != xml.XmlNodeType.TEXT);
+          .lastWhere((w) => w.nodeType != XmlNodeType.TEXT);
 
-      _classContent[_existIndex].fromXml(rootNode as XmlElement);
+      _classList[_existIndex].fromXml(rootNode as XmlElement);
 
-      _toRtn = _classContent[_existIndex];
+      _toRtn = _classList[_existIndex];
     }
 
     if (skipCheck) {
@@ -78,15 +78,15 @@ class ClassDB {
   Future<ClassContent> getSingle(String? version, String className) async {
     final _className = className;
 
-    if (_classContent.any(
+    if (_classList.any(
         (element) => element.name == _className && element.version != null)) {
-      return _classContent.firstWhere((element) => element.name == _className);
+      return _classList.firstWhere((element) => element.name == _className);
     }
 
     return await _loadSingle(version, className, skipCheck: false);
   }
 
   List<ClassContent> getDB() {
-    return _classContent;
+    return _classList;
   }
 }

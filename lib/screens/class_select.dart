@@ -24,34 +24,21 @@ class ClassSelect extends StatefulWidget {
 class _ClassSelectState extends State<ClassSelect> {
   ClassListFilterBloc _filterBloc = ClassListFilterBloc();
 
-  List<ClassContent>? _classes = [];
+  List<ClassContent>? _classes =
+      []; // we will fill this after all xml files are parsed.
 
   Map<classNodeType, List<ClassContent>> sortedLists =
       new Map<classNodeType, List<ClassContent>>();
 
   List<bool> filterOptionValues = <bool>[];
 
-  // this will create correspond list for each classNodeType
-  void initialize() {
-    for (var e in classNodeType.values) {
-      sortedLists[e] = <ClassContent>[];
-      // not == true here, because value could be null
-      filterOptionValues.add(
-          StoredValues().prefs!.getBool(filterOptionStoreKey[e]!) != false);
-    }
-  }
-
-  static Future<bool> getXmlFiles() async {
-    String? version = StoredValues().prefs!.getString('version');
-    if (version == null || version.length == 0) {
-      version = '3.4';
-      await StoredValues().prefs!.setString('version', version);
-    }
-
+  // we can optimize this by yield when json has loaded,
+  // and return when all xml files are loade.
+  Future<bool> getXmlFiles() async {
     ClassDB _db = ClassDB();
-    if (_db.getDB().length == 0 || _db.version != version) {
-      final file =
-          await rootBundle.loadString('xmls/files_' + version + '.json');
+    if (_db.getDB().length == 0 || _db.version != storedValues.version) {
+      final file = await rootBundle
+          .loadString('xmls/files_' + storedValues.version + '.json');
       final decoded = json.decode(file);
 
       final _decodedList = decoded as List;
@@ -65,7 +52,7 @@ class _ClassSelectState extends State<ClassSelect> {
         return _rtn;
       })).toList();
 
-      ClassDB().loadFromParseJson(_parsedList, version);
+      ClassDB().loadFromParseJson(_parsedList, storedValues.version);
     }
     if (_db.getDB().last.version == null ||
         _db.getDB().last.version?.isEmpty == true) {
@@ -76,7 +63,13 @@ class _ClassSelectState extends State<ClassSelect> {
 
   @override
   void initState() {
-    initialize();
+    // this will create correspond list for each classNodeType
+    for (var e in classNodeType.values) {
+      sortedLists[e] = <ClassContent>[];
+      // not == true here, because value could be null
+      filterOptionValues
+          .add(StoredValues().prefs.getBool(filterOptionStoreKey[e]!) != false);
+    }
     super.initState();
   }
 
@@ -106,7 +99,7 @@ class _ClassSelectState extends State<ClassSelect> {
                   filterOptionValues[index] = v;
                 });
                 _filterBloc.add(FilterOption(e, v));
-                StoredValues().prefs!.setBool(filterOptionStoreKey[e]!, v);
+                StoredValues().prefs.setBool(filterOptionStoreKey[e]!, v);
               }),
         ));
       }
@@ -140,7 +133,7 @@ class _ClassSelectState extends State<ClassSelect> {
         });
   }
 
-  void _sortClasses(List<ClassContent>? list) async {
+  void _fillTypedList(List<ClassContent>? list) {
     for (var e in classNodeType.values) {
       if (sortedLists[e]!.length == 0) {
         sortedLists[e] =
@@ -151,7 +144,7 @@ class _ClassSelectState extends State<ClassSelect> {
 
   List<ClassContent> filterClasses(List<ClassContent>? list) {
     List<ClassContent> _rtnList = [];
-    _sortClasses(list);
+    _fillTypedList(list);
     for (var e in classNodeType.values) {
       if (filterOptionValues[classNodeType.values.indexOf(e)]) {
         _rtnList.addAll(sortedLists[e]!);
@@ -165,8 +158,7 @@ class _ClassSelectState extends State<ClassSelect> {
 
   void setScale(int value) {
     setState(() {
-      StoredValues().prefs!.setInt('gcrFontSize', value);
-      StoredValues().fontSize = value;
+      storedValues.fontSize = value;
     });
   }
 
@@ -177,13 +169,11 @@ class _ClassSelectState extends State<ClassSelect> {
         builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
           if (snapshot.hasData) {
             _classes = ClassDB().getDB();
-            _sortClasses(_classes);
+            // _fillTypedList(_classes);
             return Scaffold(
               drawer: GCRDrawer(setScaleFunc: setScale),
               appBar: AppBar(
-                title: Text("Godot v" +
-                    StoredValues().prefs!.getString('version')! +
-                    " classes"),
+                title: Text("Godot v" + storedValues.version + " classes"),
                 actions: <Widget>[
                   IconButton(
                     tooltip: 'Filter classes shown on the list',

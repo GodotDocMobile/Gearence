@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:godotclassreference/constants/stored_values.dart';
 
 //check godot/editor/icons/SCsub
 
 class SvgIcon extends StatelessWidget {
   final String? svgFileName;
-  final String version;
+  final String version = storedValues.version;
 
-  SvgIcon({required this.svgFileName, Key? key, required this.version})
-      : super(key: key);
+  SvgIcon({required this.svgFileName, Key? key}) : super(key: key);
 
   Widget svgRender(String? data) {
     if (data != null && data.length > 0) {

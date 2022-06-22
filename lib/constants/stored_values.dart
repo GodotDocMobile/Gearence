@@ -1,6 +1,3 @@
-import 'dart:convert';
-
-import 'package:flutter/services.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -9,14 +6,10 @@ import '/bloc/blocs.dart';
 import '/bloc/tap_event_bloc.dart';
 
 class StoredValues {
-  SharedPreferences? prefs;
+  late SharedPreferences prefs;
 
-  // String docDate;
   ThemeChange themeChange = ThemeChange();
-  bool? iconForNonNode;
-  int? fontSize;
 
-  // bool? monoSpaceFont;
   MonospaceFontBloc monospaced = MonospaceFontBloc();
 
   TapEventBloc tapEventBloc = TapEventBloc();
@@ -27,26 +20,41 @@ class StoredValues {
   static final StoredValues _instance = StoredValues._internal();
 
   factory StoredValues() {
-
     return _instance;
   }
 
   StoredValues._internal();
 
-  Future<bool> readValue() async {
-    if (prefs != null) {
-      return true;
-    }
+  String get version =>
+      prefs.getString('version') ?? configContent.branches.last;
 
-    packageInfo = await PackageInfo.fromPlatform();
-    prefs = await SharedPreferences.getInstance();
-    var configString = await rootBundle.loadString('xmls/conf.json');
-    configContent = ConfigContent.fromJson(jsonDecode(configString));
-    themeChange.isDark = prefs!.getBool('darkTheme') == true;
-    iconForNonNode = prefs!.getBool('iconForNonNodes') ?? true;
-    fontSize = prefs!.getInt("gcrFontSize") ?? 0;
-    monospaced.monospaced = prefs!.getBool('monoSpaceFont') ?? false;
-    return true;
+  void set version(String val) {
+    if (!configContent.branches.contains(val)) {
+      val = configContent.branches.last;
+    }
+    prefs.setString('version', val);
+  }
+
+  bool get isDarkTheme => prefs.getBool('darkTheme') ?? false;
+
+  void set isDarkTheme(bool val) {
+    themeChange.switchTheme(val);
+    prefs.setBool('darkTheme', val);
+  }
+
+  int get fontSize => prefs.getInt('gcrFontSize') ?? 0;
+
+  void set fontSize(int val) {
+    prefs.setInt('gcrFontSize', val);
+  }
+
+  bool get isMonospaced {
+    return prefs.getBool('monoSpaceFont') ?? false;
+  }
+
+  void set isMonospaced(bool val) {
+    prefs.setBool('monoSpaceFont', val);
+    monospaced.setMonospaced(val);
   }
 }
 

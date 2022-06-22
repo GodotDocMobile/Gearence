@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../components/svg_icon.dart';
-import '../constants/stored_values.dart';
 import '../models/class_content.dart';
 
 class ClassIcon extends StatelessWidget {
@@ -11,7 +10,6 @@ class ClassIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return SvgIcon(
       svgFileName: classContent!.svgFileName,
-      version: StoredValues().prefs!.getString('version')!,
     );
   }
 }
