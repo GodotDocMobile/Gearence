@@ -203,7 +203,7 @@ class _ClassMethodsState extends State<ClassMethods> {
                           width: 15,
                         ),
                         Container(
-                          width: MediaQuery.of(context).size.width * 0.7,
+                          width: MediaQuery.of(context).size.width * 0.6,
                           child: m.returnValue == null
                               ? Text(
                                   'void',
