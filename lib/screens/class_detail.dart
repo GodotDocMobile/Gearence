@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:godotclassreference/helpers/sematic_helpers.dart';
-
-import '../theme/themes.dart';
-import '../bloc/tap_event_bloc.dart';
-import '../bloc/tap_event_arg.dart';
-import '../constants/class_db.dart';
-import '../constants/stored_values.dart';
-import '../models/class_content.dart';
-
-import '../screens/class_detail/class_constants.dart';
-import '../screens/class_detail/class_enums.dart';
-import '../screens/class_detail/class_info.dart';
-import '../screens/class_detail/class_members.dart';
-import '../screens/class_detail/class_methods.dart';
-import '../screens/class_detail/class_signals.dart';
-import '../screens/class_detail/class_theme_items.dart';
+import 'package:godotclassreference/theme/themes.dart';
+import 'package:godotclassreference/bloc/tap_event_bloc.dart';
+import 'package:godotclassreference/bloc/tap_event_arg.dart';
+import 'package:godotclassreference/constants/class_db.dart';
+import 'package:godotclassreference/constants/stored_values.dart';
+import 'package:godotclassreference/models/class_content.dart';
+import 'package:godotclassreference/screens/class_detail/class_constants.dart';
+import 'package:godotclassreference/screens/class_detail/class_enums.dart';
+import 'package:godotclassreference/screens/class_detail/class_info.dart';
+import 'package:godotclassreference/screens/class_detail/class_members.dart';
+import 'package:godotclassreference/screens/class_detail/class_methods.dart';
+import 'package:godotclassreference/screens/class_detail/class_signals.dart';
+import 'package:godotclassreference/screens/class_detail/class_theme_items.dart';
 
 class ClassDetail extends StatefulWidget {
   final String className;
@@ -66,8 +65,8 @@ class _ClassDetailState extends State<ClassDetail>
 
   void onLinkTap(TapEventArg args) async {
     if (args.className == widget.className) {
-      int _toFocusTabIndex =
-          _tabs.indexWhere((w) => w.title == linkTypeToString(args.linkType));
+      int _toFocusTabIndex = _tabs
+          .indexWhere((w) => w.title == linkTypeToString(args.propertyType));
       tabController!
           .animateTo(_toFocusTabIndex, duration: Duration(milliseconds: 100));
       if (args.fieldName.isEmpty) {
@@ -143,8 +142,8 @@ class _ClassDetailState extends State<ClassDetail>
 
             if (widget.args != null &&
                 widget.args!.className == snapshot.data!.name) {
-              int _tabIndex = _tabs.indexWhere(
-                  (w) => w.title == linkTypeToString(widget.args!.linkType));
+              int _tabIndex = _tabs.indexWhere((w) =>
+                  w.title == linkTypeToString(widget.args!.propertyType));
               if (_tabIndex != -1) {
                 tabController!.animateTo(_tabIndex);
               }

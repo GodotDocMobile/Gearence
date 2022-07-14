@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../theme/themes.dart';
+
+import 'package:godotclassreference/theme/themes.dart';
 
 class InlineCode extends StatelessWidget {
   final String? codeText;

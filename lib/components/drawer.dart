@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '/screens/set_font_size.dart';
-import '/screens/class_select.dart';
-import '/constants/stored_values.dart';
+import 'package:godotclassreference/screens/set_font_size.dart';
+import 'package:godotclassreference/screens/class_select.dart';
+import 'package:godotclassreference/constants/stored_values.dart';
 
 // ignore: must_be_immutable
 class GCRDrawer extends StatefulWidget {

@@ -1,59 +1,67 @@
-enum LinkType { Class, Method, Signal, Enum, Member, Constant, ThemeItem }
+enum PropertyType {
+  Class,
+  Method,
+  Signal,
+  Enum,
+  Member,
+  Constant,
+  ThemeItem,
+}
 
 class TapEventArg {
-  final LinkType? linkType;
+  final PropertyType? propertyType;
   final String className;
   final String fieldName;
 
   TapEventArg(
-      {this.linkType, required this.className, required this.fieldName});
+      {this.propertyType, required this.className, required this.fieldName});
 
   String toString() {
     return 'class:' +
         className +
         ',type:' +
-        linkType.toString() +
+        propertyType.toString() +
         ',field:' +
         fieldName;
   }
 }
 
-String linkTypeToString(LinkType? input) {
+String linkTypeToString(PropertyType? input) {
   switch (input) {
-    case LinkType.Enum:
+    case PropertyType.Enum:
       return 'Enums';
-    case LinkType.Constant:
+    case PropertyType.Constant:
       return 'Constants';
-    case LinkType.Member:
+    case PropertyType.Member:
       return 'Members';
-    case LinkType.Method:
+    case PropertyType.Method:
       return 'Methods';
-    case LinkType.Signal:
+    case PropertyType.Signal:
       return 'Signals';
-    case LinkType.ThemeItem:
+    case PropertyType.ThemeItem:
       return 'Theme Items';
-    case LinkType.Class:
+    case PropertyType.Class:
     default:
       return 'Info';
   }
 }
 
-LinkType? linkTypeFromString(String input) {
+PropertyType? linkTypeFromString(String input) {
   switch (input.trimRight().trimLeft().toLowerCase()) {
     case 'class':
-      return LinkType.Class;
+      return PropertyType.Class;
     case 'method':
-      return LinkType.Method;
+      return PropertyType.Method;
     case 'signal':
-      return LinkType.Signal;
+      return PropertyType.Signal;
     case 'enum':
-      return LinkType.Enum;
+      return PropertyType.Enum;
     case 'member':
-      return LinkType.Member;
+      return PropertyType.Member;
     case 'constant':
-      return LinkType.Constant;
+      return PropertyType.Constant;
     case 'theme items':
-      return LinkType.ThemeItem;
+      return PropertyType.ThemeItem;
     default:
       return null;
   }

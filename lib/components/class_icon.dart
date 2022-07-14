@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../components/svg_icon.dart';
-import '../models/class_content.dart';
+
+import 'package:godotclassreference/components/svg_icon.dart';
+import 'package:godotclassreference/models/class_content.dart';
 
 class ClassIcon extends StatelessWidget {
   final ClassContent? classContent;

@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:godotclassreference/theme/themes.dart';
+import 'package:godotclassreference/screens/class_detail/zero_content_hint.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-import '../../bloc/tap_event_bloc.dart';
-import '../../components/link_text.dart';
-import '../../components/description_text.dart';
-import '../../bloc/tap_event_arg.dart';
-import '../../constants/stored_values.dart';
-import '../../models/class_content.dart';
+import 'package:godotclassreference/theme/themes.dart';
+import 'package:godotclassreference/bloc/tap_event_bloc.dart';
+import 'package:godotclassreference/components/link_text.dart';
+import 'package:godotclassreference/components/description_text.dart';
+import 'package:godotclassreference/bloc/tap_event_arg.dart';
+import 'package:godotclassreference/constants/stored_values.dart';
+import 'package:godotclassreference/models/class_content.dart';
 
 class ClassMembers extends StatefulWidget {
   final ClassContent? clsContent;
@@ -36,7 +37,7 @@ class _ClassMembersState extends State<ClassMembers> {
     _isDarkMode = StoredValues().themeChange.isDark;
     _scrollController = ItemScrollController();
     _itemPositionsListener = ItemPositionsListener.create();
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       if (storedValues.tapEventBloc.state.fieldName.isNotEmpty) {
         try {
           scrollTo(storedValues.tapEventBloc.state);
@@ -48,7 +49,7 @@ class _ClassMembersState extends State<ClassMembers> {
 
   void scrollTo(TapEventArg args) {
     if (widget.clsContent!.name == args.className &&
-        args.linkType == LinkType.Member) {
+        args.propertyType == PropertyType.Member) {
       final _targetIndex = widget.clsContent!.members!
           .indexWhere((w) => w.name == args.fieldName);
       if (_targetIndex != -1) {
@@ -65,9 +66,7 @@ class _ClassMembersState extends State<ClassMembers> {
   Widget build(BuildContext context) {
     if (widget.clsContent!.members == null ||
         widget.clsContent!.members!.length == 0) {
-      return Center(
-        child: Text('0 member in this class'),
-      );
+      return ZeroContentHint(clsContent: widget.clsContent!);
     }
 
     return BlocListener<TapEventBloc, TapEventArg>(
@@ -75,7 +74,7 @@ class _ClassMembersState extends State<ClassMembers> {
       listenWhen: (previous, current) => ModalRoute.of(context)!.isCurrent,
       listener: (context, state) {
         if (state.className == widget.clsContent!.name &&
-            state.linkType == LinkType.Member) {
+            state.propertyType == PropertyType.Member) {
           try {
             scrollTo(storedValues.tapEventBloc.state);
           } catch (_) {}

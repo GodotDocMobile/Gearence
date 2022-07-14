@@ -1,14 +1,15 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:godotclassreference/screens/class_detail/zero_content_hint.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:flutter/material.dart';
 
-import '../../bloc/tap_event_bloc.dart';
-import '../../components/description_text.dart';
-import '../../bloc/tap_event_arg.dart';
-import '../../models/class_content.dart';
-import '../../models/constant.dart';
-import '../../constants/stored_values.dart';
-import '../../theme/themes.dart';
+import 'package:godotclassreference/bloc/tap_event_bloc.dart';
+import 'package:godotclassreference/components/description_text.dart';
+import 'package:godotclassreference/bloc/tap_event_arg.dart';
+import 'package:godotclassreference/models/class_content.dart';
+import 'package:godotclassreference/models/constant.dart';
+import 'package:godotclassreference/constants/stored_values.dart';
+import 'package:godotclassreference/theme/themes.dart';
 
 class ClassEnums extends StatefulWidget {
   final ClassContent clsContent;
@@ -40,7 +41,7 @@ class _ClassEnumsState extends State<ClassEnums> {
         .where((w) => w != null)
         .toList();
 
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       if (storedValues.tapEventBloc.state.fieldName.isNotEmpty) {
         try {
           scrollTo(storedValues.tapEventBloc.state);
@@ -53,7 +54,7 @@ class _ClassEnumsState extends State<ClassEnums> {
 
   void scrollTo(TapEventArg args) {
     if (widget.clsContent.name == args.className &&
-        args.linkType == LinkType.Enum) {
+        args.propertyType == PropertyType.Enum) {
       final _targetIndex =
           _enumValues.indexWhere((w) => w == args.fieldName.split('.').last);
       if (_targetIndex != -1) {
@@ -159,9 +160,7 @@ class _ClassEnumsState extends State<ClassEnums> {
     if (widget.clsContent.constants == null ||
         widget.clsContent.constants!.where((w) => w.enumValue != null).length ==
             0) {
-      return Center(
-        child: Text('0 enum in this class'),
-      );
+      return ZeroContentHint(clsContent: widget.clsContent);
     }
 
     buildEnums();
@@ -171,7 +170,7 @@ class _ClassEnumsState extends State<ClassEnums> {
       listenWhen: (previous, current) => ModalRoute.of(context)!.isCurrent,
       listener: (context, state) {
         if (state.className == widget.clsContent.name &&
-            state.linkType == LinkType.Enum) {
+            state.propertyType == PropertyType.Enum) {
           try {
             scrollTo(storedValues.tapEventBloc.state);
           } catch (_) {}

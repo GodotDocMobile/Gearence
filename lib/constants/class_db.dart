@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:xml/xml.dart';
 
-import '../bloc/xml_load_bloc.dart';
-import '../models/class_content.dart';
+import 'package:godotclassreference/bloc/xml_load_bloc.dart';
+import 'package:godotclassreference/models/class_content.dart';
 
 // refactor this
 class ClassDB {

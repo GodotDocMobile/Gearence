@@ -1,9 +1,9 @@
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import '/models/config_content.dart';
-import '/bloc/blocs.dart';
-import '/bloc/tap_event_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:godotclassreference/models/config_content.dart';
+import 'package:godotclassreference/bloc/blocs.dart';
+import 'package:godotclassreference/bloc/tap_event_bloc.dart';
 
 class StoredValues {
   late SharedPreferences prefs;

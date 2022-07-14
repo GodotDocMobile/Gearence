@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../theme/themes.dart';
-import '../models/class_content.dart';
+import 'package:godotclassreference/theme/themes.dart';
+import 'package:godotclassreference/models/class_content.dart';
 
 class NodeTag extends StatelessWidget {
   final ClassContent? classContent;

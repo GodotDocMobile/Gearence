@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../models/class_content.dart';
+import 'package:godotclassreference/models/class_content.dart';
 
 class FilterOption {
   final classNodeType type;
