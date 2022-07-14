@@ -4,8 +4,8 @@ import 'package:flutter_highlight/flutter_highlight.dart';
 import 'package:flutter_highlight/themes/arduino-light.dart';
 import 'package:flutter_highlight/themes/atom-one-dark.dart';
 
-import '../theme/themes.dart';
-import '../constants/stored_values.dart';
+import 'package:godotclassreference/theme/themes.dart';
+import 'package:godotclassreference/constants/stored_values.dart';
 
 class CodeText extends StatelessWidget {
   final String? codeText;

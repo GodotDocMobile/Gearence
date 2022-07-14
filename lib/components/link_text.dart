@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:godotclassreference/constants/stored_values.dart';
 
-import '../theme/themes.dart';
-import '../bloc/tap_event_arg.dart';
-import '../constants/class_db.dart';
-import '../constants/colors.dart';
+import 'package:godotclassreference/constants/stored_values.dart';
+import 'package:godotclassreference/theme/themes.dart';
+import 'package:godotclassreference/bloc/tap_event_arg.dart';
+import 'package:godotclassreference/constants/class_db.dart';
+import 'package:godotclassreference/constants/colors.dart';
 
 class LinkText extends StatelessWidget {
   final String text;
@@ -31,9 +31,10 @@ class LinkText extends StatelessWidget {
               ),
             ),
             onTap: () {
-              storedValues.tapEventBloc.add(TapEventArg(
-                      className: text,
-                  linkType: LinkType.Class,
+              storedValues.tapEventBloc.add(
+                TapEventArg(
+                  className: text,
+                  propertyType: PropertyType.Class,
                   fieldName: '',
                 ),
               );

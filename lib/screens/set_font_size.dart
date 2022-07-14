@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:godotclassreference/bloc/tap_event_bloc.dart';
 
-import '../constants/stored_values.dart';
-import '../theme/themes.dart';
-import '../bloc/tap_event_arg.dart';
-import '../constants/class_db.dart';
-import '../models/class_content.dart';
+import 'package:godotclassreference/bloc/tap_event_bloc.dart';
+import 'package:godotclassreference/constants/stored_values.dart';
+import 'package:godotclassreference/theme/themes.dart';
+import 'package:godotclassreference/bloc/tap_event_arg.dart';
+import 'package:godotclassreference/constants/class_db.dart';
+import 'package:godotclassreference/models/class_content.dart';
 
 import 'class_detail.dart';
 
