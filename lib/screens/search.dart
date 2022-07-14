@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../bloc/xml_load_bloc.dart';
-import '../bloc/search_bloc.dart';
-import '../bloc/tap_event_arg.dart';
-import '../constants/class_db.dart';
-import '../constants/stored_values.dart';
-import '../models/class_content.dart';
-import '../theme/themes.dart';
+import 'package:godotclassreference/bloc/xml_load_bloc.dart';
+import 'package:godotclassreference/bloc/search_bloc.dart';
+import 'package:godotclassreference/bloc/tap_event_arg.dart';
+import 'package:godotclassreference/constants/class_db.dart';
+import 'package:godotclassreference/constants/stored_values.dart';
+import 'package:godotclassreference/models/class_content.dart';
+import 'package:godotclassreference/theme/themes.dart';
 
 import 'class_detail.dart';
 
@@ -74,25 +74,30 @@ class _SearchScreenState extends State<SearchScreen> {
     List<TapEventArg> _rtn = List<TapEventArg>.from(_argList);
 
     if (!_searchClass) {
-      _rtn.removeWhere((element) => element.linkType == LinkType.Class);
+      _rtn.removeWhere((element) => element.propertyType == PropertyType.Class);
     }
     if (!_searchMethod) {
-      _rtn.removeWhere((element) => element.linkType == LinkType.Method);
+      _rtn.removeWhere(
+          (element) => element.propertyType == PropertyType.Method);
     }
     if (!_searchMember) {
-      _rtn.removeWhere((element) => element.linkType == LinkType.Member);
+      _rtn.removeWhere(
+          (element) => element.propertyType == PropertyType.Member);
     }
     if (!_searchSignal) {
-      _rtn.removeWhere((element) => element.linkType == LinkType.Signal);
+      _rtn.removeWhere(
+          (element) => element.propertyType == PropertyType.Signal);
     }
     if (!_searchConstant) {
-      _rtn.removeWhere((element) => element.linkType == LinkType.Constant);
+      _rtn.removeWhere(
+          (element) => element.propertyType == PropertyType.Constant);
     }
     if (!_searchEnum) {
-      _rtn.removeWhere((element) => element.linkType == LinkType.Enum);
+      _rtn.removeWhere((element) => element.propertyType == PropertyType.Enum);
     }
     if (!_searchThemeItem) {
-      _rtn.removeWhere((element) => element.linkType == LinkType.ThemeItem);
+      _rtn.removeWhere(
+          (element) => element.propertyType == PropertyType.ThemeItem);
     }
 
     return _rtn;
@@ -130,7 +135,9 @@ class _SearchScreenState extends State<SearchScreen> {
     if (_classNameContains) {
       _searchBloc.add(
         TapEventArg(
-            linkType: LinkType.Class, className: _class.name!, fieldName: ''),
+            propertyType: PropertyType.Class,
+            className: _class.name!,
+            fieldName: ''),
       );
     }
 
@@ -142,7 +149,7 @@ class _SearchScreenState extends State<SearchScreen> {
             : element.name!.toLowerCase().contains(_searchingTerm)) {
           _searchBloc.add(
             TapEventArg(
-                linkType: LinkType.Method,
+                propertyType: PropertyType.Method,
                 className: _class.name!,
                 fieldName: element.name!),
           );
@@ -158,7 +165,7 @@ class _SearchScreenState extends State<SearchScreen> {
             : element.name!.toLowerCase().contains(_searchingTerm)) {
           _searchBloc.add(
             TapEventArg(
-                linkType: LinkType.Signal,
+                propertyType: PropertyType.Signal,
                 className: _class.name!,
                 fieldName: element.name!),
           );
@@ -184,7 +191,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
         _searchBloc.add(
           TapEventArg(
-              linkType: LinkType.Enum,
+              propertyType: PropertyType.Enum,
               className: _class.name!,
               // we ill ignore characters after ":", including ":", but we need those to navigate
               fieldName: "$enumName:.${firstValue.name}"),
@@ -200,7 +207,7 @@ class _SearchScreenState extends State<SearchScreen> {
             if (element.enumValue!.length > 0) {
               _searchBloc.add(
                 TapEventArg(
-                    linkType: LinkType.Enum,
+                    propertyType: PropertyType.Enum,
                     className: _class.name!,
                     fieldName: "${element.enumValue}.${element.name}"),
               );
@@ -209,7 +216,7 @@ class _SearchScreenState extends State<SearchScreen> {
             //search constants
             _searchBloc.add(
               TapEventArg(
-                  linkType: LinkType.Constant,
+                  propertyType: PropertyType.Constant,
                   className: _class.name!,
                   fieldName: element.name!),
             );
@@ -226,7 +233,7 @@ class _SearchScreenState extends State<SearchScreen> {
             : element.name!.toLowerCase().contains(_searchingTerm)) {
           _searchBloc.add(
             TapEventArg(
-                linkType: LinkType.Member,
+                propertyType: PropertyType.Member,
                 className: _class.name!,
                 fieldName: element.name!),
           );
@@ -242,7 +249,7 @@ class _SearchScreenState extends State<SearchScreen> {
             : element.name!.toLowerCase().contains(_searchingTerm)) {
           _searchBloc.add(
             TapEventArg(
-                linkType: LinkType.ThemeItem,
+                propertyType: PropertyType.ThemeItem,
                 className: _class.name!,
                 fieldName: element.name!),
           );
@@ -266,13 +273,13 @@ class _SearchScreenState extends State<SearchScreen> {
   int matchedCompare(TapEventArg a, TapEventArg b) {
     String aValue = "";
     String bValue = "";
-    if (a.linkType == LinkType.Class) {
+    if (a.propertyType == PropertyType.Class) {
       aValue = a.className;
     } else {
       aValue = a.fieldName;
     }
 
-    if (b.linkType == LinkType.Class) {
+    if (b.propertyType == PropertyType.Class) {
       bValue = b.className;
     } else {
       bValue = b.fieldName;
@@ -343,7 +350,7 @@ class _SearchScreenState extends State<SearchScreen> {
     _filteredList.sort(matchedCompare);
 
     List<Widget> _toRtnList = _filteredList.map((e) {
-      if (e.linkType == LinkType.Class) {
+      if (e.propertyType == PropertyType.Class) {
         return ListTile(
           title: Semantics(
             onTapHint: 'Navigate to this item',
@@ -352,7 +359,7 @@ class _SearchScreenState extends State<SearchScreen> {
               child: Row(
                 children: [
                   Text(
-                    e.linkType.toString().substring(9) + ": ",
+                    e.propertyType.toString().substring(9) + ": ",
                     style: TextStyle(
                         color: storedValues.themeChange.isDark
                             ? Colors.white60
@@ -384,7 +391,7 @@ class _SearchScreenState extends State<SearchScreen> {
           textScaleFactor: 1.1,
           text: TextSpan(children: [
             TextSpan(
-              text: e.linkType.toString().substring(9) + ": ",
+              text: e.propertyType.toString().substring(9) + ": ",
               style: TextStyle(
                   color: storedValues.themeChange.isDark
                       ? Colors.white60

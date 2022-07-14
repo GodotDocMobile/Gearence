@@ -1,15 +1,15 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:godotclassreference/helpers/sematic_helpers.dart';
 
-import '/theme/themes.dart';
-import '/components/code_text.dart';
-// import '/components/inline_code.dart';
-import '/constants/class_db.dart';
-import '/constants/colors.dart';
-import '/constants/stored_values.dart';
-import '/bloc/tap_event_arg.dart';
+import 'package:godotclassreference/helpers/sematic_helpers.dart';
+import 'package:godotclassreference/theme/themes.dart';
+import 'package:godotclassreference/components/code_text.dart';
+// import 'package:godotclassreference/components/inline_code.dart';
+import 'package:godotclassreference/constants/class_db.dart';
+import 'package:godotclassreference/constants/colors.dart';
+import 'package:godotclassreference/constants/stored_values.dart';
+import 'package:godotclassreference/bloc/tap_event_arg.dart';
 
 //logic check godot/editor/editor_help.cpp _add_text_to_rt
 
@@ -160,7 +160,7 @@ class DescriptionText extends StatelessWidget {
                 ),
                 onTap: () {
                   TapEventArg args = TapEventArg(
-                      linkType: linkTypeFromString(tag.split(' ').first),
+                      propertyType: linkTypeFromString(tag.split(' ').first),
                       className: linkTarget.contains('.')
                           ? linkTarget.split('.').first
                           : className,
@@ -192,7 +192,7 @@ class DescriptionText extends StatelessWidget {
                 ),
                 onTap: () {
                   TapEventArg args = TapEventArg(
-                    linkType: LinkType.Class,
+                    propertyType: PropertyType.Class,
                     className: tag,
                     fieldName: '',
                   );

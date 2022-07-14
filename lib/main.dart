@@ -3,16 +3,16 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:godotclassreference/models/config_content.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
 
-import '/bloc/blocs.dart';
-import '/constants/stored_values.dart';
-import '/theme/themes.dart';
-import '/screens/class_select.dart';
+import 'package:godotclassreference/models/config_content.dart';
+import 'package:godotclassreference/bloc/blocs.dart';
+import 'package:godotclassreference/constants/stored_values.dart';
+import 'package:godotclassreference/theme/themes.dart';
+import 'package:godotclassreference/screens/class_select.dart';
 
 Future<void> main() async {
   if (Platform.isLinux || Platform.isMacOS || Platform.isWindows) {

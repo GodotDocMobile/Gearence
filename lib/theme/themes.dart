@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../constants/colors.dart';
-import '../constants/stored_values.dart';
-import '../bloc/blocs.dart';
+import 'package:godotclassreference/constants/colors.dart';
+import 'package:godotclassreference/constants/stored_values.dart';
+import 'package:godotclassreference/bloc/blocs.dart';
 
 ThemeData darkTheme = ThemeData(
   primarySwatch: godotColor as MaterialColor?,

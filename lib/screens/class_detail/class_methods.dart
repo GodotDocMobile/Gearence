@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:godotclassreference/theme/themes.dart';
+import 'package:godotclassreference/screens/class_detail/zero_content_hint.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-import '../../bloc/tap_event_bloc.dart';
-import '../../components/link_text.dart';
-import '../../components/description_text.dart';
-import '../../bloc/tap_event_arg.dart';
-import '../../constants/stored_values.dart';
-import '../../models/class_content.dart';
-import '../../models/method.dart';
+import 'package:godotclassreference/theme/themes.dart';
+import 'package:godotclassreference/bloc/tap_event_bloc.dart';
+import 'package:godotclassreference/components/link_text.dart';
+import 'package:godotclassreference/components/description_text.dart';
+import 'package:godotclassreference/bloc/tap_event_arg.dart';
+import 'package:godotclassreference/constants/stored_values.dart';
+import 'package:godotclassreference/models/class_content.dart';
+import 'package:godotclassreference/models/method.dart';
 
 class ClassMethods extends StatefulWidget {
   final ClassContent? clsContent;
@@ -34,7 +35,7 @@ class _ClassMethodsState extends State<ClassMethods> {
     super.initState();
     _scrollController = ItemScrollController();
     _itemPositionsListener = ItemPositionsListener.create();
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       if (storedValues.tapEventBloc.state.fieldName.isNotEmpty) {
         try {
           scrollTo(storedValues.tapEventBloc.state);
@@ -46,7 +47,7 @@ class _ClassMethodsState extends State<ClassMethods> {
 
   void scrollTo(TapEventArg args) {
     if (widget.clsContent!.name == args.className &&
-        args.linkType == LinkType.Method) {
+        args.propertyType == PropertyType.Method) {
       final _targetIndex = widget.clsContent!.methods!
           .indexWhere((w) => w.name == args.fieldName);
       if (_targetIndex != -1) {
@@ -154,9 +155,7 @@ class _ClassMethodsState extends State<ClassMethods> {
   Widget build(BuildContext context) {
     if (widget.clsContent!.methods == null ||
         widget.clsContent!.methods!.length == 0) {
-      return Center(
-        child: Text('0 method in this class'),
-      );
+      return ZeroContentHint(clsContent: widget.clsContent!);
     }
 
     return BlocListener<TapEventBloc, TapEventArg>(
@@ -164,7 +163,7 @@ class _ClassMethodsState extends State<ClassMethods> {
       listenWhen: (previous, current) => ModalRoute.of(context)!.isCurrent,
       listener: (context, state) {
         if (state.className == widget.clsContent!.name &&
-            state.linkType == LinkType.Method) {
+            state.propertyType == PropertyType.Method) {
           try {
             scrollTo(storedValues.tapEventBloc.state);
           } catch (_) {}
