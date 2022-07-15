@@ -1,12 +1,18 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ThemeChange with ChangeNotifier {
-  late bool isDark;
+class ThemeChangeBloc extends Cubit<bool> {
+  ThemeChangeBloc(bool initialState) : super(initialState);
 
-  ThemeChange();
-
-  void switchTheme(bool value) {
-    isDark = value;
-    notifyListeners();
-  }
+  void add(bool value) => emit(value);
 }
+
+// class ThemeChange with ChangeNotifier {
+//   late bool isDark;
+
+//   ThemeChange();
+
+//   void switchTheme(bool value) {
+//     isDark = value;
+//     notifyListeners();
+//   }
+// }

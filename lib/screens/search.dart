@@ -61,7 +61,7 @@ class _SearchScreenState extends State<SearchScreen> {
       }
     });
 
-    _isDarkTheme = StoredValues().themeChange.isDark;
+    _isDarkTheme = storedValues.isDarkTheme;
   }
 
   @override
@@ -361,7 +361,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   Text(
                     e.propertyType.toString().substring(9) + ": ",
                     style: TextStyle(
-                        color: storedValues.themeChange.isDark
+                        color: storedValues.isDarkTheme
                             ? Colors.white60
                             : Colors.black54),
                   ),
@@ -393,7 +393,7 @@ class _SearchScreenState extends State<SearchScreen> {
             TextSpan(
               text: e.propertyType.toString().substring(9) + ": ",
               style: TextStyle(
-                  color: storedValues.themeChange.isDark
+                  color: storedValues.isDarkTheme
                       ? Colors.white60
                       : Colors.black54),
             ),
@@ -405,7 +405,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       : e.fieldName.indexOf(":")),
               style: monoOptionalStyle(context,
                   baseStyle: TextStyle(
-                      color: storedValues.themeChange.isDark
+                      color: storedValues.isDarkTheme
                           ? Colors.white
                           : Colors.black)),
             )
@@ -418,9 +418,8 @@ class _SearchScreenState extends State<SearchScreen> {
               TextSpan(text: e.className, style: monoOptionalStyle(context))
             ],
             style: TextStyle(
-                color: storedValues.themeChange.isDark
-                    ? Colors.white38
-                    : Colors.black38),
+                color:
+                    storedValues.isDarkTheme ? Colors.white38 : Colors.black38),
           ),
         ),
         onTap: () {
