@@ -160,7 +160,10 @@ class _ClassEnumsState extends State<ClassEnums> {
     if (widget.clsContent.constants == null ||
         widget.clsContent.constants!.where((w) => w.enumValue != null).length ==
             0) {
-      return ZeroContentHint(clsContent: widget.clsContent);
+      return ZeroContentHint(
+        clsContent: widget.clsContent,
+        propertyType: PropertyType.Enum,
+      );
     }
 
     buildEnums();
