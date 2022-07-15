@@ -203,8 +203,7 @@ class _ClassSelectState extends State<ClassSelect> {
           }
 
           return Container(
-            color:
-                StoredValues().themeChange.isDark ? Colors.black : Colors.white,
+            color: storedValues.isDarkTheme ? Colors.black : Colors.white,
             child: Center(
               child: CircularProgressIndicator(),
             ),

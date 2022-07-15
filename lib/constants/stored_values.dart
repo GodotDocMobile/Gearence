@@ -2,17 +2,9 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:godotclassreference/models/config_content.dart';
-import 'package:godotclassreference/bloc/blocs.dart';
-import 'package:godotclassreference/bloc/tap_event_bloc.dart';
 
 class StoredValues {
   late SharedPreferences prefs;
-
-  ThemeChange themeChange = ThemeChange();
-
-  MonospaceFontBloc monospaced = MonospaceFontBloc();
-
-  TapEventBloc tapEventBloc = TapEventBloc();
 
   late ConfigContent configContent;
   late PackageInfo packageInfo;
@@ -38,7 +30,6 @@ class StoredValues {
   bool get isDarkTheme => prefs.getBool('darkTheme') ?? false;
 
   void set isDarkTheme(bool val) {
-    themeChange.switchTheme(val);
     prefs.setBool('darkTheme', val);
   }
 
@@ -54,7 +45,6 @@ class StoredValues {
 
   void set isMonospaced(bool val) {
     prefs.setBool('monoSpaceFont', val);
-    monospaced.setMonospaced(val);
   }
 }
 

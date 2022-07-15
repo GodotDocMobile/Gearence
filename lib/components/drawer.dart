@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:godotclassreference/screens/set_font_size.dart';
 import 'package:godotclassreference/screens/class_select.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
+import 'package:godotclassreference/bloc/blocs.dart';
 
 // ignore: must_be_immutable
 class GCRDrawer extends StatefulWidget {
@@ -20,30 +21,15 @@ class GCRDrawer extends StatefulWidget {
 class GCRDrawerState extends State<GCRDrawer> {
   String? docDate = storedValues.configContent.updateDate;
 
-  OverlayState? overlayState;
-  OverlayEntry? overlayEntry;
-
-  Color? overlayBackground;
-
-  @override
-  initState() {
-    super.initState();
-    StoredValues().themeChange.addListener(() async {
-      if (overlayEntry != null) {
-        await Future.delayed(Duration(milliseconds: 500));
-        overlayEntry!.remove();
-        overlayEntry = null;
-      }
-    });
-  }
-
   void showLoading(BuildContext context, bool isDark) {
     Color tmp =
         isDark ? ThemeData.dark().cardColor : ThemeData.light().cardColor;
-    overlayBackground = Color.fromARGB(0x99, tmp.red, tmp.green, tmp.green);
 
-    overlayState = Overlay.of(context);
-    overlayEntry = OverlayEntry(builder: (context) {
+    final Color overlayBackground =
+        Color.fromARGB(0x99, tmp.red, tmp.green, tmp.green);
+
+    final OverlayState? overlayState = Overlay.of(context);
+    OverlayEntry? overlayEntry = OverlayEntry(builder: (context) {
       return Container(
         color: overlayBackground,
         child: Center(
@@ -67,7 +53,11 @@ class GCRDrawerState extends State<GCRDrawer> {
         ),
       );
     });
-    overlayState!.insert(overlayEntry!);
+    overlayState!.insert(overlayEntry);
+    Future.delayed(Duration(milliseconds: 500)).then((value) {
+      overlayEntry!.remove();
+      overlayEntry = null;
+    });
   }
 
   Future<void> showAboutDialog() {
@@ -162,14 +152,15 @@ class GCRDrawerState extends State<GCRDrawer> {
             child: ListTile(
               leading: Icon(Icons.brightness_6),
               title: Text('Dark Theme'),
-              trailing: Switch(
-                value: storedValues.isDarkTheme,
-                onChanged: (v) {
-                  showLoading(context, v);
-                  setState(() {
-                    storedValues.isDarkTheme = v;
-                  });
-                },
+              trailing: Tooltip(
+                message: 'dark theme',
+                child: Switch(
+                  value: storedValues.isDarkTheme,
+                  onChanged: (v) {
+                    showLoading(context, v);
+                    blocs.themeChangeBloc.add(v);
+                  },
+                ),
               ),
             ),
           ),
@@ -192,9 +183,10 @@ class GCRDrawerState extends State<GCRDrawer> {
               trailing: Switch(
                 value: storedValues.isMonospaced,
                 onChanged: (v) {
-                  setState(() {
-                    storedValues.isMonospaced = v;
-                  });
+                  blocs.monospaceFontBloc.add(v);
+                  // setState(() {
+                  //   storedValues.isMonospaced = v;
+                  // });
                 },
               ),
             ),

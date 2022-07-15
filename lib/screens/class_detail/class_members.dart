@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:godotclassreference/screens/class_detail/zero_content_hint.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import 'package:godotclassreference/theme/themes.dart';
-import 'package:godotclassreference/bloc/tap_event_bloc.dart';
 import 'package:godotclassreference/components/link_text.dart';
 import 'package:godotclassreference/components/description_text.dart';
-import 'package:godotclassreference/bloc/tap_event_arg.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:godotclassreference/models/class_content.dart';
+import 'package:godotclassreference/bloc/blocs.dart';
+import 'package:godotclassreference/components/zero_content_hint.dart';
 
 class ClassMembers extends StatefulWidget {
   final ClassContent? clsContent;
@@ -27,22 +26,21 @@ class _ClassMembersState extends State<ClassMembers> {
   ItemScrollController? _scrollController;
   ItemPositionsListener? _itemPositionsListener;
 
-  late bool _isDarkMode;
+  bool _isDarkMode = storedValues.isDarkTheme;
 
   double propertyIndent = 50;
 
   @override
   void initState() {
     super.initState();
-    _isDarkMode = StoredValues().themeChange.isDark;
     _scrollController = ItemScrollController();
     _itemPositionsListener = ItemPositionsListener.create();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (storedValues.tapEventBloc.state.fieldName.isNotEmpty) {
+      if (blocs.tapEventBloc.state.fieldName.isNotEmpty) {
         try {
-          scrollTo(storedValues.tapEventBloc.state);
+          scrollTo(blocs.tapEventBloc.state);
         } catch (_) {}
-        storedValues.tapEventBloc.reached();
+        blocs.tapEventBloc.reached();
       }
     });
   }
@@ -73,15 +71,15 @@ class _ClassMembersState extends State<ClassMembers> {
     }
 
     return BlocListener<TapEventBloc, TapEventArg>(
-      bloc: storedValues.tapEventBloc,
+      bloc: blocs.tapEventBloc,
       listenWhen: (previous, current) => ModalRoute.of(context)!.isCurrent,
       listener: (context, state) {
         if (state.className == widget.clsContent!.name &&
             state.propertyType == PropertyType.Member) {
           try {
-            scrollTo(storedValues.tapEventBloc.state);
+            scrollTo(blocs.tapEventBloc.state);
           } catch (_) {}
-          storedValues.tapEventBloc.reached();
+          blocs.tapEventBloc.reached();
         }
       },
       child: ScrollablePositionedList.builder(

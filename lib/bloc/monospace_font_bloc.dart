@@ -1,12 +1,18 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class MonospaceFontBloc with ChangeNotifier {
-  late bool monospaced;
+class MonospaceFontBloc extends Cubit<bool> {
+  MonospaceFontBloc(bool initialState) : super(initialState);
 
-  MonospaceFontBloc();
-
-  void setMonospaced(bool value) {
-    monospaced = value;
-    notifyListeners();
-  }
+  void add(bool value) => emit(value);
 }
+
+// class MonospaceFontBloc with ChangeNotifier {
+//   late bool monospaced;
+
+//   MonospaceFontBloc();
+
+//   void setMonospaced(bool value) {
+//     monospaced = value;
+//     notifyListeners();
+//   }
+// }

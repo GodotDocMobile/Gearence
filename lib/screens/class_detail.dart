@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:godotclassreference/bloc/blocs.dart';
 
 import 'package:godotclassreference/helpers/sematic_helpers.dart';
 import 'package:godotclassreference/theme/themes.dart';
@@ -33,7 +34,7 @@ class _ClassDetailState extends State<ClassDetail>
   Future<ClassContent>? _classContent;
   late List<ClassTab> _tabs;
 
-  TapEventBloc _bloc = storedValues.tapEventBloc;
+  // TapEventBloc _bloc = blocs.tapEventBloc;
 
   String className = '';
 
@@ -42,12 +43,12 @@ class _ClassDetailState extends State<ClassDetail>
     super.initState();
     className = widget.className;
     _classContent = getClassDetail();
-    if (storedValues.tapEventBloc.state.className.isNotEmpty &&
-        storedValues.tapEventBloc.state.fieldName.isEmpty) {
-      _bloc.reached();
+    if (blocs.tapEventBloc.state.className.isNotEmpty &&
+        blocs.tapEventBloc.state.fieldName.isEmpty) {
+      blocs.tapEventBloc.reached();
     }
     if (widget.args != null) {
-      storedValues.tapEventBloc.add(widget.args!);
+      blocs.tapEventBloc.add(widget.args!);
     }
   }
 
@@ -70,7 +71,7 @@ class _ClassDetailState extends State<ClassDetail>
       tabController!
           .animateTo(_toFocusTabIndex, duration: Duration(milliseconds: 100));
       if (args.fieldName.isEmpty) {
-        _bloc.reached();
+        blocs.tapEventBloc.reached();
       }
     } else {
       Navigator.push(
@@ -107,7 +108,7 @@ class _ClassDetailState extends State<ClassDetail>
   @override
   Widget build(BuildContext context) {
     return BlocListener<TapEventBloc, TapEventArg>(
-      bloc: storedValues.tapEventBloc,
+      bloc: blocs.tapEventBloc,
       listenWhen: (previous, current) =>
           current.className.isNotEmpty && ModalRoute.of(context)!.isCurrent,
       listener: (context, state) {
@@ -157,7 +158,7 @@ class _ClassDetailState extends State<ClassDetail>
                       label: getSpacedClassName(widget.className),
                       child: ExcludeSemantics(child: Text(widget.className))),
                   bottom: TabBar(
-                    indicatorColor: StoredValues().themeChange.isDark
+                    indicatorColor: storedValues.isDarkTheme
                         ? Theme.of(context).colorScheme.secondary
                         : Colors.white,
                     controller: tabController,
@@ -186,8 +187,7 @@ class _ClassDetailState extends State<ClassDetail>
             );
           }
           return Container(
-            color:
-                StoredValues().themeChange.isDark ? Colors.black : Colors.white,
+            color: storedValues.isDarkTheme ? Colors.black : Colors.white,
             child: Center(
               child: CircularProgressIndicator(),
             ),

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import 'package:godotclassreference/constants/colors.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
-import 'package:godotclassreference/bloc/blocs.dart';
 
 ThemeData darkTheme = ThemeData(
   primarySwatch: godotColor as MaterialColor?,
@@ -37,10 +35,7 @@ MediaQueryData nonScaledMediaQueryData(BuildContext context) {
 }
 
 TextStyle? monoOptionalStyle(BuildContext context, {TextStyle? baseStyle}) {
-  if (Provider.of<MonospaceFontBloc?>(context)?.monospaced ==
-              true || // this is for main screen
-          storedValues.isMonospaced // this is for class detail screen
-      ) {
+  if (storedValues.isMonospaced) {
     if (baseStyle != null) {
       return baseStyle.copyWith(fontFamily: 'JetbrainsMono');
     }

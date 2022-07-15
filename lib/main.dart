@@ -3,8 +3,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -32,15 +32,39 @@ Future<void> main() async {
   runApp(GCRApp());
 }
 
-class GCRApp extends StatelessWidget {
+class GCRApp extends StatefulWidget {
+  @override
+  State<GCRApp> createState() => _GCRAppState();
+}
+
+class _GCRAppState extends State<GCRApp> {
   Future<bool> readValue() async {
     storedValues.prefs = await SharedPreferences.getInstance();
     storedValues.configContent = ConfigContent.fromJson(
         jsonDecode(await rootBundle.loadString('xmls/conf.json')));
     storedValues.packageInfo = await PackageInfo.fromPlatform();
-    storedValues.themeChange.isDark = storedValues.isDarkTheme;
-    storedValues.monospaced.monospaced = storedValues.isMonospaced;
+
     return true;
+  }
+
+  Widget _buildBlocProvider(MaterialApp child) {
+    return MultiBlocListener(listeners: [
+      BlocListener<MonospaceFontBloc, bool>(
+        bloc: blocs.monospaceFontBloc,
+        listener: (context, state) {
+          setState(() {
+            storedValues.isMonospaced = state;
+          });
+        },
+      ),
+      BlocListener<ThemeChangeBloc, bool>(
+          bloc: blocs.themeChangeBloc,
+          listener: (context, state) {
+            setState(() {
+              storedValues.isDarkTheme = state;
+            });
+          })
+    ], child: child);
   }
 
   @override
@@ -49,30 +73,15 @@ class GCRApp extends StatelessWidget {
       future: readValue(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
-          return ChangeNotifierProvider<ThemeChange>(
-            create: (context) {
-              return StoredValues().themeChange;
-            },
-            builder: (context, widget) {
-              return MaterialApp(
-                //hide debug banner
-                debugShowCheckedModeBanner: false,
-                theme: lightTheme,
-                darkTheme: darkTheme,
-                themeMode: Provider.of<ThemeChange>(context).isDark
-                    ? ThemeMode.dark
-                    : ThemeMode.light,
-                home: ChangeNotifierProvider<MonospaceFontBloc>(
-                  create: (context) {
-                    return storedValues.monospaced;
-                  },
-                  builder: (context, widget) {
-                    return ClassSelect();
-                  },
-                ),
-              );
-            },
-          );
+          return _buildBlocProvider(MaterialApp(
+            //hide debug banner
+            debugShowCheckedModeBanner: false,
+            theme: lightTheme,
+            darkTheme: darkTheme,
+            themeMode:
+                storedValues.isDarkTheme ? ThemeMode.dark : ThemeMode.light,
+            home: ClassSelect(),
+          ));
         } else {
           return Container(
             color: Colors.black,

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:godotclassreference/bloc/blocs.dart';
 
 import 'package:godotclassreference/bloc/tap_event_bloc.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
@@ -85,9 +86,9 @@ class _SetFontSizeState extends State<SetFontSize>
       listenWhen: (previous, current) {
         return current.className.isNotEmpty;
       },
-      bloc: storedValues.tapEventBloc,
+      bloc: blocs.tapEventBloc,
       listener: (context, state) {
-        storedValues.tapEventBloc.reached();
+        blocs.tapEventBloc.reached();
       },
       child: MediaQuery(
         data: scaledMediaQueryData(context),
@@ -95,7 +96,7 @@ class _SetFontSizeState extends State<SetFontSize>
           appBar: AppBar(
             title: Text("DummyClass"),
             bottom: TabBar(
-              indicatorColor: StoredValues().themeChange.isDark
+              indicatorColor: storedValues.isDarkTheme
                   ? Theme.of(context).colorScheme.secondary
                   : Colors.white,
               controller: tabController,

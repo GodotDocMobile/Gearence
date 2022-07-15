@@ -1,15 +1,13 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:godotclassreference/screens/class_detail/zero_content_hint.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:flutter/material.dart';
 
-import 'package:godotclassreference/bloc/tap_event_bloc.dart';
 import 'package:godotclassreference/components/description_text.dart';
-import 'package:godotclassreference/bloc/tap_event_arg.dart';
 import 'package:godotclassreference/models/class_content.dart';
 import 'package:godotclassreference/models/constant.dart';
-import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:godotclassreference/theme/themes.dart';
+import 'package:godotclassreference/bloc/blocs.dart';
+import 'package:godotclassreference/components/zero_content_hint.dart';
 
 class ClassEnums extends StatefulWidget {
   final ClassContent clsContent;
@@ -42,11 +40,11 @@ class _ClassEnumsState extends State<ClassEnums> {
         .toList();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (storedValues.tapEventBloc.state.fieldName.isNotEmpty) {
+      if (blocs.tapEventBloc.state.fieldName.isNotEmpty) {
         try {
-          scrollTo(storedValues.tapEventBloc.state);
+          scrollTo(blocs.tapEventBloc.state);
         } catch (_) {}
-        storedValues.tapEventBloc.reached();
+        blocs.tapEventBloc.reached();
       }
     });
     super.initState();
@@ -169,15 +167,15 @@ class _ClassEnumsState extends State<ClassEnums> {
     buildEnums();
 
     return BlocListener<TapEventBloc, TapEventArg>(
-      bloc: storedValues.tapEventBloc,
+      bloc: blocs.tapEventBloc,
       listenWhen: (previous, current) => ModalRoute.of(context)!.isCurrent,
       listener: (context, state) {
         if (state.className == widget.clsContent.name &&
             state.propertyType == PropertyType.Enum) {
           try {
-            scrollTo(storedValues.tapEventBloc.state);
+            scrollTo(blocs.tapEventBloc.state);
           } catch (_) {}
-          storedValues.tapEventBloc.reached();
+          blocs.tapEventBloc.reached();
         }
       },
       child: ScrollablePositionedList.builder(
