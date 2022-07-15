@@ -76,7 +76,10 @@ class _ClassConstantsState extends State<ClassConstants> {
       //       '\n, maybe check parent class: [${widget.clsContent!.inherits}]';
       // }
       // final displayText = '0 constant in this class, maybe check ${widget.clsContent.inherits!}'
-      return ZeroContentHint(clsContent: widget.clsContent!);
+      return ZeroContentHint(
+        clsContent: widget.clsContent!,
+        propertyType: PropertyType.Constant,
+      );
     }
 
     return BlocListener<TapEventBloc, TapEventArg>(

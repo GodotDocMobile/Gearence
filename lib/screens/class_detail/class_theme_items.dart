@@ -60,7 +60,10 @@ class _ClassThemeItemsState extends State<ClassThemeItems> {
   Widget build(BuildContext context) {
     if (widget.clsContent!.themeItems == null ||
         widget.clsContent!.themeItems!.length == 0) {
-      return ZeroContentHint(clsContent: widget.clsContent!);
+      return ZeroContentHint(
+        clsContent: widget.clsContent!,
+        propertyType: PropertyType.ThemeItem,
+      );
     }
 
     return BlocListener<TapEventBloc, TapEventArg>(

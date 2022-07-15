@@ -66,7 +66,10 @@ class _ClassMembersState extends State<ClassMembers> {
   Widget build(BuildContext context) {
     if (widget.clsContent!.members == null ||
         widget.clsContent!.members!.length == 0) {
-      return ZeroContentHint(clsContent: widget.clsContent!);
+      return ZeroContentHint(
+        clsContent: widget.clsContent!,
+        propertyType: PropertyType.Member,
+      );
     }
 
     return BlocListener<TapEventBloc, TapEventArg>(
