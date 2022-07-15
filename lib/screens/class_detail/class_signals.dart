@@ -64,7 +64,10 @@ class _ClassSignalsState extends State<ClassSignals> {
   Widget build(BuildContext context) {
     if (widget.clsContent!.signals == null ||
         widget.clsContent!.signals!.length == 0) {
-      return ZeroContentHint(clsContent: widget.clsContent!);
+      return ZeroContentHint(
+        clsContent: widget.clsContent!,
+        propertyType: PropertyType.Signal,
+      );
     }
 
     return BlocListener<TapEventBloc, TapEventArg>(

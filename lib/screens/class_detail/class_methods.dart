@@ -155,7 +155,10 @@ class _ClassMethodsState extends State<ClassMethods> {
   Widget build(BuildContext context) {
     if (widget.clsContent!.methods == null ||
         widget.clsContent!.methods!.length == 0) {
-      return ZeroContentHint(clsContent: widget.clsContent!);
+      return ZeroContentHint(
+        clsContent: widget.clsContent!,
+        propertyType: PropertyType.Method,
+      );
     }
 
     return BlocListener<TapEventBloc, TapEventArg>(

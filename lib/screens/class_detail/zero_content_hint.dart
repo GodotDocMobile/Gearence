@@ -7,15 +7,18 @@ import 'package:godotclassreference/theme/themes.dart';
 
 class ZeroContentHint extends StatelessWidget {
   final ClassContent clsContent;
+  final PropertyType propertyType;
 
-  const ZeroContentHint({Key? key, required this.clsContent}) : super(key: key);
+  const ZeroContentHint(
+      {Key? key, required this.clsContent, required this.propertyType})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("0 constant in this class"),
+        Text("0 ${propertyType.name.toLowerCase()} in this class"),
         if (clsContent.inherits != null && clsContent.inherits!.isNotEmpty)
           RichText(
               text: TextSpan(
