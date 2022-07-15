@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:godotclassreference/constants/colors.dart';
-import 'package:godotclassreference/screens/class_detail/zero_content_hint.dart';
+import 'package:godotclassreference/components/zero_content_hint.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-import 'package:godotclassreference/bloc/tap_event_bloc.dart';
 import 'package:godotclassreference/theme/themes.dart';
-import 'package:godotclassreference/bloc/tap_event_arg.dart';
 import 'package:godotclassreference/components/description_text.dart';
-import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:godotclassreference/models/class_content.dart';
 import 'package:godotclassreference/models/constant.dart';
+import 'package:godotclassreference/bloc/blocs.dart';
 
 class ClassConstants extends StatefulWidget {
   final ClassContent? clsContent;
@@ -38,11 +35,11 @@ class _ClassConstantsState extends State<ClassConstants> {
         .where((w) => w.enumValue == null)
         .toList();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (storedValues.tapEventBloc.state.fieldName.isNotEmpty) {
+      if (blocs.tapEventBloc.state.fieldName.isNotEmpty) {
         try {
-          scrollTo(storedValues.tapEventBloc.state);
+          scrollTo(blocs.tapEventBloc.state);
         } catch (_) {}
-        storedValues.tapEventBloc.reached();
+        blocs.tapEventBloc.reached();
       }
     });
   }
@@ -69,13 +66,6 @@ class _ClassConstantsState extends State<ClassConstants> {
                 .where((w) => w.enumValue == null)
                 .length ==
             0) {
-      // String displayText = '0 constant in this class';
-      // if (widget.clsContent!.inherits != null &&
-      //     widget.clsContent!.inherits!.isNotEmpty) {
-      //   displayText +=
-      //       '\n, maybe check parent class: [${widget.clsContent!.inherits}]';
-      // }
-      // final displayText = '0 constant in this class, maybe check ${widget.clsContent.inherits!}'
       return ZeroContentHint(
         clsContent: widget.clsContent!,
         propertyType: PropertyType.Constant,
@@ -83,15 +73,15 @@ class _ClassConstantsState extends State<ClassConstants> {
     }
 
     return BlocListener<TapEventBloc, TapEventArg>(
-      bloc: storedValues.tapEventBloc,
+      bloc: blocs.tapEventBloc,
       listenWhen: (previous, current) => ModalRoute.of(context)!.isCurrent,
       listener: (context, state) {
         if (state.className == widget.clsContent!.name &&
             state.propertyType == PropertyType.Constant) {
           try {
-            scrollTo(storedValues.tapEventBloc.state);
+            scrollTo(blocs.tapEventBloc.state);
           } catch (_) {}
-          storedValues.tapEventBloc.reached();
+          blocs.tapEventBloc.reached();
         }
       },
       child: ScrollablePositionedList.builder(

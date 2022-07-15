@@ -31,9 +31,8 @@ class CodeText extends StatelessWidget {
             language: 'gdscript',
             textStyle:
                 scaledTextStyle(context).copyWith(fontFamily: 'JetbrainsMono'),
-            theme: StoredValues().themeChange.isDark
-                ? atomOneDarkTheme
-                : arduinoLightTheme,
+            theme:
+                storedValues.isDarkTheme ? atomOneDarkTheme : arduinoLightTheme,
             padding: EdgeInsets.all(10),
           ),
         ),

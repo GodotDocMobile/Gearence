@@ -2,14 +2,12 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
+import 'package:godotclassreference/bloc/blocs.dart';
 import 'package:godotclassreference/helpers/sematic_helpers.dart';
 import 'package:godotclassreference/theme/themes.dart';
 import 'package:godotclassreference/components/code_text.dart';
-// import 'package:godotclassreference/components/inline_code.dart';
 import 'package:godotclassreference/constants/class_db.dart';
 import 'package:godotclassreference/constants/colors.dart';
-import 'package:godotclassreference/constants/stored_values.dart';
-import 'package:godotclassreference/bloc/tap_event_arg.dart';
 
 //logic check godot/editor/editor_help.cpp _add_text_to_rt
 
@@ -168,7 +166,7 @@ class DescriptionText extends StatelessWidget {
                           ? linkTarget.split('.').last
                           : linkTarget);
                   // this.onLinkTap(args);
-                  storedValues.tapEventBloc.add(args);
+                  blocs.tapEventBloc.add(args);
                 },
               ),
             ),
@@ -197,7 +195,7 @@ class DescriptionText extends StatelessWidget {
                     fieldName: '',
                   );
                   // this.onLinkTap(args);
-                  storedValues.tapEventBloc.add(args);
+                  blocs.tapEventBloc.add(args);
                 }),
           ),
         ));
