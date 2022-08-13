@@ -6,11 +6,10 @@ import '../lib/main.dart' as app;
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
+  bool beforeRestartIsDarkTheme = false;
   group('end-to-end test', () {
-    bool beforeRestartIsDarkTheme = false;
-
     testWidgets('test various setting options', (tester) async {
-      app.main();
+      await app.main();
 
       await tester.pumpAndSettle();
 
@@ -29,11 +28,11 @@ void main() {
       beforeRestartIsDarkTheme =
           Theme.of(tester.element(themeSwitch)).brightness == Brightness.dark;
       expect(beforeIsDarkTheme, equals(!beforeRestartIsDarkTheme),
-          reason: 'test if options was applied');
+          reason: 'if options was applied');
     });
 
     testWidgets('after restart preference reading test', (tester) async {
-      app.main();
+      await app.main();
 
       await tester.pumpAndSettle();
 
