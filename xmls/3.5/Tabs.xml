@@ -5,6 +5,7 @@
 </description></method><method name="get_offset_buttons_visible" qualifiers="const"><return type="bool" /><description>Returns [code]true[/code] if the offset buttons (the ones that appear when there's not enough space for all tabs) are visible.
 </description></method><method name="get_previous_tab" qualifiers="const"><return type="int" /><description>Returns the previously active tab index.
 </description></method><method name="get_select_with_rmb" qualifiers="const"><return type="bool" /><description>Returns [code]true[/code] if select with right mouse button is enabled.
+</description></method><method name="get_tab_button_icon" qualifiers="const"><return type="Texture" /><argument index="0" name="tab_idx" type="int" /><description>Returns the button icon from the tab at index [code]tab_idx[/code].
 </description></method><method name="get_tab_count" qualifiers="const"><return type="int" /><description>Returns the number of tabs.
 </description></method><method name="get_tab_disabled" qualifiers="const"><return type="bool" /><argument index="0" name="tab_idx" type="int" /><description>Returns [code]true[/code] if the tab at index [code]tab_idx[/code] is disabled.
 </description></method><method name="get_tab_icon" qualifiers="const"><return type="Texture" /><argument index="0" name="tab_idx" type="int" /><description>Returns the [Texture] for the tab at index [code]tab_idx[/code] or [code]null[/code] if the tab has no [Texture].
@@ -15,6 +16,7 @@
 </description></method><method name="move_tab"><return type="void" /><argument index="0" name="from" type="int" /><argument index="1" name="to" type="int" /><description>Moves a tab from [code]from[/code] to [code]to[/code].
 </description></method><method name="remove_tab"><return type="void" /><argument index="0" name="tab_idx" type="int" /><description>Removes the tab at index [code]tab_idx[/code].
 </description></method><method name="set_select_with_rmb"><return type="void" /><argument index="0" name="enabled" type="bool" /><description>If [code]true[/code], enables selecting a tab with the right mouse button.
+</description></method><method name="set_tab_button_icon"><return type="void" /><argument index="0" name="tab_idx" type="int" /><argument index="1" name="icon" type="Texture" /><description>Sets the button icon from the tab at index [code]tab_idx[/code].
 </description></method><method name="set_tab_disabled"><return type="void" /><argument index="0" name="tab_idx" type="int" /><argument index="1" name="disabled" type="bool" /><description>If [code]disabled[/code] is [code]true[/code], disables the tab at index [code]tab_idx[/code], making it non-interactable.
 </description></method><method name="set_tab_icon"><return type="void" /><argument index="0" name="tab_idx" type="int" /><argument index="1" name="icon" type="Texture" /><description>Sets an [code]icon[/code] for the tab at index [code]tab_idx[/code].
 </description></method><method name="set_tab_title"><return type="void" /><argument index="0" name="tab_idx" type="int" /><argument index="1" name="title" type="String" /><description>Sets a [code]title[/code] for the tab at index [code]tab_idx[/code].
@@ -25,7 +27,7 @@
 </member><member name="tab_align" type="int" setter="set_tab_align" getter="get_tab_align" enum="Tabs.TabAlign" default="1">The alignment of all tabs. See [enum TabAlign] for details.
 </member><member name="tab_close_display_policy" type="int" setter="set_tab_close_display_policy" getter="get_tab_close_display_policy" enum="Tabs.CloseButtonDisplayPolicy" default="0">Sets when the close button will appear on the tabs. See [enum CloseButtonDisplayPolicy] for details.
 </member></members><signals><signal name="reposition_active_tab_request"><argument index="0" name="idx_to" type="int" /><description>Emitted when the active tab is rearranged via mouse drag. See [member drag_to_rearrange_enabled].
-</description></signal><signal name="right_button_pressed"><argument index="0" name="tab" type="int" /><description>Emitted when a tab is right-clicked.
+</description></signal><signal name="right_button_pressed"><argument index="0" name="tab" type="int" /><description>Emitted when a tab's right button is pressed. See [method set_tab_button_icon].
 </description></signal><signal name="tab_changed"><argument index="0" name="tab" type="int" /><description>Emitted when switching to another tab.
 </description></signal><signal name="tab_clicked"><argument index="0" name="tab" type="int" /><description>Emitted when a tab is clicked, even if it is the current tab.
 </description></signal><signal name="tab_close"><argument index="0" name="tab" type="int" /><description>Emitted when a tab is closed.

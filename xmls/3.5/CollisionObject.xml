@@ -8,10 +8,10 @@
 </description></method><method name="get_shape_owners"><return type="Array" /><description>Returns an [Array] of [code]owner_id[/code] identifiers. You can use these ids in other methods that take [code]owner_id[/code] as an argument.
 </description></method><method name="is_shape_owner_disabled" qualifiers="const"><return type="bool" /><argument index="0" name="owner_id" type="int" /><description>If [code]true[/code], the shape owner and its shapes are disabled.
 </description></method><method name="remove_shape_owner"><return type="void" /><argument index="0" name="owner_id" type="int" /><description>Removes the given shape owner.
-</description></method><method name="set_collision_layer_bit"><return type="void" /><argument index="0" name="bit" type="int" /><argument index="1" name="value" type="bool" /><description>If [code]value[/code] is [code]true[/code], sets the specified [code]bit[/code] in the the [member collision_layer].
-If [code]value[/code] is [code]false[/code], clears the specified [code]bit[/code] in the the [member collision_layer].
-</description></method><method name="set_collision_mask_bit"><return type="void" /><argument index="0" name="bit" type="int" /><argument index="1" name="value" type="bool" /><description>If [code]value[/code] is [code]true[/code], sets the specified [code]bit[/code] in the the [member collision_mask].
-If [code]value[/code] is [code]false[/code], clears the specified [code]bit[/code] in the the [member collision_mask].
+</description></method><method name="set_collision_layer_bit"><return type="void" /><argument index="0" name="bit" type="int" /><argument index="1" name="value" type="bool" /><description>If [code]value[/code] is [code]true[/code], sets the specified [code]bit[/code] in the [member collision_layer].
+If [code]value[/code] is [code]false[/code], clears the specified [code]bit[/code] in the [member collision_layer].
+</description></method><method name="set_collision_mask_bit"><return type="void" /><argument index="0" name="bit" type="int" /><argument index="1" name="value" type="bool" /><description>If [code]value[/code] is [code]true[/code], sets the specified [code]bit[/code] in the [member collision_mask].
+If [code]value[/code] is [code]false[/code], clears the specified [code]bit[/code] in the [member collision_mask].
 </description></method><method name="shape_find_owner" qualifiers="const"><return type="int" /><argument index="0" name="shape_index" type="int" /><description>Returns the [code]owner_id[/code] of the given shape.
 </description></method><method name="shape_owner_add_shape"><return type="void" /><argument index="0" name="owner_id" type="int" /><argument index="1" name="shape" type="Shape" /><description>Adds a [Shape] to the shape owner.
 </description></method><method name="shape_owner_clear_shapes"><return type="void" /><argument index="0" name="owner_id" type="int" /><description>Removes all shapes from the shape owner.

@@ -39,6 +39,7 @@ If [code]simplify[/code] is [code]true[/code], the geometry can be further simpl
 </constant><constant name="ARRAY_COMPRESS_NORMAL" value="1024" enum="ArrayFormat">Flag used to mark a compressed (half float) normal array.
 </constant><constant name="ARRAY_COMPRESS_TANGENT" value="2048" enum="ArrayFormat">Flag used to mark a compressed (half float) tangent array.
 </constant><constant name="ARRAY_COMPRESS_COLOR" value="4096" enum="ArrayFormat">Flag used to mark a compressed (half float) color array.
+[b]Note:[/b] If this flag is enabled, vertex colors will be stored as 8-bit unsigned integers. This will clamp overbright colors to [code]Color(1, 1, 1, 1)[/code] and reduce colors' precision.
 </constant><constant name="ARRAY_COMPRESS_TEX_UV" value="8192" enum="ArrayFormat">Flag used to mark a compressed (half float) UV coordinates array.
 </constant><constant name="ARRAY_COMPRESS_TEX_UV2" value="16384" enum="ArrayFormat">Flag used to mark a compressed (half float) UV coordinates array for the second UV coordinates.
 </constant><constant name="ARRAY_COMPRESS_BONES" value="32768" enum="ArrayFormat">Flag used to mark a compressed bone array.
@@ -48,6 +49,7 @@ If [code]simplify[/code] is [code]true[/code], the geometry can be further simpl
 </constant><constant name="ARRAY_FLAG_USE_16_BIT_BONES" value="524288" enum="ArrayFormat">Flag used to mark that the array uses 16-bit bones instead of 8-bit.
 </constant><constant name="ARRAY_FLAG_USE_OCTAHEDRAL_COMPRESSION" value="2097152" enum="ArrayFormat">Flag used to mark that the array uses an octahedral representation of normal and tangent vectors rather than cartesian.
 </constant><constant name="ARRAY_COMPRESS_DEFAULT" value="2194432" enum="ArrayFormat">Used to set flags [constant ARRAY_COMPRESS_VERTEX], [constant ARRAY_COMPRESS_NORMAL], [constant ARRAY_COMPRESS_TANGENT], [constant ARRAY_COMPRESS_COLOR], [constant ARRAY_COMPRESS_TEX_UV], [constant ARRAY_COMPRESS_TEX_UV2], [constant ARRAY_COMPRESS_WEIGHTS], and [constant ARRAY_FLAG_USE_OCTAHEDRAL_COMPRESSION] quickly.
+[b]Note:[/b] Since this flag enables [constant ARRAY_COMPRESS_COLOR], vertex colors will be stored as 8-bit unsigned integers. This will clamp overbright colors to [code]Color(1, 1, 1, 1)[/code] and reduce colors' precision.
 </constant><constant name="ARRAY_VERTEX" value="0" enum="ArrayType">Array of vertices.
 </constant><constant name="ARRAY_NORMAL" value="1" enum="ArrayType">Array of normals.
 </constant><constant name="ARRAY_TANGENT" value="2" enum="ArrayType">Array of tangents as an array of floats, 4 floats per tangent.

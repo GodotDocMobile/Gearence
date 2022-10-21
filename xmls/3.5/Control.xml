@@ -148,6 +148,7 @@ func _process(delta):
     grab_click_focus() #when clicking another Control node, this node will be clicked instead
 [/codeblock]
 </description></method><method name="grab_focus"><return type="void" /><description>Steal the focus from another control and become the focused control (see [member focus_mode]).
+[b]Note[/b]: Using this method together with [method Object.call_deferred] makes it more reliable, especially when called inside [method Node._ready].
 </description></method><method name="has_color" qualifiers="const"><return type="bool" /><argument index="0" name="name" type="String" /><argument index="1" name="theme_type" type="String" default="&quot;&quot;" /><description>Returns [code]true[/code] if there is a matching [Theme] in the tree that has a color item with the specified [code]name[/code] and [code]theme_type[/code].
 See [method get_color] for details.
 </description></method><method name="has_color_override" qualifiers="const"><return type="bool" /><argument index="0" name="name" type="String" /><description>Returns [code]true[/code] if there is a local override for a theme [Color] with the specified [code]name[/code] in this [Control] node.
