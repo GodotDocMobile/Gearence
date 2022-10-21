@@ -56,7 +56,9 @@ Returns [constant OK] on success, [constant ERR_UNCONFIGURED] if no [member curr
 For mobile platforms, see [member quit_on_go_back].
 </member><member name="current_scene" type="Node" setter="set_current_scene" getter="get_current_scene">The current scene.
 </member><member name="debug_collisions_hint" type="bool" setter="set_debug_collisions_hint" getter="is_debugging_collisions_hint" default="false">If [code]true[/code], collision shapes will be visible when running the game from the editor for debugging purposes.
+[b]Note:[/b] This property is not designed to be changed at run-time. Changing the value of [member debug_collisions_hint] while the project is running will not have the desired effect.
 </member><member name="debug_navigation_hint" type="bool" setter="set_debug_navigation_hint" getter="is_debugging_navigation_hint" default="false">If [code]true[/code], navigation polygons will be visible when running the game from the editor for debugging purposes.
+[b]Note:[/b] This property is not designed to be changed at run-time. Changing the value of [member debug_navigation_hint] while the project is running will not have the desired effect.
 </member><member name="edited_scene_root" type="Node" setter="set_edited_scene_root" getter="get_edited_scene_root">The root of the edited scene.
 </member><member name="multiplayer" type="MultiplayerAPI" setter="set_multiplayer" getter="get_multiplayer">The default [MultiplayerAPI] instance for this [SceneTree].
 </member><member name="multiplayer_poll" type="bool" setter="set_multiplayer_poll_enabled" getter="is_multiplayer_poll_enabled" default="true">If [code]true[/code] (default value), enables automatic polling of the [MultiplayerAPI] for this SceneTree during [signal idle_frame].

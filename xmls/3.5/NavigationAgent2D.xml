@@ -31,5 +31,5 @@ Does not affect normal pathfinding.
 </member></members><signals><signal name="navigation_finished"><description>Notifies when the final location is reached.
 </description></signal><signal name="path_changed"><description>Notifies when the navigation path changes. This can be triggered by the navigation system or by the user changing the path.
 </description></signal><signal name="target_reached"><description>Notifies when the player-defined target, set with [method set_target_location], is reached.
-</description></signal><signal name="velocity_computed"><argument index="0" name="safe_velocity" type="Vector2" /><description>Notifies when the collision avoidance velocity is calculated after a call to [method set_velocity].
+</description></signal><signal name="velocity_computed"><argument index="0" name="safe_velocity" type="Vector2" /><description>Notifies when the collision avoidance velocity is calculated after a call to [method set_velocity]. Only emitted when [member avoidance_enabled] is true.
 </description></signal></signals><constants></constants></class>

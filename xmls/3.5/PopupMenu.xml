@@ -61,6 +61,7 @@ See [method set_item_disabled] for more info on how to disable an item.
 </description></method><method name="remove_item"><return type="void" /><argument index="0" name="idx" type="int" /><description>Removes the item at index [code]idx[/code] from the menu.
 [b]Note:[/b] The indices of items after the removed item will be shifted by one.
 </description></method><method name="set_current_index"><return type="void" /><argument index="0" name="index" type="int" /><description>Sets the currently focused item as the given [code]index[/code].
+Passing [code]-1[/code] as the index makes so that no item is focused.
 </description></method><method name="set_hide_on_window_lose_focus"><return type="void" /><argument index="0" name="enable" type="bool" /><description>Hides the [PopupMenu] when the window loses focus.
 </description></method><method name="set_item_accelerator"><return type="void" /><argument index="0" name="idx" type="int" /><argument index="1" name="accel" type="int" /><description>Sets the accelerator of the item at index [code]idx[/code]. Accelerators are special combinations of keys that activate the item, no matter which control is focused.
 </description></method><method name="set_item_as_checkable"><return type="void" /><argument index="0" name="idx" type="int" /><argument index="1" name="enable" type="bool" /><description>Sets whether the item at index [code]idx[/code] has a checkbox. If [code]false[/code], sets the type of the item to plain text.
