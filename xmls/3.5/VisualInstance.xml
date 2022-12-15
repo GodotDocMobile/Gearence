@@ -10,4 +10,7 @@ Transformed in this case means the [AABB] plus the position, rotation, and scale
 </description></method><method name="set_layer_mask_bit"><return type="void" /><argument index="0" name="layer" type="int" /><argument index="1" name="enabled" type="bool" /><description>Enables a particular layer in [member layers].
 </description></method></methods><members><member name="layers" type="int" setter="set_layer_mask" getter="get_layer_mask" default="1">The render layer(s) this [VisualInstance] is drawn on.
 This object will only be visible for [Camera]s whose cull mask includes the render object this [VisualInstance] is set to.
+</member><member name="sorting_offset" type="float" setter="set_sorting_offset" getter="get_sorting_offset" default="0.0">The sorting offset used by this [VisualInstance]. Adjusting it to a higher value will make the [VisualInstance] reliably draw on top of other [VisualInstance]s that are otherwise positioned at the same spot.
+</member><member name="sorting_use_aabb_center" type="bool" setter="set_sorting_use_aabb_center" getter="is_sorting_use_aabb_center" default="true">If [code]true[/code], the object is sorted based on the [AABB] center. Sorted based on the global position otherwise.
+The [AABB] center based sorting is generally more accurate for 3D models. The position based sorting instead allows to better control the drawing order when working with [Particles] and [CPUParticles].
 </member></members><constants></constants></class>

@@ -51,6 +51,7 @@ Note that the translation [code]offset[/code] is affected by the node's scale, s
 </member><member name="rotation_degrees" type="Vector3" setter="set_rotation_degrees" getter="get_rotation_degrees" default="Vector3( 0, 0, 0 )">Rotation part of the local transformation in degrees, specified in terms of YXZ-Euler angles in the format (X angle, Y angle, Z angle).
 </member><member name="scale" type="Vector3" setter="set_scale" getter="get_scale" default="Vector3( 1, 1, 1 )">Scale part of the local transformation.
 [b]Note:[/b] Mixed negative scales in 3D are not decomposable from the transformation matrix. Due to the way scale is represented with transformation matrices in Godot, the scale values will either be all positive or all negative.
+[b]Note:[/b] Not all nodes are visually scaled by the [member scale] property. For example, [Light]s are not visually affected by [member scale].
 </member><member name="transform" type="Transform" setter="set_transform" getter="get_transform" default="Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )">Local space [Transform] of this node, with respect to the parent node.
 </member><member name="translation" type="Vector3" setter="set_translation" getter="get_translation" default="Vector3( 0, 0, 0 )">Local translation of this node.
 </member><member name="visible" type="bool" setter="set_visible" getter="is_visible" default="true">If [code]true[/code], this node is drawn. The node is only visible if all of its antecedents are visible as well (in other words, [method is_visible_in_tree] must return [code]true[/code]).
