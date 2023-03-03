@@ -350,6 +350,7 @@ class _SearchScreenState extends State<SearchScreen> {
     _filteredList.sort(matchedCompare);
 
     List<Widget> _toRtnList = _filteredList.map((e) {
+      final resultTypeName = e.propertyType.toString().substring(13);
       if (e.propertyType == PropertyType.Class) {
         return ListTile(
           title: Semantics(
@@ -359,7 +360,7 @@ class _SearchScreenState extends State<SearchScreen> {
               child: Row(
                 children: [
                   Text(
-                    e.propertyType.toString().substring(9) + ": ",
+                    resultTypeName + ": ",
                     style: TextStyle(
                         color: storedValues.isDarkTheme
                             ? Colors.white60
@@ -391,7 +392,7 @@ class _SearchScreenState extends State<SearchScreen> {
           textScaleFactor: 1.1,
           text: TextSpan(children: [
             TextSpan(
-              text: e.propertyType.toString().substring(9) + ": ",
+              text: resultTypeName + ": ",
               style: TextStyle(
                   color: storedValues.isDarkTheme
                       ? Colors.white60
