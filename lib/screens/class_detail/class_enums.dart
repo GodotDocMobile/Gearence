@@ -31,7 +31,7 @@ class _ClassEnumsState extends State<ClassEnums> {
   void initState() {
     _scrollController = ItemScrollController();
     _itemPositionsListener = ItemPositionsListener.create();
-    _enumNames = widget.clsContent.constants!
+    _enumNames = widget.clsContent.constants
         .map((c) {
           return c.enumValue;
         })
@@ -66,7 +66,7 @@ class _ClassEnumsState extends State<ClassEnums> {
   }
 
   int _getPositionCount() {
-    return widget.clsContent.constants!.where((element) {
+    return widget.clsContent.constants.where((element) {
       return element.enumValue != null && element.enumValue!.length > 0;
     }).length;
   }
@@ -115,7 +115,7 @@ class _ClassEnumsState extends State<ClassEnums> {
     _enumNames.sort();
     _enumNames.forEach((enumName) {
       List<Constant> _belongEnum =
-          widget.clsContent.constants!.where((element) {
+          widget.clsContent.constants.where((element) {
         return element.enumValue != null && element.enumValue == enumName;
       }).toList();
       _belongEnum.sort(
@@ -156,7 +156,7 @@ class _ClassEnumsState extends State<ClassEnums> {
   @override
   Widget build(BuildContext context) {
     if (widget.clsContent.constants == null ||
-        widget.clsContent.constants!.where((w) => w.enumValue != null).length ==
+        widget.clsContent.constants.where((w) => w.enumValue != null).length ==
             0) {
       return ZeroContentHint(
         clsContent: widget.clsContent,

@@ -74,6 +74,7 @@ flutter:
     - svgs/3.3/
     - svgs/3.4/
     - svgs/3.5/
+    - svgs/4.0/
     - svgs/icon.svg
     # xmls
     - xmls/2.0/
@@ -84,6 +85,7 @@ flutter:
     - xmls/3.3/
     - xmls/3.4/
     - xmls/3.5/
+    - xmls/4.0/
     # file index
     - xmls/
 

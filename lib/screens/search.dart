@@ -142,8 +142,8 @@ class _SearchScreenState extends State<SearchScreen> {
     }
 
     //search methods
-    if (_class.methods != null && _class.methods!.length > 0) {
-      _class.methods!.forEach((element) {
+    if (_class.methods.length > 0) {
+      _class.methods.forEach((element) {
         if (_caseSensitive
             ? element.name!.contains(_searchingTerm)
             : element.name!.toLowerCase().contains(_searchingTerm)) {
@@ -158,8 +158,8 @@ class _SearchScreenState extends State<SearchScreen> {
     }
 
     //search signals
-    if (_class.signals != null && _class.signals!.length > 0) {
-      _class.signals!.forEach((element) {
+    if (_class.signals.length > 0) {
+      _class.signals.forEach((element) {
         if (_caseSensitive
             ? element.name!.contains(_searchingTerm)
             : element.name!.toLowerCase().contains(_searchingTerm)) {
@@ -174,8 +174,8 @@ class _SearchScreenState extends State<SearchScreen> {
     }
 
     //search constants & enum values
-    if (_class.constants != null && _class.constants!.length > 0) {
-      final containEnumNames = _class.constants!
+    if (_class.constants.length > 0) {
+      final containEnumNames = _class.constants
           .where((element) =>
               element.enumValue != null &&
               element.enumValue!.toLowerCase().contains(_searchingTerm))
@@ -185,7 +185,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
       containEnumNames.forEach((enumName) {
         // we will find the smallest value of each enumName
-        final firstValue = _class.constants!
+        final firstValue = _class.constants
             .where((element) => element.enumValue == enumName)
             .first;
 
@@ -198,7 +198,7 @@ class _SearchScreenState extends State<SearchScreen> {
         );
       });
 
-      _class.constants!.forEach((element) {
+      _class.constants.forEach((element) {
         if (_caseSensitive
             ? element.name!.contains(_searchingTerm)
             : element.name!.toLowerCase().contains(_searchingTerm)) {
@@ -226,8 +226,8 @@ class _SearchScreenState extends State<SearchScreen> {
     }
 
     //search properties
-    if (_class.members != null && _class.members!.length > 0) {
-      _class.members!.forEach((element) {
+    if (_class.members.length > 0) {
+      _class.members.forEach((element) {
         if (_caseSensitive
             ? element.name!.contains(_searchingTerm)
             : element.name!.toLowerCase().contains(_searchingTerm)) {
@@ -242,8 +242,8 @@ class _SearchScreenState extends State<SearchScreen> {
     }
 
     //search theme items
-    if (_class.themeItems != null && _class.themeItems!.length > 0) {
-      _class.themeItems!.forEach((element) {
+    if ( _class.themeItems.length > 0) {
+      _class.themeItems.forEach((element) {
         if (_caseSensitive
             ? element.name!.contains(_searchingTerm)
             : element.name!.toLowerCase().contains(_searchingTerm)) {
