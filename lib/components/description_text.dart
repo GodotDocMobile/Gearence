@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 import 'package:godotclassreference/bloc/blocs.dart';
+import 'package:godotclassreference/components/code_text_multi_lang.dart';
 import 'package:godotclassreference/helpers/sematic_helpers.dart';
 import 'package:godotclassreference/theme/themes.dart';
 import 'package:godotclassreference/components/code_text.dart';
@@ -10,6 +11,8 @@ import 'package:godotclassreference/constants/class_db.dart';
 import 'package:godotclassreference/constants/colors.dart';
 
 //logic check godot/editor/editor_help.cpp _add_text_to_rt
+
+// TODO: refactor this.
 
 enum DescriptionUsedBy {
   Inherits,
@@ -44,6 +47,7 @@ class DescriptionText extends StatelessWidget {
     List<String> tagStack = [];
     bool codeTag = false;
     bool inlineCode = false;
+    bool multiLangCode = false;
     int pos = 0; // read position
 
     TextStyle _toApplyStyle = scaledTextStyle(context);
@@ -59,14 +63,14 @@ class DescriptionText extends StatelessWidget {
         if (codeTag) {
           // in case there are a '[' in code
           while (!content.substring(brkPos).startsWith('[/code')) {
-            brkPos = content.indexOf('[', brkPos + 1);
+            brkPos = content.indexOf('[/codeblock', brkPos + 1);
           }
           text = content.substring(pos, brkPos);
           _toRtn.add(TextSpan(text: "\n"));
           _toRtn.add(WidgetSpan(
-            child: CodeText(
-              codeText: text,
-            ),
+            child: multiLangCode
+                ? CodeTextMultiLang(codeTextWithBBCode: text)
+                : CodeText(codeText: text),
           ));
           _toRtn.add(TextSpan(text: "\n\n"));
         } else {
@@ -210,8 +214,15 @@ class DescriptionText extends StatelessWidget {
         pos = brkEnd + 1;
         tagStack.add(tag);
         _toApplyStyle = _toApplyStyle.copyWith(fontStyle: FontStyle.italic);
+      } else if (tag == 'codeblocks') {
+        multiLangCode = true;
+        codeTag = true;
+        inlineCode = false;
+        pos = brkEnd + 1;
+        tagStack.add(tag);
       } else if (tag == 'codeblock') {
         //should set font
+        multiLangCode = false;
         codeTag = true;
         inlineCode = false;
         pos = brkEnd + 1;
@@ -261,40 +272,62 @@ class DescriptionText extends StatelessWidget {
         Color color;
         if (col.startsWith('#'))
           color = hexToColor(col);
-        else if (col == 'aqua')
-          color = hexToColor('#00FFFF');
-        else if (col == 'black')
-          color = hexToColor('#000000');
-        else if (col == 'blue')
-          color = hexToColor('#0000FF');
-        else if (col == 'fuchsia')
-          color = hexToColor('#FF00FF');
-        else if (col == 'gray' || col == 'grey')
-          color = hexToColor('#808080');
-        else if (col == 'green')
-          color = hexToColor('#008000');
-        else if (col == 'lime')
-          color = hexToColor('#00FF00');
-        else if (col == 'maroon')
-          color = hexToColor('#800000');
-        else if (col == 'navy')
-          color = hexToColor('#000080');
-        else if (col == 'olive')
-          color = hexToColor('#808000');
-        else if (col == 'purple')
-          color = hexToColor('#800080');
-        else if (col == 'red')
-          color = hexToColor('#FF0000');
-        else if (col == 'silver')
-          color = hexToColor('#C0C0C0');
-        else if (col == 'teal')
-          color = hexToColor('#008008');
-        else if (col == 'white')
-          color = hexToColor('#FFFFFF');
-        else if (col == 'yellow')
-          color = hexToColor('#FFFF00');
-        else
-          color = Color.fromARGB(1, 0, 0, 0);
+        else {
+          switch (col) {
+            case 'aqua':
+              color = hexToColor('#00FFFF');
+              break;
+            case 'black':
+              color = hexToColor('#000000');
+              break;
+            case 'blue':
+              color = hexToColor('#0000FF');
+              break;
+            case 'fuchsia':
+              color = hexToColor('#FF00FF');
+              break;
+            case 'gray':
+            case 'grey':
+              color = hexToColor('#808080');
+              break;
+            case 'green':
+              color = hexToColor('#008000');
+              break;
+            case 'lime':
+              color = hexToColor('#00FF00');
+              break;
+            case 'maroon':
+              color = hexToColor('#800000');
+              break;
+            case 'navy':
+              color = hexToColor('#000080');
+              break;
+            case 'olive':
+              color = hexToColor('#808000');
+              break;
+            case 'purple':
+              color = hexToColor('#800080');
+              break;
+            case 'red':
+              color = hexToColor('#FF0000');
+              break;
+            case 'silver':
+              color = hexToColor('#C0C0C0');
+              break;
+            case 'teal':
+              color = hexToColor('#008008');
+              break;
+            case 'white':
+              color = hexToColor('#FFFFFF');
+              break;
+            case 'yellow':
+              color = hexToColor('#FFFF00');
+              break;
+            default:
+              color = Color.fromARGB(1, 0, 0, 0);
+              break;
+          }
+        }
 
         pos = brkEnd + 1;
         tagStack.add('color');
