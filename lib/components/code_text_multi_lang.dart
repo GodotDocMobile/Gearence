@@ -89,54 +89,53 @@ class _CodeTextMultiLangState extends State<CodeTextMultiLang> {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
-      child: Column(children: [
-        Align(
-          alignment: Alignment.centerLeft,
-          child: TabBar(
-            indicatorSize: TabBarIndicatorSize.label,
-            tabs: [
-              Tab(
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: storedValues.isDarkTheme
-                          ? Colors.black45
-                          : Colors.white54),
-                  padding: EdgeInsets.all(10),
-                  child: Text(
-                    "GDScript",
-                    style: TextStyle(
-                        color: storedValues.isDarkTheme
-                            ? Colors.white
-                            : Colors.black),
-                  ),
-                ),
-              ),
-              Tab(
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: storedValues.isDarkTheme
-                          ? Colors.black45
-                          : Colors.white54),
-                  padding: EdgeInsets.all(10),
-                  child: Text(
-                    "CSharp",
-                    style: TextStyle(
-                        color: storedValues.isDarkTheme
-                            ? Colors.white
-                            : Colors.black),
-                  ),
-                ),
-              ),
-            ],
-            onTap: (value) {
-              setState(() {
-                tabIndex = value;
-              });
-            },
-          ),
+      child: Container(
+        margin: EdgeInsets.only(bottom: 10),
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey, width: 3),
+          borderRadius: BorderRadius.circular(5.0),
         ),
-        codeDisplayWidget(),
-      ]),
+        child: Column(children: [
+          Align(
+            alignment: Alignment.centerLeft,
+            child: TabBar(
+              indicatorSize: TabBarIndicatorSize.label,
+              tabs: [
+                Tab(
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    child: Text(
+                      "GDScript",
+                      style: TextStyle(
+                          color: storedValues.isDarkTheme
+                              ? Colors.white
+                              : Colors.black),
+                    ),
+                  ),
+                ),
+                Tab(
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    child: Text(
+                      "CSharp",
+                      style: TextStyle(
+                          color: storedValues.isDarkTheme
+                              ? Colors.white
+                              : Colors.black),
+                    ),
+                  ),
+                ),
+              ],
+              onTap: (value) {
+                setState(() {
+                  tabIndex = value;
+                });
+              },
+            ),
+          ),
+          codeDisplayWidget(),
+        ]),
+      ),
     );
   }
 }
