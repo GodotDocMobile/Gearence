@@ -80,12 +80,12 @@ class ClassContent {
   String? version;
   String? briefDescription;
   String? demos;
-  List<Constant>? constants;
+  List<Constant> constants = [];
   String? description;
-  List<Member>? members;
-  List<Method>? methods;
-  List<Signal>? signals;
-  List<ThemeItem>? themeItems;
+  List<Member> members = [];
+  List<Method> methods = [];
+  List<Signal> signals = [];
+  List<ThemeItem> themeItems = [];
   String? tutorials;
 
   /* the following properties are not in xml files,
@@ -101,12 +101,7 @@ class ClassContent {
       this.version,
       this.briefDescription,
       this.demos,
-      this.constants,
       this.description,
-      this.members,
-      this.methods,
-      this.signals,
-      this.themeItems,
       this.tutorials,
       this.inheritChain,
       this.svgFileName});

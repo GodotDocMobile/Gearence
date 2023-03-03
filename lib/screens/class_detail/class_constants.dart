@@ -31,9 +31,8 @@ class _ClassConstantsState extends State<ClassConstants> {
     super.initState();
     _scrollController = ItemScrollController();
     _itemPositionsListener = ItemPositionsListener.create();
-    _onlyConstants = widget.clsContent!.constants!
-        .where((w) => w.enumValue == null)
-        .toList();
+    _onlyConstants =
+        widget.clsContent!.constants.where((w) => w.enumValue == null).toList();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (blocs.tapEventBloc.state.fieldName.isNotEmpty) {
         try {
@@ -61,11 +60,8 @@ class _ClassConstantsState extends State<ClassConstants> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.clsContent!.constants == null ||
-        widget.clsContent!.constants!
-                .where((w) => w.enumValue == null)
-                .length ==
-            0) {
+    if (widget.clsContent!.constants.where((w) => w.enumValue == null).length ==
+        0) {
       return ZeroContentHint(
         clsContent: widget.clsContent!,
         propertyType: PropertyType.Constant,
