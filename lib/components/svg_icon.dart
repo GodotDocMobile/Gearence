@@ -15,7 +15,10 @@ class SvgIcon extends StatelessWidget {
     if (data != null && data.length > 0) {
       return SvgPicture.asset('svgs/' + version + '/' + data);
     }
-    return SvgPicture.asset('svgs/' + version + '/icon_node.svg');
+
+    final icon_file = version == '4.0' ? 'Node.svg' : 'icon_node.svg';
+
+    return SvgPicture.asset('svgs/' + version + '/' + icon_file);
   }
 
   @override

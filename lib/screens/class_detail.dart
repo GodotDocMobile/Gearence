@@ -120,8 +120,7 @@ class _ClassDetailState extends State<ClassDetail>
           if (snapshot.hasData) {
             _tabs = getClassTabs(snapshot.data!);
             // append theme item tab if needed
-            if (snapshot.data!.themeItems != null &&
-                snapshot.data!.themeItems!.length > 0) {
+            if (snapshot.data!.themeItems.length > 0) {
               _tabs.add(
                 ClassTab(
                   title: 'Theme Items',
@@ -129,7 +128,7 @@ class _ClassDetailState extends State<ClassDetail>
                     clsContent: snapshot.data,
                   ),
                   showCnt: true,
-                  itemCount: snapshot.data!.themeItems!.length,
+                  itemCount: snapshot.data!.themeItems.length,
                 ),
               );
             }
@@ -231,9 +230,7 @@ List<ClassTab> getClassTabs(ClassContent clsContent) {
         clsContent: clsContent,
       ),
       showCnt: true,
-      itemCount: clsContent.constants == null
-          ? 0
-          : clsContent.constants!.where((w) => w.enumValue != null).length,
+      itemCount: clsContent.constants.where((w) => w.enumValue != null).length,
     ),
     ClassTab(
       title: "Constants",
@@ -241,9 +238,7 @@ List<ClassTab> getClassTabs(ClassContent clsContent) {
         clsContent: clsContent,
       ),
       showCnt: true,
-      itemCount: clsContent.constants == null
-          ? 0
-          : clsContent.constants!.where((w) => w.enumValue == null).length,
+      itemCount: clsContent.constants.where((w) => w.enumValue == null).length,
     ),
     ClassTab(
       title: "Members",
@@ -251,7 +246,7 @@ List<ClassTab> getClassTabs(ClassContent clsContent) {
         clsContent: clsContent,
       ),
       showCnt: true,
-      itemCount: clsContent.members == null ? 0 : clsContent.members!.length,
+      itemCount: clsContent.members.length,
     ),
     ClassTab(
       title: "Methods",
@@ -259,7 +254,7 @@ List<ClassTab> getClassTabs(ClassContent clsContent) {
         clsContent: clsContent,
       ),
       showCnt: true,
-      itemCount: clsContent.methods == null ? 0 : clsContent.methods!.length,
+      itemCount: clsContent.methods.length,
     ),
     ClassTab(
       title: "Signals",
@@ -267,7 +262,7 @@ List<ClassTab> getClassTabs(ClassContent clsContent) {
         clsContent: clsContent,
       ),
       showCnt: true,
-      itemCount: clsContent.signals == null ? 0 : clsContent.signals!.length,
+      itemCount: clsContent.signals.length,
     )
   ];
 }

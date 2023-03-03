@@ -21,7 +21,8 @@ branches = [
     "3.2",
     "3.3",
     "3.4",
-    "3.5"
+    "3.5",
+    "4.0",
 ]
 
 godot_repo = ""
@@ -160,8 +161,12 @@ def find_svg_file(class_name: str, custom_path: bool) -> str:
         svg_file_path = svg_file_path.replace(
             "1d", "1_d").replace("2d", "2_d").replace("3d", "3_d")
         if not exists(svg_file_path):
-            # print("svg {} not found".format(svg_file))
-            return None
+            # then it's 4.0
+            svg_file = class_name+'.svg'
+            svg_file_path = join(_svg_source_folder,svg_file)
+            if not exists(svg_file_path):
+                print("svg {} not found".format(svg_file))
+                return None
 
     return svg_file
 
