@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:xml/xml.dart';
 
 import 'constant.dart';
@@ -52,15 +53,24 @@ final Map<classNodeType, String> filterOptionStoreKey = {
 };
 
 // names of nodes to categorize them for filtering
-final Map<classNodeType, String> nodeName = {
-  classNodeType.D2: "Node2D",
-  classNodeType.D3: "Spatial",
-  classNodeType.Control: "Control",
-  classNodeType.VisualScript: "VisualScriptNode",
-  classNodeType.VisualShader: "VisualShaderNode",
-  classNodeType.Other: "Node",
-  classNodeType.None: "",
-};
+String getNodeName(classNodeType nodeType) {
+  switch (nodeType) {
+    case classNodeType.D2:
+      return "Node2D";
+    case classNodeType.D3:
+      return storedValues.version == '4.0' ? "Node3D" : "Spatial";
+    case classNodeType.Control:
+      return "Control";
+    case classNodeType.VisualScript:
+      return "VisualScriptNode";
+    case classNodeType.VisualShader:
+      return "VisualShaderNode";
+    case classNodeType.Other:
+      return "Node";
+    case classNodeType.None:
+      return "";
+  }
+}
 
 enum classNodeType {
   D2,
@@ -243,8 +253,8 @@ class ClassContent {
   void setNodeType() {
     for (var e in classNodeType.values) {
       if ((this.inheritChain != null &&
-              this.inheritChain!.contains('[${nodeName[e]}]')) ||
-          this.name == nodeName[e]) {
+              this.inheritChain!.contains('[${getNodeName(e)}]')) ||
+          this.name == getNodeName(e)) {
         this.nodeType = e;
         return;
       }
