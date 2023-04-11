@@ -46,7 +46,7 @@ class _ClassSignalsState extends State<ClassSignals> {
   void scrollTo(TapEventArg args) {
     if (widget.clsContent!.name == args.className &&
         args.propertyType == PropertyType.Signal) {
-      final _targetIndex = widget.clsContent!.signals!
+      final _targetIndex = widget.clsContent!.signals
           .indexWhere((w) => w.name == args.fieldName);
       if (_targetIndex != -1) {
         _scrollController!.scrollTo(
@@ -60,8 +60,7 @@ class _ClassSignalsState extends State<ClassSignals> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.clsContent!.signals == null ||
-        widget.clsContent!.signals!.length == 0) {
+    if (widget.clsContent!.signals.length == 0) {
       return ZeroContentHint(
         clsContent: widget.clsContent!,
         propertyType: PropertyType.Signal,
@@ -81,11 +80,11 @@ class _ClassSignalsState extends State<ClassSignals> {
         }
       },
       child: ScrollablePositionedList.builder(
-          itemCount: widget.clsContent!.signals!.length,
+          itemCount: widget.clsContent!.signals.length,
           itemScrollController: _scrollController,
           itemPositionsListener: _itemPositionsListener,
           itemBuilder: (context, index) {
-            final s = widget.clsContent!.signals![index];
+            final s = widget.clsContent!.signals[index];
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(children: [
