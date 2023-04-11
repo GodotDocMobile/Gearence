@@ -1,13 +1,4 @@
-class MethodArgument {
-  String? index;
-  String? name;
-  String? type;
-  String? enumValue;
-  String? defaultValue;
-
-  MethodArgument(
-      {this.index, this.name, this.type, this.enumValue, this.defaultValue});
-}
+import 'method_argument.dart';
 
 class MethodReturn {
   String? type;
