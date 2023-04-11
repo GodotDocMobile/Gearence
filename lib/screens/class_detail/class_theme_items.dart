@@ -42,7 +42,7 @@ class _ClassThemeItemsState extends State<ClassThemeItems> {
   void scrollTo(TapEventArg args) {
     if (widget.clsContent!.name == args.className &&
         args.propertyType == PropertyType.ThemeItem) {
-      final _targetIndex = widget.clsContent!.themeItems!
+      final _targetIndex = widget.clsContent!.themeItems
           .indexWhere((w) => w.name == args.fieldName);
       if (_targetIndex != -1) {
         _scrollController!.scrollTo(
@@ -56,8 +56,7 @@ class _ClassThemeItemsState extends State<ClassThemeItems> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.clsContent!.themeItems == null ||
-        widget.clsContent!.themeItems!.length == 0) {
+    if (widget.clsContent!.themeItems.length == 0) {
       return ZeroContentHint(
         clsContent: widget.clsContent!,
         propertyType: PropertyType.ThemeItem,
@@ -77,11 +76,11 @@ class _ClassThemeItemsState extends State<ClassThemeItems> {
         }
       },
       child: ScrollablePositionedList.builder(
-        itemCount: widget.clsContent!.themeItems!.length,
+        itemCount: widget.clsContent!.themeItems.length,
         itemScrollController: _scrollController,
         itemPositionsListener: _itemPositionsListener,
         itemBuilder: (context, index) {
-          final t = widget.clsContent!.themeItems![index];
+          final t = widget.clsContent!.themeItems[index];
           return Column(children: [
             ListTile(
               title: Text(
