@@ -22,16 +22,12 @@ enum DescriptionUsedBy {
 class DescriptionText extends StatelessWidget {
   final String className;
   final String content;
-  // final Function(TapEventArg args) onLinkTap;
-  final TextStyle? style;
   final DescriptionUsedBy descriptionUsedBy;
 
   DescriptionText(
       {Key? key,
       required this.className,
       required this.content,
-      // required this.onLinkTap,
-      this.style,
       this.descriptionUsedBy = DescriptionUsedBy.Normal})
       : super(key: key);
 

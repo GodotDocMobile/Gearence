@@ -162,7 +162,9 @@ class ClassContent {
         final element = f as XmlElement;
         final List<XmlAttribute?> nodeAttr = f.attributes;
 
-        final argumentNodes = element.findElements('argument');
+        var args = element.findElements('argument');
+        final argumentNodes =
+            args.length > 0 ? args : element.findAllElements('param');
         final methodReturnNodes = element.findAllElements('return');
 
         MethodReturn? methodRtn;

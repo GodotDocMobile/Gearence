@@ -47,7 +47,7 @@ class _ClassMethodsState extends State<ClassMethods> {
   void scrollTo(TapEventArg args) {
     if (widget.clsContent!.name == args.className &&
         args.propertyType == PropertyType.Method) {
-      final _targetIndex = widget.clsContent!.methods!
+      final _targetIndex = widget.clsContent!.methods
           .indexWhere((w) => w.name == args.fieldName);
       if (_targetIndex != -1) {
         _scrollController!.scrollTo(
@@ -150,8 +150,7 @@ class _ClassMethodsState extends State<ClassMethods> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.clsContent!.methods == null ||
-        widget.clsContent!.methods!.length == 0) {
+    if (widget.clsContent!.methods.length == 0) {
       return ZeroContentHint(
         clsContent: widget.clsContent!,
         propertyType: PropertyType.Method,
@@ -171,11 +170,11 @@ class _ClassMethodsState extends State<ClassMethods> {
         }
       },
       child: ScrollablePositionedList.builder(
-          itemCount: widget.clsContent!.methods!.length,
+          itemCount: widget.clsContent!.methods.length,
           itemScrollController: _scrollController,
           itemPositionsListener: _itemPositionsListener,
           itemBuilder: (context, index) {
-            final m = widget.clsContent!.methods![index];
+            final m = widget.clsContent!.methods[index];
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(children: [
