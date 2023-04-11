@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:godotclassreference/models/method_argument.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import 'package:godotclassreference/theme/themes.dart';
@@ -7,7 +8,6 @@ import 'package:godotclassreference/components/link_text.dart';
 import 'package:godotclassreference/components/description_text.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:godotclassreference/models/class_content.dart';
-import 'package:godotclassreference/models/method.dart';
 import 'package:godotclassreference/bloc/blocs.dart';
 import 'package:godotclassreference/components/zero_content_hint.dart';
 

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
+import 'package:godotclassreference/models/annotation.dart';
 import 'package:xml/xml.dart';
 
 import 'constant.dart';
 import 'member.dart';
 import 'method.dart';
+import 'method_argument.dart';
 import 'signal.dart';
 import 'theme_item.dart';
 
@@ -96,6 +98,7 @@ class ClassContent {
   List<Method> methods = [];
   List<Signal> signals = [];
   List<ThemeItem> themeItems = [];
+  List<Annotation> annotations = [];
   String? tutorials;
 
   /* the following properties are not in xml files,
@@ -237,6 +240,43 @@ class ClassContent {
         return ThemeItem(
             name: _getAttrByName(nodeAttr, 'name'),
             type: _getAttrByName(nodeAttr, 'type'));
+      }).toList();
+    }
+
+    // annotations
+    final annotationRoot = node.findElements('annotations');
+    if (annotationRoot.length > 0) {
+      final annotationNodes = annotationRoot.first.children;
+      this.annotations = annotationNodes.map((f) {
+        final element = f as XmlElement;
+        final List<XmlAttribute?> nodeAttr = f.attributes;
+
+        final argumentNodes = element.findElements("param");
+        List<MethodArgument> args = argumentNodes.map((a) {
+          final argumentAttr = a.attributes;
+          return MethodArgument(
+              index: _getAttrByName(argumentAttr, 'index'),
+              name: _getAttrByName(argumentAttr, 'name'),
+              type: _getAttrByName(argumentAttr, 'type'),
+              defaultValue: _getAttrByName(argumentAttr, 'default'));
+        }).toList();
+
+        args.sort((a, b) => a.index!.compareTo(b.index!));
+
+        MethodReturn? annReturn;
+        final annReturnNodes = element.findAllElements("return");
+        if (annReturnNodes.length > 0) {
+          final annReturnAttr = annReturnNodes.first.attributes;
+          annReturn = MethodReturn(
+            type: _getAttrByName(annReturnAttr, 'type'),
+          );
+        }
+
+        return Annotation(
+            name: _getAttrByName(nodeAttr, 'name'),
+            params: args,
+            description: element.findAllElements('description').first.text,
+            annotationReturn: annReturn);
       }).toList();
     }
   }
