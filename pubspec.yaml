@@ -19,6 +19,7 @@ environment:
   sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
+  bbob_dart: ^0.2.1
   cupertino_icons: ^1.0.4
   flutter:
     sdk: flutter
