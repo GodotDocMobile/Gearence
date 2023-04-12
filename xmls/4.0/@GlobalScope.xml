@@ -282,7 +282,7 @@ func _process(delta):
 [b]Note:[/b] This function lerps through the shortest path between [param from] and [param to]. However, when these two angles are approximately [code]PI + k * TAU[/code] apart for any integer [code]k[/code], it's not obvious which way they lerp due to floating-point precision errors. For example, [code]lerp_angle(0, PI, weight)[/code] lerps counter-clockwise, while [code]lerp_angle(0, PI + 5 * TAU, weight)[/code] lerps clockwise.
 </description></method><method name="lerpf"><return type="float" /><param index="0" name="from" type="float" /><param index="1" name="to" type="float" /><param index="2" name="weight" type="float" /><description>Linearly interpolates between two values by the factor defined in [param weight]. To perform interpolation, [param weight] should be between [code]0.0[/code] and [code]1.0[/code] (inclusive). However, values outside this range are allowed and can be used to perform [i]extrapolation[/i]. If this is not desired, use [method clampf] on the result of this function.
 [codeblock]
-lerp(0, 4, 0.75) # Returns 3.0
+lerpf(0, 4, 0.75) # Returns 3.0
 [/codeblock]
 See also [method inverse_lerp] which performs the reverse of this operation. To perform eased interpolation with [method lerp], combine it with [method ease] or [method smoothstep].
 </description></method><method name="linear_to_db"><return type="float" /><param index="0" name="lin" type="float" /><description>Converts from linear energy to decibels (audio). This can be used to implement volume sliders that behave as expected (since volume isn't linear).
@@ -293,8 +293,8 @@ See also [method inverse_lerp] which performs the reverse of this operation. To 
 # Change the bus name if you'd like to change the volume of a specific bus only.
 AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db($Slider.value))
 [/codeblock]
-</description></method><method name="log"><return type="float" /><param index="0" name="x" type="float" /><description>Returns the natural logarithm of [param x]. This is the amount of time needed to reach a certain level of continuous growth.
-[b]Note:[/b] This is not the same as the "log" function on most calculators, which uses a base 10 logarithm.
+</description></method><method name="log"><return type="float" /><param index="0" name="x" type="float" /><description>Returns the [url=https://en.wikipedia.org/wiki/Natural_logarithm]natural logarithm[/url] of [param x] (base [url=https://en.wikipedia.org/wiki/E_(mathematical_constant)][i]e[/i][/url], with [i]e[/i] being approximately 2.71828). This is the amount of time needed to reach a certain level of continuous growth.
+[b]Note:[/b] This is not the same as the "log" function on most calculators, which uses a base 10 logarithm. To use base 10 logarithm, use [code]log(x) / log(10)[/code].
 [codeblock]
 log(10) # Returns 2.302585
 [/codeblock]
@@ -578,15 +578,15 @@ sign(Vector3(-6.0, 0.0, 6.0)) # Returns (-1, 0, 1)
 [b]Note:[/b] For better type safety, use [method signf], [method signi], [method Vector2.sign], [method Vector2i.sign], [method Vector3.sign], [method Vector3i.sign], [method Vector4.sign], or [method Vector4i.sign].
 </description></method><method name="signf"><return type="float" /><param index="0" name="x" type="float" /><description>Returns [code]-1.0[/code] if [param x] is negative, [code]1.0[/code] if [param x] is positive, and [code]0.0[/code] if [param x] is zero.
 [codeblock]
-sign(-6.5) # Returns -1.0
-sign(0.0)  # Returns 0.0
-sign(6.5)  # Returns 1.0
+signf(-6.5) # Returns -1.0
+signf(0.0)  # Returns 0.0
+signf(6.5)  # Returns 1.0
 [/codeblock]
 </description></method><method name="signi"><return type="int" /><param index="0" name="x" type="int" /><description>Returns [code]-1[/code] if [param x] is negative, [code]1[/code] if [param x] is positive, and [code]0[/code] if if [param x] is zero.
 [codeblock]
-sign(-6) # Returns -1
-sign(0)  # Returns 0
-sign(6)  # Returns 1
+signi(-6) # Returns -1
+signi(0)  # Returns 0
+signi(6)  # Returns 1
 [/codeblock]
 </description></method><method name="sin"><return type="float" /><param index="0" name="angle_rad" type="float" /><description>Returns the sine of angle [param angle_rad] in radians.
 [codeblock]
@@ -622,14 +622,14 @@ See also [method ceil], [method floor], and [method round].
 </description></method><method name="snappedf"><return type="float" /><param index="0" name="x" type="float" /><param index="1" name="step" type="float" /><description>Returns the multiple of [param step] that is the closest to [param x]. This can also be used to round a floating point number to an arbitrary number of decimals.
 A type-safe version of [method snapped], returning a [float].
 [codeblock]
-snapped(32.0, 2.5)  # Returns 32.5
-snapped(3.14159, 0.01)  # Returns 3.14
+snappedf(32.0, 2.5)  # Returns 32.5
+snappedf(3.14159, 0.01)  # Returns 3.14
 [/codeblock]
 </description></method><method name="snappedi"><return type="int" /><param index="0" name="x" type="float" /><param index="1" name="step" type="int" /><description>Returns the multiple of [param step] that is the closest to [param x].
 A type-safe version of [method snapped], returning an [int].
 [codeblock]
-snapped(53, 16)  # Returns 48
-snapped(4096, 100)  # Returns 4100
+snappedi(53, 16)  # Returns 48
+snappedi(4096, 100)  # Returns 4100
 [/codeblock]
 </description></method><method name="sqrt"><return type="float" /><param index="0" name="x" type="float" /><description>Returns the square root of [param x], where [param x] is a non-negative number.
 [codeblock]
@@ -1198,7 +1198,8 @@ hint_string = "%s:%s/%s:Resource" % [TYPE_ARRAY, TYPE_OBJECT, TYPE_OBJECT] # Two
 </constant><constant name="PROPERTY_USAGE_NONE" value="0" enum="PropertyUsageFlags" is_bitfield="true">The property is not stored, and does not display in the editor. This is the default for non-exported properties.
 </constant><constant name="PROPERTY_USAGE_STORAGE" value="2" enum="PropertyUsageFlags" is_bitfield="true">The property is serialized and saved in the scene file (default).
 </constant><constant name="PROPERTY_USAGE_EDITOR" value="4" enum="PropertyUsageFlags" is_bitfield="true">The property is shown in the [EditorInspector] (default).
-</constant><constant name="PROPERTY_USAGE_INTERNAL" value="8" enum="PropertyUsageFlags" is_bitfield="true"></constant><constant name="PROPERTY_USAGE_CHECKABLE" value="16" enum="PropertyUsageFlags" is_bitfield="true">The property can be checked in the [EditorInspector].
+</constant><constant name="PROPERTY_USAGE_INTERNAL" value="8" enum="PropertyUsageFlags" is_bitfield="true">The property is excluded from the class reference.
+</constant><constant name="PROPERTY_USAGE_CHECKABLE" value="16" enum="PropertyUsageFlags" is_bitfield="true">The property can be checked in the [EditorInspector].
 </constant><constant name="PROPERTY_USAGE_CHECKED" value="32" enum="PropertyUsageFlags" is_bitfield="true">The property is checked in the [EditorInspector].
 </constant><constant name="PROPERTY_USAGE_GROUP" value="64" enum="PropertyUsageFlags" is_bitfield="true">Used to group properties together in the editor. See [EditorInspector].
 </constant><constant name="PROPERTY_USAGE_CATEGORY" value="128" enum="PropertyUsageFlags" is_bitfield="true">Used to categorize properties together in the editor.

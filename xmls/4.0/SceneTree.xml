@@ -38,7 +38,7 @@ public async Task SomeFunction()
 [/csharp]
 [/codeblocks]
 The timer will be automatically freed after its time elapses.
-</description></method><method name="create_tween"><return type="Tween" /><description>Creates and returns a new [Tween].
+</description></method><method name="create_tween"><return type="Tween" /><description>Creates and returns a new [Tween]. The Tween will start automatically on the next process frame or physics frame (depending on [enum Tween.TweenProcessMode]).
 </description></method><method name="get_first_node_in_group"><return type="Node" /><param index="0" name="group" type="StringName" /><description>Returns the first node in the specified group, or [code]null[/code] if the group is empty or does not exist.
 </description></method><method name="get_frame" qualifiers="const"><return type="int" /><description>Returns the current frame number, i.e. the total frame count since the application started.
 </description></method><method name="get_multiplayer" qualifiers="const"><return type="MultiplayerAPI" /><param index="0" name="for_path" type="NodePath" default="NodePath(&quot;&quot;)" /><description>Return the [MultiplayerAPI] configured for the given path, or the default one if [param for_path] is empty.
@@ -63,7 +63,7 @@ Returns [constant OK] on success, [constant ERR_UNCONFIGURED] if no [member curr
 [b]Note:[/b] Group call flags are used to control the property setting behavior. By default, properties will be set immediately in a way similar to [method set_group]. However, if the [constant GROUP_CALL_DEFERRED] flag is present in the [param call_flags] argument, properties will be set with a one-frame delay in a way similar to [method Object.call_deferred].
 </description></method><method name="set_multiplayer"><return type="void" /><param index="0" name="multiplayer" type="MultiplayerAPI" /><param index="1" name="root_path" type="NodePath" default="NodePath(&quot;&quot;)" /><description>Sets a custom [MultiplayerAPI] with the given [param root_path] (controlling also the relative subpaths), or override the default one if [param root_path] is empty.
 </description></method><method name="unload_current_scene"><return type="void" /><description>If a current scene is loaded, calling this method will unload it.
-</description></method></methods><members><member name="auto_accept_quit" type="bool" setter="set_auto_accept_quit" getter="is_auto_accept_quit" default="true">If [code]true[/code], the application automatically accepts quitting.
+</description></method></methods><members><member name="auto_accept_quit" type="bool" setter="set_auto_accept_quit" getter="is_auto_accept_quit" default="true">If [code]true[/code], the application automatically accepts quitting requests.
 For mobile platforms, see [member quit_on_go_back].
 </member><member name="current_scene" type="Node" setter="set_current_scene" getter="get_current_scene">The current scene.
 </member><member name="debug_collisions_hint" type="bool" setter="set_debug_collisions_hint" getter="is_debugging_collisions_hint" default="false">If [code]true[/code], collision shapes will be visible when running the game from the editor for debugging purposes.
@@ -78,7 +78,7 @@ If [code]false[/code], you need to manually call [method MultiplayerAPI.poll] to
 </member><member name="paused" type="bool" setter="set_pause" getter="is_paused" default="false">If [code]true[/code], the [SceneTree] is paused. Doing so will have the following behavior:
 - 2D and 3D physics will be stopped. This includes signals and collision detection.
 - [method Node._process], [method Node._physics_process] and [method Node._input] will not be called anymore in nodes.
-</member><member name="quit_on_go_back" type="bool" setter="set_quit_on_go_back" getter="is_quit_on_go_back" default="true">If [code]true[/code], the application quits automatically on going back (e.g. on Android).
+</member><member name="quit_on_go_back" type="bool" setter="set_quit_on_go_back" getter="is_quit_on_go_back" default="true">If [code]true[/code], the application quits automatically when navigating back (e.g. using the system "Back" button on Android).
 To handle 'Go Back' button when this option is disabled, use [constant DisplayServer.WINDOW_EVENT_GO_BACK_REQUEST].
 </member><member name="root" type="Window" setter="" getter="get_root">The [SceneTree]'s root [Window].
 </member></members><signals><signal name="node_added"><param index="0" name="node" type="Node" /><description>Emitted whenever a node is added to the [SceneTree].

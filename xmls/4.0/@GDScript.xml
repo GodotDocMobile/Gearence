@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?><class name="@GDScript" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../doc/class.xsd"><brief_description>Built-in GDScript functions.
 </brief_description><description>A list of GDScript-specific utility functions and annotations accessible from any script.
 For the list of the global functions and constants see [@GlobalScope].
-</description><tutorials><link title="GDScript exports">$DOCS_URL/tutorials/scripting/gdscript/gdscript_exports.html</link></tutorials><methods><method name="Color8"><return type="Color" /><param index="0" name="r8" type="int" /><param index="1" name="g8" type="int" /><param index="2" name="b8" type="int" /><param index="3" name="a8" type="int" default="255" /><description>Returns a [Color] constructed from red ([param r8]), green ([param g8]), blue ([param b8]), and optionally alpha ([param a8]) integer channels, each divided by [code]255.0[/code] for their final value.
+</description><tutorials><link title="GDScript exports">$DOCS_URL/tutorials/scripting/gdscript/gdscript_exports.html</link></tutorials><methods><method name="Color8"><return type="Color" /><param index="0" name="r8" type="int" /><param index="1" name="g8" type="int" /><param index="2" name="b8" type="int" /><param index="3" name="a8" type="int" default="255" /><description>Returns a [Color] constructed from red ([param r8]), green ([param g8]), blue ([param b8]), and optionally alpha ([param a8]) integer channels, each divided by [code]255.0[/code] for their final value. Using [method Color8] instead of the standard [Color] constructor is useful when you need to match exact color values in an [Image].
 [codeblock]
 var red = Color8(255, 0, 0)             # Same as Color(1, 0, 0).
 var dark_blue = Color8(0, 0, 51)        # Same as Color(0, 0, 0.2).
 var my_color = Color8(306, 255, 0, 102) # Same as Color(1.2, 1, 0, 0.4).
 [/codeblock]
+[b]Note:[/b] Due to the lower precision of [method Color8] compared to the standard [Color] constructor, a color created with [method Color8] will generally not be equal to the same color created with the standard [Color] constructor. Use [method Color.is_equal_approx] for comparisons to avoid issues with floating-point precision error.
 </description></method><method name="assert"><return type="void" /><param index="0" name="condition" type="bool" /><param index="1" name="message" type="String" default="&quot;&quot;" /><description>Asserts that the [param condition] is [code]true[/code]. If the [param condition] is [code]false[/code], an error is generated. When running from the editor, the running project will also be paused until you resume it. This can be used as a stronger form of [method @GlobalScope.push_error] for reporting errors to project developers or add-on users.
 An optional [param message] can be shown in addition to the generic "Assertion failed" message. You can use this to provide additional details about why the assertion failed.
 [b]Warning:[/b] For performance reasons, the code inside [method assert] is only executed in debug builds or when running the project from the editor. Don't include code that has side effects in an [method assert] call. Otherwise, the project will behave differently when exported in release mode.
@@ -168,7 +169,7 @@ type_exists("NonExistentClass") # Returns false
 @export var string = ""
 @export var int_number = 5
 @export var float_number: float = 5
-@export var image : Image
+@export var image: Image
 [/codeblock]
 </description></annotation><annotation name="@export_category"><return type="void" /><param index="0" name="name" type="String" /><description>Define a new category for the following exported properties. This helps to organize properties in the Inspector dock.
 See also [constant PROPERTY_USAGE_CATEGORY].
@@ -181,7 +182,7 @@ See also [constant PROPERTY_USAGE_CATEGORY].
 </description></annotation><annotation name="@export_color_no_alpha"><return type="void" /><description>Export a [Color] property without allowing its transparency ([member Color.a]) to be edited.
 See also [constant PROPERTY_HINT_COLOR_NO_ALPHA].
 [codeblock]
-@export_color_no_alpha var dye_color : Color
+@export_color_no_alpha var dye_color: Color
 [/codeblock]
 </description></annotation><annotation name="@export_dir"><return type="void" /><description>Export a [String] property as a path to a directory. The path will be limited to the project folder and its subfolders. See [annotation @export_global_dir] to allow picking from the entire filesystem.
 See also [constant PROPERTY_HINT_DIR].
@@ -280,7 +281,7 @@ See also [constant PROPERTY_HINT_GLOBAL_FILE].
 @export_global_file("*.txt") var notes_path: String
 [/codeblock]
 </description></annotation><annotation name="@export_group"><return type="void" /><param index="0" name="name" type="String" /><param index="1" name="prefix" type="String" default="&quot;&quot;" /><description>Define a new group for the following exported properties. This helps to organize properties in the Inspector dock. Groups can be added with an optional [param prefix], which would make group to only consider properties that have this prefix. The grouping will break on the first property that doesn't have a prefix. The prefix is also removed from the property's name in the Inspector dock.
-If no [param prefix] is provided, the every following property is added to the group. The group ends when then next group or category is defined. You can also force end a group by using this annotation with empty strings for parameters, [code]@export_group("", "")[/code].
+If no [param prefix] is provided, then every following property will be added to the group. The group ends when then next group or category is defined. You can also force end a group by using this annotation with empty strings for parameters, [code]@export_group("", "")[/code].
 Groups cannot be nested, use [annotation @export_subgroup] to add subgroups within groups.
 See also [constant PROPERTY_USAGE_GROUP].
 [codeblock]
