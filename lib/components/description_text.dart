@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:godotclassreference/bloc/blocs.dart';
 import 'package:godotclassreference/components/bbob_code_text.dart';
 import 'package:godotclassreference/components/bbob_code_text_multi_lang.dart';
+import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:godotclassreference/helpers/sematic_helpers.dart';
 import 'package:godotclassreference/theme/themes.dart';
 import 'package:godotclassreference/constants/class_db.dart';
@@ -124,7 +125,9 @@ class DescriptionText extends StatelessWidget {
           case 'param':
             rtn.add(WidgetSpan(
               child: Container(
-                color: Colors.grey[300],
+                color: storedValues.isDarkTheme
+                    ? Colors.grey[600]
+                    : Colors.grey[300],
                 child: Text(
                   name,
                   style: monoOptionalStyle(context),
@@ -137,7 +140,9 @@ class DescriptionText extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.all(1),
                 decoration: BoxDecoration(
-                  color: Colors.grey[300],
+                  color: storedValues.isDarkTheme
+                      ? Colors.grey[600]
+                      : Colors.grey[300],
                   border: Border.all(color: Colors.black),
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
                 ),
