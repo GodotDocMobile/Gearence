@@ -6,6 +6,7 @@ enum PropertyType {
   Member,
   Constant,
   ThemeItem,
+  Annotation,
 }
 
 class TapEventArg {
@@ -40,6 +41,8 @@ String linkTypeToString(PropertyType? input) {
       return 'Signals';
     case PropertyType.ThemeItem:
       return 'Theme Items';
+    case PropertyType.Annotation:
+      return "Annotations";
     case PropertyType.Class:
     default:
       return 'Info';
@@ -62,6 +65,8 @@ PropertyType? linkTypeFromString(String input) {
       return PropertyType.Constant;
     case 'theme items':
       return PropertyType.ThemeItem;
+    case "annotation":
+      return PropertyType.Annotation;
     default:
       return null;
   }
