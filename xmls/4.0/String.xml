@@ -388,7 +388,7 @@ var d = "Hello!".to_int() # d is 0
 </description></method><method name="trim_prefix" qualifiers="const"><return type="String" /><param index="0" name="prefix" type="String" /><description>Removes the given [param prefix] from the start of the string, or returns the string unchanged.
 </description></method><method name="trim_suffix" qualifiers="const"><return type="String" /><param index="0" name="suffix" type="String" /><description>Removes the given [param suffix] from the end of the string, or returns the string unchanged.
 </description></method><method name="unicode_at" qualifiers="const"><return type="int" /><param index="0" name="at" type="int" /><description>Returns the character code at position [param at].
-</description></method><method name="uri_decode" qualifiers="const"><return type="String" /><description>Decodes the string from its URL-encoded format. This method is meant to properly decode the parameters in a URL when receiving an HTTP request.
+</description></method><method name="uri_decode" qualifiers="const"><return type="String" /><description>Decodes the string from its URL-encoded format. This method is meant to properly decode the parameters in a URL when receiving an HTTP request. See also [method uri_encode].
 [codeblocks]
 [gdscript]
 var url = "$DOCS_URL/?highlight=Godot%20Engine%3%docs"
@@ -399,7 +399,7 @@ var url = "$DOCS_URL/?highlight=Godot%20Engine%3%docs"
 GD.Print(url.URIDecode()) // Prints "$DOCS_URL/?highlight=Godot Engine:docs"
 [/csharp]
 [/codeblocks]
-</description></method><method name="uri_encode" qualifiers="const"><return type="String" /><description>Encodes the string to URL-friendly format. This method is meant to properly encode the parameters in a URL when sending an HTTP request.
+</description></method><method name="uri_encode" qualifiers="const"><return type="String" /><description>Encodes the string to URL-friendly format. This method is meant to properly encode the parameters in a URL when sending an HTTP request. See also [method uri_decode].
 [codeblocks]
 [gdscript]
 var prefix = "$DOCS_URL/?highlight="

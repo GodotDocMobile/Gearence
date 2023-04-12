@@ -36,7 +36,6 @@ GD.Print(array1 + array2); // Prints [One, 2, 3, Four]
 [b]Note:[/b] Concatenating with the [code]+=[/code] operator will create a new array, which has a cost. If you want to append another array to an existing array, [method append_array] is more efficient.
 [b]Note:[/b] Arrays are always passed by reference. To get a copy of an array that can be modified independently of the original array, use [method duplicate].
 [b]Note:[/b] Erasing elements while iterating over arrays is [b]not[/b] supported and will result in unpredictable behavior.
-[b]Note:[/b] When declaring an array with [code]const[/code], the array itself can still be mutated by defining the values at individual indices or pushing/removing elements. Using [code]const[/code] will only prevent assigning the constant with another value after it was initialized.
 </description><tutorials></tutorials><constructors><constructor name="Array"><return type="Array" /><description>Constructs an empty [Array].
 </description></constructor><constructor name="Array"><return type="Array" /><param index="0" name="base" type="Array" /><param index="1" name="type" type="int" /><param index="2" name="class_name" type="StringName" /><param index="3" name="script" type="Variant" /><description>Creates a typed array from the [param base] array.
 </description></constructor><constructor name="Array"><return type="Array" /><param index="0" name="from" type="Array" /><description>Returns the same array as [param from]. If you need a copy of the array, use [method duplicate].

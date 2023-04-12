@@ -14,14 +14,22 @@
 </description></method><method name="area_get_space" qualifiers="const"><return type="RID" /><param index="0" name="area" type="RID" /><description>Returns the space assigned to the area.
 </description></method><method name="area_get_transform" qualifiers="const"><return type="Transform3D" /><param index="0" name="area" type="RID" /><description>Returns the transform matrix for an area.
 </description></method><method name="area_remove_shape"><return type="void" /><param index="0" name="area" type="RID" /><param index="1" name="shape_idx" type="int" /><description>Removes a shape from an area. It does not delete the shape, so it can be reassigned later.
-</description></method><method name="area_set_area_monitor_callback"><return type="void" /><param index="0" name="area" type="RID" /><param index="1" name="callback" type="Callable" /><description></description></method><method name="area_set_collision_layer"><return type="void" /><param index="0" name="area" type="RID" /><param index="1" name="layer" type="int" /><description>Assigns the area to one or many physics layers.
+</description></method><method name="area_set_area_monitor_callback"><return type="void" /><param index="0" name="area" type="RID" /><param index="1" name="callback" type="Callable" /><description>Sets the area's area monitor callback. This callback will be called when any other (shape of an) area enters or exits (a shape of) the given area, and must take the following five parameters:
+1. an integer [code]status[/code]: either [constant AREA_BODY_ADDED] or [constant AREA_BODY_REMOVED] depending on whether the other area's shape entered or exited the area,
+2. an [RID] [code]area_rid[/code]: the [RID] of the other area that entered or exited the area,
+3. an integer [code]instance_id[/code]: the [code]ObjectID[/code] attached to the other area,
+4. an integer [code]area_shape_idx[/code]: the index of the shape of the other area that entered or exited the area,
+5. an integer [code]self_shape_idx[/code]: the index of the shape of the area where the other area entered or exited.
+By counting (or keeping track of) the shapes that enter and exit, it can be determined if an area (with all its shapes) is entering for the first time or exiting for the last time.
+</description></method><method name="area_set_collision_layer"><return type="void" /><param index="0" name="area" type="RID" /><param index="1" name="layer" type="int" /><description>Assigns the area to one or many physics layers.
 </description></method><method name="area_set_collision_mask"><return type="void" /><param index="0" name="area" type="RID" /><param index="1" name="mask" type="int" /><description>Sets which physics layers the area will monitor.
-</description></method><method name="area_set_monitor_callback"><return type="void" /><param index="0" name="area" type="RID" /><param index="1" name="callback" type="Callable" /><description>Sets the function to call when any body/area enters or exits the area. This callback will be called for any object interacting with the area, and takes five parameters:
-1: [constant AREA_BODY_ADDED] or [constant AREA_BODY_REMOVED], depending on whether the object entered or exited the area.
-2: [RID] of the object that entered/exited the area.
-3: Instance ID of the object that entered/exited the area.
-4: The shape index of the object that entered/exited the area.
-5: The shape index of the area where the object entered/exited.
+</description></method><method name="area_set_monitor_callback"><return type="void" /><param index="0" name="area" type="RID" /><param index="1" name="callback" type="Callable" /><description>Sets the area's body monitor callback. This callback will be called when any other (shape of a) body enters or exits (a shape of) the given area, and must take the following five parameters:
+1. an integer [code]status[/code]: either [constant AREA_BODY_ADDED] or [constant AREA_BODY_REMOVED] depending on whether the other body shape entered or exited the area,
+2. an [RID] [code]body_rid[/code]: the [RID] of the body that entered or exited the area,
+3. an integer [code]instance_id[/code]: the [code]ObjectID[/code] attached to the body,
+4. an integer [code]body_shape_idx[/code]: the index of the shape of the body that entered or exited the area,
+5. an integer [code]self_shape_idx[/code]: the index of the shape of the area where the body entered or exited.
+By counting (or keeping track of) the shapes that enter and exit, it can be determined if a body (with all its shapes) is entering for the first time or exiting for the last time.
 </description></method><method name="area_set_monitorable"><return type="void" /><param index="0" name="area" type="RID" /><param index="1" name="monitorable" type="bool" /><description></description></method><method name="area_set_param"><return type="void" /><param index="0" name="area" type="RID" /><param index="1" name="param" type="int" enum="PhysicsServer3D.AreaParameter" /><param index="2" name="value" type="Variant" /><description>Sets the value for an area parameter. A list of available parameters is on the [enum AreaParameter] constants.
 </description></method><method name="area_set_ray_pickable"><return type="void" /><param index="0" name="area" type="RID" /><param index="1" name="enable" type="bool" /><description>Sets object pickable with rays.
 </description></method><method name="area_set_shape"><return type="void" /><param index="0" name="area" type="RID" /><param index="1" name="shape_idx" type="int" /><param index="2" name="shape" type="RID" /><description>Substitutes a given area shape by another. The old shape is selected by its index, the new one by its [RID].
