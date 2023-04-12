@@ -50,6 +50,7 @@ class DescriptionText extends StatelessWidget {
           case 'member':
           case 'signal':
           case 'enum':
+          case 'annotation':
           case 'constant':
             // print(name);
             hintText = "$hintText $name";
@@ -71,6 +72,7 @@ class DescriptionText extends StatelessWidget {
                             : className,
                         fieldName:
                             name.contains('.') ? name.split('.').last : name);
+                    print(args);
                     // this.onLinkTap(args);
                     blocs.tapEventBloc.add(args);
                   },
@@ -256,12 +258,14 @@ class DescriptionText extends StatelessWidget {
                   ),
                 ),
               ));
-            } else if (tag.startsWith('annotation')) {
-              rtn.add(TextSpan(
-                text: name,
-                style: scaledTextStyle(context).copyWith(color: godotColor),
-              ));
-            } else {
+            }
+            // else if (tag.startsWith('annotation')) {
+            //   rtn.add(TextSpan(
+            //     text: name,
+            //     style: scaledTextStyle(context).copyWith(color: godotColor),
+            //   ));
+            // }
+            else {
               print(e);
             }
             break;

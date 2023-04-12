@@ -3,9 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:godotclassreference/bloc/blocs.dart';
 
 import 'package:godotclassreference/helpers/sematic_helpers.dart';
+import 'package:godotclassreference/screens/class_detail/class_annotations.dart';
 import 'package:godotclassreference/theme/themes.dart';
-import 'package:godotclassreference/bloc/tap_event_bloc.dart';
-import 'package:godotclassreference/bloc/tap_event_arg.dart';
 import 'package:godotclassreference/constants/class_db.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:godotclassreference/models/class_content.dart';
@@ -33,8 +32,6 @@ class _ClassDetailState extends State<ClassDetail>
   TabController? tabController;
   Future<ClassContent>? _classContent;
   late List<ClassTab> _tabs;
-
-  // TapEventBloc _bloc = blocs.tapEventBloc;
 
   String className = '';
 
@@ -131,6 +128,17 @@ class _ClassDetailState extends State<ClassDetail>
                   itemCount: snapshot.data!.themeItems.length,
                 ),
               );
+            }
+
+            if (snapshot.data!.annotations.length > 0) {
+              _tabs.add(ClassTab(
+                title: "Annotations",
+                child: ClassAnnotations(
+                  clsContent: snapshot.data,
+                ),
+                showCnt: true,
+                itemCount: snapshot.data!.annotations.length,
+              ));
             }
 
             if (tabController == null) {
