@@ -1,5 +1,8 @@
 name: Build
-on: [push]
+on: 
+    push:
+        tags:
+            - '*'
 jobs:
  build-linux-desktop:
    runs-on: ubuntu-latest
