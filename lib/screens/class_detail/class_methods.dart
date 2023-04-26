@@ -102,7 +102,7 @@ class _ClassMethodsState extends State<ClassMethods> {
                   ),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
+                    children: [
                       Row(children: [
                         Text(
                           'return',

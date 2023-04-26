@@ -44,7 +44,7 @@ print(Vector2.from_angle(0)) # Prints (1, 0).
 print(Vector2(1, 0).angle()) # Prints 0, which is the angle used above.
 print(Vector2.from_angle(PI / 2)) # Prints (0, 1).
 [/codeblock]
-</description></method><method name="is_equal_approx" qualifiers="const"><return type="bool" /><param index="0" name="to" type="Vector2" /><description>Returns [code]true[/code] if this vector and [code]v[/code] are approximately equal, by running [method @GlobalScope.is_equal_approx] on each component.
+</description></method><method name="is_equal_approx" qualifiers="const"><return type="bool" /><param index="0" name="to" type="Vector2" /><description>Returns [code]true[/code] if this vector and [param to] are approximately equal, by running [method @GlobalScope.is_equal_approx] on each component.
 </description></method><method name="is_finite" qualifiers="const"><return type="bool" /><description>Returns [code]true[/code] if this vector is finite, by calling [method @GlobalScope.is_finite] on each component.
 </description></method><method name="is_normalized" qualifiers="const"><return type="bool" /><description>Returns [code]true[/code] if the vector is normalized, i.e. its length is approximately equal to 1.
 </description></method><method name="is_zero_approx" qualifiers="const"><return type="bool" /><description>Returns [code]true[/code] if this vector's values are approximately zero, by running [method @GlobalScope.is_zero_approx] on each component.
@@ -58,7 +58,7 @@ This method runs faster than [method length], so prefer it if you need to compar
 </description></method><method name="min_axis_index" qualifiers="const"><return type="int" /><description>Returns the axis of the vector's lowest value. See [code]AXIS_*[/code] constants. If all components are equal, this method returns [constant AXIS_Y].
 </description></method><method name="move_toward" qualifiers="const"><return type="Vector2" /><param index="0" name="to" type="Vector2" /><param index="1" name="delta" type="float" /><description>Returns a new vector moved toward [param to] by the fixed [param delta] amount. Will not go past the final value.
 </description></method><method name="normalized" qualifiers="const"><return type="Vector2" /><description>Returns the result of scaling the vector to unit length. Equivalent to [code]v / v.length()[/code]. See also [method is_normalized].
-[b]Note:[/b] This function may return incorrect values if the initial vector length is near zero.
+[b]Note:[/b] This function may return incorrect values if the input vector length is near zero.
 </description></method><method name="orthogonal" qualifiers="const"><return type="Vector2" /><description>Returns a perpendicular vector rotated 90 degrees counter-clockwise compared to the original, with the same length.
 </description></method><method name="posmod" qualifiers="const"><return type="Vector2" /><param index="0" name="mod" type="float" /><description>Returns a vector composed of the [method @GlobalScope.fposmod] of this vector's components and [param mod].
 </description></method><method name="posmodv" qualifiers="const"><return type="Vector2" /><param index="0" name="modv" type="Vector2" /><description>Returns a vector composed of the [method @GlobalScope.fposmod] of this vector's components and [param modv]'s components.

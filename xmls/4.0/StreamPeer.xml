@@ -31,10 +31,10 @@ Internally, this uses the same decoding mechanism as the [method @GlobalScope.by
 [b]Note:[/b] To put an ASCII string without prepending its size, you can use [method put_data]:
 [codeblocks]
 [gdscript]
-put_data("Hello world".to_ascii())
+put_data("Hello world".to_ascii_buffer())
 [/gdscript]
 [csharp]
-PutData("Hello World".ToAscii());
+PutData("Hello World".ToAsciiBuffer());
 [/csharp]
 [/codeblocks]
 </description></method><method name="put_u16"><return type="void" /><param index="0" name="value" type="int" /><description>Puts an unsigned 16-bit value into the stream.
@@ -45,10 +45,10 @@ PutData("Hello World".ToAscii());
 [b]Note:[/b] To put an UTF-8 string without prepending its size, you can use [method put_data]:
 [codeblocks]
 [gdscript]
-put_data("Hello world".to_utf8())
+put_data("Hello world".to_utf8_buffer())
 [/gdscript]
 [csharp]
-PutData("Hello World".ToUtf8());
+PutData("Hello World".ToUtf8Buffer());
 [/csharp]
 [/codeblocks]
 </description></method><method name="put_var"><return type="void" /><param index="0" name="value" type="Variant" /><param index="1" name="full_objects" type="bool" default="false" /><description>Puts a Variant into the stream. If [param full_objects] is [code]true[/code] encoding objects is allowed (and can potentially include code).
