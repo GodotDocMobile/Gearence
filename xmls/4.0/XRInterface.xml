@@ -11,7 +11,7 @@ Interfaces should be written in such a way that simply enabling them will give u
 </description></method><method name="get_tracking_status" qualifiers="const"><return type="int" enum="XRInterface.TrackingStatus" /><description>If supported, returns the status of our tracking. This will allow you to provide feedback to the user whether there are issues with positional tracking.
 </description></method><method name="get_transform_for_view"><return type="Transform3D" /><param index="0" name="view" type="int" /><param index="1" name="cam_transform" type="Transform3D" /><description>Returns the transform for a view/eye.
 [param view] is the view/eye index.
-[param cam_transform] is the transform that maps device coordinates to scene coordinates, typically the global_transform of the current XROrigin3D.
+[param cam_transform] is the transform that maps device coordinates to scene coordinates, typically the [member Node3D.global_transform] of the current XROrigin3D.
 </description></method><method name="get_view_count"><return type="int" /><description>Returns the number of views that need to be rendered for this device. 1 for Monoscopic, 2 for Stereoscopic.
 </description></method><method name="initialize"><return type="bool" /><description>Call this to initialize this interface. The first interface that is initialized is identified as the primary interface and it will be used for rendering output.
 After initializing the interface you want to use you then need to enable the AR/VR mode of a viewport and rendering should commence.
@@ -66,7 +66,7 @@ While currently not used, you can activate additional interfaces. You may wish t
 </constant><constant name="XR_PLAY_AREA_3DOF" value="1" enum="PlayAreaMode">Play area only supports orientation tracking, no positional tracking, area will center around player.
 </constant><constant name="XR_PLAY_AREA_SITTING" value="2" enum="PlayAreaMode">Player is in seated position, limited positional tracking, fixed guardian around player.
 </constant><constant name="XR_PLAY_AREA_ROOMSCALE" value="3" enum="PlayAreaMode">Player is free to move around, full positional tracking.
-</constant><constant name="XR_PLAY_AREA_STAGE" value="4" enum="PlayAreaMode">Same as roomscale but origin point is fixed to the center of the physical space, XRServer.center_on_hmd disabled.
+</constant><constant name="XR_PLAY_AREA_STAGE" value="4" enum="PlayAreaMode">Same as [constant XR_PLAY_AREA_ROOMSCALE] but origin point is fixed to the center of the physical space, [method XRServer.center_on_hmd] disabled.
 </constant><constant name="XR_ENV_BLEND_MODE_OPAQUE" value="0" enum="EnvironmentBlendMode">Opaque blend mode. This is typically used for VR devices.
 </constant><constant name="XR_ENV_BLEND_MODE_ADDITIVE" value="1" enum="EnvironmentBlendMode">Additive blend mode. This is typically used for AR devices or VR devices with passthrough.
 </constant><constant name="XR_ENV_BLEND_MODE_ALPHA_BLEND" value="2" enum="EnvironmentBlendMode">Alpha blend mode. This is typically used for AR or VR devices with passthrough capabilities. The alpha channel controls how much of the passthrough is visible. Alpha of 0.0 means the passthrough is visible and this pixel works in ADDITIVE mode. Alpha of 1.0 means that the passthrough is not visible and this pixel works in OPAQUE mode.

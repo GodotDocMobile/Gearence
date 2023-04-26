@@ -84,7 +84,7 @@ class _ClassDetailState extends State<ClassDetail>
 
   Widget itemCountContainer(int itemCount) {
     return Row(
-      children: <Widget>[
+      children: [
         Container(
           margin: EdgeInsets.all(10.0),
           decoration: BoxDecoration(
@@ -173,11 +173,11 @@ class _ClassDetailState extends State<ClassDetail>
                     tabs: _tabs.map((f) {
                       return Tab(
                         child: Row(
-                          children: <Widget>[
+                          children: [
                             Text(f.title!),
                             f.showCnt
                                 ? itemCountContainer(f.itemCount!)
-                                : SizedBox()
+                                : SizedBox(),
                           ],
                         ),
                       );

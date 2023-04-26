@@ -146,7 +146,7 @@ If [param language] is omitted, the active locale will be used.
 [b]Note:[/b] This method doesn't detect invisible characters, for spoof detection use it in combination with [method spoof_check].
 [b]Note:[/b] Always returns [code]-1[/code] if the server does not support the [constant FEATURE_UNICODE_SECURITY] feature.
 </description></method><method name="is_locale_right_to_left" qualifiers="const"><return type="bool" /><param index="0" name="locale" type="String" /><description>Returns [code]true[/code] if locale is right-to-left.
-</description></method><method name="is_valid_identifier" qualifiers="const"><return type="bool" /><param index="0" name="string" type="String" /><description>Returns [code]true[/code] is [param string] is a valid identifier.
+</description></method><method name="is_valid_identifier" qualifiers="const"><return type="bool" /><param index="0" name="string" type="String" /><description>Returns [code]true[/code] if [param string] is a valid identifier.
 If the text server supports the [constant FEATURE_UNICODE_IDENTIFIERS] feature, a valid identifier must:
 - Conform to normalization form C.
 - Begin with a Unicode character of class XID_Start or [code]"_"[/code].
@@ -305,6 +305,7 @@ Right to left text is written vertically from bottom to top.
 </constant><constant name="GRAPHEME_IS_UNDERSCORE" value="512" enum="GraphemeFlag" is_bitfield="true">Grapheme is underscore character.
 </constant><constant name="GRAPHEME_IS_CONNECTED" value="1024" enum="GraphemeFlag" is_bitfield="true">Grapheme is connected to the previous grapheme. Breaking line before this grapheme is not safe.
 </constant><constant name="GRAPHEME_IS_SAFE_TO_INSERT_TATWEEL" value="2048" enum="GraphemeFlag" is_bitfield="true">It is safe to insert a U+0640 before this grapheme for elongation.
+</constant><constant name="GRAPHEME_IS_EMBEDDED_OBJECT" value="4096" enum="GraphemeFlag" is_bitfield="true">Grapheme is an object replacement character for the embedded object.
 </constant><constant name="HINTING_NONE" value="0" enum="Hinting">Disables font hinting (smoother but less crisp).
 </constant><constant name="HINTING_LIGHT" value="1" enum="Hinting">Use the light font hinting mode.
 </constant><constant name="HINTING_NORMAL" value="2" enum="Hinting">Use the default font hinting mode (crisper but less smooth).

@@ -66,7 +66,7 @@ class GCRDrawerState extends State<GCRDrawer> {
         builder: (context) {
           return SimpleDialog(
             title: Text("About"),
-            children: <Widget>[
+            children: [
               Padding(
                 padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                 child: ListTile(
@@ -110,7 +110,7 @@ class GCRDrawerState extends State<GCRDrawer> {
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
-        children: <Widget>[
+        children: [
           DrawerHeader(
             decoration: BoxDecoration(
               color: Color(0xFF303d68),

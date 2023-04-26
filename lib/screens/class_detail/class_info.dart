@@ -21,7 +21,7 @@ class ClassInfo extends StatelessWidget {
 
     return ListView(
       padding: EdgeInsets.all(10),
-      children: <Widget>[
+      children: [
         //inherit chain
         ExcludeSemantics(
           child: Text(
@@ -79,7 +79,7 @@ class ClassInfo extends StatelessWidget {
             ? SizedBox()
             : Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
+                children: [
                   Text(
                     'Version:',
                     style: TextStyle(color: Colors.grey),
@@ -98,7 +98,7 @@ class ClassInfo extends StatelessWidget {
             ? SizedBox()
             : Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
+                children: [
                   Text(
                     'Category:',
                     style: TextStyle(color: Colors.grey),
@@ -123,7 +123,7 @@ class ClassInfo extends StatelessWidget {
         //tutorials
         clsContent!.demos != null && clsContent!.demos!.length > 0
             ? Column(
-                children: <Widget>[
+                children: [
                   Text(
                     'Demos:',
                     style: fieldNames,
@@ -139,10 +139,7 @@ class ClassInfo extends StatelessWidget {
         //demos
         clsContent!.demos != null && clsContent!.demos!.length > 0
             ? Column(
-                children: <Widget>[
-                  Text('Tutorials:'),
-                  Text(clsContent!.tutorials!)
-                ],
+                children: [Text('Tutorials:'), Text(clsContent!.tutorials!)],
               )
             : Container(),
       ],

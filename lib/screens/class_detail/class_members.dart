@@ -90,7 +90,7 @@ class _ClassMembersState extends State<ClassMembers> {
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
-                children: <Widget>[
+                children: [
                   ListTile(
                     title: Container(
                       width: MediaQuery.of(context).size.width * 0.8,
@@ -106,7 +106,7 @@ class _ClassMembersState extends State<ClassMembers> {
                     ),
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
+                      children: [
                         Row(
                           children: [
                             Text(
@@ -129,7 +129,7 @@ class _ClassMembersState extends State<ClassMembers> {
                             ? SizedBox()
                             : Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
+                                children: [
                                   Text(
                                     'setter',
                                     style: TextStyle(color: Colors.grey),
@@ -156,7 +156,7 @@ class _ClassMembersState extends State<ClassMembers> {
                             ? SizedBox()
                             : Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
+                                children: [
                                   Text(
                                     'getter',
                                     style: TextStyle(color: Colors.grey),

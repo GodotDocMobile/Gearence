@@ -94,7 +94,7 @@ class _ClassAnnotationsState extends State<ClassAnnotations> {
                   ),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
+                    children: [
                       Row(children: [
                         Text(
                           'return',

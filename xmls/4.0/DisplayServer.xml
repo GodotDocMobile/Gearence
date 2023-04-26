@@ -468,7 +468,7 @@ Depending on the platform and used renderer, the engine will fall back to [const
 </constant><constant name="MAIN_WINDOW_ID" value="0">The ID of the main window spawned by the engine, which can be passed to methods expecting a [code]window_id[/code].
 </constant><constant name="INVALID_WINDOW_ID" value="-1">The ID that refers to a nonexisting window. This is be returned by some [DisplayServer] methods if no window matches the requested result.
 </constant><constant name="SCREEN_LANDSCAPE" value="0" enum="ScreenOrientation">Default landscape orientation.
-</constant><constant name="SCREEN_PORTRAIT" value="1" enum="ScreenOrientation">Default portrait orienstation.
+</constant><constant name="SCREEN_PORTRAIT" value="1" enum="ScreenOrientation">Default portrait orientation.
 </constant><constant name="SCREEN_REVERSE_LANDSCAPE" value="2" enum="ScreenOrientation">Reverse landscape orientation (upside down).
 </constant><constant name="SCREEN_REVERSE_PORTRAIT" value="3" enum="ScreenOrientation">Reverse portrait orientation (upside down).
 </constant><constant name="SCREEN_SENSOR_LANDSCAPE" value="4" enum="ScreenOrientation">Automatic landscape orientation (default or reverse depending on sensor).
@@ -520,7 +520,7 @@ Full screen window cover the entire display area of a screen, have no border or 
 [b]Note:[/b] This flag has no effect if [member ProjectSettings.display/window/per_pixel_transparency/allowed] is set to [code]false[/code].
 [b]Note:[/b] Transparency support is implemented on Linux (X11), macOS and Windows, but availability might vary depending on GPU driver, display manager, and compositor capabilities.
 </constant><constant name="WINDOW_FLAG_NO_FOCUS" value="4" enum="WindowFlags">The window can't be focused. No-focus window will ignore all input, except mouse clicks.
-</constant><constant name="WINDOW_FLAG_POPUP" value="5" enum="WindowFlags">Window is part of menu or [OptionButton] dropdown. This flag can't be changed when the window is visible. An active popup window will exclusively receive all input, without stealing focus from its parent. Popup windows are automatically closed when uses click outside it, or when an application is switched. Popup window must have [code]transient parent[/code] set (see [method window_set_transient]).
+</constant><constant name="WINDOW_FLAG_POPUP" value="5" enum="WindowFlags">Window is part of menu or [OptionButton] dropdown. This flag can't be changed when the window is visible. An active popup window will exclusively receive all input, without stealing focus from its parent. Popup windows are automatically closed when uses click outside it, or when an application is switched. Popup window must have transient parent set (see [method window_set_transient]).
 </constant><constant name="WINDOW_FLAG_EXTEND_TO_TITLE" value="6" enum="WindowFlags">Window content is expanded to the full size of the window. Unlike borderless window, the frame is left intact and can be used to resize the window, title bar is transparent, but have minimize/maximize/close buttons.
 Use [method window_set_window_buttons_offset] to adjust minimize/maximize/close buttons offset.
 Use [method window_get_safe_title_margins] to determine area under the title bar that is not covered by decorations.

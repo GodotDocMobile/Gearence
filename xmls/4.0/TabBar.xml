@@ -28,7 +28,7 @@
 </member><member name="current_tab" type="int" setter="set_current_tab" getter="get_current_tab" default="0">Select tab at index [code]tab_idx[/code].
 </member><member name="drag_to_rearrange_enabled" type="bool" setter="set_drag_to_rearrange_enabled" getter="get_drag_to_rearrange_enabled" default="false">If [code]true[/code], tabs can be rearranged with mouse drag.
 </member><member name="max_tab_width" type="int" setter="set_max_tab_width" getter="get_max_tab_width" default="0">Sets the maximum width which all tabs should be limited to. Unlimited if set to [code]0[/code].
-</member><member name="scroll_to_selected" type="bool" setter="set_scroll_to_selected" getter="get_scroll_to_selected" default="true">If [code]true[/code], the tab offset will be changed to keep the the currently selected tab visible.
+</member><member name="scroll_to_selected" type="bool" setter="set_scroll_to_selected" getter="get_scroll_to_selected" default="true">If [code]true[/code], the tab offset will be changed to keep the currently selected tab visible.
 </member><member name="scrolling_enabled" type="bool" setter="set_scrolling_enabled" getter="get_scrolling_enabled" default="true">if [code]true[/code], the mouse's scroll wheel can be used to navigate the scroll view.
 </member><member name="select_with_rmb" type="bool" setter="set_select_with_rmb" getter="get_select_with_rmb" default="false">If [code]true[/code], enables selecting a tab with the right mouse button.
 </member><member name="tab_alignment" type="int" setter="set_tab_alignment" getter="get_tab_alignment" enum="TabBar.AlignmentMode" default="0">Sets the position at which tabs will be placed. See [enum AlignmentMode] for details.
