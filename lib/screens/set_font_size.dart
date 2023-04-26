@@ -57,7 +57,7 @@ class _SetFontSizeState extends State<SetFontSize>
 
   Widget itemCountContainer(int itemCount) {
     return Row(
-      children: <Widget>[
+      children: [
         SizedBox(
           width: 5,
         ),
@@ -102,7 +102,7 @@ class _SetFontSizeState extends State<SetFontSize>
               tabs: _tabs.map((f) {
                 return Tab(
                   child: Row(
-                    children: <Widget>[
+                    children: [
                       Text(f.title!),
                       f.showCnt ? itemCountContainer(f.itemCount!) : SizedBox()
                     ],
