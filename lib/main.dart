@@ -15,8 +15,8 @@ import 'package:godotclassreference/theme/themes.dart';
 import 'package:godotclassreference/screens/class_select.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   if (Platform.isLinux || Platform.isMacOS || Platform.isWindows) {
-    WidgetsFlutterBinding.ensureInitialized();
     await windowManager.ensureInitialized();
 
     WindowOptions windowOptions = WindowOptions(

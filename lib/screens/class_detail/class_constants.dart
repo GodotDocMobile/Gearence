@@ -105,7 +105,7 @@ class _ClassConstantsState extends State<ClassConstants> {
                           Text("value  "),
                           Text(
                             c.value.toString(),
-                            style: Theme.of(context).textTheme.bodyText1,
+                            style: Theme.of(context).textTheme.bodyLarge,
                           ),
                         ],
                       ),
