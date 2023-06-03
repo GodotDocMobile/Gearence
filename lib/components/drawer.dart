@@ -87,9 +87,11 @@ class GCRDrawerState extends State<GCRDrawer> {
                   title: Text("View Source"),
                   subtitle: Text("Issues are welcome!"),
                   onTap: () async {
-                    const url =
-                        'https://github.com/GodotDocMobile/godot_class_reference';
-                    if (!await launch(url)) {
+                    // const url =
+                    //     'https://github.com/GodotDocMobile/godot_class_reference';
+                    var url = Uri.dataFromString(
+                        'https://github.com/GodotDocMobile/godot_class_reference');
+                    if (!await launchUrl(url)) {
                       print("can not launch url $url");
                     }
                   },
@@ -201,9 +203,11 @@ class GCRDrawerState extends State<GCRDrawer> {
           ListTile(
             title: Text('I WANT TRANSLATION!'),
             onTap: () async {
-              const url =
-                  'https://hosted.weblate.org/projects/godot-engine/godot-class-reference/';
-              if (await launch(url)) {
+              // const url =
+              //     'https://hosted.weblate.org/projects/godot-engine/godot-class-reference/';
+              var url = Uri.dataFromString(
+                  'https://hosted.weblate.org/projects/godot-engine/godot-class-reference/');
+              if (await launchUrl(url)) {
                 print("can not launch url $url");
               }
             },
