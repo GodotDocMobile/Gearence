@@ -145,6 +145,7 @@ GetNode&lt;Window&gt;("Window").MousePassthrough = new Vector2[] {};
 [b]Note:[/b] This property is implemented on Linux (X11), macOS and Windows.
 </member><member name="popup_window" type="bool" setter="set_flag" getter="get_flag" default="false">If [code]true[/code], the [Window] will be considered a popup. Popups are sub-windows that don't show as separate windows in system's window manager's window list and will send close request when anything is clicked outside of them (unless [member exclusive] is enabled).
 </member><member name="position" type="Vector2i" setter="set_position" getter="get_position" default="Vector2i(0, 0)">The window's position in pixels.
+If [member ProjectSettings.display/window/subwindows/embed_subwindows] is [code]false[/code], the position is in absolute screen coordinates. This typically applies to editor plugins. If the setting is [code]false[/code], the window's position is in the coordinates of its parent [Viewport].
 </member><member name="size" type="Vector2i" setter="set_size" getter="get_size" default="Vector2i(100, 100)">The window's size in pixels.
 </member><member name="theme" type="Theme" setter="set_theme" getter="get_theme">The [Theme] resource this node and all its [Control] and [Window] children use. If a child node has its own [Theme] resource set, theme items are merged with child's definitions having higher priority.
 [b]Note:[/b] [Window] styles will have no effect unless the window is embedded.
@@ -198,7 +199,7 @@ Regardless of the platform, enabling full screen will change the window size to 
 </constant><constant name="MODE_EXCLUSIVE_FULLSCREEN" value="4" enum="Mode">Exclusive full screen window mode. This mode is implemented on Windows only. On other platforms, it is equivalent to [constant MODE_FULLSCREEN].
 Only one window in exclusive full screen mode can be visible on a given screen at a time. If multiple windows are in exclusive full screen mode for the same screen, the last one being set to this mode takes precedence.
 Regardless of the platform, enabling full screen will change the window size to match the monitor's size. Therefore, make sure your project supports [url=$DOCS_URL/tutorials/rendering/multiple_resolutions.html]multiple resolutions[/url] when enabling full screen mode.
-</constant><constant name="FLAG_RESIZE_DISABLED" value="0" enum="Flags">The window can't be resizing by dragging its resize grip. It's still possible to resize the window using [member size]. This flag is ignored for full screen windows. Set with [member unresizable].
+</constant><constant name="FLAG_RESIZE_DISABLED" value="0" enum="Flags">The window can't be resized by dragging its resize grip. It's still possible to resize the window using [member size]. This flag is ignored for full screen windows. Set with [member unresizable].
 </constant><constant name="FLAG_BORDERLESS" value="1" enum="Flags">The window do not have native title bar and other decorations. This flag is ignored for full-screen windows. Set with [member borderless].
 </constant><constant name="FLAG_ALWAYS_ON_TOP" value="2" enum="Flags">The window is floating on top of all other windows. This flag is ignored for full-screen windows. Set with [member always_on_top].
 </constant><constant name="FLAG_TRANSPARENT" value="3" enum="Flags">The window background can be transparent.

@@ -102,7 +102,7 @@ Both the start and end keys must be symbols. Only the start key has to be unique
 </constant><constant name="KIND_SIGNAL" value="2" enum="CodeCompletionKind">Marks the option as a Godot signal.
 </constant><constant name="KIND_VARIABLE" value="3" enum="CodeCompletionKind">Marks the option as a variable.
 </constant><constant name="KIND_MEMBER" value="4" enum="CodeCompletionKind">Marks the option as a member.
-</constant><constant name="KIND_ENUM" value="5" enum="CodeCompletionKind">Marks the option as a enum entry.
+</constant><constant name="KIND_ENUM" value="5" enum="CodeCompletionKind">Marks the option as an enum entry.
 </constant><constant name="KIND_CONSTANT" value="6" enum="CodeCompletionKind">Marks the option as a constant.
 </constant><constant name="KIND_NODE_PATH" value="7" enum="CodeCompletionKind">Marks the option as a Godot node path.
 </constant><constant name="KIND_FILE_PATH" value="8" enum="CodeCompletionKind">Marks the option as a file path.

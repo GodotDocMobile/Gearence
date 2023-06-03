@@ -33,12 +33,12 @@ var a = absf(-1.2)
 # a is 1
 var a = absi(-1)
 [/codeblock]
-</description></method><method name="acos"><return type="float" /><param index="0" name="x" type="float" /><description>Returns the arc cosine of [param x] in radians. Use to get the angle of cosine [param x]. [param x] must be between [code]-1.0[/code] and [code]1.0[/code] (inclusive), otherwise, [method acos] will return [constant @GDScript.NAN].
+</description></method><method name="acos"><return type="float" /><param index="0" name="x" type="float" /><description>Returns the arc cosine of [param x] in radians. Use to get the angle of cosine [param x]. [param x] will be clamped between [code]-1.0[/code] and [code]1.0[/code] (inclusive), in order to prevent [method acos] from returning [constant @GDScript.NAN].
 [codeblock]
 # c is 0.523599 or 30 degrees if converted with rad_to_deg(c)
 var c = acos(0.866025)
 [/codeblock]
-</description></method><method name="asin"><return type="float" /><param index="0" name="x" type="float" /><description>Returns the arc sine of [param x] in radians. Use to get the angle of sine [param x]. [param x] must be between [code]-1.0[/code] and [code]1.0[/code] (inclusive), otherwise, [method asin] will return [constant @GDScript.NAN].
+</description></method><method name="asin"><return type="float" /><param index="0" name="x" type="float" /><description>Returns the arc sine of [param x] in radians. Use to get the angle of sine [param x]. [param x] will be clamped between [code]-1.0[/code] and [code]1.0[/code] (inclusive), in order to prevent [method asin] from returning [constant @GDScript.NAN].
 [codeblock]
 # s is 0.523599 or 30 degrees if converted with rad_to_deg(s)
 var s = asin(0.5)
@@ -1077,8 +1077,8 @@ var result = wrapi(-6, -5, -1)
 </constant><constant name="JOY_AXIS_SDL_MAX" value="6" enum="JoyAxis">The number of SDL game controller axes.
 </constant><constant name="JOY_AXIS_MAX" value="10" enum="JoyAxis">The maximum number of game controller axes: OpenVR supports up to 5 Joysticks making a total of 10 axes.
 </constant><constant name="MIDI_MESSAGE_NONE" value="0" enum="MIDIMessage">Enum value which doesn't correspond to any MIDI message. This is used to initialize [enum MIDIMessage] properties with a generic state.
-</constant><constant name="MIDI_MESSAGE_NOTE_OFF" value="8" enum="MIDIMessage">MIDI note OFF message. See the documentation of [InputEventMIDI] for information of how to use MIDI inputs.
-</constant><constant name="MIDI_MESSAGE_NOTE_ON" value="9" enum="MIDIMessage">MIDI note ON message. See the documentation of [InputEventMIDI] for information of how to use MIDI inputs.
+</constant><constant name="MIDI_MESSAGE_NOTE_OFF" value="8" enum="MIDIMessage">MIDI note OFF message. Not all MIDI devices send this event; some send [constant MIDI_MESSAGE_NOTE_ON] with zero velocity instead. See the documentation of [InputEventMIDI] for information of how to use MIDI inputs.
+</constant><constant name="MIDI_MESSAGE_NOTE_ON" value="9" enum="MIDIMessage">MIDI note ON message. Some MIDI devices send this event with velocity zero instead of [constant MIDI_MESSAGE_NOTE_OFF], but implementations vary. See the documentation of [InputEventMIDI] for information of how to use MIDI inputs.
 </constant><constant name="MIDI_MESSAGE_AFTERTOUCH" value="10" enum="MIDIMessage">MIDI aftertouch message. This message is most often sent by pressing down on the key after it "bottoms out".
 </constant><constant name="MIDI_MESSAGE_CONTROL_CHANGE" value="11" enum="MIDIMessage">MIDI control change message. This message is sent when a controller value changes. Controllers include devices such as pedals and levers.
 </constant><constant name="MIDI_MESSAGE_PROGRAM_CHANGE" value="12" enum="MIDIMessage">MIDI program change message. This message sent when the program patch number changes.
@@ -1216,8 +1216,8 @@ hint_string = "%s:%s/%s:Resource" % [TYPE_ARRAY, TYPE_OBJECT, TYPE_OBJECT] # Two
 </constant><constant name="PROPERTY_USAGE_NEVER_DUPLICATE" value="1048576" enum="PropertyUsageFlags" is_bitfield="true">When duplicating a resource with [method Resource.duplicate], and this flag is set on a property of that resource, the property should never be duplicated, regardless of the [code]subresources[/code] bool parameter.
 </constant><constant name="PROPERTY_USAGE_HIGH_END_GFX" value="2097152" enum="PropertyUsageFlags" is_bitfield="true">The property is only shown in the editor if modern renderers are supported (the Compatibility rendering method is excluded).
 </constant><constant name="PROPERTY_USAGE_NODE_PATH_FROM_SCENE_ROOT" value="4194304" enum="PropertyUsageFlags" is_bitfield="true"></constant><constant name="PROPERTY_USAGE_RESOURCE_NOT_PERSISTENT" value="8388608" enum="PropertyUsageFlags" is_bitfield="true"></constant><constant name="PROPERTY_USAGE_KEYING_INCREMENTS" value="16777216" enum="PropertyUsageFlags" is_bitfield="true"></constant><constant name="PROPERTY_USAGE_DEFERRED_SET_RESOURCE" value="33554432" enum="PropertyUsageFlags" is_bitfield="true"></constant><constant name="PROPERTY_USAGE_EDITOR_INSTANTIATE_OBJECT" value="67108864" enum="PropertyUsageFlags" is_bitfield="true"></constant><constant name="PROPERTY_USAGE_EDITOR_BASIC_SETTING" value="134217728" enum="PropertyUsageFlags" is_bitfield="true"></constant><constant name="PROPERTY_USAGE_READ_ONLY" value="268435456" enum="PropertyUsageFlags" is_bitfield="true">The property is read-only in the [EditorInspector].
-</constant><constant name="PROPERTY_USAGE_DEFAULT" value="6" enum="PropertyUsageFlags" is_bitfield="true">Default usage (storage, editor and network).
-</constant><constant name="PROPERTY_USAGE_NO_EDITOR" value="2" enum="PropertyUsageFlags" is_bitfield="true">Default usage but without showing the property in the editor (storage, network).
+</constant><constant name="PROPERTY_USAGE_DEFAULT" value="6" enum="PropertyUsageFlags" is_bitfield="true">Default usage (storage and editor).
+</constant><constant name="PROPERTY_USAGE_NO_EDITOR" value="2" enum="PropertyUsageFlags" is_bitfield="true">Default usage but without showing the property in the editor (storage).
 </constant><constant name="METHOD_FLAG_NORMAL" value="1" enum="MethodFlags" is_bitfield="true">Flag for a normal method.
 </constant><constant name="METHOD_FLAG_EDITOR" value="2" enum="MethodFlags" is_bitfield="true">Flag for an editor method.
 </constant><constant name="METHOD_FLAG_CONST" value="4" enum="MethodFlags" is_bitfield="true">Flag for a constant method.

@@ -78,7 +78,7 @@ print(is_instance_of(a, Node))
 print(is_instance_of(a, MyClass))
 print(is_instance_of(a, MyClass.InnerClass))
 [/codeblock]
-[b]Note:[/b] If [param value] and/or [param type] are freed objects (see [method @GlobalScope.is_instance_valid]), or [param type] is not one of the above options, this method will raise an runtime error.
+[b]Note:[/b] If [param value] and/or [param type] are freed objects (see [method @GlobalScope.is_instance_valid]), or [param type] is not one of the above options, this method will raise a runtime error.
 See also [method @GlobalScope.typeof], [method type_exists], [method Array.is_same_typed] (and other [Array] methods).
 </description></method><method name="len"><return type="int" /><param index="0" name="var" type="Variant" /><description>Returns the length of the given Variant [param var]. The length can be the character count of a [String], the element count of any array type or the size of a [Dictionary]. For every other Variant type, a run-time error is generated and execution is stopped.
 [codeblock]
@@ -97,6 +97,7 @@ var main = load("res://main.tscn") # main will contain a PackedScene resource.
 [b]Important:[/b] The path must be absolute. A relative path will always return [code]null[/code].
 This function is a simplified version of [method ResourceLoader.load], which can be used for more advanced scenarios.
 [b]Note:[/b] Files have to be imported into the engine first to load them using this function. If you want to load [Image]s at run-time, you may use [method Image.load]. If you want to import audio files, you can use the snippet described in [member AudioStreamMP3.data].
+[b]Note:[/b] If [member ProjectSettings.editor/export/convert_text_resources_to_binary] is [code]true[/code], [method @GDScript.load] will not be able to read converted files in an exported project. If you rely on run-time loading of files present within the PCK, set [member ProjectSettings.editor/export/convert_text_resources_to_binary] to [code]false[/code].
 </description></method><method name="preload"><return type="Resource" /><param index="0" name="path" type="String" /><description>Returns a [Resource] from the filesystem located at [param path]. During run-time, the resource is loaded when the script is being parsed. This function effectively acts as a reference to that resource. Note that this function requires [param path] to be a constant [String]. If you want to load a resource from a dynamic/variable path, use [method load].
 [b]Note:[/b] Resource paths can be obtained by right-clicking on a resource in the Assets Panel and choosing "Copy Path", or by dragging the file from the FileSystem dock into the current script.
 [codeblock]
