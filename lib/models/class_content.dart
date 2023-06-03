@@ -107,6 +107,9 @@ class ClassContent {
   String? inheritChain;
   String? svgFileName;
 
+  // this was caculated in run time, maybe we can move this to the python script
+  String? xmlFilePath;
+
   ClassContent(
       {this.name,
       this.inherits,
@@ -133,7 +136,8 @@ class ClassContent {
 
     this.version = _getAttrByName(rootAttrs, 'version');
 
-    this.briefDescription = node.findElements('brief_description').first.text;
+    this.briefDescription =
+        node.findElements('brief_description').first.innerText;
 
     // constants
     final constantRoot = node.findElements('constants');
@@ -145,11 +149,11 @@ class ClassContent {
             name: _getAttrByName(nodeAttr, 'name'),
             value: _getAttrByName(nodeAttr, 'value'),
             enumValue: _getAttrByName(nodeAttr, 'enum'),
-            constantText: f.text);
+            constantText: f.innerText);
       }).toList();
     }
 
-    this.description = node.findElements('description').first.text;
+    this.description = node.findElements('description').first.innerText;
 
     // members
     final memberRoot = node.findElements('members');
@@ -163,7 +167,7 @@ class ClassContent {
             setter: _getAttrByName(nodeAttr, 'setter'),
             getter: _getAttrByName(nodeAttr, 'getter'),
             enumValue: _getAttrByName(nodeAttr, 'enum'),
-            memberText: f.text);
+            memberText: f.innerText);
       }).toList();
     }
 
@@ -204,7 +208,7 @@ class ClassContent {
         return Method(
             name: _getAttrByName(nodeAttr, 'name'),
             qualifiers: _getAttrByName(nodeAttr, 'qualifiers'),
-            description: element.findAllElements('description').first.text,
+            description: element.findAllElements('description').first.innerText,
             arguments: _arguments,
             returnValue: methodRtn);
       }).toList();
@@ -220,7 +224,7 @@ class ClassContent {
         final argumentNodes = element.findElements('argument');
         return Signal(
             name: _getAttrByName(nodeAttr, 'name'),
-            description: element.findElements('description').first.text,
+            description: element.findElements('description').first.innerText,
             arguments: argumentNodes.map((a) {
               final argumentAttr = a.attributes;
               return SignalArgument(
@@ -275,7 +279,7 @@ class ClassContent {
         return Annotation(
             name: _getAttrByName(nodeAttr, 'name'),
             params: args,
-            description: element.findAllElements('description').first.text,
+            description: element.findAllElements('description').first.innerText,
             annotationReturn: annReturn);
       }).toList();
     }

@@ -106,8 +106,16 @@ class _SearchScreenState extends State<SearchScreen> {
   void _onTextSubmit(String val) {
     _argList.clear();
     if (_controller.text.length > 0) {
-      _doSearch(val);
-    } else {}
+      if (_searchingTerm != val) {
+        return;
+      }
+
+      if (!_caseSensitive) {
+        val = val.toLowerCase();
+      }
+      _searching = true;
+      ClassDB().getDB().forEach(_searchSingle);
+    }
 
     setState(() {
       _searching = ClassDB().getDB().last.version == null;
@@ -242,7 +250,7 @@ class _SearchScreenState extends State<SearchScreen> {
     }
 
     //search theme items
-    if ( _class.themeItems.length > 0) {
+    if (_class.themeItems.length > 0) {
       _class.themeItems.forEach((element) {
         if (_caseSensitive
             ? element.name!.contains(_searchingTerm)
@@ -256,18 +264,6 @@ class _SearchScreenState extends State<SearchScreen> {
         }
       });
     }
-  }
-
-  void _doSearch(String term) async {
-    if (_searchingTerm != term) {
-      return;
-    }
-
-    if (!_caseSensitive) {
-      term = term.toLowerCase();
-    }
-    _searching = true;
-    ClassDB().getDB().forEach(_searchSingle);
   }
 
   int matchedCompare(TapEventArg a, TapEventArg b) {
@@ -355,23 +351,25 @@ class _SearchScreenState extends State<SearchScreen> {
         return ListTile(
           title: Semantics(
             onTapHint: 'Navigate to this item',
-            child: Container(
-              width: MediaQuery.of(context).size.width * 0.5,
-              child: Row(
-                children: [
-                  Text(
-                    resultTypeName + ": ",
-                    style: TextStyle(
-                        color: storedValues.isDarkTheme
-                            ? Colors.white60
-                            : Colors.black54),
-                  ),
-                  Text(
-                    e.className,
-                    style: monoOptionalStyle(context),
-                  )
-                ],
-              ),
+            child: RichText(
+              textScaleFactor: 1.1,
+              text: TextSpan(children: [
+                TextSpan(
+                  text: resultTypeName + ": ",
+                  style: TextStyle(
+                      color: storedValues.isDarkTheme
+                          ? Colors.white60
+                          : Colors.black54),
+                ),
+                TextSpan(
+                  text: e.className,
+                  style: monoOptionalStyle(context,
+                      baseStyle: TextStyle(
+                          color: storedValues.isDarkTheme
+                              ? Colors.white
+                              : Colors.black)),
+                )
+              ]),
             ),
           ),
           onTap: () {
@@ -454,24 +452,28 @@ class _SearchScreenState extends State<SearchScreen> {
         BlocListener<XMLLoadBloc, ClassContent>(
             bloc: ClassDB().loadBloc,
             listener: (context, state) {
-              if (state.version?.isEmpty == true) {
-              } else {
+              if (state.version != null) {
                 _xmlLoadSearch(state);
               }
             }),
         BlocListener<SearchBloc, TapEventArg>(
           bloc: _searchBloc,
           listener: (context, state) {
-            setState(() {
-              _argList.add(state);
-            });
+            if (!_argList.any((element) =>
+                element.className == state.className &&
+                element.fieldName == state.fieldName &&
+                element.propertyType == state.propertyType)) {
+              setState(() {
+                _argList.add(state);
+              });
+            }
           },
         )
       ],
       child: Scaffold(
         appBar: AppBar(
           backgroundColor:
-              _isDarkTheme ? darkTheme.backgroundColor : Colors.white,
+              _isDarkTheme ? darkTheme.colorScheme.background : Colors.white,
           iconTheme: IconThemeData(
               color: _isDarkTheme ? darkTheme.iconTheme.color : Colors.black),
           title: TextField(

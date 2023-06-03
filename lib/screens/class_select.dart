@@ -34,7 +34,7 @@ class _ClassSelectState extends State<ClassSelect> {
   List<bool> filterOptionValues = <bool>[];
 
   // we can optimize this by yield when json has loaded,
-  // and return when all xml files are loade.
+  // and return when all xml files are loaded.
   Future<bool> getXmlFiles() async {
     ClassDB _db = ClassDB();
     if (_db.getDB().length == 0 || _db.version != storedValues.version) {
@@ -49,11 +49,13 @@ class _ClassSelectState extends State<ClassSelect> {
         _rtn.name = e['class_name'];
         _rtn.inheritChain = e['inherit_chain'];
         _rtn.svgFileName = e['svg_file_name'];
+        _rtn.xmlFilePath =
+            'xmls/' + storedValues.version + '/' + _rtn.name! + '.xml';
         _rtn.setNodeType();
         return _rtn;
       })).toList();
 
-      ClassDB().loadFromParseJson(_parsedList, storedValues.version);
+      ClassDB().loadFromJsonIndex(_parsedList, storedValues.version);
     }
     if (_db.getDB().last.version == null ||
         _db.getDB().last.version?.isEmpty == true) {
