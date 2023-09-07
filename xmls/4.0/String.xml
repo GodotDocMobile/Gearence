@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?><class name="String" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd"><brief_description>Built-in string Variant type.
+<?xml version="1.0" encoding="UTF-8" ?><class name="String" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd"><brief_description>A built-in type for strings.
 </brief_description><description>This is the built-in string Variant type (and the one used by GDScript). Strings may contain any number of Unicode characters, and expose methods useful for manipulating and generating strings. Strings are reference-counted and use a copy-on-write approach (every modification to a string returns a new [String]), so passing them around is cheap in resources.
 Some string methods have corresponding variations. Variations suffixed with [code]n[/code] ([method countn], [method findn], [method replacen], etc.) are [b]case-insensitive[/b] (they make no distinction between uppercase and lowercase letters). Method variations prefixed with [code]r[/code] ([method rfind], [method rsplit], etc.) are reversed, and start from the end of the string, instead of the beginning.
 [b]Note:[/b] In a boolean context, a string will evaluate to [code]false[/code] if it is empty ([code]""[/code]). Otherwise, a string will always evaluate to [code]true[/code].
@@ -365,11 +365,11 @@ If [param left] is [code]false[/code], ignores the string's beginning. Likewise,
 </description></method><method name="to_camel_case" qualifiers="const"><return type="String" /><description>Returns the string converted to [code]camelCase[/code].
 </description></method><method name="to_float" qualifiers="const"><return type="float" /><description>Converts the string representing a decimal number into a [float]. This method stops on the first non-number character, except the first decimal point ([code].[/code]) and the exponent letter ([code]e[/code]). See also [method is_valid_float].
 [codeblock]
-var a = "12.35".to_float() # a is 12.35
-var b = "1.2.3".to_float() # b is 1.2
-var c = "12xy3".to_float() # c is 12.0
-var d = "1e3".to_float()   # d is 1000.0
-var e = "Hello!".to_int()  # e is 0.0
+var a = "12.35".to_float()  # a is 12.35
+var b = "1.2.3".to_float()  # b is 1.2
+var c = "12xy3".to_float()  # c is 12.0
+var d = "1e3".to_float()    # d is 1000.0
+var e = "Hello!".to_float() # e is 0.0
 [/codeblock]
 </description></method><method name="to_int" qualifiers="const"><return type="int" /><description>Converts the string representing an integer number into an [int]. This method removes any non-number character and stops at the first decimal point ([code].[/code]). See also [method is_valid_int].
 [codeblock]

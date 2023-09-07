@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?><class name="Rect2i" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd"><brief_description>2D axis-aligned bounding box using integer coordinates.
+<?xml version="1.0" encoding="UTF-8" ?><class name="Rect2i" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd"><brief_description>A 2D axis-aligned bounding box using integer coordinates.
 </brief_description><description>[Rect2i] consists of a position, a size, and several utility functions. It is typically used for fast overlap tests.
 It uses integer coordinates. If you need floating-point coordinates, use [Rect2] instead.
 Negative values for [member size] are not supported and will not work for most methods. Use [method abs] to get a Rect2i with a positive size.
@@ -33,9 +33,9 @@ If [member size] is an odd number, the returned center value will be rounded tow
 </description></method><method name="has_area" qualifiers="const"><return type="bool" /><description>Returns [code]true[/code] if the [Rect2i] has area, and [code]false[/code] if the [Rect2i] is linear, empty, or has a negative [member size]. See also [method get_area].
 </description></method><method name="has_point" qualifiers="const"><return type="bool" /><param index="0" name="point" type="Vector2i" /><description>Returns [code]true[/code] if the [Rect2i] contains a point. By convention, the right and bottom edges of the [Rect2i] are considered exclusive, so points on these edges are [b]not[/b] included.
 [b]Note:[/b] This method is not reliable for [Rect2i] with a [i]negative size[/i]. Use [method abs] to get a positive sized equivalent rectangle to check for contained points.
-</description></method><method name="intersection" qualifiers="const"><return type="Rect2i" /><param index="0" name="b" type="Rect2i" /><description>Returns the intersection of this [Rect2i] and [code]b[/code].
+</description></method><method name="intersection" qualifiers="const"><return type="Rect2i" /><param index="0" name="b" type="Rect2i" /><description>Returns the intersection of this [Rect2i] and [param b].
 If the rectangles do not intersect, an empty [Rect2i] is returned.
-</description></method><method name="intersects" qualifiers="const"><return type="bool" /><param index="0" name="b" type="Rect2i" /><description>Returns [code]true[/code] if the [Rect2i] overlaps with [code]b[/code] (i.e. they have at least one point in common).
+</description></method><method name="intersects" qualifiers="const"><return type="bool" /><param index="0" name="b" type="Rect2i" /><description>Returns [code]true[/code] if the [Rect2i] overlaps with [param b] (i.e. they have at least one point in common).
 </description></method><method name="merge" qualifiers="const"><return type="Rect2i" /><param index="0" name="b" type="Rect2i" /><description>Returns a larger [Rect2i] that contains this [Rect2i] and [param b].
 </description></method></methods><members><member name="end" type="Vector2i" setter="" getter="" default="Vector2i(0, 0)">Ending corner. This is calculated as [code]position + size[/code]. Setting this value will change the size.
 </member><member name="position" type="Vector2i" setter="" getter="" default="Vector2i(0, 0)">Beginning corner. Typically has values lower than [member end].

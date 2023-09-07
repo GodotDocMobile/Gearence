@@ -261,8 +261,8 @@ var main = load("res://main.tscn") # main will contain a PackedScene resource.
 [/codeblock]
 [b]Important:[/b] The path must be absolute, a local path will just return [code]null[/code].
 This method is a simplified version of [method ResourceLoader.load], which can be used for more advanced scenarios.
-</description></method><method name="log"><return type="float" /><argument index="0" name="s" type="float" /><description>Natural logarithm. The amount of time needed to reach a certain level of continuous growth.
-[b]Note:[/b] This is not the same as the "log" function on most calculators, which uses a base 10 logarithm.
+</description></method><method name="log"><return type="float" /><argument index="0" name="s" type="float" /><description>Returns the [url=https://en.wikipedia.org/wiki/Natural_logarithm]natural logarithm[/url] of [code]s[/code] (base [url=https://en.wikipedia.org/wiki/E_(mathematical_constant)][i]e[/i][/url], with [i]e[/i] being approximately 2.71828). This is the amount of time needed to reach a certain level of continuous growth.
+[b]Note:[/b] This is not the same as the "log" function on most calculators, which uses a base 10 logarithm. To use base 10 logarithm, use [code]log(x) / log(10)[/code].
 [codeblock]
 log(10) # Returns 2.302585
 [/codeblock]

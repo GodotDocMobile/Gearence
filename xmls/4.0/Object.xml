@@ -143,7 +143,7 @@ func _notification(what):
         print("Goodbye!")
 [/gdscript]
 [csharp]
-public override void _Notification(long what)
+public override void _Notification(int what)
 {
     if (what == NotificationPredelete)
     {
@@ -446,7 +446,8 @@ var b = node.GetIndexed("position:y"); // b is -10
 [b]Note:[/b] This method does not support actual paths to nodes in the [SceneTree], only sub-property paths. In the context of nodes, use [method Node.get_node_and_resource] instead.
 </description></method><method name="get_instance_id" qualifiers="const"><return type="int" /><description>Returns the object's unique instance ID. This ID can be saved in [EncodedObjectAsID], and can be used to retrieve this object instance with [method @GlobalScope.instance_from_id].
 </description></method><method name="get_meta" qualifiers="const"><return type="Variant" /><param index="0" name="name" type="StringName" /><param index="1" name="default" type="Variant" default="null" /><description>Returns the object's metadata value for the given entry [param name]. If the entry does not exist, returns [param default]. If [param default] is [code]null[/code], an error is also generated.
-[b]Note:[/b] Metadata that has a [param name] starting with an underscore ([code]_[/code]) is considered editor-only. Editor-only metadata is not displayed in the Inspector dock and should not be edited.
+[b]Note:[/b] A metadata's [param name] must be a valid identifier as per [method StringName.is_valid_identifier] method.
+[b]Note:[/b] Metadata that has a [param name] starting with an underscore ([code]_[/code]) is considered editor-only. Editor-only metadata is not displayed in the Inspector and should not be edited, although it can still be found by this method.
 </description></method><method name="get_meta_list" qualifiers="const"><return type="PackedStringArray" /><description>Returns the object's metadata entry names as a [PackedStringArray].
 </description></method><method name="get_method_list" qualifiers="const"><return type="Dictionary[]" /><description>Returns this object's methods and their signatures as an [Array] of dictionaries. Each [Dictionary] contains the following entries:
 - [code]name[/code] is the name of the method, as a [String];
@@ -471,6 +472,7 @@ var b = node.GetIndexed("position:y"); // b is -10
 </description></method><method name="get_signal_list" qualifiers="const"><return type="Dictionary[]" /><description>Returns the list of existing signals as an [Array] of dictionaries.
 [b]Note:[/b] Due of the implementation, each [Dictionary] is formatted very similarly to the returned values of [method get_method_list].
 </description></method><method name="has_meta" qualifiers="const"><return type="bool" /><param index="0" name="name" type="StringName" /><description>Returns [code]true[/code] if a metadata entry is found with the given [param name]. See also [method get_meta], [method set_meta] and [method remove_meta].
+[b]Note:[/b] A metadata's [param name] must be a valid identifier as per [method StringName.is_valid_identifier] method.
 [b]Note:[/b] Metadata that has a [param name] starting with an underscore ([code]_[/code]) is considered editor-only. Editor-only metadata is not displayed in the Inspector and should not be edited, although it can still be found by this method.
 </description></method><method name="has_method" qualifiers="const"><return type="bool" /><param index="0" name="method" type="StringName" /><description>Returns [code]true[/code] if the given [param method] name exists in the object.
 [b]Note:[/b] In C#, [param method] must be in snake_case when referring to built-in Godot methods. Prefer using the names exposed in the [code]MethodName[/code] class to avoid allocating a new [StringName] on each call.
@@ -527,7 +529,8 @@ player.Notification(NotificationEnterTree, true);
 </description></method><method name="property_get_revert" qualifiers="const"><return type="Variant" /><param index="0" name="property" type="StringName" /><description>Returns the custom default value of the given [param property]. Use [method property_can_revert] to check if the [param property] has a custom default value.
 [b]Note:[/b] This method is used by the Inspector dock to display a revert icon. The object must implement [method _property_get_revert] to customize the default value. If [method _property_get_revert] is not implemented, this method returns [code]null[/code].
 </description></method><method name="remove_meta"><return type="void" /><param index="0" name="name" type="StringName" /><description>Removes the given entry [param name] from the object's metadata. See also [method has_meta], [method get_meta] and [method set_meta].
-[b]Note:[/b] Metadata that has a [param name] starting with an underscore ([code]_[/code]) is considered editor-only. Editor-only metadata is not displayed in the Inspector and should not be edited.
+[b]Note:[/b] A metadata's [param name] must be a valid identifier as per [method StringName.is_valid_identifier] method.
+[b]Note:[/b] Metadata that has a [param name] starting with an underscore ([code]_[/code]) is considered editor-only. Editor-only metadata is not displayed in the Inspector and should not be edited, although it can still be found by this method.
 </description></method><method name="set"><return type="void" /><param index="0" name="property" type="StringName" /><param index="1" name="value" type="Variant" /><description>Assigns [param value] to the given [param property]. If the property does not exist or the given [param value]'s type doesn't match, nothing happens.
 [codeblocks]
 [gdscript]
@@ -586,7 +589,8 @@ GD.Print(node.Position); // Prints (42, -10)
 </description></method><method name="set_message_translation"><return type="void" /><param index="0" name="enable" type="bool" /><description>If set to [code]true[/code], allows the object to translate messages with [method tr] and [method tr_n]. Enabled by default. See also [method can_translate_messages].
 </description></method><method name="set_meta"><return type="void" /><param index="0" name="name" type="StringName" /><param index="1" name="value" type="Variant" /><description>Adds or changes the entry [param name] inside the object's metadata. The metadata [param value] can be any [Variant], although some types cannot be serialized correctly.
 If [param value] is [code]null[/code], the entry is removed. This is the equivalent of using [method remove_meta]. See also [method has_meta] and [method get_meta].
-[b]Note:[/b] Metadata that has a [param name] starting with an underscore ([code]_[/code]) is considered editor-only. Editor-only metadata is not displayed in the Inspector dock and should not be edited.
+[b]Note:[/b] A metadata's [param name] must be a valid identifier as per [method StringName.is_valid_identifier] method.
+[b]Note:[/b] Metadata that has a [param name] starting with an underscore ([code]_[/code]) is considered editor-only. Editor-only metadata is not displayed in the Inspector and should not be edited, although it can still be found by this method.
 </description></method><method name="set_script"><return type="void" /><param index="0" name="script" type="Variant" /><description>Attaches [param script] to the object, and instantiates it. As a result, the script's [method _init] is called. A [Script] is used to extend the object's functionality.
 If a script already exists, its instance is detached, and its property values and state are lost. Built-in property values are still kept.
 </description></method><method name="to_string"><return type="String" /><description>Returns a [String] representing the object. Defaults to [code]"&lt;ClassName#RID&gt;"[/code]. Override [method _to_string] to customize the string representation of the object.

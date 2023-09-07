@@ -12,7 +12,6 @@ Returns [constant OK] on success, or [constant ERR_CANT_CREATE] on failure.
 </description></method><method name="wait_to_finish"><return type="Variant" /><description>Joins the [Thread] and waits for it to finish. Returns the output of the [Callable] passed to [method start].
 Should either be used when you want to retrieve the value returned from the method called by the [Thread] or before freeing the instance that contains the [Thread].
 To determine if this can be called without blocking the calling thread, check if [method is_alive] is [code]false[/code].
-[b]Note:[/b] After the [Thread] finishes joining it will be disposed. If you want to use it again you will have to create a new instance of it.
 </description></method></methods><constants><constant name="PRIORITY_LOW" value="0" enum="Priority">A thread running with lower priority than normally.
 </constant><constant name="PRIORITY_NORMAL" value="1" enum="Priority">A thread with a standard priority.
 </constant><constant name="PRIORITY_HIGH" value="2" enum="Priority">A thread running with higher priority than normally.

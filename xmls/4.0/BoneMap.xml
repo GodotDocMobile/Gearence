@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" ?><class name="BoneMap" inherits="Resource" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd"><brief_description>Bone map for retargeting.
-</brief_description><description>This class contains a hashmap that uses a list of bone names in [SkeletonProfile] as key names.
+<?xml version="1.0" encoding="UTF-8" ?><class name="BoneMap" inherits="Resource" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd"><brief_description>Describes a mapping of bone names for retargeting [Skeleton3D] into common names defined by a [SkeletonProfile].
+</brief_description><description>This class contains a dictionary that uses a list of bone names in [SkeletonProfile] as key names.
 By assigning the actual [Skeleton3D] bone name as the key value, it maps the [Skeleton3D] to the [SkeletonProfile].
 </description><tutorials><link title="Retargeting 3D Skeletons">$DOCS_URL/tutorials/assets_pipeline/retargeting_3d_skeletons.html</link></tutorials><methods><method name="find_profile_bone_name" qualifiers="const"><return type="StringName" /><param index="0" name="skeleton_bone_name" type="StringName" /><description>Returns a profile bone name having [param skeleton_bone_name]. If not found, an empty [StringName] will be returned.
 In the retargeting process, the returned bone name is the bone name of the target skeleton.

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" ?><class name="StreamPeer" inherits="RefCounted" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd"><brief_description>Abstraction and base class for stream-based protocols.
-</brief_description><description>StreamPeer is an abstraction and base class for stream-based protocols (such as TCP). It provides an API for sending and receiving data through streams as raw data or strings.
+<?xml version="1.0" encoding="UTF-8" ?><class name="StreamPeer" inherits="RefCounted" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd"><brief_description>Abstract base class for interacting with streams.
+</brief_description><description>StreamPeer is an abstract base class mostly used for stream-based protocols (such as TCP). It provides an API for sending and receiving data through streams as raw data or strings.
 [b]Note:[/b] When exporting to Android, make sure to enable the [code]INTERNET[/code] permission in the Android export preset before exporting the project or using one-click deploy. Otherwise, network communication of any kind will be blocked by Android.
 </description><tutorials></tutorials><methods><method name="get_16"><return type="int" /><description>Gets a signed 16-bit value from the stream.
 </description></method><method name="get_32"><return type="int" /><description>Gets a signed 32-bit value from the stream.
@@ -15,7 +15,7 @@
 </description></method><method name="get_u32"><return type="int" /><description>Gets an unsigned 32-bit value from the stream.
 </description></method><method name="get_u64"><return type="int" /><description>Gets an unsigned 64-bit value from the stream.
 </description></method><method name="get_u8"><return type="int" /><description>Gets an unsigned byte from the stream.
-</description></method><method name="get_utf8_string"><return type="String" /><param index="0" name="bytes" type="int" default="-1" /><description>Gets an UTF-8 string with byte-length [param bytes] from the stream (this decodes the string sent as UTF-8). If [param bytes] is negative (default) the length will be read from the stream using the reverse process of [method put_utf8_string].
+</description></method><method name="get_utf8_string"><return type="String" /><param index="0" name="bytes" type="int" default="-1" /><description>Gets a UTF-8 string with byte-length [param bytes] from the stream (this decodes the string sent as UTF-8). If [param bytes] is negative (default) the length will be read from the stream using the reverse process of [method put_utf8_string].
 </description></method><method name="get_var"><return type="Variant" /><param index="0" name="allow_objects" type="bool" default="false" /><description>Gets a Variant from the stream. If [param allow_objects] is [code]true[/code], decoding objects is allowed.
 Internally, this uses the same decoding mechanism as the [method @GlobalScope.bytes_to_var] method.
 [b]Warning:[/b] Deserialized objects can contain code which gets executed. Do not use this option if the serialized object comes from untrusted sources to avoid potential security threats such as remote code execution.
@@ -42,7 +42,7 @@ PutData("Hello World".ToAsciiBuffer());
 </description></method><method name="put_u64"><return type="void" /><param index="0" name="value" type="int" /><description>Puts an unsigned 64-bit value into the stream.
 </description></method><method name="put_u8"><return type="void" /><param index="0" name="value" type="int" /><description>Puts an unsigned byte into the stream.
 </description></method><method name="put_utf8_string"><return type="void" /><param index="0" name="value" type="String" /><description>Puts a zero-terminated UTF-8 string into the stream prepended by a 32 bits unsigned integer representing its size.
-[b]Note:[/b] To put an UTF-8 string without prepending its size, you can use [method put_data]:
+[b]Note:[/b] To put a UTF-8 string without prepending its size, you can use [method put_data]:
 [codeblocks]
 [gdscript]
 put_data("Hello world".to_utf8_buffer())

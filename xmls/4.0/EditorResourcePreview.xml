@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" ?><class name="EditorResourcePreview" inherits="Node" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd"><brief_description>Helper to generate previews of resources or files.
-</brief_description><description>This object is used to generate previews for resources of files.
+<?xml version="1.0" encoding="UTF-8" ?><class name="EditorResourcePreview" inherits="Node" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd"><brief_description>A node used to generate previews of resources or files.
+</brief_description><description>This node is used to generate previews for resources of files.
 [b]Note:[/b] This class shouldn't be instantiated directly. Instead, access the singleton using [method EditorInterface.get_resource_previewer].
 </description><tutorials></tutorials><methods><method name="add_preview_generator"><return type="void" /><param index="0" name="generator" type="EditorResourcePreviewGenerator" /><description>Create an own, custom preview generator.
 </description></method><method name="check_for_invalidation"><return type="void" /><param index="0" name="path" type="String" /><description>Check if the resource changed, if so, it will be invalidated and the corresponding signal emitted.

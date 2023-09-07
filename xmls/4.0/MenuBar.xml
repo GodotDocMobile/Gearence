@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" ?><class name="MenuBar" inherits="Control" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd"><brief_description>A horizontal menu bar, which displays [PopupMenu]s or system global menu.
-</brief_description><description>New items can be created by adding [PopupMenu] nodes to this node.
+<?xml version="1.0" encoding="UTF-8" ?><class name="MenuBar" inherits="Control" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd"><brief_description>A horizontal menu bar that creates a [MenuButton] for each [PopupMenu] child.
+</brief_description><description>A horizontal menu bar that creates a [MenuButton] for each [PopupMenu] child. New items are created by adding [PopupMenu]s to this node.
 </description><tutorials></tutorials><methods><method name="get_menu_count" qualifiers="const"><return type="int" /><description>Returns number of menu items.
 </description></method><method name="get_menu_popup" qualifiers="const"><return type="PopupMenu" /><param index="0" name="menu" type="int" /><description>Returns [PopupMenu] associated with menu item.
 </description></method><method name="get_menu_title" qualifiers="const"><return type="String" /><param index="0" name="menu" type="int" /><description>Returns menu item title.
