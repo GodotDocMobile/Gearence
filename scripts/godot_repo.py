@@ -23,6 +23,7 @@ branches = [
     "3.4",
     "3.5",
     "4.0",
+    "4.1",
 ]
 
 godot_repo = ""
@@ -47,7 +48,7 @@ class ClassNode:
             ret = ClassNode(element.attrib['name'])
 
         svg_file_name = find_svg_file(ret.class_name, svg_custom_path)
-        if(svg_file_name is not None):
+        if (svg_file_name is not None):
             ret.svg_file_name = svg_file_name
 
         return ret
@@ -68,7 +69,8 @@ def _write_file_index(branch_name, file_name_arr):
 # def sort_key(node:ClassNode):
 #     return node.class_name
 
-def _write_class_index(branch_name, class_arr:list[ClassNode]):
+
+def _write_class_index(branch_name, class_arr: list[ClassNode]):
     files_json = json.dumps(class_arr)
     f = open(join("../xmls", "files_"+branch_name+".json"), "w")
     f.write(files_json)
@@ -135,7 +137,7 @@ def find_svg_file(class_name: str, custom_path: bool) -> str:
     svg_name = ""
     prev_is_number = False
     for c in class_name:
-        if(c == "@"):
+        if (c == "@"):
             continue
         if c.isupper() and not prev_is_number:
             svg_name += "_"+c.lower()
@@ -163,7 +165,7 @@ def find_svg_file(class_name: str, custom_path: bool) -> str:
         if not exists(svg_file_path):
             # then it's 4.0
             svg_file = class_name+'.svg'
-            svg_file_path = join(_svg_source_folder,svg_file)
+            svg_file_path = join(_svg_source_folder, svg_file)
             if not exists(svg_file_path):
                 print("svg {} not found".format(svg_file))
                 return None
@@ -243,7 +245,7 @@ def single_class_files(branch_name):
             pass
         c.parent_class = None
         pass
-    _classes.sort(key=lambda x:x.class_name)
+    _classes.sort(key=lambda x: x.class_name)
     _write_class_index(
         branch_name, [_remove_parent_class(ob.__dict__) for ob in _classes])
 
@@ -333,7 +335,7 @@ def multiple_class_files(branch_name):
         c.parent_class = None
         pass
 
-    _classes.sort(key=lambda x:x.class_name)
+    _classes.sort(key=lambda x: x.class_name)
     _write_class_index(
         branch_name, [_remove_parent_class(ob.__dict__) for ob in _classes])
 
