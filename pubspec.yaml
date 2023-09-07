@@ -30,7 +30,7 @@ dependencies:
       path: flutter_highlight
       ref: generate-gdscript
   flutter_launcher_icons: ^0.13.1
-  flutter_svg: ^2.0.6
+  flutter_svg: ^2.0.7
   gettext: ^1.2.0
   package_info_plus: ^4.0.2
   provider: ^6.0.1
@@ -76,6 +76,7 @@ flutter:
     - svgs/3.4/
     - svgs/3.5/
     - svgs/4.0/
+    - svgs/4.1/
     - svgs/icon.svg
     # xmls
     - xmls/2.0/
@@ -87,6 +88,7 @@ flutter:
     - xmls/3.4/
     - xmls/3.5/
     - xmls/4.0/
+    - xmls/4.1/
     # file index
     - xmls/
 
