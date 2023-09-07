@@ -1,37 +1,61 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:godotclassreference/constants/stored_values.dart';
 
-//check godot/editor/icons/SCsub
-
 class SvgIcon extends StatelessWidget {
   final String? svgFileName;
   final String version = storedValues.version;
+  SvgIcon({required this.svgFileName, Key? key});
 
-  SvgIcon({required this.svgFileName, Key? key}) : super(key: key);
-
-  Widget svgRender(String? data) {
-    if (data != null && data.length > 0) {
-      return SvgPicture.asset('svgs/' + version + '/' + data);
+  Future<PictureInfo> getSvgContent() async {
+    String rawSvg = '';
+    if (svgFileName != null && svgFileName!.length > 0) {
+      rawSvg =
+          await rootBundle.loadString('svgs/' + version + '/' + svgFileName!);
+    } else {
+      final icon_file =
+          double.parse(version) >= 4 ? 'Node.svg' : 'icon_node.svg';
+      rawSvg = await rootBundle.loadString('svgs/' + version + '/' + icon_file);
     }
-
-    final icon_file = version == '4.0' ? 'Node.svg' : 'icon_node.svg';
-
-    return SvgPicture.asset('svgs/' + version + '/' + icon_file);
+    try {
+      return await vg.loadPicture(SvgStringLoader(rawSvg), null);
+    } catch (_) {
+      final icon_file =
+          double.parse(version) >= 4 ? 'Node.svg' : 'icon_node.svg';
+      rawSvg = await rootBundle.loadString('svgs/' + version + '/' + icon_file);
+      return await vg.loadPicture(SvgStringLoader(rawSvg), null);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (version == '2.0') {
-      return SizedBox();
-    }
+    return FutureBuilder<PictureInfo>(
+        future: getSvgContent(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return CustomPaint(
+              painter: SvgIconPainter(svgContent: snapshot.data!),
+            );
+          }
+          return SizedBox();
+        });
+  }
+}
 
-    return Container(
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: svgRender(svgFileName),
-      ),
-    );
+class SvgIconPainter extends CustomPainter {
+  PictureInfo svgContent;
+
+  SvgIconPainter({required this.svgContent, Key? key});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    canvas.drawPicture(svgContent.picture);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return false;
   }
 }
