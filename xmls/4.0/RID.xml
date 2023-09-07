@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?><class name="RID" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd"><brief_description>Handle for a [Resource]'s unique ID.
+<?xml version="1.0" encoding="UTF-8" ?><class name="RID" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd"><brief_description>A handle for a [Resource]'s unique identifier.
 </brief_description><description>The RID [Variant] type is used to access a low-level resource by its unique ID. RIDs are opaque, which means they do not grant access to the resource by themselves. They are used by the low-level server classes, such as [DisplayServer], [RenderingServer], [TextServer], etc.
 A low-level resource may correspond to a high-level [Resource], such as [Texture] or [Mesh].
 </description><tutorials></tutorials><constructors><constructor name="RID"><return type="RID" /><description>Constructs an empty [RID] with the invalid ID [code]0[/code].

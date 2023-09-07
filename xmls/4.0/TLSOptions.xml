@@ -10,7 +10,7 @@ var client_tls_options = TLSOptions.client(client_trusted_cas)
 # Create a TLS server configuration.
 var server_certs = load("res://my_server_cas.crt")
 var server_key = load("res://my_server_key.key")
-var server_tls_options = TLSOptions.server(server_certs, server_key)
+var server_tls_options = TLSOptions.server(server_key, server_certs)
 [/gdscript]
 [/codeblocks]
 </description><tutorials></tutorials><methods><method name="client" qualifiers="static"><return type="TLSOptions" /><param index="0" name="trusted_chain" type="X509Certificate" default="null" /><param index="1" name="common_name_override" type="String" default="&quot;&quot;" /><description>Creates a TLS client configuration which validates certificates and their common names (fully qualified domain names).

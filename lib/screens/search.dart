@@ -122,16 +122,6 @@ class _SearchScreenState extends State<SearchScreen> {
     });
   }
 
-  void _xmlLoadSearch(ClassContent clsContent) {
-    if (_searching && _searchingTerm.length > 0) {
-      _searchSingle(clsContent);
-    }
-
-    setState(() {
-      _searching = ClassDB().getDB().last.version == null;
-    });
-  }
-
   void _searchSingle(ClassContent _class) {
     var _classNameContains = false;
     if (_caseSensitive) {
@@ -452,9 +442,14 @@ class _SearchScreenState extends State<SearchScreen> {
         BlocListener<XMLLoadBloc, ClassContent>(
             bloc: ClassDB().loadBloc,
             listener: (context, state) {
-              if (state.version != null) {
-                _xmlLoadSearch(state);
+              if (state.version != null &&
+                  _searching &&
+                  _searchingTerm.length > 0) {
+                _searchSingle(state);
               }
+              setState(() {
+                _searching = ClassDB().getDB().last.version == null;
+              });
             }),
         BlocListener<SearchBloc, TapEventArg>(
           bloc: _searchBloc,

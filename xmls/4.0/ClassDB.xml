@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?><class name="ClassDB" inherits="Object" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd"><brief_description>Class information repository.
+<?xml version="1.0" encoding="UTF-8" ?><class name="ClassDB" inherits="Object" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd"><brief_description>A class information repository.
 </brief_description><description>Provides access to metadata stored for every available class.
 </description><tutorials></tutorials><methods><method name="can_instantiate" qualifiers="const"><return type="bool" /><param index="0" name="class" type="StringName" /><description>Returns [code]true[/code] if objects can be instantiated from the specified [param class], otherwise returns [code]false[/code].
 </description></method><method name="class_exists" qualifiers="const"><return type="bool" /><param index="0" name="class" type="StringName" /><description>Returns whether the specified [param class] is available or not.

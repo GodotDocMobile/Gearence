@@ -82,7 +82,7 @@ print("txt".get_extension())  # "" (empty string)
 print("".get_extension())  # "" (empty string)
 [/codeblock]
 </description></method><method name="get_file"><return type="String" /><description>If the string is a valid file path, returns the filename.
-</description></method><method name="get_slice"><return type="String" /><argument index="0" name="delimiter" type="String" /><argument index="1" name="slice" type="int" /><description>Splits a string using a [code]delimiter[/code] and returns a substring at index [code]slice[/code]. Returns an empty string if the index doesn't exist.
+</description></method><method name="get_slice"><return type="String" /><argument index="0" name="delimiter" type="String" /><argument index="1" name="slice" type="int" /><description>Splits a string using a [code]delimiter[/code] and returns a substring at index [code]slice[/code]. Returns the original string if [code]delimiter[/code] does not occur in the string. Returns an empty string if the index doesn't exist.
 This is a more performant alternative to [method split] for cases when you need only one element from the array at a fixed index.
 Example:
 [codeblock]

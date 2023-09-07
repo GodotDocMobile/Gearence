@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?><class name="AnimationNodeStateMachinePlayback" inherits="Resource" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd"><brief_description>Playback control for [AnimationNodeStateMachine].
+<?xml version="1.0" encoding="UTF-8" ?><class name="AnimationNodeStateMachinePlayback" inherits="Resource" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd"><brief_description>Provides playback control for an [AnimationNodeStateMachine].
 </brief_description><description>Allows control of [AnimationTree] state machines created with [AnimationNodeStateMachine]. Retrieve with [code]$AnimationTree.get("parameters/playback")[/code].
 [b]Example:[/b]
 [codeblocks]
@@ -7,11 +7,11 @@ var state_machine = $AnimationTree.get("parameters/playback")
 state_machine.travel("some_state")
 [/gdscript]
 [csharp]
-var stateMachine = GetNode&lt;AnimationTree&gt;("AnimationTree").Get("parameters/playback") as AnimationNodeStateMachinePlayback;
+var stateMachine = GetNode&lt;AnimationTree&gt;("AnimationTree").Get("parameters/playback").As&lt;AnimationNodeStateMachinePlayback&gt;();
 stateMachine.Travel("some_state");
 [/csharp]
 [/codeblocks]
-</description><tutorials><link title="AnimationTree">$DOCS_URL/tutorials/animation/animation_tree.html</link></tutorials><methods><method name="get_current_length" qualifiers="const"><return type="float" /><description>Returns the current state length.
+</description><tutorials><link title="Using AnimationTree">$DOCS_URL/tutorials/animation/animation_tree.html</link></tutorials><methods><method name="get_current_length" qualifiers="const"><return type="float" /><description>Returns the current state length.
 [b]Note:[/b] It is possible that any [AnimationRootNode] can be nodes as well as animations. This means that there can be multiple animations within a single state. Which animation length has priority depends on the nodes connected inside it. Also, if a transition does not reset, the remaining length at that point will be returned.
 </description></method><method name="get_current_node" qualifiers="const"><return type="StringName" /><description>Returns the currently playing animation state.
 [b]Note:[/b] When using a cross-fade, the current state changes to the next state immediately after the cross-fade begins.

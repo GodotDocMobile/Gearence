@@ -5,7 +5,7 @@
 </description></method><method name="erase_bone"><return type="void" /><param index="0" name="index" type="int" /><description>Removes the specified bone from this [Polygon2D].
 </description></method><method name="get_bone_count" qualifiers="const"><return type="int" /><description>Returns the number of bones in this [Polygon2D].
 </description></method><method name="get_bone_path" qualifiers="const"><return type="NodePath" /><param index="0" name="index" type="int" /><description>Returns the path to the node associated with the specified bone.
-</description></method><method name="get_bone_weights" qualifiers="const"><return type="PackedFloat32Array" /><param index="0" name="index" type="int" /><description>Returns the height values of the specified bone.
+</description></method><method name="get_bone_weights" qualifiers="const"><return type="PackedFloat32Array" /><param index="0" name="index" type="int" /><description>Returns the weight values of the specified bone.
 </description></method><method name="set_bone_path"><return type="void" /><param index="0" name="index" type="int" /><param index="1" name="path" type="NodePath" /><description>Sets the path to the node associated with the specified bone.
 </description></method><method name="set_bone_weights"><return type="void" /><param index="0" name="index" type="int" /><param index="1" name="weights" type="PackedFloat32Array" /><description>Sets the weight values for the specified bone.
 </description></method></methods><members><member name="antialiased" type="bool" setter="set_antialiased" getter="get_antialiased" default="false">If [code]true[/code], polygon edges will be anti-aliased.

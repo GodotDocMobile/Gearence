@@ -139,7 +139,7 @@ var r = deg_to_rad(180) # r is 3.141593
 - 1.0: Linear
 - Greater than 1.0 (exclusive): Ease in
 [/codeblock]
-[url=https://raw.githubusercontent.com/godotengine/godot-docs/master/img/ease_cheatsheet.png]ease() curve values cheatsheet[/url]
+[url=https://raw.githubusercontent.com/godotengine/godot-docs/4.0/img/ease_cheatsheet.png]ease() curve values cheatsheet[/url]
 See also [method smoothstep]. If you need to perform more advanced transitions, use [method Tween.interpolate_value].
 </description></method><method name="error_string"><return type="String" /><param index="0" name="error" type="int" /><description>Returns a human-readable name for the given [enum Error] code.
 [codeblock]
@@ -396,7 +396,7 @@ GD.Print("a", "b", a); // Prints ab[1, 2, 3]
 </description></method><method name="print_rich" qualifiers="vararg"><description>Converts one or more arguments of any type to string in the best way possible and prints them to the console.
 The following BBCode tags are supported: [code]b[/code], [code]i[/code], [code]u[/code], [code]s[/code], [code]indent[/code], [code]code[/code], [code]url[/code], [code]center[/code], [code]right[/code], [code]color[/code], [code]bgcolor[/code], [code]fgcolor[/code].
 Color tags only support the following named colors: [code]black[/code], [code]red[/code], [code]green[/code], [code]yellow[/code], [code]blue[/code], [code]magenta[/code], [code]pink[/code], [code]purple[/code], [code]cyan[/code], [code]white[/code], [code]orange[/code], [code]gray[/code]. Hexadecimal color codes are not supported.
-URL tags only support URLs wrapped by an URL tag, not URLs with a different title.
+URL tags only support URLs wrapped by a URL tag, not URLs with a different title.
 When printing to standard output, the supported subset of BBCode is converted to ANSI escape codes for the terminal emulator to display. Support for ANSI escape codes varies across terminal emulators, especially for italic and strikethrough. In standard output, [code]code[/code] is represented with faint text but without any font change. Unsupported tags are left as-is in standard output.
 [codeblocks]
 [gdscript]
@@ -612,7 +612,7 @@ smoothstep(0, 2, 1.0) # Returns 0.5
 smoothstep(0, 2, 2.0) # Returns 1.0
 [/codeblock]
 Compared to [method ease] with a curve value of [code]-1.6521[/code], [method smoothstep] returns the smoothest possible curve with no sudden changes in the derivative. If you need to perform more advanced transitions, use [Tween] or [AnimationPlayer].
-[url=https://raw.githubusercontent.com/godotengine/godot-docs/master/img/smoothstep_ease_comparison.png]Comparison between smoothstep() and ease(x, -1.6521) return values[/url]
+[url=https://raw.githubusercontent.com/godotengine/godot-docs/4.0/img/smoothstep_ease_comparison.png]Comparison between smoothstep() and ease(x, -1.6521) return values[/url]
 </description></method><method name="snapped"><return type="Variant" /><param index="0" name="x" type="Variant" /><param index="1" name="step" type="Variant" /><description>Returns the multiple of [param step] that is the closest to [param x]. This can also be used to round a floating point number to an arbitrary number of decimals.
 The returned value is the same type of [Variant] as [param step]. Supported types: [int], [float], [Vector2], [Vector2i], [Vector3], [Vector3i], [Vector4], [Vector4i].
 [codeblock]

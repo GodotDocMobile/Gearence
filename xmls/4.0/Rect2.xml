@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?><class name="Rect2" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd"><brief_description>2D axis-aligned bounding box using floating point coordinates.
+<?xml version="1.0" encoding="UTF-8" ?><class name="Rect2" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd"><brief_description>A 2D axis-aligned bounding box using floating-point coordinates.
 </brief_description><description>[Rect2] consists of a position, a size, and several utility functions. It is typically used for fast overlap tests.
 It uses floating-point coordinates. If you need integer coordinates, use [Rect2i] instead.
 The 3D counterpart to [Rect2] is [AABB].
@@ -36,7 +36,7 @@ var rect2 = rect.Expand(new Vector2(0, -1));
 [b]Note:[/b] This method is not reliable for [Rect2] with a [i]negative size[/i]. Use [method abs] to get a positive sized equivalent rectangle to check for contained points.
 </description></method><method name="intersection" qualifiers="const"><return type="Rect2" /><param index="0" name="b" type="Rect2" /><description>Returns the intersection of this [Rect2] and [param b].
 If the rectangles do not intersect, an empty [Rect2] is returned.
-</description></method><method name="intersects" qualifiers="const"><return type="bool" /><param index="0" name="b" type="Rect2" /><param index="1" name="include_borders" type="bool" default="false" /><description>Returns [code]true[/code] if the [Rect2] overlaps with [code]b[/code] (i.e. they have at least one point in common).
+</description></method><method name="intersects" qualifiers="const"><return type="bool" /><param index="0" name="b" type="Rect2" /><param index="1" name="include_borders" type="bool" default="false" /><description>Returns [code]true[/code] if the [Rect2] overlaps with [param b] (i.e. they have at least one point in common).
 If [param include_borders] is [code]true[/code], they will also be considered overlapping if their borders touch, even without intersection.
 </description></method><method name="is_equal_approx" qualifiers="const"><return type="bool" /><param index="0" name="rect" type="Rect2" /><description>Returns [code]true[/code] if this [Rect2] and [param rect] are approximately equal, by calling [code]is_equal_approx[/code] on each component.
 </description></method><method name="is_finite" qualifiers="const"><return type="bool" /><description>Returns [code]true[/code] if this [Rect2] is finite, by calling [method @GlobalScope.is_finite] on each component.

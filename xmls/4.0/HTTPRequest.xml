@@ -21,7 +21,7 @@ func _ready():
     # Note: Don't make simultaneous requests using a single HTTPRequest node.
     # The snippet below is provided for reference only.
     var body = JSON.new().stringify({"name": "Godette"})
-    error = http_request.request("https://httpbin.org/post", [], true, HTTPClient.METHOD_POST, body)
+    error = http_request.request("https://httpbin.org/post", [], HTTPClient.METHOD_POST, body)
     if error != OK:
         push_error("An error occurred in the HTTP request.")
 
@@ -56,7 +56,7 @@ public override void _Ready()
     {
         { "name", "Godette" }
     });
-    error = httpRequest.Request("https://httpbin.org/post", null, true, HTTPClient.Method.Post, body);
+    error = httpRequest.Request("https://httpbin.org/post", null, HTTPClient.Method.Post, body);
     if (error != Error.Ok)
     {
         GD.PushError("An error occurred in the HTTP request.");
@@ -171,7 +171,7 @@ If [code]false[/code] no header will be added, and no decompression will be perf
 Set this to a lower value (e.g. 4096 for 4 KiB) when downloading small files to decrease memory usage at the cost of download speeds.
 </member><member name="download_file" type="String" setter="set_download_file" getter="get_download_file" default="&quot;&quot;">The file to download into. Will output any received file into it.
 </member><member name="max_redirects" type="int" setter="set_max_redirects" getter="get_max_redirects" default="8">Maximum number of allowed redirects.
-</member><member name="timeout" type="float" setter="set_timeout" getter="get_timeout" default="0.0">If set to a value greater than [code]0.0[/code] before the request starts, the HTTP request will time out after [code]timeout[/code] seconds have passed and the request is not [i]completed[/i] yet. For small HTTP requests such as REST API usage, set [member timeout] to a value between [code]10.0[/code] and [code]30.0[/code] to prevent the application from getting stuck if the request fails to get a response in a timely manner. For file downloads, leave this to [code]0.0[/code] to prevent the download from failing if it takes too much time.
+</member><member name="timeout" type="float" setter="set_timeout" getter="get_timeout" default="0.0">The duration to wait in seconds before a request times out. If [member timeout] is set to [code]0.0[/code] then the request will never time out. For simple requests, such as communication with a REST API, it is recommended that [member timeout] is set to a value suitable for the server response time (e.g. between [code]1.0[/code] and [code]10.0[/code]). This will help prevent unwanted timeouts caused by variation in server response times while still allowing the application to detect when a request has timed out. For larger requests such as file downloads it is suggested the [member timeout] be set to [code]0.0[/code], disabling the timeout functionality. This will help to prevent large transfers from failing due to exceeding the timeout value.
 </member><member name="use_threads" type="bool" setter="set_use_threads" getter="is_using_threads" default="false">If [code]true[/code], multithreading is used to improve performance.
 </member></members><signals><signal name="request_completed"><param index="0" name="result" type="int" /><param index="1" name="response_code" type="int" /><param index="2" name="headers" type="PackedStringArray" /><param index="3" name="body" type="PackedByteArray" /><description>Emitted when a request is completed.
 </description></signal></signals><constants><constant name="RESULT_SUCCESS" value="0" enum="Result">Request successful.
@@ -185,4 +185,5 @@ Set this to a lower value (e.g. 4096 for 4 KiB) when downloading small files to 
 </constant><constant name="RESULT_DOWNLOAD_FILE_CANT_OPEN" value="10" enum="Result">HTTPRequest couldn't open the download file.
 </constant><constant name="RESULT_DOWNLOAD_FILE_WRITE_ERROR" value="11" enum="Result">HTTPRequest couldn't write to the download file.
 </constant><constant name="RESULT_REDIRECT_LIMIT_REACHED" value="12" enum="Result">Request reached its maximum redirect limit, see [member max_redirects].
-</constant><constant name="RESULT_TIMEOUT" value="13" enum="Result"></constant></constants></class>
+</constant><constant name="RESULT_TIMEOUT" value="13" enum="Result">Request failed due to a timeout. If you expect requests to take a long time, try increasing the value of [member timeout] or setting it to [code]0.0[/code] to remove the timeout completely.
+</constant></constants></class>

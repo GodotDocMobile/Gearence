@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" ?><class name="LineEdit" inherits="Control" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd"><brief_description>Control that provides single-line string editing.
-</brief_description><description>LineEdit provides a single-line string editor, used for text fields.
-It features many built-in shortcuts which will always be available ([kbd]Ctrl[/kbd] here maps to [kbd]Cmd[/kbd] on macOS):
+<?xml version="1.0" encoding="UTF-8" ?><class name="LineEdit" inherits="Control" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd"><brief_description>An input field for single-line text.
+</brief_description><description>[LineEdit] provides an input field for editing a single line of text. It features many built-in shortcuts that are always available ([kbd]Ctrl[/kbd] here maps to [kbd]Cmd[/kbd] on macOS):
 - [kbd]Ctrl + C[/kbd]: Copy
 - [kbd]Ctrl + X[/kbd]: Cut
 - [kbd]Ctrl + V[/kbd] or [kbd]Ctrl + Y[/kbd]: Paste/"yank"
@@ -12,14 +11,14 @@ It features many built-in shortcuts which will always be available ([kbd]Ctrl[/k
 - [kbd]Ctrl + A[/kbd]: Select all text
 - [kbd]Up Arrow[/kbd]/[kbd]Down Arrow[/kbd]: Move the caret to the beginning/end of the line
 On macOS, some extra keyboard shortcuts are available:
-- [kbd]Ctrl + F[/kbd]: Same as [kbd]Right Arrow[/kbd], move the caret one character right
-- [kbd]Ctrl + B[/kbd]: Same as [kbd]Left Arrow[/kbd], move the caret one character left
-- [kbd]Ctrl + P[/kbd]: Same as [kbd]Up Arrow[/kbd], move the caret to the previous line
-- [kbd]Ctrl + N[/kbd]: Same as [kbd]Down Arrow[/kbd], move the caret to the next line
-- [kbd]Ctrl + D[/kbd]: Same as [kbd]Delete[/kbd], delete the character on the right side of caret
-- [kbd]Ctrl + H[/kbd]: Same as [kbd]Backspace[/kbd], delete the character on the left side of the caret
-- [kbd]Ctrl + A[/kbd]: Same as [kbd]Home[/kbd], move the caret to the beginning of the line
-- [kbd]Ctrl + E[/kbd]: Same as [kbd]End[/kbd], move the caret to the end of the line
+- [kbd]Cmd + F[/kbd]: Same as [kbd]Right Arrow[/kbd], move the caret one character right
+- [kbd]Cmd + B[/kbd]: Same as [kbd]Left Arrow[/kbd], move the caret one character left
+- [kbd]Cmd + P[/kbd]: Same as [kbd]Up Arrow[/kbd], move the caret to the previous line
+- [kbd]Cmd + N[/kbd]: Same as [kbd]Down Arrow[/kbd], move the caret to the next line
+- [kbd]Cmd + D[/kbd]: Same as [kbd]Delete[/kbd], delete the character on the right side of caret
+- [kbd]Cmd + H[/kbd]: Same as [kbd]Backspace[/kbd], delete the character on the left side of the caret
+- [kbd]Cmd + A[/kbd]: Same as [kbd]Home[/kbd], move the caret to the beginning of the line
+- [kbd]Cmd + E[/kbd]: Same as [kbd]End[/kbd], move the caret to the end of the line
 - [kbd]Cmd + Left Arrow[/kbd]: Same as [kbd]Home[/kbd], move the caret to the beginning of the line
 - [kbd]Cmd + Right Arrow[/kbd]: Same as [kbd]End[/kbd], move the caret to the end of the line
 </description><tutorials></tutorials><methods><method name="clear"><return type="void" /><description>Erases the [LineEdit]'s [member text].
@@ -97,7 +96,7 @@ Select(2, 5); // Will select "lco".
 </member><member name="caret_force_displayed" type="bool" setter="set_caret_force_displayed" getter="is_caret_force_displayed" default="false">If [code]true[/code], the [LineEdit] will always show the caret, even if focus is lost.
 </member><member name="caret_mid_grapheme" type="bool" setter="set_caret_mid_grapheme_enabled" getter="is_caret_mid_grapheme_enabled" default="true">Allow moving caret, selecting and removing the individual composite character components.
 [b]Note:[/b] [kbd]Backspace[/kbd] is always removing individual composite character components.
-</member><member name="clear_button_enabled" type="bool" setter="set_clear_button_enabled" getter="is_clear_button_enabled" default="false">If [code]true[/code], the [LineEdit] will show a clear button if [code]text[/code] is not empty, which can be used to clear the text quickly.
+</member><member name="clear_button_enabled" type="bool" setter="set_clear_button_enabled" getter="is_clear_button_enabled" default="false">If [code]true[/code], the [LineEdit] will show a clear button if [member text] is not empty, which can be used to clear the text quickly.
 </member><member name="context_menu_enabled" type="bool" setter="set_context_menu_enabled" getter="is_context_menu_enabled" default="true">If [code]true[/code], the context menu will appear when right-clicked.
 </member><member name="deselect_on_focus_loss_enabled" type="bool" setter="set_deselect_on_focus_loss_enabled" getter="is_deselect_on_focus_loss_enabled" default="true">If [code]true[/code], the selected text will be deselected when focus is lost.
 </member><member name="draw_control_chars" type="bool" setter="set_draw_control_chars" getter="get_draw_control_chars" default="false">If [code]true[/code], control characters are displayed.
@@ -144,7 +143,7 @@ Text += " goodbye";
 </member><member name="text_direction" type="int" setter="set_text_direction" getter="get_text_direction" enum="Control.TextDirection" default="0">Base text writing direction.
 </member><member name="virtual_keyboard_enabled" type="bool" setter="set_virtual_keyboard_enabled" getter="is_virtual_keyboard_enabled" default="true">If [code]true[/code], the native virtual keyboard is shown when focused on platforms that support it.
 </member><member name="virtual_keyboard_type" type="int" setter="set_virtual_keyboard_type" getter="get_virtual_keyboard_type" enum="LineEdit.VirtualKeyboardType" default="0">Specifies the type of virtual keyboard to show.
-</member></members><signals><signal name="text_change_rejected"><param index="0" name="rejected_substring" type="String" /><description>Emitted when appending text that overflows the [member max_length]. The appended text is truncated to fit [member max_length], and the part that couldn't fit is passed as the [code]rejected_substring[/code] argument.
+</member></members><signals><signal name="text_change_rejected"><param index="0" name="rejected_substring" type="String" /><description>Emitted when appending text that overflows the [member max_length]. The appended text is truncated to fit [member max_length], and the part that couldn't fit is passed as the [param rejected_substring] argument.
 </description></signal><signal name="text_changed"><param index="0" name="new_text" type="String" /><description>Emitted when the text changes.
 </description></signal><signal name="text_submitted"><param index="0" name="new_text" type="String" /><description>Emitted when the user presses [constant KEY_ENTER] on the [LineEdit].
 </description></signal></signals><constants><constant name="MENU_CUT" value="0" enum="MenuItems">Cuts (copies and clears) the selected text.
@@ -204,7 +203,7 @@ Non-printable escape characters are automatically stripped from the OS clipboard
 </theme_item><theme_item name="font" data_type="font" type="Font">Font used for the text.
 </theme_item><theme_item name="font_size" data_type="font_size" type="int">Font size of the [LineEdit]'s text.
 </theme_item><theme_item name="clear" data_type="icon" type="Texture2D">Texture for the clear button. See [member clear_button_enabled].
-</theme_item><theme_item name="focus" data_type="style" type="StyleBox">Background used when [LineEdit] has GUI focus. The [code]focus[/code] [StyleBox] is displayed [i]over[/i] the base [StyleBox], so a partially transparent [StyleBox] should be used to ensure the base [StyleBox] remains visible. A [StyleBox] that represents an outline or an underline works well for this purpose. To disable the focus visual effect, assign a [StyleBoxEmpty] resource. Note that disabling the focus visual effect will harm keyboard/controller navigation usability, so this is not recommended for accessibility reasons.
+</theme_item><theme_item name="focus" data_type="style" type="StyleBox">Background used when [LineEdit] has GUI focus. The [theme_item focus] [StyleBox] is displayed [i]over[/i] the base [StyleBox], so a partially transparent [StyleBox] should be used to ensure the base [StyleBox] remains visible. A [StyleBox] that represents an outline or an underline works well for this purpose. To disable the focus visual effect, assign a [StyleBoxEmpty] resource. Note that disabling the focus visual effect will harm keyboard/controller navigation usability, so this is not recommended for accessibility reasons.
 </theme_item><theme_item name="normal" data_type="style" type="StyleBox">Default background for the [LineEdit].
 </theme_item><theme_item name="read_only" data_type="style" type="StyleBox">Background used when [LineEdit] is in read-only mode ([member editable] is set to [code]false[/code]).
 </theme_item></theme_items></class>

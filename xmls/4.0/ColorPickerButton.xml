@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" ?><class name="ColorPickerButton" inherits="Button" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd"><brief_description>Button that pops out a [ColorPicker].
-</brief_description><description>Encapsulates a [ColorPicker] making it accessible by pressing a button. Pressing the button will toggle the [ColorPicker] visibility.
+<?xml version="1.0" encoding="UTF-8" ?><class name="ColorPickerButton" inherits="Button" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd"><brief_description>A button that brings up a [ColorPicker] when pressed.
+</brief_description><description>Encapsulates a [ColorPicker], making it accessible by pressing a button. Pressing the button will toggle the [ColorPicker]'s visibility.
 See also [BaseButton] which contains common properties and methods associated with this node.
 [b]Note:[/b] By default, the button may not be wide enough for the color preview swatch to be visible. Make sure to set [member Control.custom_minimum_size] to a big enough value to give the button enough space.
 </description><tutorials><link title="GUI Drag And Drop Demo">https://godotengine.org/asset-library/asset/133</link><link title="2D GD Paint Demo">https://godotengine.org/asset-library/asset/517</link></tutorials><methods><method name="get_picker"><return type="ColorPicker" /><description>Returns the [ColorPicker] that this node toggles.
