@@ -136,6 +136,7 @@ tween.Parallel().TweenProperty(...);
 All [Tweener]s in the example will run at the same time.
 You can make the [Tween] parallel by default by using [method set_parallel].
 </description></method><method name="pause"><return type="void" /><description>Pauses the tweening. The animation can be resumed by using [method play].
+[b]Note:[/b] If a Tween is paused and not bound to any node, it will exist indefinitely until manually started or invalidated. If you lose a reference to such Tween, you can retrieve it using [method SceneTree.get_processed_tweens].
 </description></method><method name="play"><return type="void" /><description>Resumes a paused or stopped [Tween].
 </description></method><method name="set_ease"><return type="Tween" /><param index="0" name="ease" type="int" enum="Tween.EaseType" /><description>Sets the default ease type for [PropertyTweener]s and [MethodTweener]s animated by this [Tween].
 If not specified, the default value is [constant EASE_IN_OUT].
@@ -151,6 +152,7 @@ Default value is [constant TWEEN_PROCESS_IDLE].
 </description></method><method name="set_trans"><return type="Tween" /><param index="0" name="trans" type="int" enum="Tween.TransitionType" /><description>Sets the default transition type for [PropertyTweener]s and [MethodTweener]s animated by this [Tween].
 If not specified, the default value is [constant TRANS_LINEAR].
 </description></method><method name="stop"><return type="void" /><description>Stops the tweening and resets the [Tween] to its initial state. This will not remove any appended [Tweener]s.
+[b]Note:[/b] If a Tween is stopped and not bound to any node, it will exist indefinitely until manually started or invalidated. If you lose a reference to such Tween, you can retrieve it using [method SceneTree.get_processed_tweens].
 </description></method><method name="tween_callback"><return type="CallbackTweener" /><param index="0" name="callback" type="Callable" /><description>Creates and appends a [CallbackTweener]. This method can be used to call an arbitrary method in any object. Use [method Callable.bind] to bind additional arguments for the call.
 [b]Example:[/b] Object that keeps shooting every 1 second:
 [codeblocks]

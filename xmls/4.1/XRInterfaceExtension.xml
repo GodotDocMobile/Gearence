@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?><class name="XRInterfaceExtension" inherits="XRInterface" version="4.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd"><brief_description>Base class for XR interface extensions (plugins).
 </brief_description><description>External XR interface plugins should inherit from this class.
-</description><tutorials></tutorials><methods><method name="_end_frame" qualifiers="virtual"><return type="void" /><description>Called if interface is active and queues have been submitted.
+</description><tutorials><link title="XR documentation index">$DOCS_URL/tutorials/xr/index.html</link></tutorials><methods><method name="_end_frame" qualifiers="virtual"><return type="void" /><description>Called if interface is active and queues have been submitted.
 </description></method><method name="_get_anchor_detection_is_enabled" qualifiers="virtual const"><return type="bool" /><description>Return [code]true[/code] if anchor detection is enabled for this interface.
 </description></method><method name="_get_camera_feed_id" qualifiers="virtual const"><return type="int" /><description>Returns the camera feed ID for the [CameraFeed] registered with the [CameraServer] that should be presented as the background on an AR capable device (if applicable).
 </description></method><method name="_get_camera_transform" qualifiers="virtual"><return type="Transform3D" /><description>Returns the [Transform3D] that positions the [XRCamera3D] in the world.

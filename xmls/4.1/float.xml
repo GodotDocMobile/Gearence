@@ -12,7 +12,7 @@ Math done using the [float] type is not guaranteed to be exact and will often re
 </description></operator><operator name="operator !="><return type="bool" /><param index="0" name="right" type="int" /><description>Returns [code]true[/code] if the integer has different value than the float.
 </description></operator><operator name="operator *"><return type="Color" /><param index="0" name="right" type="Color" /><description>Multiplies each component of the [Color], including the alpha, by the given [float].
 [codeblock]
-print(1.5 * Color(0.5, 0.5, 0.5)) # Color(0.75, 0.75, 0.75)
+print(1.5 * Color(0.5, 0.5, 0.5)) # Prints "(0.75, 0.75, 0.75, 1.5)"
 [/codeblock]
 </description></operator><operator name="operator *"><return type="Quaternion" /><param index="0" name="right" type="Quaternion" /><description>Multiplies each component of the [Quaternion] by the given [float]. This operation is not meaningful on its own, but it can be used as a part of a larger expression.
 </description></operator><operator name="operator *"><return type="Vector2" /><param index="0" name="right" type="Vector2" /><description>Multiplies each component of the [Vector2] by the given [float].
