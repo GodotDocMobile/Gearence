@@ -42,7 +42,7 @@ AddChild(mi);
 [/codeblocks]
 See also [ArrayMesh], [ImmediateMesh] and [SurfaceTool] for procedural geometry generation.
 [b]Note:[/b] Godot uses clockwise [url=https://learnopengl.com/Advanced-OpenGL/Face-culling]winding order[/url] for front faces of triangle primitive modes.
-</description><tutorials></tutorials><methods><method name="clear"><return type="void" /><description>Clears all data currently in MeshDataTool.
+</description><tutorials><link title="Using the MeshDataTool">$DOCS_URL/tutorials/3d/procedural_geometry/meshdatatool.html</link></tutorials><methods><method name="clear"><return type="void" /><description>Clears all data currently in MeshDataTool.
 </description></method><method name="commit_to_surface"><return type="int" enum="Error" /><param index="0" name="mesh" type="ArrayMesh" /><description>Adds a new surface to specified [Mesh] with edited data.
 </description></method><method name="create_from_surface"><return type="int" enum="Error" /><param index="0" name="mesh" type="ArrayMesh" /><param index="1" name="surface" type="int" /><description>Uses specified surface of given [Mesh] to populate data for MeshDataTool.
 Requires [Mesh] with primitive type [constant Mesh.PRIMITIVE_TRIANGLES].
@@ -56,8 +56,21 @@ Vertex argument can only be 0 or 1 because edges are comprised of two vertices.
 Edge argument must be either 0, 1, or 2 because a face only has three edges.
 </description></method><method name="get_face_meta" qualifiers="const"><return type="Variant" /><param index="0" name="idx" type="int" /><description>Returns the metadata associated with the given face.
 </description></method><method name="get_face_normal" qualifiers="const"><return type="Vector3" /><param index="0" name="idx" type="int" /><description>Calculates and returns the face normal of the given face.
-</description></method><method name="get_face_vertex" qualifiers="const"><return type="int" /><param index="0" name="idx" type="int" /><param index="1" name="vertex" type="int" /><description>Returns the specified vertex of the given face.
+</description></method><method name="get_face_vertex" qualifiers="const"><return type="int" /><param index="0" name="idx" type="int" /><param index="1" name="vertex" type="int" /><description>Returns the specified vertex index of the given face.
 Vertex argument must be either 0, 1, or 2 because faces contain three vertices.
+[b]Example:[/b]
+[codeblocks]
+[gdscript]
+var index = mesh_data_tool.get_face_vertex(0, 1) # Gets the index of the second vertex of the first face.
+var position = mesh_data_tool.get_vertex(index)
+var normal = mesh_data_tool.get_vertex_normal(index)
+[/gdscript]
+[csharp]
+int index = meshDataTool.GetFaceVertex(0, 1); // Gets the index of the second vertex of the first face.
+Vector3 position = meshDataTool.GetVertex(index);
+Vector3 normal = meshDataTool.GetVertexNormal(index);
+[/csharp]
+[/codeblocks]
 </description></method><method name="get_format" qualifiers="const"><return type="int" /><description>Returns the [Mesh]'s format. Format is an integer made up of [Mesh] format flags combined together. For example, a mesh containing both vertices and normals would return a format of [code]3[/code] because [constant Mesh.ARRAY_FORMAT_VERTEX] is [code]1[/code] and [constant Mesh.ARRAY_FORMAT_NORMAL] is [code]2[/code].
 See [enum Mesh.ArrayFormat] for a list of format flags.
 </description></method><method name="get_material" qualifiers="const"><return type="Material" /><description>Returns the material assigned to the [Mesh].

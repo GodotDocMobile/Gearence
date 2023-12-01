@@ -12,7 +12,7 @@ Low-level class for creating parsers for [url=https://en.wikipedia.org/wiki/XML]
 </description></method><method name="get_node_offset" qualifiers="const"><return type="int" /><description>Gets the byte offset of the current node since the beginning of the file or buffer.
 </description></method><method name="get_node_type"><return type="int" enum="XMLParser.NodeType" /><description>Gets the type of the current node. Compare with [enum NodeType] constants.
 </description></method><method name="has_attribute" qualifiers="const"><return type="bool" /><param index="0" name="name" type="String" /><description>Check whether the current element has a certain attribute.
-</description></method><method name="is_empty" qualifiers="const"><return type="bool" /><description>Check whether the current element is empty (this only works for completely empty tags, e.g. [code]&lt;element \&gt;[/code]).
+</description></method><method name="is_empty" qualifiers="const"><return type="bool" /><description>Check whether the current element is empty (this only works for completely empty tags, e.g. [code]&lt;element /&gt;[/code]).
 </description></method><method name="open"><return type="int" enum="Error" /><param index="0" name="file" type="String" /><description>Opens an XML [param file] for parsing. This returns an error code.
 </description></method><method name="open_buffer"><return type="int" enum="Error" /><param index="0" name="buffer" type="PackedByteArray" /><description>Opens an XML raw [param buffer] for parsing. This returns an error code.
 </description></method><method name="read"><return type="int" enum="Error" /><description>Reads the next node of the file. This returns an error code.
