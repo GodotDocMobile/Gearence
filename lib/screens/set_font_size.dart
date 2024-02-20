@@ -21,6 +21,7 @@ class SetFontSize extends StatefulWidget {
 
 class _SetFontSizeState extends State<SetFontSize>
     with SingleTickerProviderStateMixin {
+  double bottomHeight = 130;
   int settingsFontSize = storedValues.fontSize;
   int initFontSize = storedValues.fontSize;
   bool save = false;
@@ -112,25 +113,11 @@ class _SetFontSizeState extends State<SetFontSize>
             ),
           ),
           bottomSheet: BottomAppBar(
+            height: bottomHeight,
             child: MediaQuery(
-              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+              data: MediaQuery.of(context)
+                  .copyWith(textScaler: TextScaler.linear(1.0)),
               child: Container(
-                padding: EdgeInsets.only(left: 10, right: 10),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).canvasColor,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      spreadRadius: 1,
-                      blurRadius: 5,
-                      offset: Offset(0, 3),
-                    )
-                  ],
-                ),
-                height: 100,
                 child: Column(children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -175,8 +162,7 @@ class _SetFontSizeState extends State<SetFontSize>
             ),
           ),
           body: Padding(
-            padding: EdgeInsets.only(
-                bottom: 100 + MediaQuery.of(context).padding.bottom),
+            padding: EdgeInsets.only(bottom: bottomHeight),
             child: TabBarView(
               controller: tabController,
               children: _tabs.map((c) {

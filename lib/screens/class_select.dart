@@ -189,7 +189,6 @@ class _ClassSelectState extends State<ClassSelect> {
                     tooltip: 'Search',
                     icon: Icon(
                       Icons.search,
-                      color: Colors.white,
                     ),
                     onPressed: () {
                       Navigator.push(
