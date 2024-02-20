@@ -266,8 +266,8 @@ If [code]false[/code], when panels are made floating their position and size wil
 </member><member name="interface/theme/draw_extra_borders" type="bool" setter="" getter="">If [code]true[/code], draws additional borders around interactive UI elements in the editor. This is automatically enabled when using the [b]Black (OLED)[/b] theme preset, as this theme preset uses a fully black background.
 </member><member name="interface/theme/icon_and_font_color" type="int" setter="" getter="">The icon and font color scheme to use in the editor.
 - [b]Auto[/b] determines the color scheme to use automatically based on [member interface/theme/base_color].
-- [b]Dark[/b] makes fonts and icons light (suitable for dark themes).
-- [b]Light[/b] makes fonts and icons dark (suitable for light themes). Icon colors are automatically converted by the editor following [url=https://github.com/godotengine/godot/blob/master/editor/editor_themes.cpp#L135]this set of rules[/url].
+- [b]Dark[/b] makes fonts and icons dark (suitable for light themes). Icon colors are automatically converted by the editor following the set of rules defined in [url=https://github.com/godotengine/godot/blob/master/editor/editor_themes.cpp]this file[/url].
+- [b]Light[/b] makes fonts and icons light (suitable for dark themes).
 </member><member name="interface/theme/icon_saturation" type="float" setter="" getter="">The saturation to use for editor icons. Higher values result in more vibrant colors.
 [b]Note:[/b] The default editor icon saturation was increased by 30% in Godot 4.0 and later. To get Godot 3.x's icon saturation back, set [member interface/theme/icon_saturation] to [code]0.77[/code].
 </member><member name="interface/theme/preset" type="String" setter="" getter="">The editor theme preset to use.

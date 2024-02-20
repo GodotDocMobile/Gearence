@@ -80,7 +80,28 @@ public void OnItemPressed(int id)
 [b]Note:[/b] If [member threaded] is enabled, this method returns a value for the loaded part of the document. Use [method is_ready] or [signal finished] to determine whether document is fully loaded.
 </description></method><method name="get_visible_paragraph_count" qualifiers="const"><return type="int" /><description>Returns the number of visible paragraphs. A paragraph is considered visible if at least one of its lines is visible.
 [b]Note:[/b] If [member threaded] is enabled, this method returns a value for the loaded part of the document. Use [method is_ready] or [signal finished] to determine whether document is fully loaded.
-</description></method><method name="install_effect"><return type="void" /><param index="0" name="effect" type="Variant" /><description>Installs a custom effect. [param effect] should be a valid [RichTextEffect].
+</description></method><method name="install_effect"><return type="void" /><param index="0" name="effect" type="Variant" /><description>Installs a custom effect. This can also be done in the RichTextLabel inspector using the [member custom_effects] property. [param effect] should be a valid [RichTextEffect].
+Example RichTextEffect:
+[codeblock]
+# effect.gd
+class_name MyCustomEffect
+extends RichTextEffect
+
+var bbcode = "my_custom_effect"
+
+# ...
+[/codeblock]
+Registering the above effect in RichTextLabel from script:
+[codeblock]
+# rich_text_label.gd
+extends RichTextLabel
+
+func _ready():
+    install_effect(MyCustomEffect.new())
+
+    # Alternatively, if not using `class_name` in the script that extends RichTextEffect:
+    install_effect(preload("res://effect.gd").new())
+[/codeblock]
 </description></method><method name="is_menu_visible" qualifiers="const"><return type="bool" /><description>Returns whether the menu is visible. Use this instead of [code]get_menu().visible[/code] to improve performance (so the creation of the menu is avoided).
 </description></method><method name="is_ready" qualifiers="const"><return type="bool" /><description>If [member threaded] is enabled, returns [code]true[/code] if the background thread has finished text processing, otherwise always return [code]true[/code].
 </description></method><method name="menu_option"><return type="void" /><param index="0" name="option" type="int" /><description>Executes a given action as defined in the [enum MenuItems] enum.

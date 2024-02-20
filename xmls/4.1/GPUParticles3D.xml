@@ -33,8 +33,9 @@ Use the [code]process_material[/code] property to add a [ParticleProcessMaterial
 </member><member name="transform_align" type="int" setter="set_transform_align" getter="get_transform_align" enum="GPUParticles3D.TransformAlign" default="0"></member><member name="visibility_aabb" type="AABB" setter="set_visibility_aabb" getter="get_visibility_aabb" default="AABB(-4, -4, -4, 8, 8, 8)">The [AABB] that determines the node's region which needs to be visible on screen for the particle system to be active.
 Grow the box if particles suddenly appear/disappear when the node enters/exits the screen. The [AABB] can be grown via code or with the [b]Particles → Generate AABB[/b] editor tool.
 </member></members><constants><constant name="DRAW_ORDER_INDEX" value="0" enum="DrawOrder">Particles are drawn in the order emitted.
-</constant><constant name="DRAW_ORDER_LIFETIME" value="1" enum="DrawOrder">Particles are drawn in order of remaining lifetime.
-</constant><constant name="DRAW_ORDER_REVERSE_LIFETIME" value="2" enum="DrawOrder"></constant><constant name="DRAW_ORDER_VIEW_DEPTH" value="3" enum="DrawOrder">Particles are drawn in order of depth.
+</constant><constant name="DRAW_ORDER_LIFETIME" value="1" enum="DrawOrder">Particles are drawn in order of remaining lifetime. In other words, the particle with the highest lifetime is drawn at the front.
+</constant><constant name="DRAW_ORDER_REVERSE_LIFETIME" value="2" enum="DrawOrder">Particles are drawn in reverse order of remaining lifetime. In other words, the particle with the lowest lifetime is drawn at the front.
+</constant><constant name="DRAW_ORDER_VIEW_DEPTH" value="3" enum="DrawOrder">Particles are drawn in order of depth.
 </constant><constant name="EMIT_FLAG_POSITION" value="1" enum="EmitFlags">Particle starts at the specified position.
 </constant><constant name="EMIT_FLAG_ROTATION_SCALE" value="2" enum="EmitFlags">Particle starts with specified rotation and scale.
 </constant><constant name="EMIT_FLAG_VELOCITY" value="4" enum="EmitFlags">Particle starts with the specified velocity vector, which defines the emission direction and speed.

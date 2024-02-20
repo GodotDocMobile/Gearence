@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?><class name="PrimitiveMesh" inherits="Mesh" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd"><brief_description>Base class for all primitive meshes. Handles applying a [Material] to a primitive mesh.
 </brief_description><description>Base class for all primitive meshes. Handles applying a [Material] to a primitive mesh. Examples include [BoxMesh], [CapsuleMesh], [CylinderMesh], [PlaneMesh], [PrismMesh], and [SphereMesh].
-</description><tutorials></tutorials><methods><method name="_create_mesh_array" qualifiers="virtual const"><return type="Array" /><description></description></method><method name="get_mesh_arrays" qualifiers="const"><return type="Array" /><description>Returns mesh arrays used to constitute surface of [Mesh]. The result can be passed to [method ArrayMesh.add_surface_from_arrays] to create a new surface. For example:
+</description><tutorials></tutorials><methods><method name="_create_mesh_array" qualifiers="virtual const"><return type="Array" /><description>Override this method to customize how this primitive mesh should be generated. Should return an [Array] where each element is another Array of values required for the mesh (see the [enum Mesh.ArrayType] constants).
+</description></method><method name="get_mesh_arrays" qualifiers="const"><return type="Array" /><description>Returns mesh arrays used to constitute surface of [Mesh]. The result can be passed to [method ArrayMesh.add_surface_from_arrays] to create a new surface. For example:
 [codeblocks]
 [gdscript]
 var c = CylinderMesh.new()

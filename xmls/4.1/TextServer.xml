@@ -258,7 +258,8 @@ LCD subpixel anti-aliasing mode is suitable only for rendering horizontal, unsca
 </constant><constant name="FONT_LCD_SUBPIXEL_LAYOUT_HBGR" value="2" enum="FontLCDSubpixelLayout">Horizontal BGR subpixel layout.
 </constant><constant name="FONT_LCD_SUBPIXEL_LAYOUT_VRGB" value="3" enum="FontLCDSubpixelLayout">Vertical RGB subpixel layout.
 </constant><constant name="FONT_LCD_SUBPIXEL_LAYOUT_VBGR" value="4" enum="FontLCDSubpixelLayout">Vertical BGR subpixel layout.
-</constant><constant name="FONT_LCD_SUBPIXEL_LAYOUT_MAX" value="5" enum="FontLCDSubpixelLayout"></constant><constant name="DIRECTION_AUTO" value="0" enum="Direction">Text direction is determined based on contents and current locale.
+</constant><constant name="FONT_LCD_SUBPIXEL_LAYOUT_MAX" value="5" enum="FontLCDSubpixelLayout">Represents the size of the [enum FontLCDSubpixelLayout] enum.
+</constant><constant name="DIRECTION_AUTO" value="0" enum="Direction">Text direction is determined based on contents and current locale.
 </constant><constant name="DIRECTION_LTR" value="1" enum="Direction">Text is written from left to right.
 </constant><constant name="DIRECTION_RTL" value="2" enum="Direction">Text is written from right to left.
 </constant><constant name="DIRECTION_INHERITED" value="3" enum="Direction">Text writing direction is the same as base string writing direction. Used for BiDi override only.
@@ -299,7 +300,8 @@ Right to left text is written vertically from bottom to top.
 </constant><constant name="OVERRUN_TRIM_WORD_ONLY" value="2" enum="TextOverrunFlag" is_bitfield="true">Trims the text per word instead of per grapheme.
 </constant><constant name="OVERRUN_ADD_ELLIPSIS" value="4" enum="TextOverrunFlag" is_bitfield="true">Determines whether an ellipsis should be added at the end of the text.
 </constant><constant name="OVERRUN_ENFORCE_ELLIPSIS" value="8" enum="TextOverrunFlag" is_bitfield="true">Determines whether the ellipsis at the end of the text is enforced and may not be hidden.
-</constant><constant name="OVERRUN_JUSTIFICATION_AWARE" value="16" enum="TextOverrunFlag" is_bitfield="true"></constant><constant name="GRAPHEME_IS_VALID" value="1" enum="GraphemeFlag" is_bitfield="true">Grapheme is supported by the font, and can be drawn.
+</constant><constant name="OVERRUN_JUSTIFICATION_AWARE" value="16" enum="TextOverrunFlag" is_bitfield="true">Accounts for the text being justified before attempting to trim it (see [enum JustificationFlag]).
+</constant><constant name="GRAPHEME_IS_VALID" value="1" enum="GraphemeFlag" is_bitfield="true">Grapheme is supported by the font, and can be drawn.
 </constant><constant name="GRAPHEME_IS_RTL" value="2" enum="GraphemeFlag" is_bitfield="true">Grapheme is part of right-to-left or bottom-to-top run.
 </constant><constant name="GRAPHEME_IS_VIRTUAL" value="4" enum="GraphemeFlag" is_bitfield="true">Grapheme is not part of source text, it was added by justification process.
 </constant><constant name="GRAPHEME_IS_SPACE" value="8" enum="GraphemeFlag" is_bitfield="true">Grapheme is whitespace.
@@ -347,7 +349,8 @@ Right to left text is written vertically from bottom to top.
 </constant><constant name="SPACING_SPACE" value="1" enum="SpacingType">Spacing for the space character.
 </constant><constant name="SPACING_TOP" value="2" enum="SpacingType">Spacing at the top of the line.
 </constant><constant name="SPACING_BOTTOM" value="3" enum="SpacingType">Spacing at the bottom of the line.
-</constant><constant name="SPACING_MAX" value="4" enum="SpacingType"></constant><constant name="FONT_BOLD" value="1" enum="FontStyle" is_bitfield="true">Font is bold.
+</constant><constant name="SPACING_MAX" value="4" enum="SpacingType">Represents the size of the [enum SpacingType] enum.
+</constant><constant name="FONT_BOLD" value="1" enum="FontStyle" is_bitfield="true">Font is bold.
 </constant><constant name="FONT_ITALIC" value="2" enum="FontStyle" is_bitfield="true">Font is italic or oblique.
 </constant><constant name="FONT_FIXED_WIDTH" value="4" enum="FontStyle" is_bitfield="true">Font have fixed-width characters.
 </constant><constant name="STRUCTURED_TEXT_DEFAULT" value="0" enum="StructuredTextParser">Use default Unicode BiDi algorithm.

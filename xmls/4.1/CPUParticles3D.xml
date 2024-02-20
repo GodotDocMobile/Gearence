@@ -89,7 +89,7 @@ See also [GPUParticles3D], which provides the same functionality with hardware a
 </member><member name="tangential_accel_max" type="float" setter="set_param_max" getter="get_param_max" default="0.0">Maximum tangent acceleration.
 </member><member name="tangential_accel_min" type="float" setter="set_param_min" getter="get_param_min" default="0.0">Minimum tangent acceleration.
 </member></members><constants><constant name="DRAW_ORDER_INDEX" value="0" enum="DrawOrder">Particles are drawn in the order emitted.
-</constant><constant name="DRAW_ORDER_LIFETIME" value="1" enum="DrawOrder">Particles are drawn in order of remaining lifetime.
+</constant><constant name="DRAW_ORDER_LIFETIME" value="1" enum="DrawOrder">Particles are drawn in order of remaining lifetime. In other words, the particle with the highest lifetime is drawn at the front.
 </constant><constant name="DRAW_ORDER_VIEW_DEPTH" value="2" enum="DrawOrder">Particles are drawn in order of depth.
 </constant><constant name="PARAM_INITIAL_LINEAR_VELOCITY" value="0" enum="Parameter">Use with [method set_param_min], [method set_param_max], and [method set_param_curve] to set initial velocity properties.
 </constant><constant name="PARAM_ANGULAR_VELOCITY" value="1" enum="Parameter">Use with [method set_param_min], [method set_param_max], and [method set_param_curve] to set angular velocity properties.
