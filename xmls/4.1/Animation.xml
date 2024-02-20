@@ -3,21 +3,23 @@
 [codeblocks]
 [gdscript]
 # This creates an animation that makes the node "Enemy" move to the right by
-# 100 pixels in 0.5 seconds.
+# 100 pixels in 2.0 seconds.
 var animation = Animation.new()
 var track_index = animation.add_track(Animation.TYPE_VALUE)
 animation.track_set_path(track_index, "Enemy:position:x")
 animation.track_insert_key(track_index, 0.0, 0)
-animation.track_insert_key(track_index, 0.5, 100)
+animation.track_insert_key(track_index, 2.0, 100)
+animation.length = 2.0
 [/gdscript]
 [csharp]
 // This creates an animation that makes the node "Enemy" move to the right by
-// 100 pixels in 0.5 seconds.
+// 100 pixels in 2.0 seconds.
 var animation = new Animation();
 int trackIndex = animation.AddTrack(Animation.TrackType.Value);
 animation.TrackSetPath(trackIndex, "Enemy:position:x");
 animation.TrackInsertKey(trackIndex, 0.0f, 0);
-animation.TrackInsertKey(trackIndex, 0.5f, 100);
+animation.TrackInsertKey(trackIndex, 2.0f, 100);
+animation.Length = 2.0f;
 [/csharp]
 [/codeblocks]
 Animations are just data containers, and must be added to nodes such as an [AnimationPlayer] to be played back. Animation tracks have different types, each with its own set of dedicated methods. Check [enum TrackType] to see available types.
@@ -52,7 +54,7 @@ Start offset is the number of seconds cut off at the beginning of the audio stre
 </description></method><method name="clear"><return type="void" /><description>Clear the animation (clear all tracks and reset all).
 </description></method><method name="compress"><return type="void" /><param index="0" name="page_size" type="int" default="8192" /><param index="1" name="fps" type="int" default="120" /><param index="2" name="split_tolerance" type="float" default="4.0" /><description>Compress the animation and all its tracks in-place. This will make [method track_is_compressed] return [code]true[/code] once called on this [Animation]. Compressed tracks require less memory to be played, and are designed to be used for complex 3D animations (such as cutscenes) imported from external 3D software. Compression is lossy, but the difference is usually not noticeable in real world conditions.
 [b]Note:[/b] Compressed tracks have various limitations (such as not being editable from the editor), so only use compressed animations if you actually need them.
-</description></method><method name="copy_track"><return type="void" /><param index="0" name="track_idx" type="int" /><param index="1" name="to_animation" type="Animation" /><description>Adds a new track that is a copy of the given track from [param to_animation].
+</description></method><method name="copy_track"><return type="void" /><param index="0" name="track_idx" type="int" /><param index="1" name="to_animation" type="Animation" /><description>Adds a new track to [param to_animation] that is a copy of the given track from this animation.
 </description></method><method name="find_track" qualifiers="const"><return type="int" /><param index="0" name="path" type="NodePath" /><param index="1" name="type" type="int" enum="Animation.TrackType" /><description>Returns the index of the specified track. If the track is not found, return -1.
 </description></method><method name="get_track_count" qualifiers="const"><return type="int" /><description>Returns the amount of tracks in the animation.
 </description></method><method name="method_track_get_name" qualifiers="const"><return type="StringName" /><param index="0" name="track_idx" type="int" /><param index="1" name="key_idx" type="int" /><description>Returns the method name of a method track.

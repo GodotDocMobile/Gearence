@@ -483,8 +483,10 @@ func _on_mouse_exited():
 - One of the node's theme property overrides is changed.
 - The node enters the scene tree.
 [b]Note:[/b] As an optimization, this notification won't be sent from changes that occur while this node is outside of the scene tree. Instead, all of the theme item updates can be applied at once when the node enters the scene tree.
-</constant><constant name="NOTIFICATION_SCROLL_BEGIN" value="47">Sent when this node is inside a [ScrollContainer] which has begun being scrolled.
-</constant><constant name="NOTIFICATION_SCROLL_END" value="48">Sent when this node is inside a [ScrollContainer] which has stopped being scrolled.
+</constant><constant name="NOTIFICATION_SCROLL_BEGIN" value="47">Sent when this node is inside a [ScrollContainer] which has begun being scrolled when dragging the scrollable area [i]with a touch event[/i]. This notification is [i]not[/i] sent when scrolling by dragging the scrollbar, scrolling with the mouse wheel or scrolling with keyboard/gamepad events.
+[b]Note:[/b] This signal is only emitted on Android or iOS, or on desktop/web platforms when [member ProjectSettings.input_devices/pointing/emulate_touch_from_mouse] is enabled.
+</constant><constant name="NOTIFICATION_SCROLL_END" value="48">Sent when this node is inside a [ScrollContainer] which has stopped being scrolled when dragging the scrollable area [i]with a touch event[/i]. This notification is [i]not[/i] sent when scrolling by dragging the scrollbar, scrolling with the mouse wheel or scrolling with keyboard/gamepad events.
+[b]Note:[/b] This signal is only emitted on Android or iOS, or on desktop/web platforms when [member ProjectSettings.input_devices/pointing/emulate_touch_from_mouse] is enabled.
 </constant><constant name="NOTIFICATION_LAYOUT_DIRECTION_CHANGED" value="49">Sent when control layout direction is changed.
 </constant><constant name="CURSOR_ARROW" value="0" enum="CursorShape">Show the system's arrow mouse cursor when the user hovers the node. Use with [member mouse_default_cursor_shape].
 </constant><constant name="CURSOR_IBEAM" value="1" enum="CursorShape">Show the system's I-beam mouse cursor when the user hovers the node. The I-beam pointer has a shape similar to "I". It tells the user they can highlight or insert text.
