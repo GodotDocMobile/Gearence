@@ -19,6 +19,7 @@ Textures are often created by loading them from a file. See [method @GDScript.lo
 </description></method><method name="draw_rect_region" qualifiers="const"><return type="void" /><param index="0" name="canvas_item" type="RID" /><param index="1" name="rect" type="Rect2" /><param index="2" name="src_rect" type="Rect2" /><param index="3" name="modulate" type="Color" default="Color(1, 1, 1, 1)" /><param index="4" name="transpose" type="bool" default="false" /><param index="5" name="clip_uv" type="bool" default="true" /><description>Draws a part of the texture using a [CanvasItem] with the [RenderingServer] API.
 </description></method><method name="get_height" qualifiers="const"><return type="int" /><description>Returns the texture height in pixels.
 </description></method><method name="get_image" qualifiers="const"><return type="Image" /><description>Returns an [Image] that is a copy of data from this [Texture2D] (a new [Image] is created each time). [Image]s can be accessed and manipulated directly.
+[b]Note:[/b] This will return [code]null[/code] if this [Texture2D] is invalid.
 [b]Note:[/b] This will fetch the texture data from the GPU, which might cause performance problems when overused.
 </description></method><method name="get_size" qualifiers="const"><return type="Vector2" /><description>Returns the texture size in pixels.
 </description></method><method name="get_width" qualifiers="const"><return type="int" /><description>Returns the texture width in pixels.
