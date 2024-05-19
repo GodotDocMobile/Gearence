@@ -40,7 +40,7 @@ public partial class ServerNode : Node
 {
     private DtlsServer _dtls = new DtlsServer();
     private UdpServer _server = new UdpServer();
-    private Godot.Collections.Array&lt;PacketPeerDTLS&gt; _peers = new Godot.Collections.Array&lt;PacketPeerDTLS&gt;();
+    private Godot.Collections.Array&lt;PacketPeerDtls&gt; _peers = new Godot.Collections.Array&lt;PacketPeerDtls&gt;();
 
     public override void _Ready()
     {
@@ -54,8 +54,8 @@ public partial class ServerNode : Node
     {
         while (Server.IsConnectionAvailable())
         {
-            PacketPeerUDP peer = _server.TakeConnection();
-            PacketPeerDTLS dtlsPeer = _dtls.TakeConnection(peer);
+            PacketPeerUdp peer = _server.TakeConnection();
+            PacketPeerDtls dtlsPeer = _dtls.TakeConnection(peer);
             if (dtlsPeer.GetStatus() != PacketPeerDtls.Status.Handshaking)
             {
                 continue; // It is normal that 50% of the connections fails due to cookie exchange.

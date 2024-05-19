@@ -18,7 +18,7 @@ See also [method get_theme_stylebox] and [method Control.add_theme_stylebox_over
 </description></method><method name="can_draw" qualifiers="const"><return type="bool" /><description>Returns whether the window is being drawn to the screen.
 </description></method><method name="child_controls_changed"><return type="void" /><description>Requests an update of the [Window] size to fit underlying [Control] nodes.
 </description></method><method name="end_bulk_theme_override"><return type="void" /><description>Ends a bulk theme override update. See [method begin_bulk_theme_override].
-</description></method><method name="get_contents_minimum_size" qualifiers="const"><return type="Vector2" /><description>Returns the combined minimum size from the child [Control] nodes of the window. Use [method child_controls_changed] to update it when children nodes have changed.
+</description></method><method name="get_contents_minimum_size" qualifiers="const"><return type="Vector2" /><description>Returns the combined minimum size from the child [Control] nodes of the window. Use [method child_controls_changed] to update it when child nodes have changed.
 The value returned by this method can be overridden with [method _get_contents_minimum_size].
 </description></method><method name="get_flag" qualifiers="const"><return type="bool" /><param index="0" name="flag" type="int" enum="Window.Flags" /><description>Returns [code]true[/code] if the [param flag] is set.
 </description></method><method name="get_layout_direction" qualifiers="const"><return type="int" enum="Window.LayoutDirection" /><description>Returns layout direction and text writing direction.

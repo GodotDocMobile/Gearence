@@ -8,7 +8,7 @@ packer.add_file("res://text.txt", "text.txt")
 packer.flush()
 [/gdscript]
 [csharp]
-var packer = new PCKPacker();
+var packer = new PckPacker();
 packer.PckStart("test.pck");
 packer.AddFile("res://text.txt", "text.txt");
 packer.Flush();

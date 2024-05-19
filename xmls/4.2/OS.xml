@@ -60,6 +60,7 @@ OS.Execute("CMD.exe", new string[] {"/C", "cd %TEMP% &amp;&amp; dir"}, output);
 [b]Note:[/b] To execute a PowerShell built-in command, specify [code]powershell.exe[/code] in [param path], [code]-Command[/code] as the first argument, and the desired command as the second argument.
 [b]Note:[/b] To execute a Unix shell built-in command, specify shell executable name in [param path], [code]-c[/code] as the first argument, and the desired command as the second argument.
 [b]Note:[/b] On macOS, sandboxed applications are limited to run only embedded helper executables, specified during export.
+[b]Note:[/b] On Android, system commands such as [code]dumpsys[/code] can only be run on a rooted device.
 </description></method><method name="find_keycode_from_string" qualifiers="const"><return type="int" enum="Key" /><param index="0" name="string" type="String" /><description>Returns the keycode of the given string (e.g. "Escape").
 </description></method><method name="get_cache_dir" qualifiers="const"><return type="String" /><description>Returns the [i]global[/i] cache data directory according to the operating system's standards. On the Linux/BSD platform, this path can be overridden by setting the [code]XDG_CACHE_HOME[/code] environment variable before starting the project. See [url=$DOCS_URL/tutorials/io/data_paths.html]File paths in Godot projects[/url] in the documentation for more information. See also [method get_config_dir] and [method get_data_dir].
 Not to be confused with [method get_user_data_dir], which returns the [i]project-specific[/i] user data path.
@@ -102,9 +103,11 @@ foreach (var argument in OS.GetCmdlineArgs())
 </description></method><method name="get_cmdline_user_args"><return type="PackedStringArray" /><description>Similar to [method get_cmdline_args], but this returns the user arguments (any argument passed after the double dash [code]--[/code] or double plus [code]++[/code] argument). These are left untouched by Godot for the user. [code]++[/code] can be used in situations where [code]--[/code] is intercepted by another program (such as [code]startx[/code]).
 For example, in the command line below, [code]--fullscreen[/code] will not be returned in [method get_cmdline_user_args] and [code]--level 1[/code] will only be returned in [method get_cmdline_user_args]:
 [codeblock]
-godot --fullscreen -- --level 1
-# Or:
-godot --fullscreen ++ --level 1
+# Godot has been executed with the following command:
+# godot --fullscreen -- --level=2 --hardcore
+
+OS.get_cmdline_args()      # Returns ["--fullscreen", "--level=2", "--hardcore"]
+OS.get_cmdline_user_args() # Returns ["--level=2", "--hardcore"]
 [/codeblock]
 </description></method><method name="get_config_dir" qualifiers="const"><return type="String" /><description>Returns the [i]global[/i] user configuration directory according to the operating system's standards. On the Linux/BSD platform, this path can be overridden by setting the [code]XDG_CONFIG_HOME[/code] environment variable before starting the project. See [url=$DOCS_URL/tutorials/io/data_paths.html]File paths in Godot projects[/url] in the documentation for more information. See also [method get_cache_dir] and [method get_data_dir].
 Not to be confused with [method get_user_data_dir], which returns the [i]project-specific[/i] user data path.

@@ -13,9 +13,9 @@ If [param width] and [param height] are not set, but [param region] is, the regi
 </description></method><method name="clear"><return type="void" /><description>Clears the tag stack.
 [b]Note:[/b] This method will not modify [member text], but setting [member text] to an empty string also clears the stack.
 </description></method><method name="deselect"><return type="void" /><description>Clears the current selection.
-</description></method><method name="get_character_line"><return type="int" /><param index="0" name="character" type="int" /><description>Returns the line number of the character position provided.
+</description></method><method name="get_character_line"><return type="int" /><param index="0" name="character" type="int" /><description>Returns the line number of the character position provided. Line and character numbers are both zero-indexed.
 [b]Note:[/b] If [member threaded] is enabled, this method returns a value for the loaded part of the document. Use [method is_ready] or [signal finished] to determine whether document is fully loaded.
-</description></method><method name="get_character_paragraph"><return type="int" /><param index="0" name="character" type="int" /><description>Returns the paragraph number of the character position provided.
+</description></method><method name="get_character_paragraph"><return type="int" /><param index="0" name="character" type="int" /><description>Returns the paragraph number of the character position provided. Paragraph and character numbers are both zero-indexed.
 [b]Note:[/b] If [member threaded] is enabled, this method returns a value for the loaded part of the document. Use [method is_ready] or [signal finished] to determine whether document is fully loaded.
 </description></method><method name="get_content_height" qualifiers="const"><return type="int" /><description>Returns the height of the content.
 [b]Note:[/b] If [member threaded] is enabled, this method returns a value for the loaded part of the document. Use [method is_ready] or [signal finished] to determine whether document is fully loaded.

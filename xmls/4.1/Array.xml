@@ -93,8 +93,14 @@ print(array1) # Prints [1, 2, 3, 4, 5, 6].
 </description></method><method name="back" qualifiers="const"><return type="Variant" /><description>Returns the last element of the array. Prints an error and returns [code]null[/code] if the array is empty.
 [b]Note:[/b] Calling this function is not the same as writing [code]array[-1][/code]. If the array is empty, accessing by index will pause project execution when running from the editor.
 </description></method><method name="bsearch" qualifiers="const"><return type="int" /><param index="0" name="value" type="Variant" /><param index="1" name="before" type="bool" default="true" /><description>Finds the index of an existing value (or the insertion index that maintains sorting order, if the value is not yet present in the array) using binary search. Optionally, a [param before] specifier can be passed. If [code]false[/code], the returned index comes after all existing entries of the value in the array.
+[codeblock]
+var array = ["a", "b", "c", "c", "d", "e"]
+print(array.bsearch("c", true))  # Prints 2, at the first matching element.
+print(array.bsearch("c", false)) # Prints 4, after the last matching element, pointing to "d".
+[/codeblock]
 [b]Note:[/b] Calling [method bsearch] on an unsorted array results in unexpected behavior.
 </description></method><method name="bsearch_custom" qualifiers="const"><return type="int" /><param index="0" name="value" type="Variant" /><param index="1" name="func" type="Callable" /><param index="2" name="before" type="bool" default="true" /><description>Finds the index of an existing value (or the insertion index that maintains sorting order, if the value is not yet present in the array) using binary search and a custom comparison method. Optionally, a [param before] specifier can be passed. If [code]false[/code], the returned index comes after all existing entries of the value in the array. The custom method receives two arguments (an element from the array and the value searched for) and must return [code]true[/code] if the first argument is less than the second, and return [code]false[/code] otherwise.
+[b]Note:[/b] The custom method must accept the two arguments in any order, you cannot rely on that the first argument will always be from the array.
 [b]Note:[/b] Calling [method bsearch_custom] on an unsorted array results in unexpected behavior.
 </description></method><method name="clear"><return type="void" /><description>Clears the array. This is equivalent to using [method resize] with a size of [code]0[/code].
 </description></method><method name="count" qualifiers="const"><return type="int" /><param index="0" name="value" type="Variant" /><description>Returns the number of times an element is in the array.

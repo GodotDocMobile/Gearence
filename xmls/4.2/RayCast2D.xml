@@ -11,6 +11,21 @@ To sweep over a region of 2D space, you can approximate the region with multiple
 </description></method><method name="get_collider" qualifiers="const"><return type="Object" /><description>Returns the first object that the ray intersects, or [code]null[/code] if no object is intersecting the ray (i.e. [method is_colliding] returns [code]false[/code]).
 </description></method><method name="get_collider_rid" qualifiers="const"><return type="RID" /><description>Returns the [RID] of the first object that the ray intersects, or an empty [RID] if no object is intersecting the ray (i.e. [method is_colliding] returns [code]false[/code]).
 </description></method><method name="get_collider_shape" qualifiers="const"><return type="int" /><description>Returns the shape ID of the first object that the ray intersects, or [code]0[/code] if no object is intersecting the ray (i.e. [method is_colliding] returns [code]false[/code]).
+To get the intersected shape node, for a [CollisionObject2D] target, use:
+[codeblocks]
+[gdscript]
+var target = get_collider() # A CollisionObject2D.
+var shape_id = get_collider_shape() # The shape index in the collider.
+var owner_id = target.shape_find_owner(shape_id) # The owner ID in the collider.
+var shape = target.shape_owner_get_owner(owner_id)
+[/gdscript]
+[csharp]
+var target = (CollisionObject2D)GetCollider(); // A CollisionObject2D.
+var shapeId = GetColliderShape(); // The shape index in the collider.
+var ownerId = target.ShapeFindOwner(shapeId); // The owner ID in the collider.
+var shape = target.ShapeOwnerGetOwner(ownerId);
+[/csharp]
+[/codeblocks]
 </description></method><method name="get_collision_mask_value" qualifiers="const"><return type="bool" /><param index="0" name="layer_number" type="int" /><description>Returns whether or not the specified layer of the [member collision_mask] is enabled, given a [param layer_number] between 1 and 32.
 </description></method><method name="get_collision_normal" qualifiers="const"><return type="Vector2" /><description>Returns the normal of the intersecting object's shape at the collision point, or [code]Vector2(0, 0)[/code] if the ray starts inside the shape and [member hit_from_inside] is [code]true[/code].
 </description></method><method name="get_collision_point" qualifiers="const"><return type="Vector2" /><description>Returns the collision point at which the ray intersects the closest object. If [member hit_from_inside] is [code]true[/code] and the ray starts inside of a collision shape, this function will return the origin point of the ray.

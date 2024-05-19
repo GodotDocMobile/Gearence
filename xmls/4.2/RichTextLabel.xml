@@ -16,9 +16,9 @@ If [param size_in_percent] is set, [param width] and [param height] values are p
 </description></method><method name="clear"><return type="void" /><description>Clears the tag stack.
 [b]Note:[/b] This method will not modify [member text], but setting [member text] to an empty string also clears the stack.
 </description></method><method name="deselect"><return type="void" /><description>Clears the current selection.
-</description></method><method name="get_character_line"><return type="int" /><param index="0" name="character" type="int" /><description>Returns the line number of the character position provided.
+</description></method><method name="get_character_line"><return type="int" /><param index="0" name="character" type="int" /><description>Returns the line number of the character position provided. Line and character numbers are both zero-indexed.
 [b]Note:[/b] If [member threaded] is enabled, this method returns a value for the loaded part of the document. Use [method is_ready] or [signal finished] to determine whether document is fully loaded.
-</description></method><method name="get_character_paragraph"><return type="int" /><param index="0" name="character" type="int" /><description>Returns the paragraph number of the character position provided.
+</description></method><method name="get_character_paragraph"><return type="int" /><param index="0" name="character" type="int" /><description>Returns the paragraph number of the character position provided. Paragraph and character numbers are both zero-indexed.
 [b]Note:[/b] If [member threaded] is enabled, this method returns a value for the loaded part of the document. Use [method is_ready] or [signal finished] to determine whether document is fully loaded.
 </description></method><method name="get_content_height" qualifiers="const"><return type="int" /><description>Returns the height of the content.
 [b]Note:[/b] If [member threaded] is enabled, this method returns a value for the loaded part of the document. Use [method is_ready] or [signal finished] to determine whether document is fully loaded.
@@ -132,6 +132,7 @@ Passing [code]0[/code] to [param font_size] will use the existing default font s
 </description></method><method name="push_language"><return type="void" /><param index="0" name="language" type="String" /><description>Adds language code used for text shaping algorithm and Open-Type font features.
 </description></method><method name="push_list"><return type="void" /><param index="0" name="level" type="int" /><param index="1" name="type" type="int" enum="RichTextLabel.ListType" /><param index="2" name="capitalize" type="bool" /><param index="3" name="bullet" type="String" default="&quot;•&quot;" /><description>Adds [code skip-lint][ol][/code] or [code skip-lint][ul][/code] tag to the tag stack. Multiplies [param level] by current [member tab_size] to determine new margin length.
 </description></method><method name="push_meta"><return type="void" /><param index="0" name="data" type="Variant" /><description>Adds a meta tag to the tag stack. Similar to the BBCode [code skip-lint][url=something]{text}[/url][/code], but supports non-[String] metadata types.
+[b]Note:[/b] Meta tags do nothing by default when clicked. To assign behavior when clicked, connect [signal meta_clicked] to a function that is called when the meta tag is clicked.
 </description></method><method name="push_mono"><return type="void" /><description>Adds a [code skip-lint][font][/code] tag with a monospace font to the tag stack.
 </description></method><method name="push_normal"><return type="void" /><description>Adds a [code skip-lint][font][/code] tag with a normal font to the tag stack.
 </description></method><method name="push_outline_color"><return type="void" /><param index="0" name="color" type="Color" /><description>Adds a [code skip-lint][outline_color][/code] tag to the tag stack. Adds text outline for its duration.
@@ -165,7 +166,7 @@ To add a custom effect, it's more convenient to use [method install_effect].
 </member><member name="fit_content" type="bool" setter="set_fit_content" getter="is_fit_content_enabled" default="false">If [code]true[/code], the label's minimum size will be automatically updated to fit its content, matching the behavior of [Label].
 </member><member name="hint_underlined" type="bool" setter="set_hint_underline" getter="is_hint_underlined" default="true">If [code]true[/code], the label underlines hint tags such as [code skip-lint][hint=description]{text}[/hint][/code].
 </member><member name="language" type="String" setter="set_language" getter="get_language" default="&quot;&quot;">Language code used for line-breaking and text shaping algorithms, if left empty current locale is used instead.
-</member><member name="meta_underlined" type="bool" setter="set_meta_underline" getter="is_meta_underlined" default="true">If [code]true[/code], the label underlines meta tags such as [code skip-lint][url]{text}[/url][/code].
+</member><member name="meta_underlined" type="bool" setter="set_meta_underline" getter="is_meta_underlined" default="true">If [code]true[/code], the label underlines meta tags such as [code skip-lint][url]{text}[/url][/code]. These tags can call a function when clicked if [signal meta_clicked] is connected to a function.
 </member><member name="progress_bar_delay" type="int" setter="set_progress_bar_delay" getter="get_progress_bar_delay" default="1000">The delay after which the loading progress bar is displayed, in milliseconds. Set to [code]-1[/code] to disable progress bar entirely.
 [b]Note:[/b] Progress bar is displayed only if [member threaded] is enabled.
 </member><member name="scroll_active" type="bool" setter="set_scroll_active" getter="is_scroll_active" default="true">If [code]true[/code], the scrollbar is visible. Setting this to [code]false[/code] does not block scrolling completely. See [method scroll_to_line].
@@ -185,7 +186,17 @@ To add a custom effect, it's more convenient to use [method install_effect].
 </member><member name="visible_ratio" type="float" setter="set_visible_ratio" getter="get_visible_ratio" default="1.0">The fraction of characters to display, relative to the total number of characters (see [method get_total_character_count]). If set to [code]1.0[/code], all characters are displayed. If set to [code]0.5[/code], only half of the characters will be displayed. This can be useful when animating the text appearing in a dialog box.
 [b]Note:[/b] Setting this property updates [member visible_characters] accordingly.
 </member></members><signals><signal name="finished"><description>Triggered when the document is fully loaded.
-</description></signal><signal name="meta_clicked"><param index="0" name="meta" type="Variant" /><description>Triggered when the user clicks on content between meta tags. If the meta is defined in text, e.g. [code skip-lint][url={"data"="hi"}]hi[/url][/code], then the parameter for this signal will be a [String] type. If a particular type or an object is desired, the [method push_meta] method must be used to manually insert the data into the tag stack.
+</description></signal><signal name="meta_clicked"><param index="0" name="meta" type="Variant" /><description>Triggered when the user clicks on content between meta (URL) tags. If the meta is defined in BBCode, e.g. [code skip-lint][url={"key": "value"}]Text[/url][/code], then the parameter for this signal will always be a [String] type. If a particular type or an object is desired, the [method push_meta] method must be used to manually insert the data into the tag stack. Alternatively, you can convert the [String] input to the desired type based on its contents (such as calling [method JSON.parse] on it).
+For example, the following method can be connected to [signal meta_clicked] to open clicked URLs using the user's default web browser:
+[codeblocks]
+[gdscript]
+# This assumes RichTextLabel's `meta_clicked` signal was connected to
+# the function below using the signal connection dialog.
+func _richtextlabel_on_meta_clicked(meta):
+    # `meta` is of Variant type, so convert it to a String to avoid script errors at run-time.
+    OS.shell_open(str(meta))
+[/gdscript]
+[/codeblocks]
 </description></signal><signal name="meta_hover_ended"><param index="0" name="meta" type="Variant" /><description>Triggers when the mouse exits a meta tag.
 </description></signal><signal name="meta_hover_started"><param index="0" name="meta" type="Variant" /><description>Triggers when the mouse enters a meta tag.
 </description></signal></signals><constants><constant name="LIST_NUMBERS" value="0" enum="ListType">Each list item has a number marker.

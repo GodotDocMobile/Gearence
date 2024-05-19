@@ -37,7 +37,7 @@ while socket.wait() == OK:
         return
 [/gdscript]
 [csharp]
-var socket = new PacketPeerUDP();
+var socket = new PacketPeerUdp();
 // Server
 socket.SetDestAddress("127.0.0.1", 789);
 socket.PutPacket("Time to stop".ToAsciiBuffer());

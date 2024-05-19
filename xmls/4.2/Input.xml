@@ -83,6 +83,7 @@ cancelEvent.Pressed = true;
 Input.ParseInputEvent(cancelEvent);
 [/csharp]
 [/codeblocks]
+[b]Note:[/b] Calling this function has no influence on the operating system. So for example sending an [InputEventMouseMotion] will not move the OS mouse cursor to the specified position (use [method warp_mouse] instead) and sending [kbd]Alt/Cmd + Tab[/kbd] as [InputEventKey] won't toggle between active windows.
 </description></method><method name="remove_joy_mapping"><return type="void" /><param index="0" name="guid" type="String" /><description>Removes all mappings from the internal database that match the given GUID.
 </description></method><method name="set_accelerometer"><return type="void" /><param index="0" name="value" type="Vector3" /><description>Sets the acceleration value of the accelerometer sensor. Can be used for debugging on devices without a hardware sensor, for example in an editor on a PC.
 [b]Note:[/b] This value can be immediately overwritten by the hardware sensor value on Android and iOS.
