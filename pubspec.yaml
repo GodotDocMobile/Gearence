@@ -1,5 +1,5 @@
 name: godotclassreference
-description: Class reference for Godot Engine.
+description: Third party godot class reference reader.
 
 publish_to: none
 doc_time: 2020-08-12
@@ -48,11 +48,15 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-flutter_icons:
-  image_path: "icon.png"
+flutter_launcher_icons:
+  # image_path: "icon.png"
+  image_path_android: "icon_transparent.png"
+  image_path_ios: "icon.png"
   android: true
   ios: true
-  image_path_android: "icon_transparent.png"
+  remove_alpha_ios: true
+  background_color_ios: "#828282"
+  
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

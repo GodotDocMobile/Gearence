@@ -76,7 +76,8 @@ class _GCRAppState extends State<GCRApp> {
           return _buildBlocProvider(MaterialApp(
             //hide debug banner
             debugShowCheckedModeBanner: false,
-            darkTheme: ThemeData.dark(),
+            theme: lightTheme,
+            darkTheme: darkTheme,
             themeMode:
                 storedValues.isDarkTheme ? ThemeMode.dark : ThemeMode.light,
             home: ClassSelect(),
