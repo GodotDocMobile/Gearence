@@ -22,8 +22,9 @@ TextStyle scaledTextStyle(BuildContext context) {
 }
 
 MediaQueryData scaledMediaQueryData(BuildContext context) {
-  return MediaQuery.of(context)
-      .copyWith(textScaleFactor: 1 + storedValues.fontSize * TEXT_SCALE_FACTOR);
+  return MediaQuery.of(context).copyWith(
+      textScaler:
+          TextScaler.linear(1 + storedValues.fontSize * TEXT_SCALE_FACTOR));
 }
 
 TextStyle nonScaleTextStyle(BuildContext context) {
@@ -31,7 +32,7 @@ TextStyle nonScaleTextStyle(BuildContext context) {
 }
 
 MediaQueryData nonScaledMediaQueryData(BuildContext context) {
-  return MediaQuery.of(context).copyWith(textScaleFactor: 1);
+  return MediaQuery.of(context).copyWith(textScaler: TextScaler.linear(1));
 }
 
 TextStyle? monoOptionalStyle(BuildContext context, {TextStyle? baseStyle}) {
