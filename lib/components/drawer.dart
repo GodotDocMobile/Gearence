@@ -90,7 +90,7 @@ class GCRDrawerState extends State<GCRDrawer> {
                     // const url =
                     //     'https://github.com/GodotDocMobile/godot_class_reference';
                     var url = Uri.dataFromString(
-                        'https://github.com/GodotDocMobile/godot_class_reference');
+                        'https://github.com/GodotDocMobile/Gearence');
                     if (!await launchUrl(url)) {
                       print("can not launch url $url");
                     }
