@@ -6,7 +6,6 @@ import 'package:godotclassreference/screens/class_select.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:godotclassreference/bloc/blocs.dart';
 
-// ignore: must_be_immutable
 class GCRDrawer extends StatefulWidget {
   final Function(int)? setScaleFunc;
 
