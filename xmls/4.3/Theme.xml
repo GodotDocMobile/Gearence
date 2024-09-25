@@ -115,7 +115,7 @@ Use [method has_default_base_scale] to check if this value is valid.
 </member><member name="default_font" type="Font" setter="set_default_font" getter="get_default_font">The default font of this theme resource. Used as the default value when trying to fetch a font resource that doesn't exist in this theme or is in invalid state. If the default font is also missing or invalid, the engine fallback value is used (see [member ThemeDB.fallback_font]).
 Use [method has_default_font] to check if this value is valid.
 </member><member name="default_font_size" type="int" setter="set_default_font_size" getter="get_default_font_size" default="-1">The default font size of this theme resource. Used as the default value when trying to fetch a font size value that doesn't exist in this theme or is in invalid state. If the default font size is also missing or invalid, the engine fallback value is used (see [member ThemeDB.fallback_font_size]).
-Values below [code]0[/code] are invalid and can be used to unset the property. Use [method has_default_font_size] to check if this value is valid.
+Values below [code]1[/code] are invalid and can be used to unset the property. Use [method has_default_font_size] to check if this value is valid.
 </member></members><constants><constant name="DATA_TYPE_COLOR" value="0" enum="DataType">Theme's [Color] item type.
 </constant><constant name="DATA_TYPE_CONSTANT" value="1" enum="DataType">Theme's constant item type.
 </constant><constant name="DATA_TYPE_FONT" value="2" enum="DataType">Theme's [Font] item type.

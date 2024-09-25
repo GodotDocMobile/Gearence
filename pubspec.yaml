@@ -78,6 +78,7 @@ flutter:
     - svgs/3.3/
     - svgs/3.4/
     - svgs/3.5/
+    - svgs/3.6/
     - svgs/4.0/
     - svgs/4.1/
     - svgs/4.2/
@@ -92,6 +93,7 @@ flutter:
     - xmls/3.3/
     - xmls/3.4/
     - xmls/3.5/
+    - xmls/3.6/
     - xmls/4.0/
     - xmls/4.1/
     - xmls/4.2/
