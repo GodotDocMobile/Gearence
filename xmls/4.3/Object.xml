@@ -115,7 +115,7 @@ public partial class MyNode : Node
         }
     }
 
-    private List&lt;int&gt; _numbers = new();
+    private Godot.Collections.Array&lt;int&gt; _numbers = new();
 
     public override Godot.Collections.Array&lt;Godot.Collections.Dictionary&gt; _GetPropertyList()
     {
@@ -152,7 +152,7 @@ public partial class MyNode : Node
         if (propertyName.StartsWith("number_"))
         {
             int index = int.Parse(propertyName.Substring("number_".Length));
-            numbers[index] = value.As&lt;int&gt;();
+            _numbers[index] = value.As&lt;int&gt;();
             return true;
         }
         return false;

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?><class name="FlowContainer" inherits="Container" version="3.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd"><brief_description>Base class for flow containers.
+</brief_description><description>Arranges child [Control] nodes vertically or horizontally in a left-to-right or top-to-bottom flow.
+A line is filled with [Control] nodes until no more fit on the same line, similar to text in an autowrapped label.
+</description><tutorials></tutorials><methods><method name="get_line_count" qualifiers="const"><return type="int" /><description>Returns the current line count.
+</description></method></methods><members><member name="alignment" type="int" setter="set_alignment" getter="get_alignment" enum="FlowContainer.AlignMode" default="0">The alignment of the container's children (must be one of [constant ALIGN_BEGIN], [constant ALIGN_CENTER] or [constant ALIGN_END]).
+</member></members><constants><constant name="ALIGN_BEGIN" value="0" enum="AlignMode">Aligns children with the beginning of the container.
+</constant><constant name="ALIGN_CENTER" value="1" enum="AlignMode">Aligns children with the center of the container.
+</constant><constant name="ALIGN_END" value="2" enum="AlignMode">Aligns children with the end of the container.
+</constant></constants></class>
