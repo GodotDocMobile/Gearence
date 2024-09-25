@@ -130,7 +130,7 @@ See also [method all], [method filter], [method map] and [method reduce].
 var numbers = [1, 2, 3]
 var extra = [4, 5, 6]
 numbers.append_array(extra)
-print(nums) # Prints [1, 2, 3, 4, 5, 6]
+print(numbers) # Prints [1, 2, 3, 4, 5, 6]
 [/codeblock]
 </description></method><method name="assign"><return type="void" /><param index="0" name="array" type="Array" /><description>Assigns elements of another [param array] into the array. Resizes the array to match [param array]. Performs type conversions if the array is typed.
 </description></method><method name="back" qualifiers="const"><return type="Variant" /><description>Returns the last element of the array. If the array is empty, fails and returns [code]null[/code]. See also [method front].
@@ -360,7 +360,7 @@ GD.Print(numbers); // Prints [2.5, 5, 8, 10]
 [/codeblocks]
 [b]Note:[/b] The sorting algorithm used is not [url=https://en.wikipedia.org/wiki/Sorting_algorithm#Stability]stable[/url]. This means that equivalent elements (such as [code]2[/code] and [code]2.0[/code]) may have their order changed when calling [method sort].
 </description></method><method name="sort_custom"><return type="void" /><param index="0" name="func" type="Callable" /><description>Sorts the array using a custom [Callable].
-[param func] is called as many times as necessary, receiving two array elements as arguments. The function should return [code]true[/code] if the first element should be moved [i]behind[/i] the second one, otherwise it should return [code]false[/code].
+[param func] is called as many times as necessary, receiving two array elements as arguments. The function should return [code]true[/code] if the first element should be moved [i]before[/i] the second one, otherwise it should return [code]false[/code].
 [codeblock]
 func sort_ascending(a, b):
     if a[1] &lt; b[1]:
@@ -373,7 +373,7 @@ func _ready():
     print(my_items) # Prints [["Rice", 4], ["Tomato", 5], ["Apple", 9]]
 
     # Sort descending, using a lambda function.
-    my_items.sort_custom(func(a, b): return a[0] &gt; b[0])
+    my_items.sort_custom(func(a, b): return a[1] &gt; b[1])
     print(my_items) # Prints [["Apple", 9], ["Tomato", 5], ["Rice", 4]]
 [/codeblock]
 It may also be necessary to use this method to sort strings by natural order, with [method String.naturalnocasecmp_to], as in the following example:

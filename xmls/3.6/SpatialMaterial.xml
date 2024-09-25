@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8" ?><class name="SpatialMaterial" inherits="Material3D" version="3.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd"><brief_description>Default 3D rendering material, based on [Material3D].
+</brief_description><description>This provides a default material with a wide variety of rendering features and properties without the need to write shader code. See the tutorial below for details.
+</description><tutorials><link>$DOCS_URL/tutorials/3d/spatial_material.html</link></tutorials><methods></methods><constants></constants></class>
