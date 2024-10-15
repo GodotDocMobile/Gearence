@@ -28,15 +28,13 @@ dependencies:
       url: https://github.com/GodotDocMobile/highlight.dart.git/
       path: flutter_highlight
       ref: generate-gdscript
-  flutter_launcher_icons: ^0.13.1
+  flutter_launcher_icons: ^0.14.1
   flutter_svg: ^2.0.7
-  gettext: ^1.2.0
-  package_info_plus: ^4.0.2
-  provider: ^6.0.1
+  package_info_plus: ^8.0.3
   scrollable_positioned_list: ^0.3.1
   shared_preferences: ^2.0.15
   url_launcher: ^6.0.12
-  window_manager: ^0.3.4
+  window_manager: ^0.4.2
   xml: ^6.3.0
 
 dev_dependencies: 
@@ -46,16 +44,6 @@ dev_dependencies:
     sdk: flutter
   flutter_test:
     sdk: flutter
-
-flutter_launcher_icons:
-  # image_path: "icon.png"
-  image_path_android: "icon_transparent.png"
-  image_path_ios: "icon.png"
-  android: true
-  ios: true
-  remove_alpha_ios: true
-  background_color_ios: "#828282"
-  
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
