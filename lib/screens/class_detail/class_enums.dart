@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:godotclassreference/helpers/trim_translate.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:flutter/material.dart';
 
@@ -94,7 +95,7 @@ class _ClassEnumsState extends State<ClassEnums> {
               SizedBox(height: 10),
               DescriptionText(
                 className: widget.clsContent.name!,
-                content: clsConstant.constantText!,
+                content: context.translate(clsConstant.constantText!),
                 // onLinkTap: widget.onLinkTap,
               ),
             ],

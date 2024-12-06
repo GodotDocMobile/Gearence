@@ -23,12 +23,15 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
+  flutter_gettext: ^2.0.1
   flutter_highlight:
     git:
       url: https://github.com/GodotDocMobile/highlight.dart.git/
       path: flutter_highlight
       ref: generate-gdscript
   flutter_launcher_icons: ^0.14.1
+  flutter_localizations:
+    sdk: flutter
   flutter_svg: ^2.0.7
   package_info_plus: ^8.0.3
   scrollable_positioned_list: ^0.3.1
@@ -88,12 +91,14 @@ flutter:
     - xmls/4.3/
     # file index
     - xmls/
+    - translations/3.4/
+    - translations/3.5/
+    - translations/3.6/
+    - translations/4.0/
+    - translations/4.1/
+    - translations/4.2/
+    - translations/4.3/
 
-    #    - translations/2.1/
-    #    - translations/3.0/
-    #    - translations/3.1/
-    #    - translations/3.2/
-    #    - translations/3.3/
     - godot_license/
 
   fonts:

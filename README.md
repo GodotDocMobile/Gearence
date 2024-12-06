@@ -16,9 +16,9 @@ git clone https://github.com/godotengine/godot.git
 ```
 * install required python package
 ```bash
-pip install GitPython 
+pip install GitPython polib
 # Or in Ubuntu 24.04:
-sudo apt install python3-git
+sudo apt install python3-git python3-polib
 ```
 * run the python script,which will update docs and svg files for published Godot versions(2.0 to 3.4)
 ```bash

@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:godotclassreference/helpers/translation_deletage.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
@@ -63,7 +65,15 @@ class _GCRAppState extends State<GCRApp> {
             setState(() {
               storedValues.isDarkTheme = state;
             });
-          })
+          }),
+          BlocListener(
+            bloc: blocs.translationBloc,
+            listener: (context, state) {
+              setState(() {
+                
+              });
+            },
+          )
     ], child: child);
   }
 
@@ -74,6 +84,16 @@ class _GCRAppState extends State<GCRApp> {
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
           return _buildBlocProvider(MaterialApp(
+            locale: const Locale("en"),
+            supportedLocales: const [
+              Locale('en'),
+            ],
+            localizationsDelegates: [
+              GearenceGettextLocalizationsDelegate(),
+              GlobalMaterialLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+            ],
             //hide debug banner
             debugShowCheckedModeBanner: false,
             theme: lightTheme,

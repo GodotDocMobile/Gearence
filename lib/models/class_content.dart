@@ -243,7 +243,8 @@ class ClassContent {
         final List<XmlAttribute?> nodeAttr = f.attributes;
         return ThemeItem(
             name: _getAttrByName(nodeAttr, 'name'),
-            type: _getAttrByName(nodeAttr, 'type'));
+            type: _getAttrByName(nodeAttr, 'type'),
+            description: f.innerText);
       }).toList();
     }
 

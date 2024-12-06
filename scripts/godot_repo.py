@@ -12,6 +12,7 @@ import datetime
 # import yaml
 import json
 import argparse
+import polib
 
 branches = [
     "2.0",
@@ -28,6 +29,8 @@ branches = [
     "4.2",
     "4.3",
 ]
+
+branches_translation = []
 
 godot_repo = ""
 
@@ -269,7 +272,7 @@ def multiple_class_files(branch_name):
 
     _class_docs_folder = join(godot_repo, "doc", "classes")
     print("[{}] this branch contains multiple files".format(branch_name))
-    print("[{}] processing regular docs".format(branch_name))
+    print("[{}] processing standard docs".format(branch_name))
     for origin_file in listdir(_class_docs_folder):
 
         _copy_and_trim(join(_class_docs_folder, origin_file),
@@ -288,12 +291,12 @@ def multiple_class_files(branch_name):
 
         _classes.append(_class)
 
-        if _class.svg_file_name is None:
-            print("[{}] process finished for {}".format(
-                branch_name, origin_file))
-        else:
-            print("[{}] process finished for {}, *with svg file copied*".format(
-                branch_name, origin_file))
+        # if _class.svg_file_name is None:
+        #     print("[{}] process finished for {}".format(
+        #         branch_name, origin_file))
+        # else:
+        #     print("[{}] process finished for {}, *with svg file copied*".format(
+        #         branch_name, origin_file))
         pass
 
     print("[{}] processing module docs".format(branch_name))
@@ -377,6 +380,8 @@ def remove_old_svg_files(branch_name):
 
 def copy_translations(branch_name):
     print("removing old translation files.")
+    if not exists("../translations"):
+        mkdir("../translations")
     _translation_target_folder = join("../translations", branch_name)
 
     if exists(_translation_target_folder):
@@ -387,15 +392,25 @@ def copy_translations(branch_name):
 
     print("done removing old translation files.")
 
-    _translation_source_folder = join(godot_repo, "editor", "translations")
+    _translation_source_folder = join(godot_repo, "doc", "translations")
 
+    current_branch_translation = []
     if exists(_translation_source_folder):
-        print("moving translation files.")
+        print("filtering translation files.")
         for origin_file in listdir(_translation_source_folder):
             if origin_file.find(".po") > -1:
-                copyfile(join(_translation_source_folder, origin_file),
+                po = polib.pofile(join(_translation_source_folder,origin_file))
+                translated = len(po.translated_entries())
+                fuzzy=len(po.fuzzy_entries())
+                untranslated=len(po.untranslated_entries())
+                ratio = translated/(translated+fuzzy+untranslated)
+                if ratio > 0.1:
+                    current_branch_translation.append(origin_file.replace('.po',''))
+                    copyfile(join(_translation_source_folder, origin_file),
                          join(_translation_target_folder, origin_file))
-        print(("done moving translation files."))
+        print("for branch ",branch_name," qualified translations are :",current_branch_translation)
+        # print("done moving translation files."))
+        branches_translation.append({"branch":branch_name,"translation":current_branch_translation})
     else:
         print("no translation files in this versin,skipping")
 
@@ -442,12 +457,11 @@ if __name__ == "__main__":
 
         if not parsed.skip_pull:
             if _doc_date != _today:
-                print("performing pull action from origin ...")
+                print("pulling from origin ...")
                 o = repo.remotes.origin
                 o.pull()
                 print("done pulling.")
 
-        # copy_translations(b)
         if float(b) >= 3:
             remove_old_svg_files(b)
             multiple_class_files(b)
@@ -456,12 +470,15 @@ if __name__ == "__main__":
             remove_old_svg_files(b)
             single_class_files(b)
             pass
+        if float(b) >= 3.4:
+            copy_translations(b)
+            print("Will copy translations")
         pass
 
     _doc_date = datetime.date.today()
 
     config_content = json.dumps({
-        "branches": branches,
+        "branches": branches_translation,
         "update_date": "{}".format(_doc_date)
     })
 
