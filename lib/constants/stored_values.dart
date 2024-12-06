@@ -47,7 +47,14 @@ class StoredValues {
     prefs.setBool('monoSpaceFont', val);
   }
 
-  String get translation => prefs.getString('translation') ?? 'en';
+  String get translation {
+    var value = prefs.getString('translation') ?? 'en';
+    if (!configContent.branchTranslations[version]!.contains(value)) {
+      // translation = 'en';
+      value = 'en';
+    }
+    return value;
+  }
 
   void set translation(String val) {
     if (!configContent.branchTranslations[version]!.contains(val)) {
