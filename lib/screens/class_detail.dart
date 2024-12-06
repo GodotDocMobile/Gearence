@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:godotclassreference/bloc/blocs.dart';
 
 import 'package:godotclassreference/helpers/sematic_helpers.dart';
+import 'package:godotclassreference/helpers/trim_translate.dart';
 import 'package:godotclassreference/screens/class_detail/class_annotations.dart';
 import 'package:godotclassreference/theme/themes.dart';
 import 'package:godotclassreference/constants/class_db.dart';
@@ -115,12 +116,12 @@ class _ClassDetailState extends State<ClassDetail>
         future: _classContent,
         builder: (BuildContext context, AsyncSnapshot<ClassContent> snapshot) {
           if (snapshot.hasData) {
-            _tabs = getClassTabs(snapshot.data!);
+            _tabs = getClassTabs(snapshot.data!, context);
             // append theme item tab if needed
             if (snapshot.data!.themeItems.length > 0) {
               _tabs.add(
                 ClassTab(
-                  title: 'Theme Items',
+                  title: context.translate('Theme Properties'),
                   child: ClassThemeItems(
                     clsContent: snapshot.data,
                   ),
@@ -132,7 +133,7 @@ class _ClassDetailState extends State<ClassDetail>
 
             if (snapshot.data!.annotations.length > 0) {
               _tabs.add(ClassTab(
-                title: "Annotations",
+                title: context.translate("Annotations"),
                 child: ClassAnnotations(
                   clsContent: snapshot.data,
                 ),
@@ -224,7 +225,7 @@ class ClassTab {
   final Stream<TapEventArg>? eventStream;
 }
 
-List<ClassTab> getClassTabs(ClassContent clsContent) {
+List<ClassTab> getClassTabs(ClassContent clsContent, BuildContext context) {
   return <ClassTab>[
     ClassTab(
       title: "Info",
@@ -233,7 +234,7 @@ List<ClassTab> getClassTabs(ClassContent clsContent) {
       ),
     ),
     ClassTab(
-      title: "Enums",
+      title: context.translate("Enumerations"),
       child: ClassEnums(
         clsContent: clsContent,
       ),
@@ -241,7 +242,7 @@ List<ClassTab> getClassTabs(ClassContent clsContent) {
       itemCount: clsContent.constants.where((w) => w.enumValue != null).length,
     ),
     ClassTab(
-      title: "Constants",
+      title: context.translate("Constants"),
       child: ClassConstants(
         clsContent: clsContent,
       ),
@@ -249,7 +250,7 @@ List<ClassTab> getClassTabs(ClassContent clsContent) {
       itemCount: clsContent.constants.where((w) => w.enumValue == null).length,
     ),
     ClassTab(
-      title: "Members",
+      title: context.translate("Properties"),
       child: ClassMembers(
         clsContent: clsContent,
       ),
@@ -257,7 +258,7 @@ List<ClassTab> getClassTabs(ClassContent clsContent) {
       itemCount: clsContent.members.length,
     ),
     ClassTab(
-      title: "Methods",
+      title: context.translate("Methods"),
       child: ClassMethods(
         clsContent: clsContent,
       ),
@@ -265,7 +266,7 @@ List<ClassTab> getClassTabs(ClassContent clsContent) {
       itemCount: clsContent.methods.length,
     ),
     ClassTab(
-      title: "Signals",
+      title: context.translate("Signals"),
       child: ClassSignals(
         clsContent: clsContent,
       ),

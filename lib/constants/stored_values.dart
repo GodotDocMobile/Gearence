@@ -46,6 +46,15 @@ class StoredValues {
   void set isMonospaced(bool val) {
     prefs.setBool('monoSpaceFont', val);
   }
+
+  String get translation => prefs.getString('translation') ?? 'en';
+
+  void set translation(String val) {
+    if (!configContent.branchTranslations[version]!.contains(val)) {
+      val = 'en';
+    }
+    prefs.setString('translation', val);
+  }
 }
 
 final StoredValues storedValues = StoredValues();

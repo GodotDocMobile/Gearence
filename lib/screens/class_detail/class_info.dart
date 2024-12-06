@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:godotclassreference/components/description_text.dart';
 import 'package:godotclassreference/constants/class_db.dart';
+import 'package:godotclassreference/helpers/trim_translate.dart';
 import 'package:godotclassreference/models/class_content.dart';
 import 'package:godotclassreference/theme/default.dart';
 
@@ -25,7 +26,7 @@ class ClassInfo extends StatelessWidget {
         //inherit chain
         ExcludeSemantics(
           child: Text(
-            'Inherits:',
+            context.translate('Inherits:'),
             style: TextStyle(color: Colors.grey),
           ),
         ),
@@ -43,7 +44,7 @@ class ClassInfo extends StatelessWidget {
         //child classes
         ExcludeSemantics(
           child: Text(
-            'Child Classes:',
+            context.translate('Inherited By:'),
             style: TextStyle(color: Colors.grey),
           ),
         ),
@@ -66,7 +67,7 @@ class ClassInfo extends StatelessWidget {
         ),
         DescriptionText(
           className: clsContent!.name!,
-          content: clsContent!.briefDescription!,
+          content: context.translate(clsContent!.briefDescription!),
           descriptionUsedBy: DescriptionUsedBy.BriefDescription,
           // onLinkTap: onLinkTap,
         ),
@@ -113,9 +114,15 @@ class ClassInfo extends StatelessWidget {
               )),
 
         //description
+        ExcludeSemantics(
+          child: Text(
+            '${context.translate('Description')}:',
+            style: TextStyle(color: Colors.grey),
+          ),
+        ),
         DescriptionText(
           className: clsContent!.name!,
-          content: clsContent!.description!,
+          content: context.translate(clsContent!.description!),
           descriptionUsedBy: DescriptionUsedBy.Description,
           // onLinkTap: onLinkTap,
         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:godotclassreference/helpers/trim_translate.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import 'package:godotclassreference/theme/themes.dart';
@@ -131,7 +132,7 @@ class _ClassMembersState extends State<ClassMembers> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'setter',
+                                    context.translate('Setter'),
                                     style: TextStyle(color: Colors.grey),
                                   ),
                                   Padding(
@@ -158,7 +159,7 @@ class _ClassMembersState extends State<ClassMembers> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'getter',
+                                    context.translate('Getter'),
                                     style: TextStyle(color: Colors.grey),
                                   ),
                                   Padding(
@@ -181,7 +182,7 @@ class _ClassMembersState extends State<ClassMembers> {
                               ),
                         DescriptionText(
                           className: widget.clsContent!.name!,
-                          content: m.memberText!,
+                          content: context.translate(m.memberText!),
                           // onLinkTap: widget.onLinkTap,
                         ),
                       ],
