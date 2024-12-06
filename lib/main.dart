@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:godotclassreference/helpers/localizations.dart';
 import 'package:godotclassreference/helpers/parse_locale.dart';
 import 'package:godotclassreference/helpers/translation_deletage.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -114,6 +115,7 @@ class _GCRAppState extends State<GCRApp> {
                     GlobalMaterialLocalizations.delegate,
                     GlobalCupertinoLocalizations.delegate,
                     GlobalWidgetsLocalizations.delegate,
+                    FallbackLocalizationDelegate(),
                   ]
                 : null,
             //hide debug banner
