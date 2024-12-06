@@ -101,6 +101,54 @@ class GCRDrawerState extends State<GCRDrawer> {
         });
   }
 
+  Widget selectTranslation() {
+    if (double.parse(storedValues.version) < 3.4) {
+      return SizedBox();
+    }
+    return MergeSemantics(
+      child: ListTile(
+        leading: Icon(Icons.compare_arrows),
+        title: Text("Translation"),
+        trailing: Semantics(
+          onTapHint: 'Select translated language',
+          child: DropdownButton<String>(
+            value: storedValues.translation,
+            items: [
+              DropdownMenuItem(
+                child: Text('None'),
+                value: 'en',
+              ),
+              ...storedValues
+                  .configContent.branchTranslations[storedValues.version]!
+                  .map((i) {
+                return DropdownMenuItem<String>(
+                  value: i,
+                  child: Text(i),
+                );
+              }).toList()
+            ],
+            onChanged: (v) {
+              setState(() {
+                storedValues.translation = v!;
+              });
+              blocs.translationBloc.add(v!);
+              // Navigator.of(context).pop();
+              // setState(() {
+              //   storedValues.version = v!;
+              // });
+              // Navigator.pushAndRemoveUntil(
+              //     context,
+              //     MaterialPageRoute(
+              //       builder: (context) => ClassSelect(),
+              //     ),
+              //     (Route<dynamic> route) => false);
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -135,8 +183,9 @@ class GCRDrawerState extends State<GCRDrawer> {
                     );
                   }).toList(),
                   onChanged: (v) {
+                    blocs.versionBloc.add(v!);
                     setState(() {
-                      storedValues.version = v!;
+                      storedValues.version = v;
                     });
                     Navigator.pushAndRemoveUntil(
                         context,
@@ -149,6 +198,7 @@ class GCRDrawerState extends State<GCRDrawer> {
               ),
             ),
           ),
+          selectTranslation(),
           MergeSemantics(
             child: ListTile(
               leading: Icon(Icons.brightness_6),
