@@ -473,6 +473,8 @@ if __name__ == "__main__":
         if float(b) >= 3.4:
             copy_translations(b)
             print("Will copy translations")
+        else:
+            branches_translation.append({"branch":b,"translation":[]})
         pass
 
     _doc_date = datetime.date.today()
