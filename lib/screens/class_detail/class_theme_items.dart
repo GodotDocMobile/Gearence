@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:godotclassreference/components/description_text.dart';
+import 'package:godotclassreference/helpers/trim_translate.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import 'package:godotclassreference/theme/themes.dart';
@@ -87,16 +89,31 @@ class _ClassThemeItemsState extends State<ClassThemeItems> {
                 t.name!,
                 style: monoOptionalStyle(context),
               ),
-              subtitle: Row(
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("type"),
-                  SizedBox(
-                    width: 10,
+                  Row(
+                    children: [
+                      Text("type"),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      LinkText(
+                        text: t.type!,
+                        // onLinkTap: widget.onLinkTap,
+                      )
+                    ],
                   ),
-                  LinkText(
-                    text: t.type!,
-                    // onLinkTap: widget.onLinkTap,
-                  )
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  t.description != null
+                      ? DescriptionText(
+                          className: widget.clsContent!.name!,
+                          content: context.translate(t.description!),
+                          // onLinkTap: widget.onLinkTap,
+                        )
+                      : SizedBox(),
                 ],
               ),
             ),
