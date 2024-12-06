@@ -39,11 +39,6 @@ class _SetFontSizeState extends State<SetFontSize>
     dummyNode.members = node.members;
     dummyNode.methods = node.methods;
     dummyNode.signals = node.signals;
-    _tabs = getClassTabs(dummyNode);
-    tabController = TabController(
-      vsync: this,
-      length: _tabs.length,
-    );
     super.initState();
   }
 
@@ -81,6 +76,11 @@ class _SetFontSizeState extends State<SetFontSize>
 
   @override
   Widget build(BuildContext context) {
+    _tabs = getClassTabs(dummyNode, context);
+    tabController = TabController(
+      vsync: this,
+      length: _tabs.length,
+    );
     return BlocListener<TapEventBloc, TapEventArg>(
       listenWhen: (previous, current) {
         return current.className.isNotEmpty;

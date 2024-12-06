@@ -147,6 +147,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_gettext:
+    dependency: "direct main"
+    description:
+      name: flutter_gettext
+      sha256: "016e9303dcec0f87b792822707d0043814ecf760e1efd9a11630a4bae0d5fa67"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.1"
   flutter_highlight:
     dependency: "direct main"
     description:
@@ -164,6 +172,11 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.14.1"
+  flutter_localizations:
+    dependency: "direct main"
+    description: flutter
+    source: sdk
+    version: "0.0.0"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -225,6 +238,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  intl:
+    dependency: transitive
+    description:
+      name: intl
+      sha256: d6f56758b7d3014a48af9701c085700aac781a92a87a62b1333b46d8879661cf
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.19.0"
   json_annotation:
     dependency: transitive
     description:

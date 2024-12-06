@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:godotclassreference/helpers/trim_translate.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import 'package:godotclassreference/theme/themes.dart';
@@ -120,7 +121,7 @@ class _ClassSignalsState extends State<ClassSignals> {
                       ),
                       DescriptionText(
                         className: widget.clsContent!.name!,
-                        content: s.description!,
+                        content: context.translate(s.description!),
                         // onLinkTap: widget.onLinkTap,
                       ),
                     ],

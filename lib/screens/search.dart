@@ -342,7 +342,6 @@ class _SearchScreenState extends State<SearchScreen> {
           title: Semantics(
             onTapHint: 'Navigate to this item',
             child: RichText(
-              textScaleFactor: 1.1,
               text: TextSpan(children: [
                 TextSpan(
                   text: resultTypeName + ": ",
@@ -359,7 +358,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               ? Colors.white
                               : Colors.black)),
                 )
-              ]),
+              ]), textScaler: TextScaler.linear(1.1),
             ),
           ),
           onTap: () {
@@ -377,7 +376,6 @@ class _SearchScreenState extends State<SearchScreen> {
       }
       return ListTile(
         title: RichText(
-          textScaleFactor: 1.1,
           text: TextSpan(children: [
             TextSpan(
               text: resultTypeName + ": ",
@@ -398,7 +396,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           ? Colors.white
                           : Colors.black)),
             )
-          ]),
+          ]), textScaler: TextScaler.linear(1.1),
         ),
         subtitle: RichText(
           text: TextSpan(
@@ -468,7 +466,7 @@ class _SearchScreenState extends State<SearchScreen> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor:
-              _isDarkTheme ? darkTheme.colorScheme.background : Colors.white,
+              _isDarkTheme ? darkTheme.colorScheme.surface : Colors.white,
           iconTheme: IconThemeData(
               color: _isDarkTheme ? darkTheme.iconTheme.color : Colors.black),
           title: TextField(
