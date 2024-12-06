@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:godotclassreference/helpers/parse_locale.dart';
 import 'package:godotclassreference/helpers/translation_deletage.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -40,11 +41,21 @@ class GCRApp extends StatefulWidget {
 }
 
 class _GCRAppState extends State<GCRApp> {
+  late Locale curLocale;
+  List<Locale> supportedLocales = [];
+
   Future<bool> readValue() async {
     storedValues.prefs = await SharedPreferences.getInstance();
     storedValues.configContent = ConfigContent.fromJson(
         jsonDecode(await rootBundle.loadString('xmls/conf.json')));
     storedValues.packageInfo = await PackageInfo.fromPlatform();
+    curLocale = parseLocale(storedValues.translation);
+    supportedLocales = [
+      Locale('en'),
+      ...storedValues.configContent.branchTranslations[storedValues.version]!
+          .map((e) => parseLocale(e))
+          .toList()
+    ];
 
     return true;
   }
@@ -66,14 +77,23 @@ class _GCRAppState extends State<GCRApp> {
               storedValues.isDarkTheme = state;
             });
           }),
-          BlocListener(
-            bloc: blocs.translationBloc,
-            listener: (context, state) {
-              setState(() {
-                
-              });
-            },
-          )
+      BlocListener<TranslationBloc, String>(
+        bloc: blocs.translationBloc,
+        listener: (context, state) {
+          setState(() {
+            curLocale = parseLocale(state);
+          });
+        },
+      ),
+      BlocListener<VersionBloc, String>(
+        bloc: blocs.versionBloc,
+        listener: (context, state) {
+          supportedLocales = storedValues
+              .configContent.branchTranslations[state]!
+              .map((e) => parseLocale(e))
+              .toList();
+        },
+      )
     ], child: child);
   }
 
@@ -83,17 +103,19 @@ class _GCRAppState extends State<GCRApp> {
       future: readValue(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
+          final hasTranslation = double.parse(storedValues.version) >= 3.4;
           return _buildBlocProvider(MaterialApp(
-            locale: const Locale("en"),
-            supportedLocales: const [
-              Locale('en'),
-            ],
-            localizationsDelegates: [
-              GearenceGettextLocalizationsDelegate(),
-              GlobalMaterialLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-            ],
+            locale: hasTranslation ? curLocale : null,
+            supportedLocales:
+                hasTranslation ? supportedLocales : [Locale('en')],
+            localizationsDelegates: hasTranslation
+                ? [
+                    GearenceGettextLocalizationsDelegate(),
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                  ]
+                : null,
             //hide debug banner
             debugShowCheckedModeBanner: false,
             theme: lightTheme,
