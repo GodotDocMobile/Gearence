@@ -48,7 +48,7 @@ class _ClassMembersState extends State<ClassMembers> {
 
   void scrollTo(TapEventArg args) {
     if (widget.clsContent!.name == args.className &&
-        args.propertyType == PropertyType.Member) {
+        args.propertyType == PropertyType.Property) {
       final _targetIndex = widget.clsContent!.members
           .indexWhere((w) => w.name == args.fieldName);
       if (_targetIndex != -1) {
@@ -66,7 +66,7 @@ class _ClassMembersState extends State<ClassMembers> {
     if (widget.clsContent!.members.length == 0) {
       return ZeroContentHint(
         clsContent: widget.clsContent!,
-        propertyType: PropertyType.Member,
+        propertyType: PropertyType.Property,
       );
     }
 
@@ -75,7 +75,7 @@ class _ClassMembersState extends State<ClassMembers> {
       listenWhen: (previous, current) => ModalRoute.of(context)!.isCurrent,
       listener: (context, state) {
         if (state.className == widget.clsContent!.name &&
-            state.propertyType == PropertyType.Member) {
+            state.propertyType == PropertyType.Property) {
           try {
             scrollTo(blocs.tapEventBloc.state);
           } catch (_) {}

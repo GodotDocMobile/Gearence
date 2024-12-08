@@ -82,7 +82,7 @@ class _SearchScreenState extends State<SearchScreen> {
     }
     if (!_searchMember) {
       _rtn.removeWhere(
-          (element) => element.propertyType == PropertyType.Member);
+          (element) => element.propertyType == PropertyType.Property);
     }
     if (!_searchSignal) {
       _rtn.removeWhere(
@@ -231,7 +231,7 @@ class _SearchScreenState extends State<SearchScreen> {
             : element.name!.toLowerCase().contains(_searchingTerm)) {
           _searchBloc.add(
             TapEventArg(
-                propertyType: PropertyType.Member,
+                propertyType: PropertyType.Property,
                 className: _class.name!,
                 fieldName: element.name!),
           );

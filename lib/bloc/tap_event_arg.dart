@@ -3,7 +3,7 @@ enum PropertyType {
   Method,
   Signal,
   Enum,
-  Member,
+  Property,
   Constant,
   ThemeItem,
   Annotation,
@@ -33,7 +33,7 @@ String linkTypeToString(PropertyType? input) {
       return 'Enums';
     case PropertyType.Constant:
       return 'Constants';
-    case PropertyType.Member:
+    case PropertyType.Property:
       return 'Members';
     case PropertyType.Method:
       return 'Methods';
@@ -60,7 +60,7 @@ PropertyType? linkTypeFromString(String input) {
     case 'enum':
       return PropertyType.Enum;
     case 'member':
-      return PropertyType.Member;
+      return PropertyType.Property;
     case 'constant':
       return PropertyType.Constant;
     case 'theme items':
