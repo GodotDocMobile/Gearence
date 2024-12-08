@@ -64,8 +64,8 @@ class _ClassDetailState extends State<ClassDetail>
 
   void onLinkTap(TapEventArg args) async {
     if (args.className == widget.className) {
-      int _toFocusTabIndex = _tabs
-          .indexWhere((w) => w.title == linkTypeToString(args.propertyType));
+      int _toFocusTabIndex =
+          _tabs.indexWhere((w) => w.type == args.propertyType);
       tabController!
           .animateTo(_toFocusTabIndex, duration: Duration(milliseconds: 100));
       if (args.fieldName.isEmpty) {
@@ -121,6 +121,7 @@ class _ClassDetailState extends State<ClassDetail>
             if (snapshot.data!.themeItems.length > 0) {
               _tabs.add(
                 ClassTab(
+                  PropertyType.ThemeItem,
                   title: context.translate('Theme Properties'),
                   child: ClassThemeItems(
                     clsContent: snapshot.data,
@@ -133,6 +134,7 @@ class _ClassDetailState extends State<ClassDetail>
 
             if (snapshot.data!.annotations.length > 0) {
               _tabs.add(ClassTab(
+                PropertyType.Annotation,
                 title: context.translate("Annotations"),
                 child: ClassAnnotations(
                   clsContent: snapshot.data,
@@ -207,7 +209,7 @@ class _ClassDetailState extends State<ClassDetail>
 }
 
 class ClassTab {
-  ClassTab(
+  ClassTab(this.type,
       {this.title,
       this.child,
       this.itemCount,
@@ -215,6 +217,8 @@ class ClassTab {
       this.showCnt = false});
 
   final String? title;
+
+  final PropertyType type;
 
   final Widget? child;
 
@@ -228,12 +232,14 @@ class ClassTab {
 List<ClassTab> getClassTabs(ClassContent clsContent, BuildContext context) {
   return <ClassTab>[
     ClassTab(
+      PropertyType.Class,
       title: "Info",
       child: ClassInfo(
         clsContent: clsContent,
       ),
     ),
     ClassTab(
+      PropertyType.Enum,
       title: context.translate("Enumerations"),
       child: ClassEnums(
         clsContent: clsContent,
@@ -242,6 +248,7 @@ List<ClassTab> getClassTabs(ClassContent clsContent, BuildContext context) {
       itemCount: clsContent.constants.where((w) => w.enumValue != null).length,
     ),
     ClassTab(
+      PropertyType.Constant,
       title: context.translate("Constants"),
       child: ClassConstants(
         clsContent: clsContent,
@@ -250,6 +257,7 @@ List<ClassTab> getClassTabs(ClassContent clsContent, BuildContext context) {
       itemCount: clsContent.constants.where((w) => w.enumValue == null).length,
     ),
     ClassTab(
+      PropertyType.Property,
       title: context.translate("Properties"),
       child: ClassMembers(
         clsContent: clsContent,
@@ -258,6 +266,7 @@ List<ClassTab> getClassTabs(ClassContent clsContent, BuildContext context) {
       itemCount: clsContent.members.length,
     ),
     ClassTab(
+      PropertyType.Method,
       title: context.translate("Methods"),
       child: ClassMethods(
         clsContent: clsContent,
@@ -266,6 +275,7 @@ List<ClassTab> getClassTabs(ClassContent clsContent, BuildContext context) {
       itemCount: clsContent.methods.length,
     ),
     ClassTab(
+      PropertyType.Signal,
       title: context.translate("Signals"),
       child: ClassSignals(
         clsContent: clsContent,
