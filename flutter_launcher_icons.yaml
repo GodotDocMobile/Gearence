@@ -9,7 +9,7 @@ flutter_launcher_icons:
   # adaptive_icon_foreground: "assets/icon/foreground.png"
 
   ios: true
-  image_path_ios: "icon_ios.png"
+  image_path_ios: "icon_white.png"
   remove_alpha_ios: true
   image_path_ios_dark_transparent: "icon_transparent.png"
   desaturate_tinted_to_grayscale_ios: true
