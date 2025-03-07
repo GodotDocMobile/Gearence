@@ -74,6 +74,7 @@ flutter:
     - svgs/4.1/
     - svgs/4.2/
     - svgs/4.3/
+    - svgs/4.4/
     - svgs/icon.svg
     # xmls
     - xmls/2.0/
@@ -89,6 +90,7 @@ flutter:
     - xmls/4.1/
     - xmls/4.2/
     - xmls/4.3/
+    - xmls/4.4/
     # file index
     - xmls/
     - translations/3.4/
@@ -98,6 +100,7 @@ flutter:
     - translations/4.1/
     - translations/4.2/
     - translations/4.3/
+    - translations/4.4/
 
     - godot_license/
 
