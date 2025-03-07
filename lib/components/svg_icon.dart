@@ -35,8 +35,12 @@ class SvgIcon extends StatelessWidget {
         future: getSvgContent(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return CustomPaint(
-              painter: SvgIconPainter(svgContent: snapshot.data!),
+            return Transform.translate(
+              offset: Offset(-snapshot.data!.size.width / 4,
+                  -snapshot.data!.size.height / 4),
+              child: CustomPaint(
+                painter: SvgIconPainter(svgContent: snapshot.data!),
+              ),
             );
           }
           return SizedBox();
