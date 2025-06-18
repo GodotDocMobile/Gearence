@@ -42,6 +42,7 @@ To edit margin and spacing of the icon, use [code]hseparation[/code] theme prope
 </theme_item><theme_item name="disabled" data_type="style" type="StyleBox">[StyleBox] used when the [Button] is disabled.
 </theme_item><theme_item name="focus" data_type="style" type="StyleBox">[StyleBox] used when the [Button] is focused. It is displayed over the current [StyleBox], so using [StyleBoxEmpty] will just disable the focus visual effect.
 </theme_item><theme_item name="hover" data_type="style" type="StyleBox">[StyleBox] used when the [Button] is being hovered.
+</theme_item><theme_item name="hover_pressed" data_type="style" type="StyleBox">[StyleBox] used when the [Button] is being hovered and pressed.
 </theme_item><theme_item name="normal" data_type="style" type="StyleBox">Default [StyleBox] for the [Button].
 </theme_item><theme_item name="pressed" data_type="style" type="StyleBox">[StyleBox] used when the [Button] is being pressed.
 </theme_item></theme_items></class>

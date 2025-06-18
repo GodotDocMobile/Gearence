@@ -122,7 +122,7 @@ Returns index of the inserted item, it's not guaranteed to be the same as [param
 </description></method><method name="get_popup_close_callback" qualifiers="const"><return type="Callable" /><param index="0" name="rid" type="RID" /><description>Returns global menu close callback.
 [b]Note:[/b] This method is implemented on macOS and Windows.
 </description></method><method name="get_popup_open_callback" qualifiers="const"><return type="Callable" /><param index="0" name="rid" type="RID" /><description>Returns global menu open callback.
-b]Note:[/b] This method is implemented only on macOS.
+[b]Note:[/b] This method is implemented only on macOS.
 </description></method><method name="get_size" qualifiers="const"><return type="Vector2" /><param index="0" name="rid" type="RID" /><description>Returns global menu size.
 [b]Note:[/b] This method is implemented on macOS and Windows.
 </description></method><method name="get_system_menu" qualifiers="const"><return type="RID" /><param index="0" name="menu_id" type="int" enum="NativeMenu.SystemMenus" /><description>Returns RID of a special system menu.

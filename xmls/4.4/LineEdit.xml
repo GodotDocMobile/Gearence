@@ -111,7 +111,7 @@ Select(2, 5); // Will select "lco".
 </member><member name="caret_blink" type="bool" setter="set_caret_blink_enabled" getter="is_caret_blink_enabled" default="false">If [code]true[/code], makes the caret blink.
 </member><member name="caret_blink_interval" type="float" setter="set_caret_blink_interval" getter="get_caret_blink_interval" default="0.65">The interval at which the caret blinks (in seconds).
 </member><member name="caret_column" type="int" setter="set_caret_column" getter="get_caret_column" default="0">The caret's column position inside the [LineEdit]. When set, the text may scroll to accommodate it.
-</member><member name="caret_force_displayed" type="bool" setter="set_caret_force_displayed" getter="is_caret_force_displayed" default="false">If [code]true[/code], the [LineEdit] will always show the caret, even if focus is lost.
+</member><member name="caret_force_displayed" type="bool" setter="set_caret_force_displayed" getter="is_caret_force_displayed" default="false">If [code]true[/code], the [LineEdit] will always show the caret, even if not editing or focus is lost.
 </member><member name="caret_mid_grapheme" type="bool" setter="set_caret_mid_grapheme_enabled" getter="is_caret_mid_grapheme_enabled" default="false">Allow moving caret, selecting and removing the individual composite character components.
 [b]Note:[/b] [kbd]Backspace[/kbd] is always removing individual composite character components.
 </member><member name="clear_button_enabled" type="bool" setter="set_clear_button_enabled" getter="is_clear_button_enabled" default="false">If [code]true[/code], the [LineEdit] will show a clear button if [member text] is not empty, which can be used to clear the text quickly.
