@@ -176,7 +176,22 @@ class _ClassSelectState extends State<ClassSelect> {
             return Scaffold(
               drawer: GCRDrawer(setScaleFunc: setScale),
               appBar: AppBar(
-                title: Text("Godot v" + storedValues.version + " classes"),
+                title: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Godot v" + storedValues.version + " classes"),
+                    storedValues.versionDouble >= 3.4 &&
+                            storedValues.translation != 'en'
+                        ? Text(
+                            "Translation: " + storedValues.translation,
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 13,
+                            ),
+                          )
+                        : SizedBox()
+                  ],
+                ),
                 actions: <Widget>[
                   IconButton(
                     tooltip: 'Filter classes shown on the list',

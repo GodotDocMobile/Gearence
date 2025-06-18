@@ -27,6 +27,8 @@ class StoredValues {
     prefs.setString('version', val);
   }
 
+  double get versionDouble => double.tryParse(version) ?? 0.0;
+
   bool get isDarkTheme => prefs.getBool('darkTheme') ?? false;
 
   void set isDarkTheme(bool val) {
