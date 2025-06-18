@@ -104,7 +104,7 @@ class _GCRAppState extends State<GCRApp> {
       future: readValue(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
-          final hasTranslation = double.parse(storedValues.version) >= 3.4;
+          final hasTranslation = storedValues.versionDouble >= 3.4;
           return _buildBlocProvider(MaterialApp(
             locale: hasTranslation ? curLocale : null,
             supportedLocales:

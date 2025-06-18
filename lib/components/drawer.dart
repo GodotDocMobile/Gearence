@@ -88,8 +88,8 @@ class GCRDrawerState extends State<GCRDrawer> {
                   onTap: () async {
                     // const url =
                     //     'https://github.com/GodotDocMobile/godot_class_reference';
-                    var url = Uri.parse(
-                        'https://github.com/GodotDocMobile/Gearence');
+                    var url =
+                        Uri.parse('https://github.com/GodotDocMobile/Gearence');
                     if (!await launchUrl(url)) {
                       print("can not launch url $url");
                     }
@@ -102,7 +102,7 @@ class GCRDrawerState extends State<GCRDrawer> {
   }
 
   Widget selectTranslation() {
-    if (double.parse(storedValues.version) < 3.4) {
+    if (storedValues.versionDouble < 3.4) {
       return SizedBox();
     }
     return MergeSemantics(

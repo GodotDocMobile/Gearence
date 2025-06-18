@@ -60,7 +60,7 @@ String getNodeName(classNodeType nodeType) {
     case classNodeType.D2:
       return "Node2D";
     case classNodeType.D3:
-      return storedValues.version == '4.0' ? "Node3D" : "Spatial";
+      return storedValues.versionDouble >= 4 ? "Node3D" : "Spatial";
     case classNodeType.Control:
       return "Control";
     case classNodeType.VisualScript:
