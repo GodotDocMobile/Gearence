@@ -405,10 +405,10 @@ def copy_translations(branch_name):
                 fuzzy=len(po.fuzzy_entries())
                 untranslated=len(po.untranslated_entries())
                 ratio = translated/(translated+fuzzy+untranslated)
-                if ratio > 0.1:
-                    current_branch_translation.append(origin_file.replace('.po',''))
-                    copyfile(join(_translation_source_folder, origin_file),
-                         join(_translation_target_folder, origin_file))
+                # if ratio > 0.1:
+                current_branch_translation.append(origin_file.replace('.po',''))
+                copyfile(join(_translation_source_folder, origin_file),
+                        join(_translation_target_folder, origin_file))
         print("for branch ",branch_name," qualified translations are :",current_branch_translation)
         # print("done moving translation files."))
         branches_translation.append({"branch":branch_name,"translation":current_branch_translation})
