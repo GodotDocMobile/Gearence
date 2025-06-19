@@ -1,4 +1,4 @@
-package com.example.godotclassreference
+package com.fengjiongmax.godotclassreference
 
 import io.flutter.embedding.android.FlutterActivity
 
