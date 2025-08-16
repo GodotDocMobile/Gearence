@@ -45,9 +45,6 @@ class _ClassDetailState extends State<ClassDetail>
         blocs.tapEventBloc.state.fieldName.isEmpty) {
       blocs.tapEventBloc.reached();
     }
-    if (widget.args != null) {
-      blocs.tapEventBloc.add(widget.args!);
-    }
   }
 
   @override
@@ -149,6 +146,13 @@ class _ClassDetailState extends State<ClassDetail>
                 vsync: this,
                 length: _tabs.length,
               );
+            }
+
+            // this has to be triggered after tabs have been created
+            if (widget.args != null) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                blocs.tapEventBloc.add(widget.args!);
+              });
             }
 
             if (widget.args != null &&
