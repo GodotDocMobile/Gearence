@@ -24,8 +24,8 @@ class GCRDrawerState extends State<GCRDrawer> {
     Color tmp =
         isDark ? ThemeData.dark().cardColor : ThemeData.light().cardColor;
 
-    final Color overlayBackground =
-        Color.fromARGB(0x99, tmp.red, tmp.green, tmp.green);
+    final Color overlayBackground = Color.fromARGB(255, (tmp.r * 255).round(),
+        (tmp.g * 255).round(), (tmp.b * 255).round());
 
     final OverlayState? overlayState = Overlay.of(context);
     OverlayEntry? overlayEntry = OverlayEntry(builder: (context) {
