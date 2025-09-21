@@ -45,6 +45,16 @@ class _ClassDetailState extends State<ClassDetail>
         blocs.tapEventBloc.state.fieldName.isEmpty) {
       blocs.tapEventBloc.reached();
     }
+    if (widget.args != null) {
+      // I guess there should be a better way to handle this
+      WidgetsBinding.instance.addPostFrameCallback((timestamp) async {
+        while (tabController == null) {
+          await Future.delayed(Duration(milliseconds: 100));
+        }
+        blocs.tapEventBloc.add(widget.args!);
+        onLinkTap(widget.args!);
+      });
+    }
   }
 
   @override
@@ -146,22 +156,6 @@ class _ClassDetailState extends State<ClassDetail>
                 vsync: this,
                 length: _tabs.length,
               );
-            }
-
-            // this has to be triggered after tabs have been created
-            if (widget.args != null) {
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                blocs.tapEventBloc.add(widget.args!);
-              });
-            }
-
-            if (widget.args != null &&
-                widget.args!.className == snapshot.data!.name) {
-              int _tabIndex = _tabs.indexWhere((w) =>
-                  w.title == linkTypeToString(widget.args!.propertyType));
-              if (_tabIndex != -1) {
-                tabController!.animateTo(_tabIndex);
-              }
             }
 
             return MediaQuery(
