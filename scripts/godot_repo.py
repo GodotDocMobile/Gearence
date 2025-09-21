@@ -28,7 +28,8 @@ branches = [
     "4.1",
     "4.2",
     "4.3",
-    "4.4"
+    "4.4",
+    "4.5"
 ]
 
 branches_translation = []
@@ -397,7 +398,7 @@ def copy_translations(branch_name):
 
     current_branch_translation = []
     if exists(_translation_source_folder):
-        print("filtering translation files.")
+        print("filtering translation files...")
         for origin_file in listdir(_translation_source_folder):
             if origin_file.find(".po") > -1:
                 po = polib.pofile(join(_translation_source_folder,origin_file))
