@@ -22,7 +22,7 @@ dependencies:
   cupertino_icons: ^1.0.4
   flutter:
     sdk: flutter
-  flutter_bloc: ^8.0.1
+  flutter_bloc: ^9.1.1
   flutter_gettext: ^2.0.1
   flutter_highlight:
     git:
@@ -33,11 +33,11 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_svg: ^2.0.7
-  package_info_plus: ^8.0.3
+  package_info_plus: ^9.0.0
   scrollable_positioned_list: ^0.3.1
   shared_preferences: ^2.0.15
   url_launcher: ^6.0.12
-  window_manager: ^0.4.2
+  window_manager: ^0.5.1
   xml: ^6.3.0
 
 dev_dependencies: 
@@ -61,7 +61,7 @@ flutter:
 
   assets:
     # pngs
-    - drawer_header.png
+    - project_assets/drawer_header.png
     # svgs
     - svgs/2.1/
     - svgs/3.0/
@@ -77,6 +77,7 @@ flutter:
     - svgs/4.3/
     - svgs/4.4/
     - svgs/4.5/
+    - svgs/4.6/
     - svgs/icon.svg
     # xmls
     - xmls/2.0/
@@ -94,6 +95,7 @@ flutter:
     - xmls/4.3/
     - xmls/4.4/
     - xmls/4.5/
+    - xmls/4.6/
     # file index
     - xmls/
     - translations/3.4/
@@ -105,6 +107,7 @@ flutter:
     - translations/4.3/
     - translations/4.4/
     - translations/4.5/
+    - translations/4.6/
 
     - godot_license/
 

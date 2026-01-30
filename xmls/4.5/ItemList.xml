@@ -114,7 +114,7 @@ If [code]false[/code], the control will add a horizontal scrollbar to make all i
 </theme_item><theme_item name="font_size" data_type="font_size" type="int">Font size of the item's text.
 </theme_item><theme_item name="cursor" data_type="style" type="StyleBox">[StyleBox] used for the cursor, when the [ItemList] is being focused.
 </theme_item><theme_item name="cursor_unfocused" data_type="style" type="StyleBox">[StyleBox] used for the cursor, when the [ItemList] is not being focused.
-</theme_item><theme_item name="focus" data_type="style" type="StyleBox">The focused style for the [ItemList], drawn on top of the background, but below everything else.
+</theme_item><theme_item name="focus" data_type="style" type="StyleBox">The focused style for the [ItemList], drawn on top of everything.
 </theme_item><theme_item name="hovered" data_type="style" type="StyleBox">[StyleBox] for the hovered, but not selected items.
 </theme_item><theme_item name="hovered_selected" data_type="style" type="StyleBox">[StyleBox] for the hovered and selected items, used when the [ItemList] is not being focused.
 </theme_item><theme_item name="hovered_selected_focus" data_type="style" type="StyleBox">[StyleBox] for the hovered and selected items, used when the [ItemList] is being focused.
