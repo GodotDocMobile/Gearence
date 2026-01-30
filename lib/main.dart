@@ -105,31 +105,35 @@ class _GCRAppState extends State<GCRApp> {
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
           final hasTranslation = storedValues.versionDouble >= 3.4;
-          return _buildBlocProvider(MaterialApp(
-            locale: hasTranslation ? curLocale : null,
-            supportedLocales:
-                hasTranslation ? supportedLocales : [Locale('en')],
-            localizationsDelegates: hasTranslation
-                ? [
-                    GearenceGettextLocalizationsDelegate(),
-                    GlobalMaterialLocalizations.delegate,
-                    GlobalCupertinoLocalizations.delegate,
-                    GlobalWidgetsLocalizations.delegate,
-                    FallbackLocalizationDelegate(),
-                  ]
-                : null,
-            //hide debug banner
-            debugShowCheckedModeBanner: false,
-            theme: lightTheme,
-            darkTheme: darkTheme,
-            themeMode:
-                storedValues.isDarkTheme ? ThemeMode.dark : ThemeMode.light,
-            home: ClassSelect(),
-          ));
+          return _buildBlocProvider(
+            MaterialApp(
+              locale: hasTranslation ? curLocale : null,
+              supportedLocales:
+                  hasTranslation ? supportedLocales : [Locale('en')],
+              localizationsDelegates: hasTranslation
+                  ? [
+                      GearenceGettextLocalizationsDelegate(),
+                      GlobalMaterialLocalizations.delegate,
+                      GlobalCupertinoLocalizations.delegate,
+                      GlobalWidgetsLocalizations.delegate,
+                      FallbackLocalizationDelegate(),
+                    ]
+                  : null,
+              //hide debug banner
+              debugShowCheckedModeBanner: false,
+              theme: lightTheme,
+              darkTheme: darkTheme,
+              themeMode:
+                  storedValues.isDarkTheme ? ThemeMode.dark : ThemeMode.light,
+              home: ClassSelect(),
+            ),
+          );
         } else {
           return Container(
             color: Colors.black,
-            child: Center(child: CircularProgressIndicator()),
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
           );
         }
       },

@@ -164,7 +164,7 @@ class GCRDrawerState extends State<GCRDrawer> {
             decoration: BoxDecoration(
               color: Color(0xFF303d68),
               image: DecorationImage(
-                  image: AssetImage("drawer_header.png"), fit: BoxFit.fitWidth),
+                  image: AssetImage("project_assets/drawer_header.png"), fit: BoxFit.fitWidth),
             ),
             child: Container(),
           ),
