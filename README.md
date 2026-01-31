@@ -92,8 +92,10 @@ python3 godot_repo.py --godot_path /path/to/your/godot/repo
 
 * `lib/`: Main Flutter application logic.
 * `scripts/`: Python scripts for pulling and processing Godot XML documentation.
+* `project_assets/`:  Branding assets(Store banner, Icon).
 * `xmls/`: Stored class reference data.
-* `assets/`: SVGs, fonts (JetBrains Mono), and branding assets.
+* `svgs/`: Stored class icons.
+* `translations/`： Stored translations.
 
 ## 🤝 Contributing
 
