@@ -40,3 +40,10 @@ lib/generated_plugin_registrant.dart
 .gradle
 android/key.properties
 local.properties
+
+# generate local isar file
+/assets/*.lock
+tools/*.so
+dist/
+libisar.so
+*.isar

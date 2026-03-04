@@ -1,0 +1,21 @@
+name: gearence_tools
+description: Build and maintenance scripts for Gearence.
+
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  godotclassreference:
+    path: ../
+
+  isar_plus: ^1.2.2
+  isar_plus_flutter_libs: ^1.2.2
+  path_provider: ^2.1.5
+  args: ^2.4.0
+  crypto: ^3.0.0
+  path: ^1.8.0
+  archive: ^4.0.7
+  yaml: ^3.1.3
+  http: ^1.6.0
+  xml: ^6.6.1
