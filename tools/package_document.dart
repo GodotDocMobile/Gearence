@@ -6,6 +6,7 @@ import 'package:isar_plus/isar_plus.dart';
 import 'package:path/path.dart';
 
 import 'download_isar_plus_lib.dart';
+import 'package_document/process_translations.dart';
 import 'package_document/process_xml.dart';
 
 final godotVersions = [
@@ -104,7 +105,7 @@ void main(List<String> arguments) async {
 }
 
 Future<void> processGodotVersion(
-    String repoPath, String outPath, String version) async {
+    String godotPath, String outPath, String version) async {
   // 1. Initialize Isar for THIS version
   final dbName = "godot_$version".replaceAll('.', '_');
   final isar = await Isar.open(
@@ -128,10 +129,15 @@ Future<void> processGodotVersion(
   final double v = double.parse(version);
   if (v < 3) {
     // single file
-    processSingleClassFile(repoPath, isar);
+    processSingleClassFile(godotPath, isar);
   } else {
     // multiple file
-    processMultipleClassFiles(repoPath, isar);
+    processMultipleClassFiles(godotPath, isar);
+  }
+
+  if (v >= 3.4) {
+    print("Processing translations");
+    processTranslations(godotPath, isar);
   }
 
   await isar.close();
