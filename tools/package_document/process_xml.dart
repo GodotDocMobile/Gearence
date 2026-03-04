@@ -10,8 +10,11 @@ void processSingleClassFile(String godotPath, Isar isar) {
   final xmlFile = new File(xmlFilePath);
   final xmlParsed = XmlDocument.parse(xmlFile.readAsStringSync());
   List<ClassContent> classContents = [];
+  final svgPath = join(godotPath, "editor", "icons", "source");
   for (final node in xmlParsed.rootElement.childElements) {
-    classContents.add(parseXML(node, isar));
+    final classContent = parseXML(node, isar);
+    copySvg(svgPath, classContent.name!, isar);
+    classContents.add(classContent);
   }
   isar.write((isar) {
     isar.classContents.putAll(classContents);
@@ -23,11 +26,17 @@ void processMultipleClassFiles(String godotPath, Isar isar) {
   final dir = Directory(xmlsFolder);
   List<ClassContent> classContents = [];
 
+  final svgPath = join(godotPath, "editor", "icons");
+
   print("Procerssing standard docs");
   for (final entity in dir.listSync(recursive: true)) {
     if (entity is File && extension(entity.path) == '.xml') {
+      print("Processing ${relative(entity.path, from: godotPath)}");
       final xmlParsed = XmlDocument.parse(entity.readAsStringSync());
-      classContents.add(parseXML(xmlParsed.rootElement, isar));
+
+      final classContent = parseXML(xmlParsed.rootElement, isar);
+      copySvg(svgPath, classContent.name!, isar);
+      classContents.add(classContent);
     }
   }
 
@@ -40,7 +49,10 @@ void processMultipleClassFiles(String godotPath, Isar isar) {
         entity.path.contains('/doc_classes/')) {
       print("Processing ${relative(entity.path, from: godotPath)}");
       final xmlParsed = XmlDocument.parse(entity.readAsStringSync());
-      classContents.add(parseXML(xmlParsed.rootElement, isar));
+
+      final classContent = parseXML(xmlParsed.rootElement, isar);
+      copySvg(svgPath, classContent.name!, isar);
+      classContents.add(classContent);
     }
   }
 
@@ -56,7 +68,7 @@ ClassContent parseXML(XmlElement node, Isar isar) {
 
   // attribute fields
   rtn.name = _getAttrByName(rootAttrs, 'name');
-  print("Processing class [${rtn.name}]");
+  // print("Processing class [${rtn.name}]");
 
   rtn.inherits = _getAttrByName(rootAttrs, 'inherits');
 
@@ -73,7 +85,7 @@ ClassContent parseXML(XmlElement node, Isar isar) {
   final constantRoot = node.findElements('constants');
   if (constantRoot.length > 0) {
     final constantNodes = constantRoot.first.children;
-    rtn.constants = constantNodes.where((n) => n is XmlElement).map((f) {
+    rtn.constants = constantNodes.whereType<XmlElement>().map((f) {
       final List<XmlAttribute?> nodeAttr = f.attributes;
       return Constant()
         ..name = _getAttrByName(nodeAttr, 'name')
@@ -87,7 +99,7 @@ ClassContent parseXML(XmlElement node, Isar isar) {
   final memberRoot = node.findElements('members');
   if (memberRoot.length > 0) {
     final memberNodes = memberRoot.first.children;
-    rtn.members = memberNodes.where((n) => n is XmlElement).map((f) {
+    rtn.members = memberNodes.whereType<XmlElement>().map((f) {
       final List<XmlAttribute?> nodeAttr = f.attributes;
       return Member()
         ..name = _getAttrByName(nodeAttr, 'name')
@@ -103,9 +115,9 @@ ClassContent parseXML(XmlElement node, Isar isar) {
   final methodRoot = node.findElements('methods');
   if (methodRoot.length > 0) {
     final methodNodes = methodRoot.first.children;
-    rtn.methods = methodNodes.where((n) => n is XmlElement).map((f) {
-      final element = f as XmlElement;
-      final List<XmlAttribute?> nodeAttr = f.attributes;
+    rtn.methods = methodNodes.whereType<XmlElement>().map((element) {
+      // final element = f as XmlElement;
+      final List<XmlAttribute?> nodeAttr = element.attributes;
 
       var args = element.findElements('argument');
       final argumentNodes =
@@ -146,9 +158,9 @@ ClassContent parseXML(XmlElement node, Isar isar) {
   final signalRoot = node.findElements('signals');
   if (signalRoot.length > 0) {
     final signalNodes = signalRoot.first.children;
-    rtn.signals = signalNodes.where((n) => n is XmlElement).map((f) {
-      final element = f as XmlElement;
-      final List<XmlAttribute?> nodeAttr = f.attributes;
+    rtn.signals = signalNodes.whereType<XmlElement>().map((element) {
+      // final element = f as XmlElement;
+      final List<XmlAttribute?> nodeAttr = element.attributes;
       final argumentNodes = element.findElements('argument');
       return Signal()
         ..name = _getAttrByName(nodeAttr, 'name')
@@ -168,7 +180,7 @@ ClassContent parseXML(XmlElement node, Isar isar) {
   final themeItemRoot = node.findElements('theme_items');
   if (themeItemRoot.length > 0) {
     final themeItemNodes = themeItemRoot.first.children;
-    rtn.themeItems = themeItemNodes.where((n) => n is XmlElement).map((f) {
+    rtn.themeItems = themeItemNodes.whereType<XmlElement>().map((f) {
       final List<XmlAttribute?> nodeAttr = f.attributes;
       return ThemeItem()
         ..name = _getAttrByName(nodeAttr, 'name')
@@ -181,9 +193,8 @@ ClassContent parseXML(XmlElement node, Isar isar) {
   final annotationRoot = node.findElements('annotations');
   if (annotationRoot.length > 0) {
     final annotationNodes = annotationRoot.first.children;
-    rtn.annotations = annotationNodes.where((n) => n is XmlElement).map((f) {
-      final element = f as XmlElement;
-      final List<XmlAttribute?> nodeAttr = f.attributes;
+    rtn.annotations = annotationNodes.whereType<XmlElement>().map((element) {
+      final List<XmlAttribute?> nodeAttr = element.attributes;
 
       final argumentNodes = element.findElements("param");
       List<MethodArgument> args = argumentNodes.map((a) {
@@ -224,4 +235,92 @@ String? _getAttrByName(List<XmlAttribute?> attrs, String attrName) {
         ?.value;
   }
   return null;
+}
+
+void copySvg(String svgSourceFolder, String className, Isar isar) {
+  final svgFilePath = findSvgFile(svgSourceFolder, className);
+  if (svgFilePath != null && svgFilePath.isNotEmpty) {
+    final svgFile = File(join(svgSourceFolder, svgFilePath));
+
+    String svgContent = svgFile.readAsStringSync();
+
+    svgContent =
+        svgContent // 1. Remove XML comments: .replaceAll(RegExp(r''), '')
+            // 2. Remove line breaks and tabs
+            .replaceAll(RegExp(r'[\n\r\t]'), ' ')
+            // 3. Collapse multiple spaces into one
+            .replaceAll(RegExp(r'\s{2,}'), ' ')
+            // 4. Remove spaces between tags
+            .replaceAll(RegExp(r'>\s+<'), '><')
+            .trim();
+
+    isar.write((isar) {
+      isar.godotIcons.put(GodotIcon(
+          id: isar.godotIcons.autoIncrement(),
+          fileName: basename(svgFilePath),
+          content: svgContent));
+    });
+    print("SVG file $svgFilePath copied");
+  }
+}
+
+String? findSvgFile(String svgSourceFolder, String className) {
+  // 1. Initial cleanup
+  String cleanName = className.replaceAll(".xml", "");
+  StringBuffer svgNameBuffer = StringBuffer();
+  bool prevIsNumber = false;
+
+  // 2. Build the snake_case name logic
+  for (int i = 0; i < cleanName.length; i++) {
+    String c = cleanName[i];
+
+    if (c == "@") continue;
+
+    // Check if character is uppercase or numeric
+    bool isUpper = c.toUpperCase() == c && RegExp(r'[A-Z]').hasMatch(c);
+    bool isNumeric = RegExp(r'[0-9]').hasMatch(c);
+
+    if ((isUpper && !prevIsNumber) || isNumeric) {
+      svgNameBuffer.write("_");
+      svgNameBuffer.write(c.toLowerCase());
+    } else {
+      svgNameBuffer.write(c.toLowerCase());
+    }
+
+    prevIsNumber = isNumeric;
+  }
+
+  String svgName = svgNameBuffer.toString();
+
+  // // 3. Define the source folder
+  // String svgSourceFolder = join(godotRepo, "editor", "icons");
+  // if (customPath) {
+  //   svgSourceFolder = join(svgSourceFolder, "source");
+  // }
+
+  // 4. Try the first path (Standard Snake Case)
+  String svgFile = 'icon$svgName.svg';
+  String svgFilePath = join(svgSourceFolder, svgFile);
+
+  if (!File(svgFilePath).existsSync()) {
+    // 5. Try the Second path (Separated numbers: 2d -> 2_d)
+    svgFile = svgFile
+        .replaceAll("1d", "1_d")
+        .replaceAll("2d", "2_d")
+        .replaceAll("3d", "3_d");
+    svgFilePath = join(svgSourceFolder, svgFile);
+
+    if (!File(svgFilePath).existsSync()) {
+      // 6. Try the Third path (Godot 4.0 style: Raw class name)
+      svgFile = '$cleanName.svg';
+      svgFilePath = join(svgSourceFolder, svgFile);
+
+      if (!File(svgFilePath).existsSync()) {
+        print("svg $svgFile not found");
+        return null;
+      }
+    }
+  }
+
+  return svgFile;
 }
