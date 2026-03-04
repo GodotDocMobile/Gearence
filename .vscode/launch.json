@@ -1,0 +1,38 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Gearence",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "Gearence (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "Gearence (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "package documents",
+            "cwd": "tools",
+            "request": "launch",
+            "type": "dart",
+            "program": "package_document.dart",
+            "args": [
+                "--godot_path",
+                "${userHome}/Projects/GCR/godot/",
+                "--output",
+                "../assets"
+            ]
+        }
+    ]
+}
