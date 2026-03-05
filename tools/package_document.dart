@@ -78,35 +78,52 @@ void main(List<String> arguments) async {
   }
 
   for (String version in godotVersions) {
-    print("--- Processing Godot Version: $version ---");
+    // 1. Fetch all updates from the remote first
+    // This ensures your local machine knows about any new commits or tags
+    await Process.run('git', ['fetch', '--all'], workingDirectory: godotPath);
+
     try {
-      // 1. Switch Git Branch/Tag
-      final tag = "$version";
+      // 2. Decide if you want the "Stable Tag" or the "Maintenance Branch"
+      // Usually, checking out the branch (e.g., '4.6') is better for docs.
+      String target = version;
 
-      print("Switching to tag: $tag");
-      final result = await Process.run(
-        'git',
-        ['checkout', tag],
-        workingDirectory: godotPath,
-      );
-      // Possibly pull latest from repo
+      print("Switching to: $target");
 
-      if (result.exitCode != 0) {
-        print("Failed to checkout $tag: ${result.stderr}");
+      // Use 'checkout' with a force flag to clear any accidental local changes
+      final checkoutResult = await Process.run(
+          'git', ['checkout', '-f', target],
+          workingDirectory: godotPath);
+
+      if (checkoutResult.exitCode != 0) {
+        print("Error: Could not find $target. Skipping.");
         continue;
       }
 
-      // 2. Process Files for this version
+      // 3. Pull the latest commits if it's a branch
+      // Note: If 'target' is a Tag, 'git pull' will do nothing/error.
+      await Process.run('git', ['pull', 'origin', target],
+          workingDirectory: godotPath);
+
+      print("Successfully updated to the latest $version docs.");
+
+      // 4. Process as usual
       await processGodotVersion(godotPath, outputPath, version);
     } catch (e) {
       print("Error processing version $version: $e");
     }
   }
+
+  // remove temp db file and lock file
+  final db = join(outputPath, 'godot_temp.isar');
+  final lock = '${db}.lock';
+  await File(db).delete();
+  await File(lock).delete();
 }
 
 Future<void> processGodotVersion(
     String godotPath, String outPath, String version) async {
   // 1. Initialize Isar for THIS version
+  final tempDBName = 'godot_temp';
   final dbName = "godot_$version".replaceAll('.', '_');
   final isar = await Isar.open(
     schemas: [
@@ -115,8 +132,9 @@ Future<void> processGodotVersion(
       TranslationSchema
     ], // Add your schemas here
     directory: outPath,
-    name: dbName,
+    name: tempDBName,
     inspector: false,
+    maxSizeMiB: 5120,
   );
 
   // clear old entries if exists
@@ -141,12 +159,29 @@ Future<void> processGodotVersion(
   }
 
   await isar.close();
-  print("Saved $dbName.isar");
+  print("Saved $tempDBName.isar");
 
-  // Clean up the lock file so it doesn't get zipped
-  final lockFile = File(join(outPath, '$dbName.isar.lock'));
-  if (lockFile.existsSync()) {
-    lockFile.deleteSync();
-    print("🗑️ Removed lock file.");
+  // // Clean up the lock file so it doesn't get zipped
+  // final lockFile = File(join(outPath, '$tempDBName.isar.lock'));
+  // if (lockFile.existsSync()) {
+  //   lockFile.deleteSync();
+  //   print("🗑️ Removed lock file.");
+  // }
+
+  final isarForCompaction = await Isar.open(
+      schemas: [
+        ClassContentSchema,
+        GodotIconSchema,
+        TranslationSchema
+      ], // Add your schemas here
+      directory: outPath,
+      name: tempDBName,
+      inspector: false);
+  final dbFilePath = join(outPath, "$dbName.isar");
+  final dbFile = File(dbFilePath);
+  if (dbFile.existsSync()) {
+    await dbFile.delete();
   }
+  isarForCompaction.copyToFile(dbFilePath);
+  await isarForCompaction.close();
 }
