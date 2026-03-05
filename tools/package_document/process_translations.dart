@@ -57,19 +57,56 @@ Map<String, String> parsePoFile(String filePath) {
   if (!file.existsSync()) return translations;
 
   final lines = file.readAsLinesSync();
-  String? currentMsgId;
+
+  String currentId = "";
+  String currentStr = "";
+  String state = "IDLE"; // States: IDLE, ID, STR
+
+  void commit() {
+    if (currentId.isNotEmpty && currentStr.isNotEmpty) {
+      translations[currentId] = currentStr;
+    }
+    currentId = "";
+    currentStr = "";
+  }
 
   for (var line in lines) {
     line = line.trim();
+
     if (line.startsWith('msgid "')) {
-      currentMsgId = line.substring(7, line.length - 1);
-    } else if (line.startsWith('msgstr "') && currentMsgId != null) {
-      final msgStr = line.substring(8, line.length - 1);
-      if (msgStr.isNotEmpty) {
-        translations[currentMsgId] = msgStr;
+      commit(); // Save previous pair if existing
+      state = "ID";
+      currentId = _extractContent(line, 'msgid "');
+    } else if (line.startsWith('msgstr "')) {
+      state = "STR";
+      currentStr = _extractContent(line, 'msgstr "');
+    } else if (line.startsWith('"') && line.endsWith('"')) {
+      // Continuation line
+      final content = _extractContent(line, '"');
+      if (state == "ID") {
+        currentId += content;
+      } else if (state == "STR") {
+        currentStr += content;
       }
-      currentMsgId = null;
+    } else if (line.isEmpty) {
+      state = "IDLE";
     }
   }
+
+  commit(); // Final commit for the last entry in the file
   return translations;
+}
+
+String _extractContent(String line, String prefix) {
+  // Removes the prefix and the trailing quote
+  // e.g., msgid "Hello" -> Hello
+  // e.g., " world" ->  world
+  final start = prefix.length;
+  final end = line.length - 1;
+  if (start >= end) return "";
+
+  return line
+      .substring(start, end)
+      .replaceAll(r'\"', '"') // Handle escaped quotes
+      .replaceAll(r'\n', '\n'); // Handle literal newlines
 }
