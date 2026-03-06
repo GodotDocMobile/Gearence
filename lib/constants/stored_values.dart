@@ -1,3 +1,4 @@
+import 'package:godotclassreference/constants/keys.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -17,12 +18,11 @@ class StoredValues {
 
   StoredValues._internal();
 
-  String get version =>
-      prefs.getString('version') ?? configContent.branches.last;
+  String get version => prefs.getString('version') ?? godotVersions.last;
 
   void set version(String val) {
-    if (!configContent.branches.contains(val)) {
-      val = configContent.branches.last;
+    if (!godotVersions.contains(val)) {
+      val = godotVersions.last;
     }
     prefs.setString('version', val);
   }
@@ -51,10 +51,10 @@ class StoredValues {
 
   String get translation {
     var value = prefs.getString('translation') ?? 'en';
-    if (!configContent.branchTranslations[version]!.contains(value)) {
-      // translation = 'en';
-      value = 'en';
-    }
+    // if (!configContent.branchTranslations[version]!.contains(value)) {
+    //   // translation = 'en';
+    //   value = 'en';
+    // }
     return value;
   }
 
