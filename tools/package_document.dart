@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:args/args.dart';
+import 'package:godotclassreference/constants/keys.dart';
 import 'package:godotclassreference/isar/schema/class_content.dart';
 import 'package:isar_plus/isar_plus.dart';
 import 'package:path/path.dart';
@@ -9,24 +10,6 @@ import 'download_isar_plus_lib.dart';
 import 'package_document/process_translations.dart';
 import 'package_document/process_xml.dart';
 
-final godotVersions = [
-  "2.0",
-  "2.1",
-  "3.0",
-  "3.1",
-  "3.2",
-  "3.3",
-  "3.4",
-  "3.5",
-  "3.6",
-  "4.0",
-  "4.1",
-  "4.2",
-  "4.3",
-  "4.4",
-  "4.5",
-  "4.6",
-];
 
 void main(List<String> arguments) async {
   var parser = ArgParser()
