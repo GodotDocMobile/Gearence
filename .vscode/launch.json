@@ -31,7 +31,8 @@
                 "--godot_path",
                 "${userHome}/Projects/GCR/godot/",
                 "--output",
-                "../assets"
+                "../assets",
+                "--skip_pull"
             ]
         }
     ]
