@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:godotclassreference/constants/keys.dart';
@@ -7,6 +10,7 @@ import 'package:godotclassreference/helpers/localizations.dart';
 import 'package:godotclassreference/isar/manager/settings_repository.dart';
 import 'package:godotclassreference/isar/services/isar_open.dart';
 import 'package:godotclassreference/isar/schema/user_setting.dart';
+import 'package:godotclassreference/models/config_content.dart';
 import 'package:godotclassreference/screens/doc_seed.dart';
 import 'package:godotclassreference/theme/themes.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -41,6 +45,8 @@ Future injectUserPref() async {
   getIt.registerSingleton(sharedPrefs);
   storedValues.prefs = sharedPrefs;
   storedValues.packageInfo = packageInfo;
+  storedValues.configContent = ConfigContent.fromJson(
+      jsonDecode(await rootBundle.loadString('assets/config.json')));
 
   final settingsRepo = SettingsRepository(prefsIsar);
   getIt.registerSingleton(settingsRepo);

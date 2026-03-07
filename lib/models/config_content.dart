@@ -1,22 +1,29 @@
 class ConfigContent {
-  List<dynamic>? _braches;
   String? updateDate;
-  List<String> branches = [];
   Map<String, List<String>> branchTranslations = {};
 
+  ConfigContent();
+
   ConfigContent.fromJson(Map<String, dynamic> json) {
-    _braches = json['branches'];
     updateDate = json['update_date'];
-    _braches!.forEach((element) {
-      branches.add(element["branch"].toString());
+
+    (json['translation'] as List<dynamic>).forEach((bt) {
       List<String> translations = [];
-      (element["translation"] as List).forEach((e) {
+      (bt["translation"] as List).forEach((e) {
         if (e.runtimeType == String) {
           translations.add(e);
         }
       });
-      // branchTranslations.add({element["branch"]: translations});
-      branchTranslations[element["branch"]] = translations;
+      branchTranslations[bt['branch']] = translations;
     });
+  }
+
+  Map<String, dynamic> toJson() {
+    final _branchTranslations = branchTranslations.keys
+        .map((k) => {'branch': k, 'translation': branchTranslations[k]});
+    return {
+      'update_date': updateDate,
+      'translation': [..._branchTranslations],
+    };
   }
 }

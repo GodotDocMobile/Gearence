@@ -1,8 +1,10 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:args/args.dart';
 import 'package:godotclassreference/constants/keys.dart';
 import 'package:godotclassreference/isar/schema/class_content.dart';
+import 'package:godotclassreference/models/config_content.dart';
 import 'package:isar_plus/isar_plus.dart';
 import 'package:path/path.dart';
 
@@ -10,12 +12,15 @@ import 'download_isar_plus_lib.dart';
 import 'package_document/process_translations.dart';
 import 'package_document/process_xml.dart';
 
+ConfigContent configConten = new ConfigContent();
 
 void main(List<String> arguments) async {
   var parser = ArgParser()
     ..addOption('godot_path', help: "Path to Godot Engine repository")
     ..addOption('output', abbr: 'o', help: 'Output folder (e.g., assets)')
-    ..addFlag('help', abbr: 'h', negatable: false, help: 'Show usage');
+    ..addFlag('help', abbr: 'h', negatable: false, help: 'Show usage')
+    ..addFlag('skip_pull',
+        negatable: false, help: 'Skip pull before processing documents');
 
   ArgResults argParseResult = parser.parse(arguments);
 
@@ -60,10 +65,14 @@ void main(List<String> arguments) async {
     return;
   }
 
+  bool skipPull = argParseResult['skip_pull'];
+
   for (String version in godotVersions) {
     // 1. Fetch all updates from the remote first
     // This ensures your local machine knows about any new commits or tags
-    await Process.run('git', ['fetch', '--all'], workingDirectory: godotPath);
+    if (!skipPull) {
+      await Process.run('git', ['fetch', '--all'], workingDirectory: godotPath);
+    }
 
     try {
       // 2. Decide if you want the "Stable Tag" or the "Maintenance Branch"
@@ -73,6 +82,7 @@ void main(List<String> arguments) async {
       print("Switching to: $target");
 
       // Use 'checkout' with a force flag to clear any accidental local changes
+
       final checkoutResult = await Process.run(
           'git', ['checkout', '-f', target],
           workingDirectory: godotPath);
@@ -84,10 +94,12 @@ void main(List<String> arguments) async {
 
       // 3. Pull the latest commits if it's a branch
       // Note: If 'target' is a Tag, 'git pull' will do nothing/error.
-      await Process.run('git', ['pull', 'origin', target],
-          workingDirectory: godotPath);
 
-      print("Successfully updated to the latest $version docs.");
+      if (!skipPull) {
+        await Process.run('git', ['pull', 'origin', target],
+            workingDirectory: godotPath);
+        print("Successfully updated to the latest $version docs.");
+      }
 
       // 4. Process as usual
       await processGodotVersion(godotPath, outputPath, version);
@@ -101,6 +113,12 @@ void main(List<String> arguments) async {
   final lock = '${db}.lock';
   await File(db).delete();
   await File(lock).delete();
+
+  // write ConfigContent
+  configConten.updateDate = DateTime.now().toString();
+  await File(join(outputPath, 'config.json'))
+      .writeAsString(jsonEncode(configConten.toJson()));
+  print("ConfigContent generated");
 }
 
 Future<void> processGodotVersion(
@@ -138,7 +156,10 @@ Future<void> processGodotVersion(
 
   if (v >= 3.4) {
     print("Processing translations");
-    processTranslations(godotPath, isar);
+    configConten.branchTranslations
+        .addAll({version: processTranslations(godotPath, isar)});
+  } else {
+    configConten.branchTranslations.addAll({version: []});
   }
 
   await isar.close();
