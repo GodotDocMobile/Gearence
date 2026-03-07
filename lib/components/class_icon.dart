@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:godotclassreference/components/svg_icon.dart';
+import 'package:godotclassreference/components/svg_asset.dart';
 import 'package:godotclassreference/models/class_content.dart';
 
 class ClassIcon extends StatelessWidget {
@@ -9,7 +9,7 @@ class ClassIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SvgIcon(
+    return SvgAsset(
       svgFileName: classContent!.svgFileName,
     );
   }
