@@ -88,6 +88,7 @@ class _DocSeedState extends State<DocSeed> {
         schemas: [ClassContentSchema, GodotIconSchema, TranslationSchema],
         directory: dir.path,
         name: docIsarFileName, // Constant name for the whole app
+        inspector: true,
       );
 
       // 5. Register with GetIt (Unregister first if exists)
