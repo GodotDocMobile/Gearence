@@ -26,6 +26,7 @@ Future injectUserPref() async {
     schemas: [UserSettingSchema],
     directory: dir.path,
     name: 'user_prefs',
+    inspector: false,
   );
 
   getIt.registerSingleton(

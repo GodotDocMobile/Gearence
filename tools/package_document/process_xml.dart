@@ -12,8 +12,8 @@ void processSingleClassFile(String godotPath, Isar isar) {
   List<ClassContent> classContents = [];
   final svgPath = join(godotPath, "editor", "icons", "source");
   for (final node in xmlParsed.rootElement.childElements) {
-    final classContent = parseXML(node, isar);
-    copySvg(svgPath, classContent.name!, isar);
+    var classContent = parseXML(node, isar);
+    copySvg(svgPath, classContent, isar);
     classContents.add(classContent);
   }
   isar.write((isar) {
@@ -34,8 +34,8 @@ void processMultipleClassFiles(String godotPath, Isar isar) {
       print("Processing ${relative(entity.path, from: godotPath)}");
       final xmlParsed = XmlDocument.parse(entity.readAsStringSync());
 
-      final classContent = parseXML(xmlParsed.rootElement, isar);
-      copySvg(svgPath, classContent.name!, isar);
+      var classContent = parseXML(xmlParsed.rootElement, isar);
+      copySvg(svgPath, classContent, isar);
       classContents.add(classContent);
     }
   }
@@ -50,8 +50,8 @@ void processMultipleClassFiles(String godotPath, Isar isar) {
       print("Processing ${relative(entity.path, from: godotPath)}");
       final xmlParsed = XmlDocument.parse(entity.readAsStringSync());
 
-      final classContent = parseXML(xmlParsed.rootElement, isar);
-      copySvg(svgPath, classContent.name!, isar);
+      var classContent = parseXML(xmlParsed.rootElement, isar);
+      copySvg(svgPath, classContent, isar);
       classContents.add(classContent);
     }
   }
@@ -237,10 +237,12 @@ String? _getAttrByName(List<XmlAttribute?> attrs, String attrName) {
   return null;
 }
 
-void copySvg(String svgSourceFolder, String className, Isar isar) {
-  final svgFilePath = findSvgFile(svgSourceFolder, className);
-  if (svgFilePath != null && svgFilePath.isNotEmpty) {
-    final svgFile = File(join(svgSourceFolder, svgFilePath));
+void copySvg(String svgSourceFolder, ClassContent classContent, Isar isar) {
+  final className = classContent.name!;
+  final svgFileName = findSvgFile(svgSourceFolder, className);
+  if (svgFileName != null && svgFileName.isNotEmpty) {
+    classContent.svgFileName = svgFileName;
+    final svgFile = File(join(svgSourceFolder, svgFileName));
 
     String svgContent = svgFile.readAsStringSync();
 
@@ -257,10 +259,10 @@ void copySvg(String svgSourceFolder, String className, Isar isar) {
     isar.write((isar) {
       isar.godotIcons.put(GodotIcon(
           id: isar.godotIcons.autoIncrement(),
-          fileName: basename(svgFilePath),
+          fileName: basename(svgFileName),
           content: svgContent));
     });
-    print("SVG file $svgFilePath copied");
+    print("SVG file $svgFileName copied");
   }
 }
 
