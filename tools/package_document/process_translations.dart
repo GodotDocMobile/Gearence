@@ -4,51 +4,62 @@ import 'package:godotclassreference/isar/schema/class_content.dart';
 import 'package:isar_plus/isar_plus.dart';
 import 'package:path/path.dart';
 
-void processTranslations(String godotPath, Isar isar) {
+List<String> processTranslations(String godotPath, Isar isar) {
+  final languages = <String>[];
   final translationFolderPath = join(godotPath, 'doc/translations');
   final translationDir = Directory(translationFolderPath);
 
-  if (translationDir.existsSync()) {
-    final poFiles = translationDir
-        .listSync()
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.po'));
+  if (!translationDir.existsSync()) return languages;
 
-    for (var file in poFiles) {
-      print("Processing ${file.path}");
-      final locale = basenameWithoutExtension(file.path); // e.g. "zh_CN"
-      final translations = parsePoFile(file.path);
+  final poFiles = translationDir
+      .listSync()
+      .whereType<File>()
+      .where((f) => f.path.endsWith('.po'));
 
-      isar.write((isar) {
-        for (var entry in translations.entries) {
-          final msgid = entry.key;
-          final msgstr = entry.value;
+  for (var file in poFiles) {
+    final locale = basenameWithoutExtension(file.path);
+    languages.add(locale);
 
-          // Check if we already have this English string in this Isar file
-          var existing =
-              isar.translations.where().msgidEqualTo(msgid).findFirst();
+    print("Parsing $locale...");
+    final Map<String, String> newTranslations = parsePoFile(file.path);
 
-          if (existing != null) {
-            // Add this language to the existing record
-            existing.translations!.add(LocaleString()
+    // 1. Pull existing translations into a Map for O(1) lookup
+    final allExisting = isar.translations.where().findAll();
+    final Map<String, Translation> cache = {
+      for (var t in allExisting) t.msgid!: t
+    };
+
+    // 2. Process in RAM
+    for (var entry in newTranslations.entries) {
+      final msgid = entry.key;
+      final msgstr = entry.value;
+
+      if (cache.containsKey(msgid)) {
+        // Update existing object in RAM
+        cache[msgid]!.translations ??= [];
+        cache[msgid]!.translations!.add(LocaleString()
+          ..locale = locale
+          ..value = msgstr);
+      } else {
+        // Create new object in RAM
+        cache[msgid] = Translation(id: isar.translations.autoIncrement())
+          ..msgid = msgid
+          ..translations = [
+            LocaleString()
               ..locale = locale
-              ..value = msgstr);
-            isar.translations.put(existing);
-          } else {
-            // New English string, create the record
-            isar.translations
-                .put(Translation(id: isar.translations.autoIncrement())
-                  ..msgid = msgid
-                  ..translations = [
-                    LocaleString()
-                      ..locale = locale
-                      ..value = msgstr
-                  ]);
-          }
-        }
-      });
+              ..value = msgstr
+          ];
+      }
     }
+
+    // 3. ONE big transaction per file
+    print("Writing $locale to Isar...");
+    isar.write((isar) {
+      isar.translations.putAll(cache.values.toList());
+    });
   }
+
+  return languages;
 }
 
 Map<String, String> parsePoFile(String filePath) {

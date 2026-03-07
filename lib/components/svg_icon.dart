@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:godotclassreference/components/default_class_icon.dart';
 
 class SvgIcon extends StatelessWidget {
   final String svgContent;
@@ -9,20 +10,7 @@ class SvgIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return SvgPicture.string(
       svgContent,
-      placeholderBuilder: (context) => SizedBox(),
+      placeholderBuilder: (context) => DefaultClassIcon(),
     );
-    // String svgPath = '';
-    // if (svgFileName != null && svgFileName!.length > 0) {
-    //   svgPath = 'svgs/' + storedValues.version + '/' + svgFileName!;
-    // } else {
-    //   final icon_file =
-    //       storedValues.versionDouble >= 4 ? 'Node.svg' : 'icon_node.svg';
-    //   svgPath = 'svgs/' + storedValues.version + '/' + icon_file;
-    // }
-
-    // return SvgPicture.asset(
-    //   svgPath,
-    //   placeholderBuilder: (context) => SizedBox(),
-    // );
   }
 }

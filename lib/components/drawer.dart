@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:godotclassreference/constants/keys.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:godotclassreference/screens/set_font_size.dart';
@@ -164,7 +165,8 @@ class GCRDrawerState extends State<GCRDrawer> {
             decoration: BoxDecoration(
               color: Color(0xFF303d68),
               image: DecorationImage(
-                  image: AssetImage("project_assets/drawer_header.png"), fit: BoxFit.fitWidth),
+                  image: AssetImage("project_assets/drawer_header.png"),
+                  fit: BoxFit.fitWidth),
             ),
             child: Container(),
           ),
@@ -176,7 +178,7 @@ class GCRDrawerState extends State<GCRDrawer> {
                 onTapHint: 'Change godot version',
                 child: DropdownButton<String>(
                   value: storedValues.version,
-                  items: StoredValues().configContent.branches.map((i) {
+                  items: godotVersions.map((i) {
                     return DropdownMenuItem<String>(
                       value: i,
                       child: Text(i),
