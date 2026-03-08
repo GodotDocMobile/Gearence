@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:godotclassreference/components/description_text.dart';
 import 'package:godotclassreference/constants/class_db.dart';
 import 'package:godotclassreference/helpers/trim_translate.dart';
-import 'package:godotclassreference/models/class_content.dart';
+import 'package:godotclassreference/isar/schema/class_content.dart';
+// import 'package:godotclassreference/models/class_content.dart';
 import 'package:godotclassreference/theme/default.dart';
 
 class ClassInfo extends StatelessWidget {

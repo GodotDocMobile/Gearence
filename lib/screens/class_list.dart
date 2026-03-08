@@ -6,6 +6,7 @@ import 'package:godotclassreference/constants/keys.dart';
 import 'package:godotclassreference/helpers/sematic_helpers.dart';
 import 'package:godotclassreference/isar/manager/settings_repository.dart';
 import 'package:godotclassreference/isar/schema/class_content.dart';
+import 'package:godotclassreference/screens/class_detail.dart';
 import 'package:godotclassreference/theme/themes.dart';
 import 'package:isar_plus/isar_plus.dart';
 
@@ -100,12 +101,11 @@ class _ClassListState extends State<ClassList> {
                     ),
                   ),
                   onTap: () {
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //       builder: (context) =>
-                    //           ClassDetail(className: f.name!),
-                    //     ));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ClassDetail(className: x.name!),
+                        ));
                   },
                   // trailing: f.nodeType == classNodeType.None
                   //     ? null

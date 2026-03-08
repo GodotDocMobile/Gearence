@@ -5,7 +5,8 @@ import 'package:godotclassreference/components/argument_table.dart';
 import 'package:godotclassreference/components/description_text.dart';
 import 'package:godotclassreference/components/zero_content_hint.dart';
 import 'package:godotclassreference/helpers/trim_translate.dart';
-import 'package:godotclassreference/models/class_content.dart';
+import 'package:godotclassreference/isar/schema/class_content.dart';
+// import 'package:godotclassreference/models/class_content.dart';
 import 'package:godotclassreference/theme/themes.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
