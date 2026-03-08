@@ -1,12 +1,14 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:godotclassreference/bloc/blocs.dart';
+import 'package:godotclassreference/constants/keys.dart';
 
 import 'package:godotclassreference/constants/stored_values.dart';
+import 'package:godotclassreference/isar/schema/class_content.dart';
 import 'package:godotclassreference/theme/themes.dart';
-import 'package:godotclassreference/constants/class_db.dart';
-import 'package:godotclassreference/models/class_content.dart';
+import 'package:isar_plus/isar_plus.dart';
 
 import 'class_detail.dart';
 
@@ -27,7 +29,7 @@ class _SetFontSizeState extends State<SetFontSize>
   bool save = false;
 
   ClassContent dummyNode = dummyClass;
-  var node = ClassDB().getDB().firstWhere((element) => element.name == 'Node');
+  // var node = ClassDB().getDB().firstWhere((element) => element.name == 'Node');
 
   TabController? tabController;
   List<ClassTab> _tabs = [];
@@ -35,11 +37,13 @@ class _SetFontSizeState extends State<SetFontSize>
 
   @override
   void initState() {
+    super.initState();
+    final Isar docIsar = GetIt.I(instanceName: MetadataKeys.docsIsarKey);
+    final node = docIsar.classContents.where().nameEqualTo('Node').findFirst()!;
     dummyNode.constants = node.constants;
     dummyNode.members = node.members;
     dummyNode.methods = node.methods;
     dummyNode.signals = node.signals;
-    super.initState();
   }
 
   @override
@@ -176,14 +180,14 @@ class _SetFontSizeState extends State<SetFontSize>
   }
 }
 
-ClassContent dummyClass = new ClassContent(
-    name: "DummyClass",
-    inherits: "ParentClass",
-    inheritChain: "[Node] >> [Node2D] >> [Spatial] >> [Control]",
-    briefDescription:
-        "Properties of this class in the rest tabs are from Node.",
-    version: "x.x",
-    description: """
+ClassContent dummyClass = new ClassContent(id: -1)
+  ..name = "DummyClass"
+  ..inherits = "ParentClass"
+  ..inheritChain = "[Node] >> [Node2D] >> [Spatial] >> [Control]"
+  ..briefDescription =
+      "Properties of this class in the rest tabs are from Node."
+  ..version = "x.x"
+  ..description = """
 This is [b]bold Text.[/b]
 This is [i]italic Text.[/i]
 This is [code]inline code text.[/code]
@@ -225,4 +229,4 @@ func _ready():
 func _button_pressed():
     print("Hello world!")
 [/codeblock]
-""");
+""";

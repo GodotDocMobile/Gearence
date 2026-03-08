@@ -100,17 +100,17 @@ class _GCRAppState extends State<GCRApp> {
           }
 
           return MaterialApp(
-            locale: appLocale,
-            supportedLocales: supportedLocales,
-            localizationsDelegates: hasTranslation
-                ? [
-                    // GearenceGettextLocalizationsDelegate(),
-                    GlobalMaterialLocalizations.delegate,
-                    GlobalCupertinoLocalizations.delegate,
-                    GlobalWidgetsLocalizations.delegate,
-                    FallbackLocalizationDelegate(),
-                  ]
-                : null,
+            // locale: appLocale,
+            // supportedLocales: supportedLocales,
+            // localizationsDelegates: hasTranslation
+            //     ? [
+            //         // GearenceGettextLocalizationsDelegate(),
+            //         GlobalMaterialLocalizations.delegate,
+            //         GlobalCupertinoLocalizations.delegate,
+            //         GlobalWidgetsLocalizations.delegate,
+            //         FallbackLocalizationDelegate(),
+            //       ]
+            //     : null,
             //hide debug banner
             debugShowCheckedModeBanner: false,
             theme: lightTheme,
