@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:godotclassreference/bloc/tap_event_arg.dart';
 import 'package:godotclassreference/isar/schema/class_content.dart';
 import 'package:isar_plus/isar_plus.dart';
 import 'package:path/path.dart';
@@ -13,6 +14,7 @@ void processSingleClassFile(String godotPath, Isar isar) {
   final svgPath = join(godotPath, "editor", "icons", "source");
   for (final node in xmlParsed.rootElement.childElements) {
     var classContent = parseXML(node, isar);
+    processSearchableItem(classContent, isar);
     copySvg(svgPath, classContent, isar);
     classContents.add(classContent);
   }
@@ -35,6 +37,7 @@ void processMultipleClassFiles(String godotPath, Isar isar) {
       final xmlParsed = XmlDocument.parse(entity.readAsStringSync());
 
       var classContent = parseXML(xmlParsed.rootElement, isar);
+      processSearchableItem(classContent, isar);
       copySvg(svgPath, classContent, isar);
       classContents.add(classContent);
     }
@@ -51,6 +54,7 @@ void processMultipleClassFiles(String godotPath, Isar isar) {
       final xmlParsed = XmlDocument.parse(entity.readAsStringSync());
 
       var classContent = parseXML(xmlParsed.rootElement, isar);
+      processSearchableItem(classContent, isar);
       copySvg(svgPath, classContent, isar);
       classContents.add(classContent);
     }
@@ -58,6 +62,49 @@ void processMultipleClassFiles(String godotPath, Isar isar) {
 
   isar.write((isar) {
     isar.classContents.putAll(classContents);
+  });
+}
+
+void processSearchableItem(ClassContent classContent, Isar isar) {
+  final String className = classContent.name!;
+  final List<SearchableItem> searchableItems = [];
+
+  // 1. Helper to create items consistently
+  SearchableItem createItem(String name, PropertyType type) {
+    return SearchableItem()
+      ..id = isar.searchableItems.autoIncrement()
+      ..name = name
+      ..nameLower = name.toLowerCase()
+      ..className = className
+      ..type = type;
+  }
+
+  // 2. Add the class itself as a searchable entry
+  searchableItems.add(createItem(className, PropertyType.Class));
+
+  // 3. Define a map of collections to their respective types
+  // This replaces all those repetitive addAll blocks
+  final propertyMap = {
+    PropertyType.Constant: classContent.constants,
+    PropertyType.Property: classContent.members,
+    PropertyType.Method: classContent.methods,
+    PropertyType.Signal: classContent.signals,
+    PropertyType.ThemeItem: classContent.themeItems,
+    PropertyType.Annotation: classContent.annotations,
+  };
+
+  // 4. Iterate and map
+  for (var entry in propertyMap.entries) {
+    final type = entry.key;
+    final items = entry.value;
+
+    searchableItems.addAll(items
+        .where((dynamic i) => i.name != null)
+        .map((dynamic i) => createItem(i.name!, type)));
+  }
+
+  isar.write((isar) {
+    isar.searchableItems.putAll(searchableItems);
   });
 }
 
