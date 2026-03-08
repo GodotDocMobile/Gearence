@@ -64,7 +64,12 @@ class _DocSeedState extends State<DocSeed> {
         if (GetIt.I
             .isRegistered<Isar>(instanceName: MetadataKeys.docsIsarKey)) {
           final existingIsar = Isar.get(
-            schemas: [ClassContentSchema, GodotIconSchema, TranslationSchema],
+            schemas: [
+              ClassContentSchema,
+              GodotIconSchema,
+              TranslationSchema,
+              SearchableItemSchema
+            ],
             name: docIsarFileName,
           );
           existingIsar.close();
@@ -86,7 +91,12 @@ class _DocSeedState extends State<DocSeed> {
       // 4. Open the instance (Always use the constant name for the app)
       setState(() => statusMessage = "Opening database...");
       final docIsar = await openIsarSafe(
-        schemas: [ClassContentSchema, GodotIconSchema, TranslationSchema],
+        schemas: [
+          ClassContentSchema,
+          GodotIconSchema,
+          TranslationSchema,
+          SearchableItemSchema
+        ],
         directory: dir.path,
         name: docIsarFileName, // Constant name for the whole app
         inspector: true,

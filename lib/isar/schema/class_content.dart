@@ -1,3 +1,4 @@
+import 'package:godotclassreference/bloc/tap_event_arg.dart';
 import 'package:isar_plus/isar_plus.dart';
 
 part 'class_content.g.dart';
@@ -11,6 +12,22 @@ enum classNodeType {
   // these two has to be in the tail
   Other,
   None,
+}
+
+@collection
+class SearchableItem {
+  late final int id;
+
+  @Index()
+  late String name;
+
+  late String className;
+
+  late PropertyType type; // Class, Method, Signal, etc.
+
+  // Store a lower-case version for instant case-insensitive searching
+  @Index(hash: true)
+  late String nameLower;
 }
 
 @collection

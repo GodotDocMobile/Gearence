@@ -130,7 +130,8 @@ Future<void> processGodotVersion(
     schemas: [
       ClassContentSchema,
       GodotIconSchema,
-      TranslationSchema
+      TranslationSchema,
+      SearchableItemSchema,
     ], // Add your schemas here
     directory: outPath,
     name: tempDBName,
@@ -176,7 +177,8 @@ Future<void> processGodotVersion(
       schemas: [
         ClassContentSchema,
         GodotIconSchema,
-        TranslationSchema
+        TranslationSchema,
+        SearchableItemSchema
       ], // Add your schemas here
       directory: outPath,
       name: tempDBName,
