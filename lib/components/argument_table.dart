@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:godotclassreference/components/link_text.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
-import 'package:godotclassreference/models/method_argument.dart';
+import 'package:godotclassreference/isar/schema/class_content.dart';
+// import 'package:godotclassreference/models/method_argument.dart';
 import 'package:godotclassreference/theme/themes.dart';
 
 class ArgumentTable extends StatelessWidget {

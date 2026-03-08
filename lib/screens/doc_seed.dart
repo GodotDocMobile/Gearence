@@ -28,8 +28,9 @@ class _DocSeedState extends State<DocSeed> {
   @override
   void initState() {
     super.initState();
-    // Safe to start here; initState only runs once.
-    startInitialization();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      startInitialization();
+    });
   }
 
   Future<void> startInitialization() async {

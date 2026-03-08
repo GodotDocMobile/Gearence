@@ -3,7 +3,8 @@ import 'package:godotclassreference/bloc/blocs.dart';
 import 'package:godotclassreference/components/link_text.dart';
 import 'package:godotclassreference/constants/colors.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
-import 'package:godotclassreference/models/class_content.dart';
+import 'package:godotclassreference/isar/schema/class_content.dart';
+// import 'package:godotclassreference/models/class_content.dart';
 import 'package:godotclassreference/theme/themes.dart';
 
 class ZeroContentHint extends StatelessWidget {

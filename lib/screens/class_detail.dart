@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:godotclassreference/bloc/blocs.dart';
+import 'package:godotclassreference/constants/keys.dart';
 
 import 'package:godotclassreference/helpers/sematic_helpers.dart';
 import 'package:godotclassreference/helpers/trim_translate.dart';
@@ -9,6 +11,8 @@ import 'package:godotclassreference/theme/themes.dart';
 import 'package:godotclassreference/constants/class_db.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:godotclassreference/models/class_content.dart';
+import 'package:godotclassreference/isar/schema/class_content.dart'
+    as isarDocSchema;
 import 'package:godotclassreference/screens/class_detail/class_constants.dart';
 import 'package:godotclassreference/screens/class_detail/class_enums.dart';
 import 'package:godotclassreference/screens/class_detail/class_info.dart';
@@ -16,6 +20,7 @@ import 'package:godotclassreference/screens/class_detail/class_members.dart';
 import 'package:godotclassreference/screens/class_detail/class_methods.dart';
 import 'package:godotclassreference/screens/class_detail/class_signals.dart';
 import 'package:godotclassreference/screens/class_detail/class_theme_items.dart';
+import 'package:isar_plus/isar_plus.dart';
 
 class ClassDetail extends StatefulWidget {
   final String className;
@@ -31,7 +36,9 @@ class ClassDetail extends StatefulWidget {
 class _ClassDetailState extends State<ClassDetail>
     with SingleTickerProviderStateMixin {
   TabController? tabController;
-  Future<ClassContent>? _classContent;
+  late Isar docIsar;
+  late isarDocSchema.ClassContent classContent;
+  // Future<ClassContent>? _classContent;
   late List<ClassTab> _tabs;
 
   String className = '';
@@ -40,7 +47,10 @@ class _ClassDetailState extends State<ClassDetail>
   void initState() {
     super.initState();
     className = widget.className;
-    _classContent = getClassDetail();
+    docIsar = GetIt.I(instanceName: MetadataKeys.docsIsarKey);
+    classContent =
+        docIsar.classContents.where().nameEqualTo(className).findFirst()!;
+    // _classContent = getClassDetail();
     if (blocs.tapEventBloc.state.className.isNotEmpty &&
         blocs.tapEventBloc.state.fieldName.isEmpty) {
       blocs.tapEventBloc.reached();
@@ -119,89 +129,137 @@ class _ClassDetailState extends State<ClassDetail>
       listener: (context, state) {
         onLinkTap(state);
       },
-      child: FutureBuilder<ClassContent>(
-        future: _classContent,
-        builder: (BuildContext context, AsyncSnapshot<ClassContent> snapshot) {
-          if (snapshot.hasData) {
-            _tabs = getClassTabs(snapshot.data!, context);
-            // append theme item tab if needed
-            if (snapshot.data!.themeItems.length > 0) {
-              _tabs.add(
-                ClassTab(
-                  PropertyType.ThemeItem,
-                  title: context.translate('Theme Properties'),
-                  child: ClassThemeItems(
-                    clsContent: snapshot.data,
-                  ),
-                  showCnt: true,
-                  itemCount: snapshot.data!.themeItems.length,
-                ),
-              );
-            }
+      child: Builder(builder: (context) {
+        _tabs = getClassTabs(classContent, context);
+        // append theme item tab if needed
 
-            if (snapshot.data!.annotations.length > 0) {
-              _tabs.add(ClassTab(
-                PropertyType.Annotation,
-                title: context.translate("Annotations"),
-                child: ClassAnnotations(
-                  clsContent: snapshot.data,
-                ),
-                showCnt: true,
-                itemCount: snapshot.data!.annotations.length,
-              ));
-            }
-
-            if (tabController == null) {
-              tabController = TabController(
-                vsync: this,
-                length: _tabs.length,
-              );
-            }
-
-            return MediaQuery(
-              data: scaledMediaQueryData(context),
-              child: Scaffold(
-                appBar: AppBar(
-                  title: Semantics(
-                      label: getSpacedClassName(widget.className),
-                      child: ExcludeSemantics(child: Text(widget.className))),
-                  bottom: TabBar(
-                    indicatorColor: storedValues.isDarkTheme
-                        ? Theme.of(context).colorScheme.secondary
-                        : Colors.white,
-                    controller: tabController,
-                    isScrollable: true,
-                    tabs: _tabs.map((f) {
-                      return Tab(
-                        child: Row(
-                          children: [
-                            Text(f.title!),
-                            f.showCnt
-                                ? itemCountContainer(f.itemCount!)
-                                : SizedBox(),
-                          ],
-                        ),
-                      );
-                    }).toList(),
-                  ),
-                ),
-                body: TabBarView(
-                  controller: tabController,
-                  children: _tabs.map((c) {
-                    return c.child!;
-                  }).toList(),
-                ),
-              ),
-            );
-          }
-          return Container(
-            color: storedValues.isDarkTheme ? Colors.black : Colors.white,
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
+        if (tabController == null) {
+          tabController = TabController(
+            vsync: this,
+            length: _tabs.length,
           );
-        },
-      ),
+        }
+
+        return MediaQuery(
+          data: scaledMediaQueryData(context),
+          child: Scaffold(
+            appBar: AppBar(
+              title: Semantics(
+                  label: getSpacedClassName(widget.className),
+                  child: ExcludeSemantics(child: Text(widget.className))),
+              bottom: TabBar(
+                indicatorColor: storedValues.isDarkTheme
+                    ? Theme.of(context).colorScheme.secondary
+                    : Colors.white,
+                controller: tabController,
+                isScrollable: true,
+                tabs: _tabs.map((f) {
+                  return Tab(
+                    child: Row(
+                      children: [
+                        Text(f.title!),
+                        f.showCnt
+                            ? itemCountContainer(f.itemCount!)
+                            : SizedBox(),
+                      ],
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+            body: TabBarView(
+              controller: tabController,
+              children: _tabs.map((c) {
+                return c.child!;
+              }).toList(),
+            ),
+          ),
+        );
+      }),
+
+      // child: FutureBuilder<ClassContent>(
+      //   future: _classContent,
+      //   builder: (BuildContext context, AsyncSnapshot<ClassContent> snapshot) {
+      //     if (snapshot.hasData) {
+      //       _tabs = getClassTabs(snapshot.data!, context);
+      //       // append theme item tab if needed
+      //       if (snapshot.data!.themeItems.length > 0) {
+      //         _tabs.add(
+      //           ClassTab(
+      //             PropertyType.ThemeItem,
+      //             title: context.translate('Theme Properties'),
+      //             child: ClassThemeItems(
+      //               clsContent: snapshot.data,
+      //             ),
+      //             showCnt: true,
+      //             itemCount: snapshot.data!.themeItems.length,
+      //           ),
+      //         );
+      //       }
+
+      //       if (snapshot.data!.annotations.length > 0) {
+      //         _tabs.add(ClassTab(
+      //           PropertyType.Annotation,
+      //           title: context.translate("Annotations"),
+      //           child: ClassAnnotations(
+      //             clsContent: snapshot.data,
+      //           ),
+      //           showCnt: true,
+      //           itemCount: snapshot.data!.annotations.length,
+      //         ));
+      //       }
+
+      //       if (tabController == null) {
+      //         tabController = TabController(
+      //           vsync: this,
+      //           length: _tabs.length,
+      //         );
+      //       }
+
+      //       return MediaQuery(
+      //         data: scaledMediaQueryData(context),
+      //         child: Scaffold(
+      //           appBar: AppBar(
+      //             title: Semantics(
+      //                 label: getSpacedClassName(widget.className),
+      //                 child: ExcludeSemantics(child: Text(widget.className))),
+      //             bottom: TabBar(
+      //               indicatorColor: storedValues.isDarkTheme
+      //                   ? Theme.of(context).colorScheme.secondary
+      //                   : Colors.white,
+      //               controller: tabController,
+      //               isScrollable: true,
+      //               tabs: _tabs.map((f) {
+      //                 return Tab(
+      //                   child: Row(
+      //                     children: [
+      //                       Text(f.title!),
+      //                       f.showCnt
+      //                           ? itemCountContainer(f.itemCount!)
+      //                           : SizedBox(),
+      //                     ],
+      //                   ),
+      //                 );
+      //               }).toList(),
+      //             ),
+      //           ),
+      //           body: TabBarView(
+      //             controller: tabController,
+      //             children: _tabs.map((c) {
+      //               return c.child!;
+      //             }).toList(),
+      //           ),
+      //         ),
+      //       );
+      //     }
+      //     return Container(
+      //       color: storedValues.isDarkTheme ? Colors.black : Colors.white,
+      //       child: Center(
+      //         child: CircularProgressIndicator(),
+      //       ),
+      //     );
+      //   },
+      // ),
     );
   }
 }
@@ -227,8 +285,9 @@ class ClassTab {
   final Stream<TapEventArg>? eventStream;
 }
 
-List<ClassTab> getClassTabs(ClassContent clsContent, BuildContext context) {
-  return <ClassTab>[
+List<ClassTab> getClassTabs(
+    isarDocSchema.ClassContent clsContent, BuildContext context) {
+  var _tabs = <ClassTab>[
     ClassTab(
       PropertyType.Class,
       title: "Info",
@@ -282,4 +341,32 @@ List<ClassTab> getClassTabs(ClassContent clsContent, BuildContext context) {
       itemCount: clsContent.signals.length,
     )
   ];
+
+  if (clsContent.themeItems.length > 0) {
+    _tabs.add(
+      ClassTab(
+        PropertyType.ThemeItem,
+        title: context.translate('Theme Properties'),
+        child: ClassThemeItems(
+          clsContent: clsContent,
+        ),
+        showCnt: true,
+        itemCount: clsContent.themeItems.length,
+      ),
+    );
+  }
+
+  if (clsContent.annotations.length > 0) {
+    _tabs.add(ClassTab(
+      PropertyType.Annotation,
+      title: context.translate("Annotations"),
+      child: ClassAnnotations(
+        clsContent: clsContent,
+      ),
+      showCnt: true,
+      itemCount: clsContent.annotations.length,
+    ));
+  }
+
+  return _tabs;
 }

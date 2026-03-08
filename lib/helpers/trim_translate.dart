@@ -12,13 +12,14 @@ extension ContextExt on BuildContext {
     String? domain,
     String msgctxt = '',
   }) {
-    return GettextLocalizations.of(this).translate(
-      key.trimRight(),
-      keyPlural: keyPlural,
-      pArgs: pArgs,
-      nArgs: nArgs,
-      domain: domain,
-      msgctxt: msgctxt,
-    );
+    return key;
+    // return GettextLocalizations.of(this).translate(
+    //   key.trimRight(),
+    //   keyPlural: keyPlural,
+    //   pArgs: pArgs,
+    //   nArgs: nArgs,
+    //   domain: domain,
+    //   msgctxt: msgctxt,
+    // );
   }
 }
