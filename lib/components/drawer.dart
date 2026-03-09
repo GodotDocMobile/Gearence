@@ -9,7 +9,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'package:godotclassreference/screens/set_font_size.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
-import 'package:godotclassreference/bloc/blocs.dart';
 
 class GCRDrawer extends StatefulWidget {
   const GCRDrawer({Key? key}) : super(key: key);
@@ -165,7 +164,6 @@ class GCRDrawerState extends State<GCRDrawer> {
                     );
                   }).toList(),
                   onChanged: (v) {
-                    blocs.versionBloc.add(v!);
                     setState(() {
                       // storedValues.version = v;
                       settingsRepo.saveSettings(versionRecord..stringValue = v);

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:godotclassreference/constants/colors.dart';
+import 'package:godotclassreference/isar/schema/class_content.dart';
 
 import 'package:godotclassreference/theme/themes.dart';
-import 'package:godotclassreference/models/class_content.dart';
 
 class NodeTag extends StatelessWidget {
   final ClassContent? classContent;
