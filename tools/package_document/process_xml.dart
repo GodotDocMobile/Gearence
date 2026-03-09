@@ -65,6 +65,31 @@ void processMultipleClassFiles(String godotPath, Isar isar) {
   });
 }
 
+String removeIndent(String input) {
+  var lines = input.split('\n');
+  if (lines.isEmpty) return input;
+
+  // Find the minimum indentation (excluding empty lines)
+  int? minIndent;
+  for (var line in lines) {
+    if (line.trim().isEmpty) continue;
+    int indent = line.indexOf(RegExp(r'[^ \t]'));
+    if (indent != -1 && (minIndent == null || indent < minIndent)) {
+      minIndent = indent;
+    }
+  }
+
+  if (minIndent == null || minIndent == 0) return input.trim();
+
+  // Remove that common prefix from every line
+  return lines
+      .map((line) {
+        return line.length >= minIndent! ? line.substring(minIndent) : line;
+      })
+      .join('\n')
+      .trim();
+}
+
 void processSearchableItem(ClassContent classContent, Isar isar) {
   final String className = classContent.name!;
   final List<SearchableItem> searchableItems = [];
@@ -112,9 +137,13 @@ ClassContent parseXML(XmlElement node, Isar isar) {
   // Use a helper for cleaner attribute access
   String? attr(XmlElement el, String name) => el.getAttribute(name);
 
-  // Use a helper for safe inner text extraction
-  String getTxt(XmlElement el, String tag) =>
-      el.findElements(tag).firstOrNull?.innerText.trim() ?? "";
+// Use the shared normalization utility for both packaging and runtime
+  String getTxt(XmlElement el, String tag) {
+    final rawText = el.findElements(tag).firstOrNull?.innerText ?? "";
+
+    // Replace .trim() with your robust normalization logic
+    return removeIndent(rawText);
+  }
 
   ClassContent rtn = ClassContent(id: isar.classContents.autoIncrement());
 
@@ -142,7 +171,7 @@ ClassContent parseXML(XmlElement node, Isar isar) {
         ..name = attr(el, 'name')
         ..value = attr(el, 'value')
         ..enumValue = attr(el, 'enum')
-        ..constantText = el.innerText.trim());
+        ..constantText = removeIndent(el.innerText));
 
   // Members
   rtn.members = mapTags(
@@ -154,7 +183,7 @@ ClassContent parseXML(XmlElement node, Isar isar) {
         ..setter = attr(el, 'setter')
         ..getter = attr(el, 'getter')
         ..enumValue = attr(el, 'enum')
-        ..memberText = el.innerText.trim());
+        ..memberText = removeIndent(el.innerText));
 
   // Methods (The most complex part)
   rtn.methods = mapTags('methods', 'method', (el) {
@@ -213,7 +242,7 @@ ClassContent parseXML(XmlElement node, Isar isar) {
       (el) => ThemeItem()
         ..name = attr(el, 'name')
         ..type = attr(el, 'type')
-        ..description = el.innerText.trim());
+        ..description = removeIndent(el.innerText.trim()));
 
 // annotations (specifically for 4.x+)
   rtn.annotations = mapTags('annotations', 'annotation', (el) {

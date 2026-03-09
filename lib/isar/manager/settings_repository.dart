@@ -153,11 +153,17 @@ class SettingsRepository {
   // }
 
   Stream<void> watchSetting(String key) {
-    return prefsIsar.userSettings.where().keyEqualTo(key).watchLazy();
+    return prefsIsar.userSettings
+        .where()
+        .keyEqualTo(key)
+        .watchLazy()
+        .asBroadcastStream();
   }
 
   Stream<void> watchAllSettings() {
-    return prefsIsar.userSettings.watchLazy(fireImmediately: true);
+    return prefsIsar.userSettings
+        .watchLazy(fireImmediately: true)
+        .asBroadcastStream();
   }
 
   void seedDefaultSettings() {

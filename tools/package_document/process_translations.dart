@@ -4,6 +4,15 @@ import 'package:godotclassreference/isar/schema/class_content.dart';
 import 'package:isar_plus/isar_plus.dart';
 import 'package:path/path.dart';
 
+String fixJsonEscaping(String text) {
+  // This converts literal backslash-t sequences into actual tab characters
+  // and backslash-n into actual newlines.
+  return text
+      .replaceAll('\\t', '\t')
+      .replaceAll('\\n', '\n')
+      .replaceAll('\\"', '"');
+}
+
 List<String> processTranslations(String godotPath, Isar isar) {
   final languages = <String>[];
   final translationFolderPath = join(godotPath, 'doc/translations');
@@ -31,8 +40,8 @@ List<String> processTranslations(String godotPath, Isar isar) {
 
     // 2. Process in RAM
     for (var entry in newTranslations.entries) {
-      final msgid = entry.key;
-      final msgstr = entry.value;
+      final msgid = fixJsonEscaping(entry.key);
+      final msgstr = fixJsonEscaping(entry.value);
 
       if (cache.containsKey(msgid)) {
         // Update existing object in RAM

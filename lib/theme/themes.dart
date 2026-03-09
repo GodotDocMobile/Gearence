@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
 import 'package:godotclassreference/constants/colors.dart';
-import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:godotclassreference/isar/manager/settings_repository.dart';
 
 ThemeData darkTheme = ThemeData(
@@ -40,8 +39,8 @@ MediaQueryData nonScaledMediaQueryData(BuildContext context) {
 }
 
 TextStyle? monoOptionalStyle(BuildContext context, {TextStyle? baseStyle}) {
-  // final fontSizeRecord = GetIt.I<SettingsRepository>()();
-  if (storedValues.isMonospaced) {
+  final fontSizeRecord = GetIt.I<SettingsRepository>().getMonospace();
+  if (fontSizeRecord.boolValue == true) {
     if (baseStyle != null) {
       return baseStyle.copyWith(fontFamily: 'JetbrainsMono');
     }

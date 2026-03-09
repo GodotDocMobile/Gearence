@@ -99,10 +99,15 @@ class _ClassListState extends State<ClassList> {
                       : const DefaultClassIcon(),
                   title: Semantics(
                     excludeSemantics: true,
-                    child: Text(
-                      x.name!,
-                      style: monoOptionalStyle(context),
-                    ),
+                    child: StreamBuilder(
+                        stream: settingsRepo
+                            .watchSetting(MetadataKeys.monoSpaceFont),
+                        builder: (context, asyncSnapshot) {
+                          return Text(
+                            x.name!,
+                            style: monoOptionalStyle(context),
+                          );
+                        }),
                   ),
                   onTap: () {
                     Navigator.push(

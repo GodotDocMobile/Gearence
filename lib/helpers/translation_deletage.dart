@@ -1,42 +1,67 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_gettext/flutter_gettext/gettext_localizations.dart';
-import 'package:godotclassreference/constants/stored_values.dart';
+import 'package:get_it/get_it.dart';
+import 'package:godotclassreference/constants/keys.dart';
+import 'package:godotclassreference/isar/schema/class_content.dart';
+import 'package:isar_plus/isar_plus.dart';
 
-/// LocalizationsDelegate for GettextLocalizations
-class GearenceGettextLocalizationsDelegate extends LocalizationsDelegate<GettextLocalizations> {
-  GearenceGettextLocalizationsDelegate({this.defaultLanguage = 'en'});
+class GearenceLocalizations {
+  final Locale locale;
 
-  final String defaultLanguage;
+  GearenceLocalizations(this.locale);
 
-  @override
-  bool isSupported(Locale locale) => true;
+  static GearenceLocalizations? of(BuildContext context) {
+    return Localizations.of<GearenceLocalizations>(
+        context, GearenceLocalizations);
+  }
 
-  @override
-  Future<GettextLocalizations> load(Locale locale) async {
-    var poContent = '';
-    try {
-      poContent = await rootBundle.loadString('translations/${storedValues.version}/${locale.languageCode}_${locale.countryCode}.po');
-    } catch (e) {
-      try {
-        poContent = await rootBundle.loadString('translations/${storedValues.version}/${locale.languageCode}.po');
-      } catch (e) {
-        try {
-          poContent = await rootBundle.loadString('translations/${storedValues.version}/$defaultLanguage.po');
-        } catch (e) {
-          // Ignore error, default strings will be used.
-        }
-      }
+  String translate(String? msgid) {
+    if (msgid == null || msgid.isEmpty || locale.languageCode == 'en') {
+      return msgid ?? '';
+    }
+    // print(msgid);
+
+    // 1. Try to get Isar from GetIt safely
+    if (!GetIt.I.isRegistered<Isar>(instanceName: MetadataKeys.docsIsarKey)) {
+      return msgid; // Fallback to English if DB isn't ready yet
     }
 
-    /// If no PO file was found, use default strings.
-    if (poContent == '') {
-      poContent = 'msgid ""\nmsgstr ""\n"Language: $defaultLanguage\\n"\n';
-    }
+    final isar = GetIt.I<Isar>(instanceName: MetadataKeys.docsIsarKey);
 
-    return GettextLocalizations.fromPO(poContent);
+    // 2. Perform the lookup
+    final entry = isar.translations.where().msgidEqualTo(msgid).findFirst();
+
+    if (entry == null || entry.translations == null) return msgid;
+
+    final lookupKey = _getLookupKey(locale);
+    final localized = entry.translations!.firstWhere(
+      (t) => t.locale == lookupKey,
+      orElse: () => LocaleString()..value = msgid,
+    );
+
+    return localized.value ?? msgid;
+  }
+
+  String _getLookupKey(Locale l) {
+    if (l.scriptCode != null) return "${l.languageCode}_${l.scriptCode}";
+    if (l.countryCode != null && l.countryCode!.isNotEmpty) {
+      return "${l.languageCode}_${l.countryCode}";
+    }
+    return l.languageCode;
+  }
+}
+
+class GearenceLocalizationsDelegate
+    extends LocalizationsDelegate<GearenceLocalizations> {
+  const GearenceLocalizationsDelegate();
+
+  @override
+  bool isSupported(Locale locale) => true; // Support any locale Godot supports
+
+  @override
+  Future<GearenceLocalizations> load(Locale locale) async {
+    return GearenceLocalizations(locale);
   }
 
   @override
-  bool shouldReload(covariant LocalizationsDelegate<GettextLocalizations> old) => true;
+  bool shouldReload(GearenceLocalizationsDelegate old) => false;
 }
