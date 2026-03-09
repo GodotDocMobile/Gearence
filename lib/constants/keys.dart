@@ -1,7 +1,7 @@
 class MetadataKeys {
   // settings keys
   static const String isDarkMode = 'dark_mode';
-  static const String translation = 'language';
+  static const String translation = 'translation';
   static const String version = 'version';
   static const String monoSpaceFont = 'mono_space_Font';
   static const String fontSize = 'font_size';

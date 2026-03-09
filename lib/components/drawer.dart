@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:godotclassreference/constants/keys.dart';
+import 'package:godotclassreference/isar/manager/settings_repository.dart';
+import 'package:godotclassreference/isar/schema/user_setting.dart';
+import 'package:godotclassreference/screens/doc_seed.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:godotclassreference/screens/set_font_size.dart';
-import 'package:godotclassreference/screens/class_select.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:godotclassreference/bloc/blocs.dart';
 
 class GCRDrawer extends StatefulWidget {
-  final Function(int)? setScaleFunc;
-
-  const GCRDrawer({Key? key, this.setScaleFunc}) : super(key: key);
+  const GCRDrawer({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -19,7 +21,21 @@ class GCRDrawer extends StatefulWidget {
 }
 
 class GCRDrawerState extends State<GCRDrawer> {
-  String? docDate = storedValues.configContent.updateDate;
+  late SettingsRepository settingsRepo;
+  late UserSetting versionRecord;
+  late UserSetting darkModeRecord;
+  late UserSetting monospaceRecord;
+  late UserSetting translationRecord;
+
+  @override
+  initState() {
+    super.initState();
+    settingsRepo = GetIt.I();
+    versionRecord = settingsRepo.getGodotVersion();
+    darkModeRecord = settingsRepo.getIsDarkMode();
+    monospaceRecord = settingsRepo.getMonospace();
+    translationRecord = settingsRepo.getTranslation();
+  }
 
   void showLoading(BuildContext context, bool isDark) {
     Color tmp =
@@ -70,14 +86,14 @@ class GCRDrawerState extends State<GCRDrawer> {
               Padding(
                 padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                 child: ListTile(
-                  title: Text(docDate!),
+                  title: Text(storedValues.configContent.updateDate!),
                   subtitle: Text('Doc Last Update '),
                 ),
               ),
               Padding(
                 padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                 child: ListTile(
-                  title: Text(storedValues.packageInfo.version),
+                  title: Text(GetIt.I<PackageInfo>().version),
                   subtitle: Text("Version"),
                 ),
               ),
@@ -103,7 +119,7 @@ class GCRDrawerState extends State<GCRDrawer> {
   }
 
   Widget selectTranslation() {
-    if (storedValues.versionDouble < 3.4) {
+    if (double.parse(versionRecord.stringValue!) < 3.4) {
       return SizedBox();
     }
     return MergeSemantics(
@@ -113,14 +129,14 @@ class GCRDrawerState extends State<GCRDrawer> {
         trailing: Semantics(
           onTapHint: 'Select translated language',
           child: DropdownButton<String>(
-            value: storedValues.translation,
+            value: translationRecord.stringValue!,
             items: [
               DropdownMenuItem(
                 child: Text('None'),
                 value: 'en',
               ),
               ...storedValues
-                  .configContent.branchTranslations[storedValues.version]!
+                  .configContent.branchTranslations[versionRecord.stringValue!]!
                   .map((i) {
                 return DropdownMenuItem<String>(
                   value: i,
@@ -130,9 +146,12 @@ class GCRDrawerState extends State<GCRDrawer> {
             ],
             onChanged: (v) {
               setState(() {
-                storedValues.translation = v!;
+                settingsRepo.saveSettings(translationRecord..stringValue = v);
               });
-              blocs.translationBloc.add(v!);
+              // setState(() {
+              //   storedValues.translation = v!;
+              // });
+              // blocs.translationBloc.add(v!);
               // Navigator.of(context).pop();
               // setState(() {
               //   storedValues.version = v!;
@@ -177,7 +196,7 @@ class GCRDrawerState extends State<GCRDrawer> {
               trailing: Semantics(
                 onTapHint: 'Change godot version',
                 child: DropdownButton<String>(
-                  value: storedValues.version,
+                  value: versionRecord.stringValue!,
                   items: godotVersions.map((i) {
                     return DropdownMenuItem<String>(
                       value: i,
@@ -187,12 +206,13 @@ class GCRDrawerState extends State<GCRDrawer> {
                   onChanged: (v) {
                     blocs.versionBloc.add(v!);
                     setState(() {
-                      storedValues.version = v;
+                      // storedValues.version = v;
+                      settingsRepo.saveSettings(versionRecord..stringValue = v);
                     });
                     Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ClassSelect(),
+                          builder: (context) => DocSeed(),
                         ),
                         (Route<dynamic> route) => false);
                   },
@@ -224,8 +244,7 @@ class GCRDrawerState extends State<GCRDrawer> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>
-                        SetFontSize(setScaleFunc: widget.setScaleFunc),
+                    builder: (context) => SetFontSize(),
                   ));
             },
           ),

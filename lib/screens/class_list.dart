@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:godotclassreference/components/default_class_icon.dart';
+import 'package:godotclassreference/components/drawer.dart';
 import 'package:godotclassreference/components/svg_icon.dart';
 import 'package:godotclassreference/constants/keys.dart';
 import 'package:godotclassreference/helpers/sematic_helpers.dart';
@@ -20,7 +21,6 @@ class ClassList extends StatefulWidget {
 
 class _ClassListState extends State<ClassList> {
   late Isar docsIsar;
-  // late Isar prefsIsar;
   late SettingsRepository settingsRepo;
 
   @override
@@ -28,32 +28,35 @@ class _ClassListState extends State<ClassList> {
     super.initState();
     docsIsar = GetIt.I(instanceName: MetadataKeys.docsIsarKey);
     settingsRepo = GetIt.instance<SettingsRepository>();
-    // prefsIsar = GetIt.I(instanceName: MetadataKeys.preferenceIsarKey);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // drawer: GCRDrawer(setScaleFunc: setScale),
+      drawer: GCRDrawer(),
       appBar: AppBar(
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("Godot v" +
-                settingsRepo.getGodotVersion().stringValue! +
-                " classes"),
-            double.parse(settingsRepo.getGodotVersion().stringValue!) >= 3.4 &&
-                    settingsRepo.getLanguage().stringValue != 'en'
-                ? Text(
-                    "Translation: " + settingsRepo.getLanguage().stringValue!,
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 13,
-                    ),
-                  )
-                : SizedBox()
-          ],
-        ),
+        title: StreamBuilder(
+            stream: settingsRepo.watchAllSettings(),
+            builder: (context, asyncSnapshot) {
+              final currentLocale = settingsRepo.getTranslation().stringValue!;
+              final currentVersion =
+                  settingsRepo.getGodotVersion().stringValue!;
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Godot v" + currentVersion + " classes"),
+                  double.parse(currentVersion) >= 3.4 && currentLocale != 'en'
+                      ? Text(
+                          "Translation: " + currentLocale,
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 13,
+                          ),
+                        )
+                      : SizedBox()
+                ],
+              );
+            }),
         actions: <Widget>[
           IconButton(
             tooltip: 'Filter classes shown on the list',
