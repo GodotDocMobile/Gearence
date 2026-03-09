@@ -7,6 +7,7 @@ import 'package:godotclassreference/helpers/sematic_helpers.dart';
 import 'package:godotclassreference/isar/manager/settings_repository.dart';
 import 'package:godotclassreference/isar/schema/class_content.dart';
 import 'package:godotclassreference/screens/class_detail.dart';
+import 'package:godotclassreference/screens/search.dart';
 import 'package:godotclassreference/theme/themes.dart';
 import 'package:isar_plus/isar_plus.dart';
 
@@ -67,8 +68,8 @@ class _ClassListState extends State<ClassList> {
               Icons.search,
             ),
             onPressed: () {
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => SearchScreen()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => SearchScreen()));
             },
           )
         ],

@@ -109,179 +109,139 @@ void processSearchableItem(ClassContent classContent, Isar isar) {
 }
 
 ClassContent parseXML(XmlElement node, Isar isar) {
-  final rootAttrs = node.attributes;
+  // Use a helper for cleaner attribute access
+  String? attr(XmlElement el, String name) => el.getAttribute(name);
+
+  // Use a helper for safe inner text extraction
+  String getTxt(XmlElement el, String tag) =>
+      el.findElements(tag).firstOrNull?.innerText.trim() ?? "";
 
   ClassContent rtn = ClassContent(id: isar.classContents.autoIncrement());
 
-  // attribute fields
-  rtn.name = _getAttrByName(rootAttrs, 'name');
-  // print("Processing class [${rtn.name}]");
+  rtn.name = attr(node, 'name');
+  rtn.inherits = attr(node, 'inherits');
+  rtn.category = attr(node, 'category');
+  rtn.version = attr(node, 'version');
 
-  rtn.inherits = _getAttrByName(rootAttrs, 'inherits');
+  rtn.briefDescription = getTxt(node, 'brief_description');
+  rtn.description = getTxt(node, 'description');
 
-  rtn.category = _getAttrByName(rootAttrs, 'category');
-
-  rtn.version = _getAttrByName(rootAttrs, 'version');
-
-  rtn.briefDescription =
-      node.findElements('brief_description').first.innerText.trim();
-
-  rtn.description = node.findElements('description').first.innerText.trim();
-
-  // constants
-  final constantRoot = node.findElements('constants');
-  if (constantRoot.length > 0) {
-    final constantNodes = constantRoot.first.children;
-    rtn.constants = constantNodes.whereType<XmlElement>().map((f) {
-      final List<XmlAttribute?> nodeAttr = f.attributes;
-      return Constant()
-        ..name = _getAttrByName(nodeAttr, 'name')
-        ..value = _getAttrByName(nodeAttr, 'value')
-        ..enumValue = _getAttrByName(nodeAttr, 'enum')
-        ..constantText = f.innerText.trim();
-    }).toList();
+  // Helper for mapping children to objects
+  List<T> mapTags<T>(
+      String parentTag, String childTag, T Function(XmlElement) mapper) {
+    final parent = node.findElements(parentTag).firstOrNull;
+    if (parent == null) return [];
+    return parent.findElements(childTag).map(mapper).toList();
   }
 
-  // members
-  final memberRoot = node.findElements('members');
-  if (memberRoot.length > 0) {
-    final memberNodes = memberRoot.first.children;
-    rtn.members = memberNodes.whereType<XmlElement>().map((f) {
-      final List<XmlAttribute?> nodeAttr = f.attributes;
-      return Member()
-        ..name = _getAttrByName(nodeAttr, 'name')
-        ..type = _getAttrByName(nodeAttr, 'type')
-        ..setter = _getAttrByName(nodeAttr, 'setter')
-        ..getter = _getAttrByName(nodeAttr, 'getter')
-        ..enumValue = _getAttrByName(nodeAttr, 'enum')
-        ..memberText = f.innerText.trim();
-    }).toList();
-  }
+  // Constants
+  rtn.constants = mapTags(
+      'constants',
+      'constant',
+      (el) => Constant()
+        ..name = attr(el, 'name')
+        ..value = attr(el, 'value')
+        ..enumValue = attr(el, 'enum')
+        ..constantText = el.innerText.trim());
 
-  // methods
-  final methodRoot = node.findElements('methods');
-  if (methodRoot.length > 0) {
-    final methodNodes = methodRoot.first.children;
-    rtn.methods = methodNodes.whereType<XmlElement>().map((element) {
-      // final element = f as XmlElement;
-      final List<XmlAttribute?> nodeAttr = element.attributes;
+  // Members
+  rtn.members = mapTags(
+      'members',
+      'member',
+      (el) => Member()
+        ..name = attr(el, 'name')
+        ..type = attr(el, 'type')
+        ..setter = attr(el, 'setter')
+        ..getter = attr(el, 'getter')
+        ..enumValue = attr(el, 'enum')
+        ..memberText = el.innerText.trim());
 
-      var args = element.findElements('argument');
-      final argumentNodes =
-          args.length > 0 ? args : element.findAllElements('param');
-      final methodReturnNodes = element.findAllElements('return');
+  // Methods (The most complex part)
+  rtn.methods = mapTags('methods', 'method', (el) {
+    // final methodAttr = el.attributes;
 
-      MethodReturn? methodRtn;
-      if (methodReturnNodes.length > 0) {
-        final methodReturnAttr = methodReturnNodes.first.attributes;
-        methodRtn = MethodReturn()
-          ..type = _getAttrByName(methodReturnAttr, 'type')
-          ..enumValue = _getAttrByName(methodReturnAttr, 'enum');
-      }
+    // Support both old 'argument' and new 'param' tags
+    final argNodes = el.findElements('param').isNotEmpty
+        ? el.findElements('param')
+        : el.findElements('argument');
 
-      List<MethodArgument> _arguments = argumentNodes.map((a) {
-        final argumentAttr = a.attributes;
-        return MethodArgument()
-          ..index = _getAttrByName(argumentAttr, 'index')
-          ..name = _getAttrByName(argumentAttr, 'name')
-          ..type = _getAttrByName(argumentAttr, 'type')
-          ..enumValue = _getAttrByName(argumentAttr, 'enum')
-          ..defaultValue = _getAttrByName(argumentAttr, 'default');
-      }).toList();
+    final returnNode = el.findElements('return').firstOrNull;
 
-      _arguments.sort((a, b) => a.index!.compareTo(b.index!));
+    final List<MethodArgument> args = argNodes
+        .map((a) => MethodArgument()
+          ..index = attr(a, 'index')
+          ..name = attr(a, 'name')
+          ..type = attr(a, 'type')
+          ..enumValue = attr(a, 'enum')
+          ..defaultValue = attr(a, 'default'))
+        .toList();
 
-      return Method()
-        ..name = _getAttrByName(nodeAttr, 'name')
-        ..qualifiers = _getAttrByName(nodeAttr, 'qualifiers')
-        ..description =
-            element.findAllElements('description').first.innerText.trim()
-        ..arguments = _arguments
-        ..returnValue = methodRtn;
-    }).toList();
-  }
+    // Ensure arguments are in order
+    args.sort((a, b) => (a.index ?? "0").compareTo(b.index ?? "0"));
 
-  // signals
-  final signalRoot = node.findElements('signals');
-  if (signalRoot.length > 0) {
-    final signalNodes = signalRoot.first.children;
-    rtn.signals = signalNodes.whereType<XmlElement>().map((element) {
-      // final element = f as XmlElement;
-      final List<XmlAttribute?> nodeAttr = element.attributes;
-      final argumentNodes = element.findElements('argument');
-      return Signal()
-        ..name = _getAttrByName(nodeAttr, 'name')
-        ..description =
-            element.findElements('description').first.innerText.trim()
-        ..arguments = argumentNodes.map((a) {
-          final argumentAttr = a.attributes;
-          return SignalArgument()
-            ..index = _getAttrByName(argumentAttr, 'index')
-            ..name = _getAttrByName(argumentAttr, 'name')
-            ..type = _getAttrByName(argumentAttr, 'type');
-        }).toList();
-    }).toList();
-  }
+    return Method()
+      ..name = attr(el, 'name')
+      ..qualifiers = attr(el, 'qualifiers')
+      ..description = getTxt(el, 'description')
+      ..arguments = args
+      ..returnValue = returnNode == null
+          ? null
+          : (MethodReturn()
+            ..type = attr(returnNode, 'type')
+            ..enumValue = attr(returnNode, 'enum'));
+  });
 
-  // theme_items
-  final themeItemRoot = node.findElements('theme_items');
-  if (themeItemRoot.length > 0) {
-    final themeItemNodes = themeItemRoot.first.children;
-    rtn.themeItems = themeItemNodes.whereType<XmlElement>().map((f) {
-      final List<XmlAttribute?> nodeAttr = f.attributes;
-      return ThemeItem()
-        ..name = _getAttrByName(nodeAttr, 'name')
-        ..type = _getAttrByName(nodeAttr, 'type')
-        ..description = f.innerText.trim();
-    }).toList();
-  }
+  // Signals
+  rtn.signals = mapTags(
+      'signals',
+      'signal',
+      (el) => Signal()
+        ..name = attr(el, 'name')
+        ..description = getTxt(el, 'description')
+        ..arguments = el
+            .findElements('argument')
+            .map((a) => SignalArgument()
+              ..index = attr(a, 'index')
+              ..name = attr(a, 'name')
+              ..type = attr(a, 'type'))
+            .toList());
 
-  // annotations
-  final annotationRoot = node.findElements('annotations');
-  if (annotationRoot.length > 0) {
-    final annotationNodes = annotationRoot.first.children;
-    rtn.annotations = annotationNodes.whereType<XmlElement>().map((element) {
-      final List<XmlAttribute?> nodeAttr = element.attributes;
+  // Theme Items
+  rtn.themeItems = mapTags(
+      'theme_items',
+      'theme_item',
+      (el) => ThemeItem()
+        ..name = attr(el, 'name')
+        ..type = attr(el, 'type')
+        ..description = el.innerText.trim());
 
-      final argumentNodes = element.findElements("param");
-      List<MethodArgument> args = argumentNodes.map((a) {
-        final argumentAttr = a.attributes;
-        return MethodArgument()
-          ..index = _getAttrByName(argumentAttr, 'index')
-          ..name = _getAttrByName(argumentAttr, 'name')
-          ..type = _getAttrByName(argumentAttr, 'type')
-          ..defaultValue = _getAttrByName(argumentAttr, 'default');
-      }).toList();
+// annotations (specifically for 4.x+)
+  rtn.annotations = mapTags('annotations', 'annotation', (el) {
+    // Annotations use 'param' for their arguments
+    final argNodes = el.findElements('param');
+    final returnNode = el.findElements('return').firstOrNull;
 
-      args.sort((a, b) => a.index!.compareTo(b.index!));
+    final List<MethodArgument> args = argNodes
+        .map((a) => MethodArgument()
+          ..index = attr(a, 'index')
+          ..name = attr(a, 'name')
+          ..type = attr(a, 'type')
+          ..defaultValue = attr(a, 'default'))
+        .toList();
 
-      MethodReturn? annReturn;
-      final annReturnNodes = element.findAllElements("return");
-      if (annReturnNodes.length > 0) {
-        final annReturnAttr = annReturnNodes.first.attributes;
-        annReturn = MethodReturn()
-          ..type = _getAttrByName(annReturnAttr, 'type');
-      }
+    // Standard ordering check
+    args.sort((a, b) => (a.index ?? "0").compareTo(b.index ?? "0"));
 
-      return Annotation()
-        ..name = _getAttrByName(nodeAttr, 'name')
-        ..params = args
-        ..description =
-            element.findAllElements('description').first.innerText.trim()
-        ..annotationReturn = annReturn;
-    }).toList();
-  }
+    return Annotation()
+      ..name = attr(el, 'name')
+      ..description = getTxt(el, 'description')
+      ..params = args
+      ..annotationReturn = returnNode == null
+          ? null
+          : (MethodReturn()..type = attr(returnNode, 'type'));
+  });
 
   return rtn;
-}
-
-String? _getAttrByName(List<XmlAttribute?> attrs, String attrName) {
-  if (attrs.any((element) => element!.name.local == attrName)) {
-    return attrs
-        .firstWhere((element) => element!.name.local == attrName)
-        ?.value;
-  }
-  return null;
 }
 
 void copySvg(String svgSourceFolder, ClassContent classContent, Isar isar) {
