@@ -37,45 +37,6 @@ class GCRDrawerState extends State<GCRDrawer> {
     translationRecord = settingsRepo.getTranslation();
   }
 
-  void showLoading(BuildContext context, bool isDark) {
-    Color tmp =
-        isDark ? ThemeData.dark().cardColor : ThemeData.light().cardColor;
-
-    final Color overlayBackground = Color.fromARGB(255, (tmp.r * 255).round(),
-        (tmp.g * 255).round(), (tmp.b * 255).round());
-
-    final OverlayState? overlayState = Overlay.of(context);
-    OverlayEntry? overlayEntry = OverlayEntry(builder: (context) {
-      return Container(
-        color: overlayBackground,
-        child: Center(
-          child: Container(
-            width: 150,
-            height: 150,
-            child: Card(
-              elevation: 10,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    "Loading Theme",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  CircularProgressIndicator(strokeWidth: 5),
-                ],
-              ),
-            ),
-          ),
-        ),
-      );
-    });
-    overlayState!.insert(overlayEntry);
-    Future.delayed(Duration(milliseconds: 500)).then((value) {
-      overlayEntry!.remove();
-      overlayEntry = null;
-    });
-  }
-
   Future<void> showAboutDialog() {
     return showDialog(
         context: context,
@@ -228,10 +189,11 @@ class GCRDrawerState extends State<GCRDrawer> {
               trailing: Tooltip(
                 message: 'dark theme',
                 child: Switch(
-                  value: storedValues.isDarkTheme,
+                  value: darkModeRecord.boolValue == true,
                   onChanged: (v) {
-                    showLoading(context, v);
-                    blocs.themeChangeBloc.add(v);
+                    setState(() {
+                      settingsRepo.saveSettings(darkModeRecord..boolValue = v);
+                    });
                   },
                 ),
               ),
@@ -253,9 +215,14 @@ class GCRDrawerState extends State<GCRDrawer> {
               leading: Icon(Icons.font_download_outlined),
               title: Text('Monospace font'),
               trailing: Switch(
-                value: storedValues.isMonospaced,
+                value: monospaceRecord.boolValue == true,
                 onChanged: (v) {
-                  blocs.monospaceFontBloc.add(v);
+                  // blocs.monospaceFontBloc.add(v);
+
+                  setState(() {
+                    settingsRepo.saveSettings(monospaceRecord..boolValue = v);
+                  });
+
                   // setState(() {
                   //   storedValues.isMonospaced = v;
                   // });
@@ -270,18 +237,18 @@ class GCRDrawerState extends State<GCRDrawer> {
               showAboutDialog();
             },
           ),
-          ListTile(
-            title: Text('I WANT TRANSLATION!'),
-            onTap: () async {
-              // const url =
-              //     'https://hosted.weblate.org/projects/godot-engine/godot-class-reference/';
-              var url = Uri.parse(
-                  'https://hosted.weblate.org/projects/godot-engine/godot-class-reference/');
-              if (await launchUrl(url)) {
-                print("can not launch url $url");
-              }
-            },
-          ),
+          // ListTile(
+          //   title: Text('I WANT TRANSLATION!'),
+          //   onTap: () async {
+          //     // const url =
+          //     //     'https://hosted.weblate.org/projects/godot-engine/godot-class-reference/';
+          //     var url = Uri.parse(
+          //         'https://hosted.weblate.org/projects/godot-engine/godot-class-reference/');
+          //     if (await launchUrl(url)) {
+          //       print("can not launch url $url");
+          //     }
+          //   },
+          // ),
         ],
       ),
     );

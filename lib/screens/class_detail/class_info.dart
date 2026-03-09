@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 import 'package:godotclassreference/components/description_text.dart';
-import 'package:godotclassreference/constants/class_db.dart';
+import 'package:godotclassreference/constants/keys.dart';
 import 'package:godotclassreference/helpers/trim_translate.dart';
 import 'package:godotclassreference/isar/schema/class_content.dart';
 // import 'package:godotclassreference/models/class_content.dart';
 import 'package:godotclassreference/theme/default.dart';
+import 'package:isar_plus/isar_plus.dart';
 
 class ClassInfo extends StatelessWidget {
   final ClassContent? clsContent;
@@ -14,10 +16,12 @@ class ClassInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _childClasses = ClassDB()
-        .getDB()
-        .where((element) => element.inherits == clsContent!.name)
-        .map((e) => ' [' + e.name! + '] ')
+    final _childClasses = GetIt.I<Isar>(instanceName: MetadataKeys.docsIsarKey)
+        .classContents
+        .where()
+        .inheritsEqualTo(clsContent!.name)
+        .findAll()
+        .map((c) => ' [' + c.name! + '] ')
         .toList()
         .toString();
 

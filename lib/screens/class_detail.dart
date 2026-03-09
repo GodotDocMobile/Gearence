@@ -8,7 +8,6 @@ import 'package:godotclassreference/helpers/sematic_helpers.dart';
 import 'package:godotclassreference/helpers/trim_translate.dart';
 import 'package:godotclassreference/screens/class_detail/class_annotations.dart';
 import 'package:godotclassreference/theme/themes.dart';
-import 'package:godotclassreference/constants/class_db.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:godotclassreference/models/class_content.dart';
 import 'package:godotclassreference/isar/schema/class_content.dart'
@@ -76,7 +75,7 @@ class _ClassDetailState extends State<ClassDetail>
   Future<ClassContent> getClassDetail() async {
     final version = storedValues.version;
 
-    return await ClassDB().getSingle(version, widget.className);
+    return ClassContent();
   }
 
   void onLinkTap(TapEventArg args) async {
