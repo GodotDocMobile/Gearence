@@ -3,6 +3,60 @@ import 'package:isar_plus/isar_plus.dart';
 
 part 'class_content.g.dart';
 
+// names for node tag used in node_tag
+final Map<classNodeType, String> tagName = {
+  classNodeType.D2: "Node",
+  classNodeType.D3: "Node",
+  classNodeType.Control: "Node",
+  classNodeType.VisualScript: "VScript",
+  classNodeType.VisualShader: "VShader",
+  classNodeType.Other: "Node",
+  classNodeType.None: "",
+};
+
+
+// names for class_select filter classes pop up
+final Map<classNodeType, String> filterName = {
+  classNodeType.D2: "2D Nodes",
+  classNodeType.D3: "3D Nodes",
+  classNodeType.Control: "Control Nodes",
+  classNodeType.VisualScript: "Visual Script Nodes",
+  classNodeType.VisualShader: "Visual Shader Nodes",
+  classNodeType.Other: "Other Nodes",
+  classNodeType.None: "None Nodes",
+};
+
+// names for StoredValues
+final Map<classNodeType, String> filterOptionStoreKey = {
+  classNodeType.D2: "show2DNodes",
+  classNodeType.D3: "show3DNodes",
+  classNodeType.Control: "showControlNodes",
+  classNodeType.VisualScript: "showVisualScriptNodes",
+  classNodeType.VisualShader: "showVisualShaderNodes",
+  classNodeType.Other: "showOtherNodes",
+  classNodeType.None: "showNonNodes",
+};
+
+// names of nodes to categorize them for filtering
+String getNodeName(classNodeType nodeType, String version) {
+  switch (nodeType) {
+    case classNodeType.D2:
+      return "Node2D";
+    case classNodeType.D3:
+      return double.parse(version) >= 4 ? "Node3D" : "Spatial";
+    case classNodeType.Control:
+      return "Control";
+    case classNodeType.VisualScript:
+      return "VisualScriptNode";
+    case classNodeType.VisualShader:
+      return "VisualShaderNode";
+    case classNodeType.Other:
+      return "Node";
+    case classNodeType.None:
+      return "";
+  }
+}
+
 enum classNodeType {
   D2,
   D3,

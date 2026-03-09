@@ -18,7 +18,6 @@ class GearenceLocalizations {
     if (msgid == null || msgid.isEmpty || locale.languageCode == 'en') {
       return msgid ?? '';
     }
-    // print(msgid);
 
     // 1. Try to get Isar from GetIt safely
     if (!GetIt.I.isRegistered<Isar>(instanceName: MetadataKeys.docsIsarKey)) {
