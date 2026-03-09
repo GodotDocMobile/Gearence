@@ -9,9 +9,7 @@ import 'package:godotclassreference/helpers/trim_translate.dart';
 import 'package:godotclassreference/screens/class_detail/class_annotations.dart';
 import 'package:godotclassreference/theme/themes.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
-import 'package:godotclassreference/models/class_content.dart';
-import 'package:godotclassreference/isar/schema/class_content.dart'
-    as isarDocSchema;
+import 'package:godotclassreference/isar/schema/class_content.dart';
 import 'package:godotclassreference/screens/class_detail/class_constants.dart';
 import 'package:godotclassreference/screens/class_detail/class_enums.dart';
 import 'package:godotclassreference/screens/class_detail/class_info.dart';
@@ -36,7 +34,7 @@ class _ClassDetailState extends State<ClassDetail>
     with SingleTickerProviderStateMixin {
   TabController? tabController;
   late Isar docIsar;
-  late isarDocSchema.ClassContent classContent;
+  late ClassContent classContent;
   // Future<ClassContent>? _classContent;
   late List<ClassTab> _tabs;
 
@@ -70,12 +68,6 @@ class _ClassDetailState extends State<ClassDetail>
   void dispose() {
     tabController!.dispose();
     super.dispose();
-  }
-
-  Future<ClassContent> getClassDetail() async {
-    final version = storedValues.version;
-
-    return ClassContent();
   }
 
   void onLinkTap(TapEventArg args) async {
@@ -284,8 +276,7 @@ class ClassTab {
   final Stream<TapEventArg>? eventStream;
 }
 
-List<ClassTab> getClassTabs(
-    isarDocSchema.ClassContent clsContent, BuildContext context) {
+List<ClassTab> getClassTabs(ClassContent clsContent, BuildContext context) {
   var _tabs = <ClassTab>[
     ClassTab(
       PropertyType.Class,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:godotclassreference/isar/schema/class_content.dart';
 
 /*
 #6589b0
@@ -38,3 +39,14 @@ final Color functionColor = Colors.blueAccent;
 final Color builtinValueColor = Colors.redAccent;
 final Color classColor = Colors.greenAccent;
 final Color signalColor = Colors.amberAccent;
+
+// color for node tag used in node_tag
+final Map<classNodeType, Color> tagColor = {
+  classNodeType.D2: Color(0xffa5b7f3),
+  classNodeType.D3: Color(0xfffc9c9c),
+  classNodeType.Control: Color(0xffa5efac),
+  classNodeType.VisualScript: Colors.blueGrey,
+  classNodeType.VisualShader: Colors.blueGrey,
+  classNodeType.Other: Colors.blueGrey,
+  classNodeType.None: Colors.blueGrey,
+};
