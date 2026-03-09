@@ -6,7 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:godotclassreference/constants/keys.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
-import 'package:godotclassreference/helpers/localizations.dart';
+import 'package:godotclassreference/helpers/translation_deletage.dart';
 import 'package:godotclassreference/isar/manager/settings_repository.dart';
 import 'package:godotclassreference/isar/services/isar_open.dart';
 import 'package:godotclassreference/isar/schema/user_setting.dart';
@@ -67,6 +67,31 @@ class GCRApp extends StatefulWidget {
 }
 
 class _GCRAppState extends State<GCRApp> {
+  Locale processLangCode(String localeString) {
+    // Handles formats like "zh_CN", "zh_Hans", or "sr_Cyrl"
+    final parts = localeString.split('_');
+    final language = parts[0];
+
+    if (parts.length == 1) {
+      return Locale(language);
+    }
+
+    final subtag = parts[1];
+
+    if (subtag.length == 4) {
+      // 4 characters = ISO 15924 Script Code (Hans, Hant, Cyrl)
+      return Locale.fromSubtags(
+        languageCode: language,
+        scriptCode: subtag,
+      );
+    } else if (subtag.length == 2) {
+      // 2 characters = ISO 3166-1 Country Code (CN, TW, HK)
+      return Locale(language, subtag);
+    }
+
+    return Locale(language); // Fallback
+  }
+
   @override
   Widget build(BuildContext context) {
     final repo = GetIt.I<SettingsRepository>();
@@ -76,27 +101,20 @@ class _GCRAppState extends State<GCRApp> {
         builder: (context, snapshoot) {
           // Using your isDarkMode() logic for the initial/current state
           final isDarkRecord = repo.getIsDarkMode();
-          final langCode = repo.getTranslation();
+          final translation = repo.getTranslation();
           final version = repo.getGodotVersion();
+          // final monoSpace = repo.getMonospace();
 
           final hasTranslation = double.parse(version.stringValue!) >= 3.4;
 
-          late Locale appLocale;
-          late List<Locale> supportedLocales;
+          Locale appLocale = processLangCode(translation.stringValue!);
+          List<Locale> supportedLocales = [Locale('en')];
           if (hasTranslation) {
-            switch (langCode.stringValue) {
-              case 'zh-Hans':
-                appLocale = Locale.fromSubtags(
-                  languageCode: 'zh',
-                  scriptCode: 'Hans',
-                );
-                break;
-              default:
-                appLocale = Locale(langCode.stringValue!);
-                break;
-            }
-
-            supportedLocales = [Locale('en')];
+            final godotLocales = storedValues
+                .configContent.branchTranslations[version.stringValue!]!
+                .map((lc) => processLangCode(lc))
+                .toList();
+            supportedLocales.addAll(godotLocales);
           }
 
           return MaterialApp(
@@ -104,11 +122,11 @@ class _GCRAppState extends State<GCRApp> {
             supportedLocales: supportedLocales,
             localizationsDelegates: hasTranslation
                 ? [
-                    // GearenceGettextLocalizationsDelegate(),
+                    GearenceLocalizationsDelegate(),
                     GlobalMaterialLocalizations.delegate,
                     GlobalCupertinoLocalizations.delegate,
                     GlobalWidgetsLocalizations.delegate,
-                    FallbackLocalizationDelegate(),
+                    // FallbackLocalizationDelegate(),
                   ]
                 : null,
             //hide debug banner

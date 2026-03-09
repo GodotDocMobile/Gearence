@@ -11,7 +11,6 @@ import 'package:godotclassreference/bloc/class_list_filter_bloc.dart';
 import 'package:godotclassreference/components/class_icon.dart';
 import 'package:godotclassreference/components/node_tag.dart';
 import 'package:godotclassreference/components/drawer.dart';
-import 'package:godotclassreference/constants/class_db.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:godotclassreference/models/class_content.dart';
 import 'package:godotclassreference/screens/class_detail.dart';
@@ -36,31 +35,31 @@ class _ClassSelectState extends State<ClassSelect> {
   // we can optimize this by yield when json has loaded,
   // and return when all xml files are loaded.
   Future<bool> getXmlFiles() async {
-    ClassDB _db = ClassDB();
-    if (_db.getDB().length == 0 || _db.version != storedValues.version) {
-      final file = await rootBundle
-          .loadString('xmls/files_' + storedValues.version + '.json');
-      final decoded = json.decode(file);
+    // ClassDB _db = ClassDB();
+    // if (_db.getDB().length == 0 || _db.version != storedValues.version) {
+    //   final file = await rootBundle
+    //       .loadString('xmls/files_' + storedValues.version + '.json');
+    //   final decoded = json.decode(file);
 
-      final _decodedList = decoded as List;
-      final List<ClassContent> _parsedList =
-          List<ClassContent>.from(_decodedList.map((e) {
-        final _rtn = new ClassContent();
-        _rtn.name = e['class_name'];
-        _rtn.inheritChain = e['inherit_chain'];
-        _rtn.svgFileName = e['svg_file_name'];
-        _rtn.xmlFilePath =
-            'xmls/' + storedValues.version + '/' + _rtn.name! + '.xml';
-        _rtn.setNodeType();
-        return _rtn;
-      })).toList();
+    //   final _decodedList = decoded as List;
+    //   final List<ClassContent> _parsedList =
+    //       List<ClassContent>.from(_decodedList.map((e) {
+    //     final _rtn = new ClassContent();
+    //     _rtn.name = e['class_name'];
+    //     _rtn.inheritChain = e['inherit_chain'];
+    //     _rtn.svgFileName = e['svg_file_name'];
+    //     _rtn.xmlFilePath =
+    //         'xmls/' + storedValues.version + '/' + _rtn.name! + '.xml';
+    //     _rtn.setNodeType();
+    //     return _rtn;
+    //   })).toList();
 
-      ClassDB().loadFromJsonIndex(_parsedList, storedValues.version);
-    }
-    if (_db.getDB().last.version == null ||
-        _db.getDB().last.version?.isEmpty == true) {
-      ClassDB().loadFromXmls();
-    }
+    //   ClassDB().loadFromJsonIndex(_parsedList, storedValues.version);
+    // }
+    // if (_db.getDB().last.version == null ||
+    //     _db.getDB().last.version?.isEmpty == true) {
+    //   ClassDB().loadFromXmls();
+    // }
     return true;
   }
 
@@ -165,7 +164,7 @@ class _ClassSelectState extends State<ClassSelect> {
         future: getXmlFiles(),
         builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
           if (snapshot.hasData) {
-            _classes = ClassDB().getDB();
+            _classes = [];
             // _fillTypedList(_classes);
             return Scaffold(
               drawer: GCRDrawer(),

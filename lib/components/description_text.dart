@@ -1,14 +1,17 @@
 import 'package:bbob_dart/bbob_dart.dart' as bbob;
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 import 'package:godotclassreference/bloc/blocs.dart';
 import 'package:godotclassreference/components/bbob_code_text.dart';
 import 'package:godotclassreference/components/bbob_code_text_multi_lang.dart';
+import 'package:godotclassreference/constants/keys.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:godotclassreference/helpers/sematic_helpers.dart';
+import 'package:godotclassreference/isar/schema/class_content.dart';
 import 'package:godotclassreference/theme/themes.dart';
-import 'package:godotclassreference/constants/class_db.dart';
 import 'package:godotclassreference/constants/colors.dart';
+import 'package:isar_plus/isar_plus.dart';
 
 enum DescriptionUsedBy {
   Inherits,
@@ -32,6 +35,7 @@ class DescriptionText extends StatelessWidget {
 
   List<InlineSpan> bbob_render(
       BuildContext context, String hintText, List<bbob.Node> parsed) {
+    final Isar docIsar = GetIt.I(instanceName: MetadataKeys.docsIsarKey);
     List<InlineSpan> rtn = [];
     parsed.forEach((element) {
       if (element.runtimeType == bbob.Text) {
@@ -235,7 +239,7 @@ class DescriptionText extends StatelessWidget {
                 style: scaledTextStyle(context).copyWith(color: color)));
             break;
           default:
-            if (ClassDB().getDB().any((element) => element.name == e.tag)) {
+            if (docIsar.classContents.where().nameEqualTo(e.tag).count() > 0) {
               hintText = "$hintText ${getSpacedClassName(e.tag)}";
               rtn.add(WidgetSpan(
                 child: Semantics(
