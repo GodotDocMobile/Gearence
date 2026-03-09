@@ -4,18 +4,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:godotclassreference/bloc/blocs.dart';
 import 'package:godotclassreference/constants/keys.dart';
-
-import 'package:godotclassreference/constants/stored_values.dart';
+import 'package:godotclassreference/isar/manager/settings_repository.dart';
 import 'package:godotclassreference/isar/schema/class_content.dart';
+import 'package:godotclassreference/isar/schema/user_setting.dart';
 import 'package:godotclassreference/theme/themes.dart';
 import 'package:isar_plus/isar_plus.dart';
 
 import 'class_detail.dart';
 
 class SetFontSize extends StatefulWidget {
-  final Function(int)? setScaleFunc;
 
-  const SetFontSize({Key? key, this.setScaleFunc}) : super(key: key);
+  const SetFontSize({Key? key}) : super(key: key);
 
   @override
   _SetFontSizeState createState() => _SetFontSizeState();
@@ -24,8 +23,12 @@ class SetFontSize extends StatefulWidget {
 class _SetFontSizeState extends State<SetFontSize>
     with SingleTickerProviderStateMixin {
   double bottomHeight = 130;
-  int settingsFontSize = storedValues.fontSize;
-  int initFontSize = storedValues.fontSize;
+
+  late SettingsRepository settingsRepository;
+  late UserSetting fontSizeRecord;
+  late int dbFontSize;
+  late int curFontSize;
+  
   bool save = false;
 
   ClassContent dummyNode = dummyClass;
@@ -39,17 +42,30 @@ class _SetFontSizeState extends State<SetFontSize>
   void initState() {
     super.initState();
     final Isar docIsar = GetIt.I(instanceName: MetadataKeys.docsIsarKey);
+    settingsRepository = GetIt.I();
+    fontSizeRecord = settingsRepository.getFontSize();
+    curFontSize = fontSizeRecord.intValue!;
+    dbFontSize = fontSizeRecord.intValue!;
+
     final node = docIsar.classContents.where().nameEqualTo('Node').findFirst()!;
     dummyNode.constants = node.constants;
     dummyNode.members = node.members;
     dummyNode.methods = node.methods;
     dummyNode.signals = node.signals;
+
+    _tabs = getClassTabs(dummyNode, context);
+    tabController = TabController(
+      vsync: this,
+      length: _tabs.length,
+    );
   }
 
   @override
   void dispose() {
     if (!save) {
-      StoredValues().fontSize = initFontSize.toInt();
+      // StoredValues().fontSize = initFontSize.toInt();
+
+      settingsRepository.saveSettings(fontSizeRecord..intValue = dbFontSize);
     }
     _streamController.close();
     super.dispose();
@@ -80,11 +96,6 @@ class _SetFontSizeState extends State<SetFontSize>
 
   @override
   Widget build(BuildContext context) {
-    _tabs = getClassTabs(dummyNode, context);
-    tabController = TabController(
-      vsync: this,
-      length: _tabs.length,
-    );
     return BlocListener<TapEventBloc, TapEventArg>(
       listenWhen: (previous, current) {
         return current.className.isNotEmpty;
@@ -99,9 +110,10 @@ class _SetFontSizeState extends State<SetFontSize>
           appBar: AppBar(
             title: Text("DummyClass"),
             bottom: TabBar(
-              indicatorColor: storedValues.isDarkTheme
-                  ? Theme.of(context).colorScheme.secondary
-                  : Colors.white,
+              indicatorColor:
+                  settingsRepository.getIsDarkMode().boolValue == true
+                      ? Theme.of(context).colorScheme.secondary
+                      : Colors.white,
               controller: tabController,
               isScrollable: true,
               tabs: _tabs.map((f) {
@@ -132,14 +144,16 @@ class _SetFontSizeState extends State<SetFontSize>
                       Container(
                         width: MediaQuery.of(context).size.width * 0.8,
                         child: Slider(
-                          value: settingsFontSize.toDouble(),
+                          value: curFontSize.toDouble(),
                           min: 0,
                           max: 4,
                           divisions: 4,
                           onChanged: (v) {
                             setState(() {
-                              StoredValues().fontSize = v.toInt();
-                              settingsFontSize = v.toInt();
+                              // StoredValues().fontSize = v.toInt();
+                              curFontSize = v.toInt();
+                              settingsRepository.saveSettings(
+                                  fontSizeRecord..intValue = curFontSize);
                             });
                           },
                         ),
@@ -155,7 +169,8 @@ class _SetFontSizeState extends State<SetFontSize>
                       child: Text("Save"),
                       onPressed: () {
                         save = true;
-                        widget.setScaleFunc!(settingsFontSize.toInt());
+                        settingsRepository.saveSettings(
+                            fontSizeRecord..intValue = curFontSize);
                         Navigator.of(context).pop();
                       },
                       color: Colors.blue,

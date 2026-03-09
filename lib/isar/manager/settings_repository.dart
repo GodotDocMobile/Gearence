@@ -36,7 +36,7 @@ class SettingsRepository {
     return darkModeRecord;
   }
 
-  UserSetting getLanguage() {
+  UserSetting getTranslation() {
     var languageRecord = get(MetadataKeys.translation);
     languageRecord ??= UserSetting(id: -1)
       ..stringValue = 'en'
@@ -58,6 +58,22 @@ class SettingsRepository {
       ..stringValue = '0'
       ..key = MetadataKeys.getDocVersionKey(godotVersion);
     return dbVersionRecord;
+  }
+
+  UserSetting getFontSize() {
+    var dbFontSizeRecord = get(MetadataKeys.fontSize);
+    dbFontSizeRecord ??= UserSetting(id: -1)
+      ..intValue = 0
+      ..key = MetadataKeys.fontSize;
+    return dbFontSizeRecord;
+  }
+
+  UserSetting getMonospace() {
+    var record = get(MetadataKeys.monoSpaceFont);
+    record ??= UserSetting(id: -1)
+      ..boolValue = false
+      ..key = MetadataKeys.monoSpaceFont;
+    return record;
   }
 
   // /// Adds a document to the history or updates its timestamp if it exists

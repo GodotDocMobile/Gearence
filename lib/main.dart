@@ -76,7 +76,7 @@ class _GCRAppState extends State<GCRApp> {
         builder: (context, snapshoot) {
           // Using your isDarkMode() logic for the initial/current state
           final isDarkRecord = repo.getIsDarkMode();
-          final langCode = repo.getLanguage();
+          final langCode = repo.getTranslation();
           final version = repo.getGodotVersion();
 
           final hasTranslation = double.parse(version.stringValue!) >= 3.4;

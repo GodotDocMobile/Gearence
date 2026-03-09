@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 import 'package:godotclassreference/constants/colors.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
+import 'package:godotclassreference/isar/manager/settings_repository.dart';
 
 ThemeData darkTheme = ThemeData(
   primarySwatch: godotColor as MaterialColor?,
@@ -16,15 +18,17 @@ const TEXT_SCALE_FACTOR = 0.1;
 const TEXT_STYLE_FACTOR = 2.5;
 
 TextStyle scaledTextStyle(BuildContext context) {
+  final fontSizeRecord = GetIt.I<SettingsRepository>().getFontSize();
   return DefaultTextStyle.of(context)
       .style
-      .copyWith(fontSize: 14 + storedValues.fontSize * TEXT_STYLE_FACTOR);
+      .copyWith(fontSize: 14 + fontSizeRecord.intValue! * TEXT_STYLE_FACTOR);
 }
 
 MediaQueryData scaledMediaQueryData(BuildContext context) {
+  final fontSizeRecord = GetIt.I<SettingsRepository>().getFontSize();
   return MediaQuery.of(context).copyWith(
       textScaler:
-          TextScaler.linear(1 + storedValues.fontSize * TEXT_SCALE_FACTOR));
+          TextScaler.linear(1 + fontSizeRecord.intValue! * TEXT_SCALE_FACTOR));
 }
 
 TextStyle nonScaleTextStyle(BuildContext context) {
@@ -36,6 +40,7 @@ MediaQueryData nonScaledMediaQueryData(BuildContext context) {
 }
 
 TextStyle? monoOptionalStyle(BuildContext context, {TextStyle? baseStyle}) {
+  // final fontSizeRecord = GetIt.I<SettingsRepository>()();
   if (storedValues.isMonospaced) {
     if (baseStyle != null) {
       return baseStyle.copyWith(fontFamily: 'JetbrainsMono');

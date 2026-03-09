@@ -159,12 +159,6 @@ class _ClassSelectState extends State<ClassSelect> {
     return _rtnList;
   }
 
-  void setScale(int value) {
-    setState(() {
-      storedValues.fontSize = value;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -174,7 +168,7 @@ class _ClassSelectState extends State<ClassSelect> {
             _classes = ClassDB().getDB();
             // _fillTypedList(_classes);
             return Scaffold(
-              drawer: GCRDrawer(setScaleFunc: setScale),
+              drawer: GCRDrawer(),
               appBar: AppBar(
                 title: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
