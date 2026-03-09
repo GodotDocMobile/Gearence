@@ -7,7 +7,6 @@ import 'package:godotclassreference/bloc/tap_event_arg.dart';
 import 'package:godotclassreference/constants/keys.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:godotclassreference/isar/schema/class_content.dart';
-// import 'package:godotclassreference/models/class_content.dart';
 import 'package:godotclassreference/theme/themes.dart';
 import 'package:isar_plus/isar_plus.dart';
 
@@ -37,7 +36,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   // Inside _SearchScreenState
   List<SearchableItem> _searchResults = [];
-  bool _isSearching = false;
+  bool isSearching = false;
 
 // Helper to map UI categories to PropertyTypes
   List<PropertyType> _getActiveFilters() {
@@ -76,7 +75,7 @@ class _SearchScreenState extends State<SearchScreen> {
       return;
     }
 
-    setState(() => _isSearching = true);
+    setState(() => isSearching = true);
 
     final term = text.toLowerCase();
     final isar = GetIt.I<Isar>(instanceName: MetadataKeys.docsIsarKey);
@@ -123,7 +122,7 @@ class _SearchScreenState extends State<SearchScreen> {
     if (mounted) {
       setState(() {
         _searchResults = uniqueResults.values.toList();
-        _isSearching = false;
+        isSearching = false;
       });
     }
   }

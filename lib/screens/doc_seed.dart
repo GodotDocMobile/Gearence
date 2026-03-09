@@ -63,16 +63,9 @@ class _DocSeedState extends State<DocSeed> {
         // 1. Properly close existing instance if open
         if (GetIt.I
             .isRegistered<Isar>(instanceName: MetadataKeys.docsIsarKey)) {
-          final existingIsar = Isar.get(
-            schemas: [
-              ClassContentSchema,
-              GodotIconSchema,
-              TranslationSchema,
-              SearchableItemSchema
-            ],
-            name: docIsarFileName,
-          );
-          existingIsar.close();
+          final Isar openedIsar =
+              GetIt.I(instanceName: MetadataKeys.docsIsarKey);
+          openedIsar.close();
         }
 
         // 2. Copy the bytes

@@ -5,6 +5,7 @@ import 'package:args/args.dart';
 import 'package:godotclassreference/constants/keys.dart';
 import 'package:godotclassreference/isar/schema/class_content.dart';
 import 'package:godotclassreference/models/config_content.dart';
+import 'package:intl/intl.dart';
 import 'package:isar_plus/isar_plus.dart';
 import 'package:path/path.dart';
 
@@ -115,7 +116,8 @@ void main(List<String> arguments) async {
   await File(lock).delete();
 
   // write ConfigContent
-  configConten.updateDate = DateTime.now().toString();
+  final format = DateFormat('yyyy-MM-dd');
+  configConten.updateDate = format.format(DateTime.now());
   await File(join(outputPath, 'config.json'))
       .writeAsString(jsonEncode(configConten.toJson()));
   print("ConfigContent generated");
