@@ -36,17 +36,10 @@ class _ClassMethodsState extends State<ClassMethods> {
     super.initState();
 
     if (_methods.isEmpty && widget.clsContent != null) {
-      _prepareData();
+      Future.delayed(Duration(milliseconds: 100), () {
+        if (mounted) _prepareData();
+      });
     }
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (blocs.tapEventBloc.state.fieldName.isNotEmpty) {
-        try {
-          scrollTo(blocs.tapEventBloc.state);
-        } catch (_) {}
-        blocs.tapEventBloc.reached();
-      }
-    });
   }
 
   final returnKey = 'return';
@@ -61,9 +54,20 @@ class _ClassMethodsState extends State<ClassMethods> {
       // If arguments have descriptions, you'd add them here too
     }
 
-    _methods = methods;
-    _translationCache = batchTranslate(translationKeys);
-    _returnLabel = _translationCache[returnKey] ?? returnKey;
+    setState(() {
+      _methods = methods;
+      _translationCache = batchTranslate(translationKeys);
+      _returnLabel = _translationCache[returnKey] ?? returnKey;
+    });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (blocs.tapEventBloc.state.fieldName.isNotEmpty) {
+        try {
+          scrollTo(blocs.tapEventBloc.state);
+        } catch (_) {}
+        blocs.tapEventBloc.reached();
+      }
+    });
   }
 
   void scrollTo(TapEventArg args) {

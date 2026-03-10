@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:godotclassreference/constants/time.dart';
 import 'package:godotclassreference/helpers/trim_translate.dart';
 import 'package:godotclassreference/isar/schema/class_content.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -48,13 +49,8 @@ class _ClassEnumsState extends State<ClassEnums> {
   void initState() {
     super.initState();
     // 2. Perform all grouping, sorting, and Isar Plus translation in one pass
-    _prepareData();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (blocs.tapEventBloc.state.fieldName.isNotEmpty) {
-        scrollTo(blocs.tapEventBloc.state);
-        blocs.tapEventBloc.reached();
-      }
+    Future.delayed(Duration(milliseconds: dataPrepareDelay), () {
+      if (mounted) _prepareData();
     });
   }
 
@@ -95,6 +91,13 @@ class _ClassEnumsState extends State<ClassEnums> {
     setState(() {
       _displayItems = flattened;
       _translationCache = batchTranslate(translationKeys);
+    });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (blocs.tapEventBloc.state.fieldName.isNotEmpty) {
+        scrollTo(blocs.tapEventBloc.state);
+        blocs.tapEventBloc.reached();
+      }
     });
   }
 

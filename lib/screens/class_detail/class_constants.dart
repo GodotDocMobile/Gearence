@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:godotclassreference/components/zero_content_hint.dart';
+import 'package:godotclassreference/constants/time.dart';
 import 'package:godotclassreference/helpers/trim_translate.dart';
 import 'package:godotclassreference/isar/schema/class_content.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -29,13 +30,8 @@ class _ClassConstantsState extends State<ClassConstants> {
   @override
   void initState() {
     super.initState();
-    _prepareData();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (blocs.tapEventBloc.state.fieldName.isNotEmpty) {
-        scrollTo(blocs.tapEventBloc.state);
-        blocs.tapEventBloc.reached();
-      }
+    Future.delayed(Duration(milliseconds: dataPrepareDelay), () {
+      if (mounted) _prepareData();
     });
   }
 
@@ -56,8 +52,17 @@ class _ClassConstantsState extends State<ClassConstants> {
     }
 
     // 3. Assign data and cache translations synchronously
-    _onlyConstants = constants;
-    _translationCache = batchTranslate(translationKeys);
+    setState(() {
+      _onlyConstants = constants;
+      _translationCache = batchTranslate(translationKeys);
+    });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (blocs.tapEventBloc.state.fieldName.isNotEmpty) {
+        scrollTo(blocs.tapEventBloc.state);
+        blocs.tapEventBloc.reached();
+      }
+    });
   }
 
   void scrollTo(TapEventArg args) {
