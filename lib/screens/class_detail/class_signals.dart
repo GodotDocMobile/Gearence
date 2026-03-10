@@ -33,6 +33,7 @@ class _ClassSignalsState extends State<ClassSignals> {
   void initState() {
     super.initState();
     if (_signals.isEmpty && widget.clsContent != null) {
+      _signals = widget.clsContent!.signals;
       Future.delayed(Duration(milliseconds: dataPrepareDelay), () {
         if (mounted) _prepareData();
       });
@@ -40,17 +41,15 @@ class _ClassSignalsState extends State<ClassSignals> {
   }
 
   void _prepareData() {
-    final signals = widget.clsContent!.signals;
     final List<String> translationKeys = [];
 
     // Collect signal descriptions for batch translation
-    for (var s in signals) {
+    for (var s in _signals) {
       if (s.description != null && s.description!.isNotEmpty) {
         translationKeys.add(s.description!);
       }
     }
     setState(() {
-      _signals = signals;
       _translationCache = batchTranslate(translationKeys);
     });
     WidgetsBinding.instance.addPostFrameCallback((_) {

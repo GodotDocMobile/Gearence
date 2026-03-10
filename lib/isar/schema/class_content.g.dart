@@ -2874,15 +2874,24 @@ final ClassContentSchema = IsarGeneratedSchema(
         type: IsarType.string,
       ),
       IsarPropertySchema(
+        name: 'nodeType',
+        type: IsarType.byte,
+        enumMap: {
+          "D2": 0,
+          "D3": 1,
+          "Control": 2,
+          "VisualScript": 3,
+          "VisualShader": 4,
+          "Other": 5,
+          "None": 6
+        },
+      ),
+      IsarPropertySchema(
         name: 'inheritChain',
         type: IsarType.string,
       ),
       IsarPropertySchema(
         name: 'svgFileName',
-        type: IsarType.string,
-      ),
-      IsarPropertySchema(
-        name: 'xmlFilePath',
         type: IsarType.string,
       ),
       IsarPropertySchema(
@@ -3011,16 +3020,9 @@ int serializeClassContent(IsarWriter writer, ClassContent object) {
       IsarCore.writeString(writer, 8, value);
     }
   }
+  IsarCore.writeByte(writer, 9, object.nodeType.index);
   {
     final value = object.inheritChain;
-    if (value == null) {
-      IsarCore.writeNull(writer, 9);
-    } else {
-      IsarCore.writeString(writer, 9, value);
-    }
-  }
-  {
-    final value = object.svgFileName;
     if (value == null) {
       IsarCore.writeNull(writer, 10);
     } else {
@@ -3028,7 +3030,7 @@ int serializeClassContent(IsarWriter writer, ClassContent object) {
     }
   }
   {
-    final value = object.xmlFilePath;
+    final value = object.svgFileName;
     if (value == null) {
       IsarCore.writeNull(writer, 11);
     } else {
@@ -3131,9 +3133,16 @@ ClassContent deserializeClassContent(IsarReader reader) {
   object.demos = IsarCore.readString(reader, 6);
   object.description = IsarCore.readString(reader, 7);
   object.tutorials = IsarCore.readString(reader, 8);
-  object.inheritChain = IsarCore.readString(reader, 9);
-  object.svgFileName = IsarCore.readString(reader, 10);
-  object.xmlFilePath = IsarCore.readString(reader, 11);
+  {
+    if (IsarCore.readNull(reader, 9)) {
+      object.nodeType = classNodeType.D2;
+    } else {
+      object.nodeType = _classContentNodeType[IsarCore.readByte(reader, 9)] ??
+          classNodeType.D2;
+    }
+  }
+  object.inheritChain = IsarCore.readString(reader, 10);
+  object.svgFileName = IsarCore.readString(reader, 11);
   {
     final length = IsarCore.readList(reader, 12, IsarCore.readerPtrPtr);
     {
@@ -3311,7 +3320,14 @@ dynamic deserializeClassContentProp(IsarReader reader, int property) {
     case 8:
       return IsarCore.readString(reader, 8);
     case 9:
-      return IsarCore.readString(reader, 9);
+      {
+        if (IsarCore.readNull(reader, 9)) {
+          return classNodeType.D2;
+        } else {
+          return _classContentNodeType[IsarCore.readByte(reader, 9)] ??
+              classNodeType.D2;
+        }
+      }
     case 10:
       return IsarCore.readString(reader, 10);
     case 11:
@@ -3491,9 +3507,9 @@ sealed class _ClassContentUpdate {
     String? demos,
     String? description,
     String? tutorials,
+    classNodeType? nodeType,
     String? inheritChain,
     String? svgFileName,
-    String? xmlFilePath,
   });
 }
 
@@ -3513,9 +3529,9 @@ class _ClassContentUpdateImpl implements _ClassContentUpdate {
     Object? demos = ignore,
     Object? description = ignore,
     Object? tutorials = ignore,
+    Object? nodeType = ignore,
     Object? inheritChain = ignore,
     Object? svgFileName = ignore,
-    Object? xmlFilePath = ignore,
   }) {
     return collection.updateProperties([
           id
@@ -3528,9 +3544,9 @@ class _ClassContentUpdateImpl implements _ClassContentUpdate {
           if (demos != ignore) 6: demos as String?,
           if (description != ignore) 7: description as String?,
           if (tutorials != ignore) 8: tutorials as String?,
-          if (inheritChain != ignore) 9: inheritChain as String?,
-          if (svgFileName != ignore) 10: svgFileName as String?,
-          if (xmlFilePath != ignore) 11: xmlFilePath as String?,
+          if (nodeType != ignore) 9: nodeType as classNodeType?,
+          if (inheritChain != ignore) 10: inheritChain as String?,
+          if (svgFileName != ignore) 11: svgFileName as String?,
         }) >
         0;
   }
@@ -3547,9 +3563,9 @@ sealed class _ClassContentUpdateAll {
     String? demos,
     String? description,
     String? tutorials,
+    classNodeType? nodeType,
     String? inheritChain,
     String? svgFileName,
-    String? xmlFilePath,
   });
 }
 
@@ -3569,9 +3585,9 @@ class _ClassContentUpdateAllImpl implements _ClassContentUpdateAll {
     Object? demos = ignore,
     Object? description = ignore,
     Object? tutorials = ignore,
+    Object? nodeType = ignore,
     Object? inheritChain = ignore,
     Object? svgFileName = ignore,
-    Object? xmlFilePath = ignore,
   }) {
     return collection.updateProperties(id, {
       if (name != ignore) 1: name as String?,
@@ -3582,9 +3598,9 @@ class _ClassContentUpdateAllImpl implements _ClassContentUpdateAll {
       if (demos != ignore) 6: demos as String?,
       if (description != ignore) 7: description as String?,
       if (tutorials != ignore) 8: tutorials as String?,
-      if (inheritChain != ignore) 9: inheritChain as String?,
-      if (svgFileName != ignore) 10: svgFileName as String?,
-      if (xmlFilePath != ignore) 11: xmlFilePath as String?,
+      if (nodeType != ignore) 9: nodeType as classNodeType?,
+      if (inheritChain != ignore) 10: inheritChain as String?,
+      if (svgFileName != ignore) 11: svgFileName as String?,
     });
   }
 }
@@ -3605,9 +3621,9 @@ sealed class _ClassContentQueryUpdate {
     String? demos,
     String? description,
     String? tutorials,
+    classNodeType? nodeType,
     String? inheritChain,
     String? svgFileName,
-    String? xmlFilePath,
   });
 }
 
@@ -3627,9 +3643,9 @@ class _ClassContentQueryUpdateImpl implements _ClassContentQueryUpdate {
     Object? demos = ignore,
     Object? description = ignore,
     Object? tutorials = ignore,
+    Object? nodeType = ignore,
     Object? inheritChain = ignore,
     Object? svgFileName = ignore,
-    Object? xmlFilePath = ignore,
   }) {
     return query.updateProperties(limit: limit, {
       if (name != ignore) 1: name as String?,
@@ -3640,9 +3656,9 @@ class _ClassContentQueryUpdateImpl implements _ClassContentQueryUpdate {
       if (demos != ignore) 6: demos as String?,
       if (description != ignore) 7: description as String?,
       if (tutorials != ignore) 8: tutorials as String?,
-      if (inheritChain != ignore) 9: inheritChain as String?,
-      if (svgFileName != ignore) 10: svgFileName as String?,
-      if (xmlFilePath != ignore) 11: xmlFilePath as String?,
+      if (nodeType != ignore) 9: nodeType as classNodeType?,
+      if (inheritChain != ignore) 10: inheritChain as String?,
+      if (svgFileName != ignore) 11: svgFileName as String?,
     });
   }
 }
@@ -3670,9 +3686,9 @@ class _ClassContentQueryBuilderUpdateImpl implements _ClassContentQueryUpdate {
     Object? demos = ignore,
     Object? description = ignore,
     Object? tutorials = ignore,
+    Object? nodeType = ignore,
     Object? inheritChain = ignore,
     Object? svgFileName = ignore,
-    Object? xmlFilePath = ignore,
   }) {
     final q = query.build();
     try {
@@ -3685,9 +3701,9 @@ class _ClassContentQueryBuilderUpdateImpl implements _ClassContentQueryUpdate {
         if (demos != ignore) 6: demos as String?,
         if (description != ignore) 7: description as String?,
         if (tutorials != ignore) 8: tutorials as String?,
-        if (inheritChain != ignore) 9: inheritChain as String?,
-        if (svgFileName != ignore) 10: svgFileName as String?,
-        if (xmlFilePath != ignore) 11: xmlFilePath as String?,
+        if (nodeType != ignore) 9: nodeType as classNodeType?,
+        if (inheritChain != ignore) 10: inheritChain as String?,
+        if (svgFileName != ignore) 11: svgFileName as String?,
       });
     } finally {
       q.close();
@@ -3703,6 +3719,16 @@ extension ClassContentQueryBuilderUpdate
   _ClassContentQueryUpdate get updateAll =>
       _ClassContentQueryBuilderUpdateImpl(this);
 }
+
+const _classContentNodeType = {
+  0: classNodeType.D2,
+  1: classNodeType.D3,
+  2: classNodeType.Control,
+  3: classNodeType.VisualScript,
+  4: classNodeType.VisualShader,
+  5: classNodeType.Other,
+  6: classNodeType.None,
+};
 
 extension ClassContentQueryFilter
     on QueryBuilder<ClassContent, ClassContent, QFilterCondition> {
@@ -5336,16 +5362,102 @@ extension ClassContentQueryFilter
   }
 
   QueryBuilder<ClassContent, ClassContent, QAfterFilterCondition>
+      nodeTypeEqualTo(
+    classNodeType value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        EqualCondition(
+          property: 9,
+          value: value.index,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<ClassContent, ClassContent, QAfterFilterCondition>
+      nodeTypeGreaterThan(
+    classNodeType value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        GreaterCondition(
+          property: 9,
+          value: value.index,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<ClassContent, ClassContent, QAfterFilterCondition>
+      nodeTypeGreaterThanOrEqualTo(
+    classNodeType value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        GreaterOrEqualCondition(
+          property: 9,
+          value: value.index,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<ClassContent, ClassContent, QAfterFilterCondition>
+      nodeTypeLessThan(
+    classNodeType value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessCondition(
+          property: 9,
+          value: value.index,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<ClassContent, ClassContent, QAfterFilterCondition>
+      nodeTypeLessThanOrEqualTo(
+    classNodeType value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessOrEqualCondition(
+          property: 9,
+          value: value.index,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<ClassContent, ClassContent, QAfterFilterCondition>
+      nodeTypeBetween(
+    classNodeType lower,
+    classNodeType upper,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        BetweenCondition(
+          property: 9,
+          lower: lower.index,
+          upper: upper.index,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<ClassContent, ClassContent, QAfterFilterCondition>
       inheritChainIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const IsNullCondition(property: 9));
+      return query.addFilterCondition(const IsNullCondition(property: 10));
     });
   }
 
   QueryBuilder<ClassContent, ClassContent, QAfterFilterCondition>
       inheritChainIsNotNull() {
     return QueryBuilder.apply(not(), (query) {
-      return query.addFilterCondition(const IsNullCondition(property: 9));
+      return query.addFilterCondition(const IsNullCondition(property: 10));
     });
   }
 
@@ -5357,7 +5469,7 @@ extension ClassContentQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         EqualCondition(
-          property: 9,
+          property: 10,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -5373,7 +5485,7 @@ extension ClassContentQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         GreaterCondition(
-          property: 9,
+          property: 10,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -5389,7 +5501,7 @@ extension ClassContentQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         GreaterOrEqualCondition(
-          property: 9,
+          property: 10,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -5405,7 +5517,7 @@ extension ClassContentQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         LessCondition(
-          property: 9,
+          property: 10,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -5421,7 +5533,7 @@ extension ClassContentQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         LessOrEqualCondition(
-          property: 9,
+          property: 10,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -5438,7 +5550,7 @@ extension ClassContentQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         BetweenCondition(
-          property: 9,
+          property: 10,
           lower: lower,
           upper: upper,
           caseSensitive: caseSensitive,
@@ -5455,7 +5567,7 @@ extension ClassContentQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         StartsWithCondition(
-          property: 9,
+          property: 10,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -5471,7 +5583,7 @@ extension ClassContentQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         EndsWithCondition(
-          property: 9,
+          property: 10,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -5484,7 +5596,7 @@ extension ClassContentQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         ContainsCondition(
-          property: 9,
+          property: 10,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -5497,7 +5609,7 @@ extension ClassContentQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         MatchesCondition(
-          property: 9,
+          property: 10,
           wildcard: pattern,
           caseSensitive: caseSensitive,
         ),
@@ -5510,7 +5622,7 @@ extension ClassContentQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         const EqualCondition(
-          property: 9,
+          property: 10,
           value: '',
         ),
       );
@@ -5522,7 +5634,7 @@ extension ClassContentQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         const GreaterCondition(
-          property: 9,
+          property: 10,
           value: '',
         ),
       );
@@ -5532,14 +5644,14 @@ extension ClassContentQueryFilter
   QueryBuilder<ClassContent, ClassContent, QAfterFilterCondition>
       svgFileNameIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const IsNullCondition(property: 10));
+      return query.addFilterCondition(const IsNullCondition(property: 11));
     });
   }
 
   QueryBuilder<ClassContent, ClassContent, QAfterFilterCondition>
       svgFileNameIsNotNull() {
     return QueryBuilder.apply(not(), (query) {
-      return query.addFilterCondition(const IsNullCondition(property: 10));
+      return query.addFilterCondition(const IsNullCondition(property: 11));
     });
   }
 
@@ -5551,7 +5663,7 @@ extension ClassContentQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         EqualCondition(
-          property: 10,
+          property: 11,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -5567,7 +5679,7 @@ extension ClassContentQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         GreaterCondition(
-          property: 10,
+          property: 11,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -5583,7 +5695,7 @@ extension ClassContentQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         GreaterOrEqualCondition(
-          property: 10,
+          property: 11,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -5599,7 +5711,7 @@ extension ClassContentQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         LessCondition(
-          property: 10,
+          property: 11,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -5615,7 +5727,7 @@ extension ClassContentQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         LessOrEqualCondition(
-          property: 10,
+          property: 11,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -5632,7 +5744,7 @@ extension ClassContentQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         BetweenCondition(
-          property: 10,
+          property: 11,
           lower: lower,
           upper: upper,
           caseSensitive: caseSensitive,
@@ -5649,7 +5761,7 @@ extension ClassContentQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         StartsWithCondition(
-          property: 10,
+          property: 11,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -5665,7 +5777,7 @@ extension ClassContentQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         EndsWithCondition(
-          property: 10,
+          property: 11,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -5678,7 +5790,7 @@ extension ClassContentQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         ContainsCondition(
-          property: 10,
+          property: 11,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -5691,7 +5803,7 @@ extension ClassContentQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         MatchesCondition(
-          property: 10,
+          property: 11,
           wildcard: pattern,
           caseSensitive: caseSensitive,
         ),
@@ -5704,7 +5816,7 @@ extension ClassContentQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         const EqualCondition(
-          property: 10,
+          property: 11,
           value: '',
         ),
       );
@@ -5713,200 +5825,6 @@ extension ClassContentQueryFilter
 
   QueryBuilder<ClassContent, ClassContent, QAfterFilterCondition>
       svgFileNameIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        const GreaterCondition(
-          property: 10,
-          value: '',
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<ClassContent, ClassContent, QAfterFilterCondition>
-      xmlFilePathIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const IsNullCondition(property: 11));
-    });
-  }
-
-  QueryBuilder<ClassContent, ClassContent, QAfterFilterCondition>
-      xmlFilePathIsNotNull() {
-    return QueryBuilder.apply(not(), (query) {
-      return query.addFilterCondition(const IsNullCondition(property: 11));
-    });
-  }
-
-  QueryBuilder<ClassContent, ClassContent, QAfterFilterCondition>
-      xmlFilePathEqualTo(
-    String? value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        EqualCondition(
-          property: 11,
-          value: value,
-          caseSensitive: caseSensitive,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<ClassContent, ClassContent, QAfterFilterCondition>
-      xmlFilePathGreaterThan(
-    String? value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        GreaterCondition(
-          property: 11,
-          value: value,
-          caseSensitive: caseSensitive,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<ClassContent, ClassContent, QAfterFilterCondition>
-      xmlFilePathGreaterThanOrEqualTo(
-    String? value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        GreaterOrEqualCondition(
-          property: 11,
-          value: value,
-          caseSensitive: caseSensitive,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<ClassContent, ClassContent, QAfterFilterCondition>
-      xmlFilePathLessThan(
-    String? value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        LessCondition(
-          property: 11,
-          value: value,
-          caseSensitive: caseSensitive,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<ClassContent, ClassContent, QAfterFilterCondition>
-      xmlFilePathLessThanOrEqualTo(
-    String? value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        LessOrEqualCondition(
-          property: 11,
-          value: value,
-          caseSensitive: caseSensitive,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<ClassContent, ClassContent, QAfterFilterCondition>
-      xmlFilePathBetween(
-    String? lower,
-    String? upper, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        BetweenCondition(
-          property: 11,
-          lower: lower,
-          upper: upper,
-          caseSensitive: caseSensitive,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<ClassContent, ClassContent, QAfterFilterCondition>
-      xmlFilePathStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        StartsWithCondition(
-          property: 11,
-          value: value,
-          caseSensitive: caseSensitive,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<ClassContent, ClassContent, QAfterFilterCondition>
-      xmlFilePathEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        EndsWithCondition(
-          property: 11,
-          value: value,
-          caseSensitive: caseSensitive,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<ClassContent, ClassContent, QAfterFilterCondition>
-      xmlFilePathContains(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        ContainsCondition(
-          property: 11,
-          value: value,
-          caseSensitive: caseSensitive,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<ClassContent, ClassContent, QAfterFilterCondition>
-      xmlFilePathMatches(String pattern, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        MatchesCondition(
-          property: 11,
-          wildcard: pattern,
-          caseSensitive: caseSensitive,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<ClassContent, ClassContent, QAfterFilterCondition>
-      xmlFilePathIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        const EqualCondition(
-          property: 11,
-          value: '',
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<ClassContent, ClassContent, QAfterFilterCondition>
-      xmlFilePathIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         const GreaterCondition(
@@ -6187,11 +6105,23 @@ extension ClassContentQuerySortBy
     });
   }
 
+  QueryBuilder<ClassContent, ClassContent, QAfterSortBy> sortByNodeType() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(9);
+    });
+  }
+
+  QueryBuilder<ClassContent, ClassContent, QAfterSortBy> sortByNodeTypeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(9, sort: Sort.desc);
+    });
+  }
+
   QueryBuilder<ClassContent, ClassContent, QAfterSortBy> sortByInheritChain(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(
-        9,
+        10,
         caseSensitive: caseSensitive,
       );
     });
@@ -6201,7 +6131,7 @@ extension ClassContentQuerySortBy
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(
-        9,
+        10,
         sort: Sort.desc,
         caseSensitive: caseSensitive,
       );
@@ -6212,34 +6142,13 @@ extension ClassContentQuerySortBy
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(
-        10,
-        caseSensitive: caseSensitive,
-      );
-    });
-  }
-
-  QueryBuilder<ClassContent, ClassContent, QAfterSortBy> sortBySvgFileNameDesc(
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(
-        10,
-        sort: Sort.desc,
-        caseSensitive: caseSensitive,
-      );
-    });
-  }
-
-  QueryBuilder<ClassContent, ClassContent, QAfterSortBy> sortByXmlFilePath(
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(
         11,
         caseSensitive: caseSensitive,
       );
     });
   }
 
-  QueryBuilder<ClassContent, ClassContent, QAfterSortBy> sortByXmlFilePathDesc(
+  QueryBuilder<ClassContent, ClassContent, QAfterSortBy> sortBySvgFileNameDesc(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(
@@ -6377,42 +6286,40 @@ extension ClassContentQuerySortThenBy
     });
   }
 
+  QueryBuilder<ClassContent, ClassContent, QAfterSortBy> thenByNodeType() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(9);
+    });
+  }
+
+  QueryBuilder<ClassContent, ClassContent, QAfterSortBy> thenByNodeTypeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(9, sort: Sort.desc);
+    });
+  }
+
   QueryBuilder<ClassContent, ClassContent, QAfterSortBy> thenByInheritChain(
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(9, caseSensitive: caseSensitive);
-    });
-  }
-
-  QueryBuilder<ClassContent, ClassContent, QAfterSortBy> thenByInheritChainDesc(
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(9, sort: Sort.desc, caseSensitive: caseSensitive);
-    });
-  }
-
-  QueryBuilder<ClassContent, ClassContent, QAfterSortBy> thenBySvgFileName(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(10, caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<ClassContent, ClassContent, QAfterSortBy> thenBySvgFileNameDesc(
+  QueryBuilder<ClassContent, ClassContent, QAfterSortBy> thenByInheritChainDesc(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(10, sort: Sort.desc, caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<ClassContent, ClassContent, QAfterSortBy> thenByXmlFilePath(
+  QueryBuilder<ClassContent, ClassContent, QAfterSortBy> thenBySvgFileName(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(11, caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<ClassContent, ClassContent, QAfterSortBy> thenByXmlFilePathDesc(
+  QueryBuilder<ClassContent, ClassContent, QAfterSortBy> thenBySvgFileNameDesc(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(11, sort: Sort.desc, caseSensitive: caseSensitive);
@@ -6479,21 +6386,21 @@ extension ClassContentQueryWhereDistinct
   }
 
   QueryBuilder<ClassContent, ClassContent, QAfterDistinct>
-      distinctByInheritChain({bool caseSensitive = true}) {
+      distinctByNodeType() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(9, caseSensitive: caseSensitive);
+      return query.addDistinctBy(9);
     });
   }
 
   QueryBuilder<ClassContent, ClassContent, QAfterDistinct>
-      distinctBySvgFileName({bool caseSensitive = true}) {
+      distinctByInheritChain({bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(10, caseSensitive: caseSensitive);
     });
   }
 
   QueryBuilder<ClassContent, ClassContent, QAfterDistinct>
-      distinctByXmlFilePath({bool caseSensitive = true}) {
+      distinctBySvgFileName({bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(11, caseSensitive: caseSensitive);
     });
@@ -6557,19 +6464,19 @@ extension ClassContentQueryProperty1
     });
   }
 
-  QueryBuilder<ClassContent, String?, QAfterProperty> inheritChainProperty() {
+  QueryBuilder<ClassContent, classNodeType, QAfterProperty> nodeTypeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(9);
     });
   }
 
-  QueryBuilder<ClassContent, String?, QAfterProperty> svgFileNameProperty() {
+  QueryBuilder<ClassContent, String?, QAfterProperty> inheritChainProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(10);
     });
   }
 
-  QueryBuilder<ClassContent, String?, QAfterProperty> xmlFilePathProperty() {
+  QueryBuilder<ClassContent, String?, QAfterProperty> svgFileNameProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(11);
     });
@@ -6673,22 +6580,22 @@ extension ClassContentQueryProperty2<R>
     });
   }
 
-  QueryBuilder<ClassContent, (R, String?), QAfterProperty>
-      inheritChainProperty() {
+  QueryBuilder<ClassContent, (R, classNodeType), QAfterProperty>
+      nodeTypeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(9);
     });
   }
 
   QueryBuilder<ClassContent, (R, String?), QAfterProperty>
-      svgFileNameProperty() {
+      inheritChainProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(10);
     });
   }
 
   QueryBuilder<ClassContent, (R, String?), QAfterProperty>
-      xmlFilePathProperty() {
+      svgFileNameProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(11);
     });
@@ -6798,22 +6705,22 @@ extension ClassContentQueryProperty3<R1, R2>
     });
   }
 
-  QueryBuilder<ClassContent, (R1, R2, String?), QOperations>
-      inheritChainProperty() {
+  QueryBuilder<ClassContent, (R1, R2, classNodeType), QOperations>
+      nodeTypeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(9);
     });
   }
 
   QueryBuilder<ClassContent, (R1, R2, String?), QOperations>
-      svgFileNameProperty() {
+      inheritChainProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(10);
     });
   }
 
   QueryBuilder<ClassContent, (R1, R2, String?), QOperations>
-      xmlFilePathProperty() {
+      svgFileNameProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(11);
     });

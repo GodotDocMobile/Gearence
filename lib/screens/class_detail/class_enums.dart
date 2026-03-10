@@ -90,6 +90,8 @@ class _ClassEnumsState extends State<ClassEnums> {
 
     setState(() {
       _displayItems = flattened;
+    });
+    setState(() {
       _translationCache = batchTranslate(translationKeys);
     });
 

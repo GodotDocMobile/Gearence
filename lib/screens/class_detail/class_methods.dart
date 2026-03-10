@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:godotclassreference/components/argument_table.dart';
+import 'package:godotclassreference/constants/keys.dart';
 import 'package:godotclassreference/helpers/trim_translate.dart';
 import 'package:godotclassreference/isar/schema/class_content.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -28,26 +29,24 @@ class _ClassMethodsState extends State<ClassMethods> {
   List<Method> _methods = [];
   Map<String, String> _translationCache = {};
 
-  // Static label cache
-  late String _returnLabel;
-
   @override
   void initState() {
     super.initState();
 
     if (_methods.isEmpty && widget.clsContent != null) {
+      _methods = widget.clsContent!.methods;
       Future.delayed(Duration(milliseconds: 100), () {
         if (mounted) _prepareData();
       });
     }
   }
 
-  final returnKey = 'return';
   void _prepareData() {
-    final methods = widget.clsContent!.methods;
-    final List<String> translationKeys = [returnKey]; // Add 'return' to batch
+    final List<String> translationKeys = [
+      UIInfoKeys.returnKey
+    ]; // Add 'return' to batch
 
-    for (var m in methods) {
+    for (var m in _methods) {
       if (m.description != null) {
         translationKeys.add(m.description!);
       }
@@ -55,9 +54,7 @@ class _ClassMethodsState extends State<ClassMethods> {
     }
 
     setState(() {
-      _methods = methods;
       _translationCache = batchTranslate(translationKeys);
-      _returnLabel = _translationCache[returnKey] ?? returnKey;
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -129,7 +126,9 @@ class _ClassMethodsState extends State<ClassMethods> {
               children: [
                 Row(
                   children: [
-                    Text(_returnLabel,
+                    Text(
+                        _translationCache[UIInfoKeys.returnKey] ??
+                            UIInfoKeys.returnKey,
                         style: const TextStyle(color: Colors.grey)),
                     const SizedBox(width: 15),
                     Expanded(
