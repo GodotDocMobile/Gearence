@@ -21,7 +21,8 @@ class ClassSignals extends StatefulWidget {
   _ClassSignalsState createState() => _ClassSignalsState();
 }
 
-class _ClassSignalsState extends State<ClassSignals> {
+class _ClassSignalsState extends State<ClassSignals>
+    with AutomaticKeepAliveClientMixin {
   final ItemScrollController _scrollController = ItemScrollController();
   final ItemPositionsListener _itemPositionsListener =
       ItemPositionsListener.create();
@@ -40,7 +41,7 @@ class _ClassSignalsState extends State<ClassSignals> {
     }
   }
 
-  void _prepareData() {
+  void _prepareData() async {
     final List<String> translationKeys = [];
 
     // Collect signal descriptions for batch translation
@@ -49,8 +50,11 @@ class _ClassSignalsState extends State<ClassSignals> {
         translationKeys.add(s.description!);
       }
     }
+
+    final translateResult =
+        await Future.microtask(() => batchTranslate(translationKeys));
     setState(() {
-      _translationCache = batchTranslate(translationKeys);
+      _translationCache = translateResult;
     });
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (blocs.tapEventBloc.state.fieldName.isNotEmpty) {
@@ -78,6 +82,7 @@ class _ClassSignalsState extends State<ClassSignals> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     if (_signals.isEmpty) {
       return ZeroContentHint(
         clsContent: widget.clsContent!,
@@ -155,4 +160,7 @@ class _ClassSignalsState extends State<ClassSignals> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

@@ -20,7 +20,8 @@ class ClassAnnotations extends StatefulWidget {
   State<ClassAnnotations> createState() => _ClassAnnotationsState();
 }
 
-class _ClassAnnotationsState extends State<ClassAnnotations> {
+class _ClassAnnotationsState extends State<ClassAnnotations>
+    with AutomaticKeepAliveClientMixin {
   final ItemScrollController _scrollController = ItemScrollController();
   final ItemPositionsListener _itemPositionsListener =
       ItemPositionsListener.create();
@@ -39,7 +40,7 @@ class _ClassAnnotationsState extends State<ClassAnnotations> {
     }
   }
 
-  void _prepareData() {
+  void _prepareData() async {
     final List<String> translationKeys = [UIInfoKeys.returnKey];
 
     // Collect descriptions for batch translation
@@ -48,8 +49,10 @@ class _ClassAnnotationsState extends State<ClassAnnotations> {
         translationKeys.add(a.description!);
       }
     }
+    final translateResult =
+        await Future.microtask(() => batchTranslate(translationKeys));
     setState(() {
-      _translationCache = batchTranslate(translationKeys);
+      _translationCache = translateResult;
     });
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (blocs.tapEventBloc.state.fieldName.isNotEmpty) {
@@ -77,6 +80,7 @@ class _ClassAnnotationsState extends State<ClassAnnotations> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     if (_annotations.isEmpty) {
       return ZeroContentHint(
         clsContent: widget.clsContent!,
@@ -145,4 +149,7 @@ class _ClassAnnotationsState extends State<ClassAnnotations> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

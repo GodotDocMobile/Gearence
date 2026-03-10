@@ -37,7 +37,8 @@ class ClassEnums extends StatefulWidget {
   _ClassEnumsState createState() => _ClassEnumsState();
 }
 
-class _ClassEnumsState extends State<ClassEnums> {
+class _ClassEnumsState extends State<ClassEnums>
+    with AutomaticKeepAliveClientMixin {
   final ItemScrollController _scrollController = ItemScrollController();
   final ItemPositionsListener _itemPositionsListener =
       ItemPositionsListener.create();
@@ -54,53 +55,57 @@ class _ClassEnumsState extends State<ClassEnums> {
     });
   }
 
-  void _prepareData() {
+  void _prepareData() async {
     final Map<String, List<Constant>> groups = {};
     final List<EnumDisplayItem> flattened = [];
     final List<String> translationKeys = [];
-    // Grouping
+
+    // Stage 1: Structural Processing (Grouping & Sorting)
     for (var c in widget.clsContent.constants) {
       final enumName = c.enumValue;
       if (enumName != null && enumName.isNotEmpty) {
         groups.putIfAbsent(enumName, () => []).add(c);
-
-        // Cache Isar Plus Translation
-        if (c.constantText != null) {
-          translationKeys.add(c.constantText!);
-        }
+        if (c.constantText != null) translationKeys.add(c.constantText!);
       }
     }
 
-    // Sorting Enum Names
     final sortedEnumNames = groups.keys.toList()..sort();
-
-    // Flattening for the Builder
     for (var enumName in sortedEnumNames) {
       final members = groups[enumName]!;
       members.sort((a, b) =>
           int.parse(a.value ?? "0").compareTo(int.parse(b.value ?? "0")));
-
       flattened.add(EnumDisplayItem.header(enumName));
-
       for (int i = 0; i < members.length; i++) {
         flattened.add(EnumDisplayItem.member(members[i],
             isLastInGroup: i == members.length - 1));
       }
     }
 
-    setState(() {
-      _displayItems = flattened;
-    });
-    setState(() {
-      _translationCache = batchTranslate(translationKeys);
-    });
+    // Render the structure immediately
+    if (mounted) {
+      setState(() {
+        _displayItems = flattened;
+      });
+    }
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (blocs.tapEventBloc.state.fieldName.isNotEmpty) {
-        scrollTo(blocs.tapEventBloc.state);
-        blocs.tapEventBloc.reached();
-      }
-    });
+    // Stage 2: Heavy Lifting (Translations)
+    // On your hardware, calling this via compute() or ensuring it's async is key
+    final results =
+        await Future.microtask(() => batchTranslate(translationKeys));
+
+    if (mounted) {
+      setState(() {
+        _translationCache = results;
+      });
+
+      // Final Stage: Handle pending scrolls now that list is built
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (blocs.tapEventBloc.state.fieldName.isNotEmpty) {
+          scrollTo(blocs.tapEventBloc.state);
+          // Note: Only call reached() if the scroll actually happened
+        }
+      });
+    }
   }
 
   void scrollTo(TapEventArg args) {
@@ -177,6 +182,7 @@ class _ClassEnumsState extends State<ClassEnums> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     if (_displayItems.isEmpty) {
       return ZeroContentHint(
         clsContent: widget.clsContent,
@@ -210,4 +216,7 @@ class _ClassEnumsState extends State<ClassEnums> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

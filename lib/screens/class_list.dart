@@ -6,6 +6,7 @@ import 'package:godotclassreference/components/node_tag.dart';
 import 'package:godotclassreference/components/svg_icon.dart';
 import 'package:godotclassreference/constants/keys.dart';
 import 'package:godotclassreference/helpers/sematic_helpers.dart';
+import 'package:godotclassreference/isar/manager/class_repository.dart';
 import 'package:godotclassreference/isar/manager/settings_repository.dart';
 import 'package:godotclassreference/isar/schema/class_content.dart';
 import 'package:godotclassreference/isar/schema/user_setting.dart';
@@ -24,18 +25,20 @@ class ClassList extends StatefulWidget {
 class _ClassListState extends State<ClassList> {
   late Isar docsIsar;
   late SettingsRepository settingsRepo;
-  late List<ClassContent> classes;
+  List<ClassContent> classes = [];
+  Map<String, String> _iconCache = {};
+  // Track enabled types locally for the UI switches
+  List<int> enabledTypes = [];
+  late UserSetting filterRecord;
+  bool _isReady = false;
 
   @override
   void initState() {
     super.initState();
     docsIsar = GetIt.I(instanceName: MetadataKeys.docsIsarKey);
     settingsRepo = GetIt.instance<SettingsRepository>();
-    _refreshList();
-    _loadIcons();
+    startUp();
   }
-
-  Map<String, String> _iconCache = {};
 
   void _loadIcons() async {
     // Fetch all icons into memory once. Godot has ~500-1000 icons,
@@ -49,24 +52,28 @@ class _ClassListState extends State<ClassList> {
     }
   }
 
-  // Track enabled types locally for the UI switches
-  List<int> enabledTypes = [];
-  late UserSetting filterRecord;
+  void startUp() async {
+    _loadIcons();
+
+    if (!ClassDB.isInitialized) {
+      await ClassDB.init(docsIsar);
+    }
+
+    _refreshList();
+
+    if (mounted) {
+      setState(() => _isReady = true);
+    }
+  }
+
   void _refreshList() {
     filterRecord = settingsRepo.getEnabledNodeTypes();
     enabledTypes =
         filterRecord.stringValue!.split(',').map((x) => int.parse(x)).toList();
 
+    // 2. Filter the memory cache instead of Isar
     setState(() {
-      // Use the 'anyOf' style query in Isar for maximum speed
-      classes = docsIsar.classContents
-          .where()
-          .anyOf(
-              enabledTypes,
-              (q, int typeIndex) =>
-                  q.nodeTypeEqualTo(classNodeType.values[typeIndex]))
-          .sortByName()
-          .findAll();
+      classes = ClassDB.getFiltered(enabledTypes);
     });
   }
 
@@ -134,6 +141,9 @@ class _ClassListState extends State<ClassList> {
 
   @override
   Widget build(BuildContext context) {
+    if (!_isReady)
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+
     return StreamBuilder(
         stream: settingsRepo.watchAllSettings(),
         builder: (context, asyncSnapshot) {
@@ -184,6 +194,7 @@ class _ClassListState extends State<ClassList> {
                 ),
                 body: ListView.builder(
                   itemCount: classes.length,
+                  itemExtent: 65,
                   itemBuilder: (context, index) {
                     final x = classes[index];
                     return Card(
