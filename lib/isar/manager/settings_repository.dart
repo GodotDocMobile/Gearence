@@ -103,12 +103,21 @@ class SettingsRepository {
   }
 
   void seedDefaultSettings() {
+    // final nodeFilters = storedValues.prefs.
+    List<int> nodeFilters = [];
+    for (var cnt in classNodeType.values) {
+      if (storedValues.prefs.getBool(filterOptionStoreKey[cnt]!) ?? true) {
+        nodeFilters.add(cnt.index);
+      }
+    }
+
     final defaults = {
       MetadataKeys.version: storedValues.version,
       MetadataKeys.isDarkMode: storedValues.isDarkTheme,
       MetadataKeys.fontSize: storedValues.fontSize,
       MetadataKeys.monoSpaceFont: storedValues.isMonospaced,
-      MetadataKeys.translation: storedValues.translation
+      MetadataKeys.translation: storedValues.translation,
+      MetadataKeys.enabledNodeFilters: nodeFilters.join(',')
     };
 
     prefsIsar.write((isar) {

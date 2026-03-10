@@ -34,6 +34,7 @@ class _ClassDetailState extends State<ClassDetail>
   late TabController tabController; // No longer nullable
   late ClassContent classContent;
   late List<ClassTab> _tabs;
+  late List<Widget> _tabViews;
   Map<String, String> _translationCache = {};
 
   @override
@@ -42,10 +43,11 @@ class _ClassDetailState extends State<ClassDetail>
 
     // 1. Instant Memory Lookup (No Isar hit!)
     // If ClassDB is init in ClassList, this is O(1)
-    classContent = ClassDB.getClass(widget.className)!;
+    classContent = ClassRepository.getClass(widget.className)!;
 
     // 2. Prepare tabs with empty labels initially so UI is non-blocking
     _tabs = getClassTabs(classContent, context, {});
+    _tabViews = _tabs.map((t) => t.child!).toList();
     tabController = TabController(length: _tabs.length, vsync: this);
 
     // 3. Prepare translations in background
@@ -54,14 +56,13 @@ class _ClassDetailState extends State<ClassDetail>
     // 4. Handle deep-links
     if (widget.args != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        onLinkTap(widget.args!);
+        if (mounted) blocs.tapEventBloc.add(widget.args!);
       });
     }
   }
 
   Future<void> _prepareUiLabels() async {
     // Avoid blocking the 'Slide' transition animation
-    await Future.delayed(const Duration(milliseconds: 300));
 
     final labels = await Future.microtask(() => batchTranslate([
           UIInfoKeys.info,
@@ -79,6 +80,7 @@ class _ClassDetailState extends State<ClassDetail>
         _translationCache = labels;
         // Update tabs with real labels, but keep existing children
         _tabs = getClassTabs(classContent, context, _translationCache);
+        _tabViews = _tabs.map((t) => t.child!).toList();
       });
     }
   }
@@ -91,10 +93,10 @@ class _ClassDetailState extends State<ClassDetail>
 
   void onLinkTap(TapEventArg args) async {
     if (args.className == widget.className) {
-      int _toFocusTabIndex =
-          _tabs.indexWhere((w) => w.type == args.propertyType);
-      tabController.animateTo(_toFocusTabIndex,
-          duration: Duration(milliseconds: 100));
+      int index = _tabs.indexWhere((w) => w.type == args.propertyType);
+      if (index != -1 && index != tabController.index) {
+        tabController.animateTo(index, duration: Duration(milliseconds: 100));
+      }
       if (args.fieldName.isEmpty) {
         blocs.tapEventBloc.reached();
       }
@@ -114,15 +116,15 @@ class _ClassDetailState extends State<ClassDetail>
     return Row(
       children: [
         Container(
-          margin: EdgeInsets.all(10.0),
-          decoration: BoxDecoration(
+          margin: const EdgeInsets.all(10.0),
+          decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.all(Radius.circular(3)),
           ),
           child: Center(
             child: Text(
               " " + itemCount.toString() + " ",
-              style: TextStyle(color: Colors.black),
+              style: const TextStyle(color: Colors.black),
             ),
           ),
         ),
@@ -140,8 +142,6 @@ class _ClassDetailState extends State<ClassDetail>
         onLinkTap(state);
       },
       child: Builder(builder: (context) {
-        _tabs = getClassTabs(classContent, context, _translationCache);
-
         return MediaQuery(
           data: scaledMediaQueryData(context),
           child: Scaffold(
@@ -171,9 +171,7 @@ class _ClassDetailState extends State<ClassDetail>
             ),
             body: TabBarView(
               controller: tabController,
-              children: _tabs.map((c) {
-                return c.child!;
-              }).toList(),
+              children: _tabViews,
             ),
           ),
         );

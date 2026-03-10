@@ -68,22 +68,6 @@ enum classNodeType {
 }
 
 @collection
-class SearchableItem {
-  late final int id;
-
-  @Index()
-  late String name;
-
-  late String className;
-
-  late PropertyType type; // Class, Method, Signal, etc.
-
-  // Store a lower-case version for instant case-insensitive searching
-  @Index(hash: true)
-  late String nameLower;
-}
-
-@collection
 class Translation {
   final int id;
 

@@ -55,8 +55,8 @@ class _ClassListState extends State<ClassList> {
   void startUp() async {
     _loadIcons();
 
-    if (!ClassDB.isInitialized) {
-      await ClassDB.init(docsIsar);
+    if (!ClassRepository.isInitialized) {
+      await ClassRepository.init(docsIsar);
     }
 
     _refreshList();
@@ -73,7 +73,7 @@ class _ClassListState extends State<ClassList> {
 
     // 2. Filter the memory cache instead of Isar
     setState(() {
-      classes = ClassDB.getFiltered(enabledTypes);
+      classes = ClassRepository.getFiltered(enabledTypes);
     });
   }
 

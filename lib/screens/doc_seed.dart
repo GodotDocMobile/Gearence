@@ -42,7 +42,7 @@ class _DocSeedState extends State<DocSeed> {
       final settingsRepo = GetIt.I<SettingsRepository>();
       final dir = await getApplicationDocumentsDirectory();
       final godotVersion = settingsRepo.getGodotVersion().stringValue!;
-      final packageInfo = await PackageInfo.fromPlatform();
+      final packageInfo = GetIt.I<PackageInfo>();
 
       // Clean formatting for filename
       final docIsarFileName = 'godot_${godotVersion.replaceAll('.', '_')}';
@@ -87,7 +87,6 @@ class _DocSeedState extends State<DocSeed> {
           ClassContentSchema,
           GodotIconSchema,
           TranslationSchema,
-          SearchableItemSchema
         ],
         directory: dir.path,
         name: docIsarFileName, // Constant name for the whole app

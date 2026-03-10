@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:godotclassreference/constants/keys.dart';
-import 'package:godotclassreference/constants/time.dart';
 import 'package:godotclassreference/helpers/trim_translate.dart';
 import 'package:godotclassreference/isar/schema/class_content.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -9,7 +8,6 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:godotclassreference/theme/themes.dart';
 import 'package:godotclassreference/components/link_text.dart';
 import 'package:godotclassreference/components/description_text.dart';
-// import 'package:godotclassreference/models/class_content.dart';
 import 'package:godotclassreference/bloc/blocs.dart';
 import 'package:godotclassreference/components/zero_content_hint.dart';
 
@@ -32,20 +30,18 @@ class _ClassMembersState extends State<ClassMembers>
   Map<String, String> _translationCache = {};
 
   // Reusable strings to avoid redundant context.translate calls
-  late String _setterLabel;
-  late String _getterLabel;
+  String _setterLabel = UIInfoKeys.setterKey;
+  String _getterLabel = UIInfoKeys.getterKey;
 
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(milliseconds: dataPrepareDelay), () {
-      _members = widget.clsContent!.members;
-      if (mounted) _prepareData();
-    });
+    _members = widget.clsContent!.members;
+    if (mounted) _prepareData();
   }
 
   void _prepareData() async {
-    if (widget.clsContent == null) return;
+    if (widget.clsContent!.members.isEmpty) return;
 
     final List<String> translationKeys = [
       UIInfoKeys.setterKey,

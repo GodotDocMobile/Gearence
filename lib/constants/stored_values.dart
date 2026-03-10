@@ -1,5 +1,4 @@
 import 'package:godotclassreference/constants/keys.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:godotclassreference/models/config_content.dart';
@@ -8,7 +7,6 @@ class StoredValues {
   late SharedPreferences prefs;
 
   late ConfigContent configContent;
-  late PackageInfo packageInfo;
 
   static final StoredValues _instance = StoredValues._internal();
 
@@ -20,50 +18,15 @@ class StoredValues {
 
   String get version => prefs.getString('version') ?? godotVersions.last;
 
-  void set version(String val) {
-    if (!godotVersions.contains(val)) {
-      val = godotVersions.last;
-    }
-    prefs.setString('version', val);
-  }
-
   double get versionDouble => double.tryParse(version) ?? 0.0;
 
   bool get isDarkTheme => prefs.getBool('darkTheme') ?? false;
 
-  void set isDarkTheme(bool val) {
-    prefs.setBool('darkTheme', val);
-  }
-
   int get fontSize => prefs.getInt('gcrFontSize') ?? 0;
 
-  void set fontSize(int val) {
-    prefs.setInt('gcrFontSize', val);
-  }
+  bool get isMonospaced => prefs.getBool('monoSpaceFont') ?? false;
 
-  bool get isMonospaced {
-    return prefs.getBool('monoSpaceFont') ?? false;
-  }
-
-  void set isMonospaced(bool val) {
-    prefs.setBool('monoSpaceFont', val);
-  }
-
-  String get translation {
-    var value = prefs.getString('translation') ?? 'en';
-    // if (!configContent.branchTranslations[version]!.contains(value)) {
-    //   // translation = 'en';
-    //   value = 'en';
-    // }
-    return value;
-  }
-
-  void set translation(String val) {
-    if (!configContent.branchTranslations[version]!.contains(val)) {
-      val = 'en';
-    }
-    prefs.setString('translation', val);
-  }
+  String get translation => prefs.getString('translation') ?? 'en';
 }
 
 final StoredValues storedValues = StoredValues();

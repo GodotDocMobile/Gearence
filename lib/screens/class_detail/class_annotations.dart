@@ -5,7 +5,6 @@ import 'package:godotclassreference/components/argument_table.dart';
 import 'package:godotclassreference/components/description_text.dart';
 import 'package:godotclassreference/components/zero_content_hint.dart';
 import 'package:godotclassreference/constants/keys.dart';
-import 'package:godotclassreference/constants/time.dart';
 import 'package:godotclassreference/helpers/trim_translate.dart';
 import 'package:godotclassreference/isar/schema/class_content.dart';
 import 'package:godotclassreference/theme/themes.dart';
@@ -34,13 +33,13 @@ class _ClassAnnotationsState extends State<ClassAnnotations>
     super.initState();
     if (_annotations.isEmpty && widget.clsContent != null) {
       _annotations = widget.clsContent!.annotations;
-      Future.delayed(Duration(milliseconds: dataPrepareDelay), () {
-        if (mounted) _prepareData();
-      });
+      if (mounted) _prepareData();
     }
   }
 
   void _prepareData() async {
+    if (widget.clsContent!.annotations.isEmpty) return;
+
     final List<String> translationKeys = [UIInfoKeys.returnKey];
 
     // Collect descriptions for batch translation

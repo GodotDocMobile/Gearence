@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:godotclassreference/components/zero_content_hint.dart';
-import 'package:godotclassreference/constants/time.dart';
 import 'package:godotclassreference/helpers/trim_translate.dart';
 import 'package:godotclassreference/isar/schema/class_content.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -34,13 +33,18 @@ class _ClassConstantsState extends State<ClassConstants>
     _onlyConstants = widget.clsContent!.constants
         .where((w) => w.enumValue == null || w.enumValue!.isEmpty)
         .toList();
-    Future.delayed(Duration(milliseconds: dataPrepareDelay), () {
-      if (mounted) _prepareData();
+    _prepareData();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (blocs.tapEventBloc.state.fieldName.isNotEmpty) {
+        scrollTo(blocs.tapEventBloc.state);
+        blocs.tapEventBloc.reached();
+      }
     });
   }
 
   void _prepareData() async {
-    if (widget.clsContent == null) return;
+    if (widget.clsContent!.constants.isEmpty) return;
 
     // 2. Batch collect translation keys
     final List<String> translationKeys = [];
@@ -54,13 +58,6 @@ class _ClassConstantsState extends State<ClassConstants>
         await Future.microtask(() => batchTranslate(translationKeys));
     setState(() {
       _translationCache = translateResult;
-    });
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (blocs.tapEventBloc.state.fieldName.isNotEmpty) {
-        scrollTo(blocs.tapEventBloc.state);
-        blocs.tapEventBloc.reached();
-      }
     });
   }
 

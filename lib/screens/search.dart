@@ -1,14 +1,8 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 
 import 'package:godotclassreference/bloc/tap_event_arg.dart';
-import 'package:godotclassreference/constants/keys.dart';
-import 'package:godotclassreference/constants/stored_values.dart';
-import 'package:godotclassreference/isar/schema/class_content.dart';
+import 'package:godotclassreference/isar/manager/class_repository.dart';
 import 'package:godotclassreference/theme/themes.dart';
-import 'package:isar_plus/isar_plus.dart';
 
 import 'class_detail.dart';
 
@@ -35,7 +29,7 @@ class _SearchScreenState extends State<SearchScreen> {
   late bool _isDarkTheme;
 
   // Inside _SearchScreenState
-  List<SearchableItem> _searchResults = [];
+  List<TapEventArg> _searchResults = [];
   bool isSearching = false;
 
 // Helper to map UI categories to PropertyTypes
@@ -53,83 +47,37 @@ class _SearchScreenState extends State<SearchScreen> {
     };
   }
 
-  Timer? _debounce;
-
   @override
   void initState() {
     super.initState();
 
-    controller.addListener(() async {
-      if (_debounce?.isActive ?? false) _debounce!.cancel();
-      _debounce = Timer(const Duration(milliseconds: 150), () {
-        _performSearch(controller.text);
-      });
+    controller.addListener(() {
+      _performSearch(controller.text);
     });
-
-    _isDarkTheme = storedValues.isDarkTheme;
   }
 
-  void _performSearch(String text) async {
+  void _performSearch(String text) {
     if (text.isEmpty) {
       setState(() => _searchResults = []);
       return;
     }
 
-    setState(() => isSearching = true);
-
-    final term = text.toLowerCase();
-    final isar = GetIt.I<Isar>(instanceName: MetadataKeys.docsIsarKey);
+    // This loop through ~2000 classes and their members takes ~2-5ms in Dart.
+    // No 'await' needed!
     final activeFilters = _getActiveFilters();
+    final results = ClassRepository.deepSearch(text, activeFilters);
 
-    // 1. Get high-priority matches (Starts With)
-    // .where() starts the query. nameLowerStartsWith() uses the index.
-    // Then we chain .anyOf() directly.
-    final results = await isar.searchableItems
-        .where()
-        .nameLowerStartsWith(term)
-        .and()
-        .anyOf(activeFilters, (q, PropertyType type) => q.typeEqualTo(type))
-        .findAll();
-
-    // 2. Fallback for "Contains" matches
-    // if (results.length < 20) {
-      // For 'Contains', we can't use the 'StartsWith' index.
-      // So we just call .where() and immediately filter.
-      final extra = await isar.searchableItems
-          .where()
-          .nameLowerContains(term)
-          .and()
-          .anyOf(activeFilters, (q, PropertyType type) => q.typeEqualTo(type))
-          .and()
-          .not()
-          .nameLowerStartsWith(term)
-          .findAll();
-
-      results.addAll(extra);
-    // }
-
+    // Sort using your existing _compareResults logic (adapted for SearchableItem POJO)
     results.sort((a, b) => _compareResults(a, b, text));
 
-    final uniqueResults = <String, SearchableItem>{};
-    for (var item in results) {
-      // Use a composite key of Name + Type to keep unique items
-      final key = "${item.name}_${item.type}";
-      if (!uniqueResults.containsKey(key)) {
-        uniqueResults[key] = item;
-      }
-    }
-
-    if (mounted) {
-      setState(() {
-        _searchResults = uniqueResults.values.toList();
-        isSearching = false;
-      });
-    }
+    setState(() {
+      _searchResults = results;
+    });
   }
 
-  int _compareResults(SearchableItem a, SearchableItem b, String term) {
-    final aLower = a.name.toLowerCase();
-    final bLower = b.name.toLowerCase();
+  int _compareResults(TapEventArg a, TapEventArg b, String term) {
+    final aLower = a.fieldName.toLowerCase();
+    final bLower = b.fieldName.toLowerCase();
     final query = term.toLowerCase();
 
     // 1. Exact match priority
@@ -148,8 +96,8 @@ class _SearchScreenState extends State<SearchScreen> {
     if (aPos != bPos) return aPos.compareTo(bPos);
 
     // 4. Length priority (Shorter strings are more likely what the user wants)
-    if (a.name.length != b.name.length) {
-      return a.name.length.compareTo(b.name.length);
+    if (a.fieldName.length != b.fieldName.length) {
+      return a.fieldName.length.compareTo(b.fieldName.length);
     }
 
     // 5. Alphabetical fallback
@@ -162,57 +110,8 @@ class _SearchScreenState extends State<SearchScreen> {
     super.dispose();
   }
 
-  List<Widget> _buildSearchResult() {
-    if (_searchResults.isEmpty) {
-      return [const ListTile(title: Text('No Result'))];
-    }
-
-    return _searchResults.map((item) {
-      final typeName = item.type.name;
-      final isClass = item.type == PropertyType.Class;
-
-      return ListTile(
-        // leading: Icon(_getIconForType(item.type), size: 18), // Optional: add icons
-        title: RichText(
-          text: TextSpan(
-            children: [
-              TextSpan(
-                text: "$typeName: ",
-                style: TextStyle(
-                    color: _isDarkTheme ? Colors.white60 : Colors.black54),
-              ),
-              TextSpan(
-                text: item.name,
-                style: monoOptionalStyle(context,
-                    baseStyle: TextStyle(
-                        color: _isDarkTheme ? Colors.white : Colors.black)),
-              ),
-            ],
-          ),
-        ),
-        subtitle: isClass ? null : Text("Class: ${item.className}"),
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ClassDetail(
-                className: item.className,
-                // Convert searchable item back to your navigation arg if needed
-                args: TapEventArg(
-                  propertyType: item.type,
-                  className: item.className,
-                  fieldName: isClass ? '' : item.name,
-                ),
-              ),
-            ),
-          );
-        },
-      );
-    }).toList();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    _isDarkTheme = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: AppBar(
         backgroundColor:
@@ -265,9 +164,48 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
         ),
       ),
-      body: ListView(
-        children: _buildSearchResult(),
+      body: ListView.builder(
+        // Use builder for performance
+        itemCount: _searchResults.length,
+        itemExtent: 70.0, // Fixed height is king for Snapdragon
+        itemBuilder: (context, index) {
+          final item = _searchResults[index];
+          return _buildSearchTile(item);
+        },
       ),
+    );
+  }
+
+  Widget _buildSearchTile(TapEventArg item) {
+    final isClass = item.propertyType == PropertyType.Class;
+    return ListTile(
+      title: RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+                text: "${item.propertyType!.name}: ",
+                style: TextStyle(
+                    color: _isDarkTheme ? Colors.white60 : Colors.black54)),
+            TextSpan(
+                text: item.fieldName,
+                style: monoOptionalStyle(context,
+                    baseStyle: TextStyle(
+                        color: _isDarkTheme ? Colors.white : Colors.black))),
+          ],
+        ),
+      ),
+      subtitle: isClass ? null : Text("Class: ${item.className}"),
+      onTap: () {
+        print(item.toString());
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ClassDetail(
+                className: item.className,
+                args: item,
+              ),
+            ));
+      },
     );
   }
 }

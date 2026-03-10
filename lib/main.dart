@@ -45,7 +45,6 @@ Future injectUserPref() async {
   final sharedPrefs = await SharedPreferences.getInstance();
   getIt.registerSingleton(sharedPrefs);
   storedValues.prefs = sharedPrefs;
-  storedValues.packageInfo = packageInfo;
   storedValues.configContent = ConfigContent.fromJson(
       jsonDecode(await rootBundle.loadString('assets/config.json')));
 
@@ -53,7 +52,7 @@ Future injectUserPref() async {
   getIt.registerSingleton(settingsRepo);
   settingsRepo.seedDefaultSettings();
 
-  final classDB = new ClassDB();
+  final classDB = new ClassRepository();
   GetIt.I.registerSingleton(classDB);
 }
 
@@ -103,7 +102,6 @@ class _GCRAppState extends State<GCRApp> {
     return StreamBuilder(
         stream: repo.watchAllSettings(),
         builder: (context, snapshoot) {
-          // Using your isDarkMode() logic for the initial/current state
           final isDarkRecord = repo.getIsDarkMode();
           final translation = repo.getTranslation();
           final version = repo.getGodotVersion();
