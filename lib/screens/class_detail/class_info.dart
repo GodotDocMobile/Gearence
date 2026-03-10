@@ -3,7 +3,6 @@ import 'package:get_it/get_it.dart';
 
 import 'package:godotclassreference/components/description_text.dart';
 import 'package:godotclassreference/constants/keys.dart';
-import 'package:godotclassreference/constants/time.dart';
 import 'package:godotclassreference/helpers/trim_translate.dart';
 import 'package:godotclassreference/isar/schema/class_content.dart';
 import 'package:godotclassreference/theme/default.dart';
@@ -35,9 +34,7 @@ class _ClassInfoState extends State<ClassInfo>
         .map((c) => '[' + c.name! + ']')
         .toList()
         .join(' , ');
-    Future.delayed(Duration(milliseconds: dataPrepareDelay), () {
-      if (mounted) _prepareData();
-    });
+    if (mounted) _prepareData();
   }
 
   void _prepareData() async {

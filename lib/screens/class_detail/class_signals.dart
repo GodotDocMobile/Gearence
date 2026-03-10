@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:godotclassreference/constants/time.dart';
 import 'package:godotclassreference/helpers/trim_translate.dart';
 import 'package:godotclassreference/isar/schema/class_content.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -35,13 +34,13 @@ class _ClassSignalsState extends State<ClassSignals>
     super.initState();
     if (_signals.isEmpty && widget.clsContent != null) {
       _signals = widget.clsContent!.signals;
-      Future.delayed(Duration(milliseconds: dataPrepareDelay), () {
-        if (mounted) _prepareData();
-      });
+      if (mounted) _prepareData();
     }
   }
 
   void _prepareData() async {
+    if (widget.clsContent!.signals.isEmpty) return;
+
     final List<String> translationKeys = [];
 
     // Collect signal descriptions for batch translation

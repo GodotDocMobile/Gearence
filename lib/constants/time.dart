@@ -1,1 +1,0 @@
-const dataPrepareDelay = 100;
