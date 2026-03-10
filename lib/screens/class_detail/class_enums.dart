@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:godotclassreference/constants/time.dart';
 import 'package:godotclassreference/helpers/trim_translate.dart';
 import 'package:godotclassreference/isar/schema/class_content.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -49,13 +48,12 @@ class _ClassEnumsState extends State<ClassEnums>
   @override
   void initState() {
     super.initState();
-    // 2. Perform all grouping, sorting, and Isar Plus translation in one pass
-    Future.delayed(Duration(milliseconds: dataPrepareDelay), () {
-      if (mounted) _prepareData();
-    });
+    if (mounted) _prepareData();
   }
 
   void _prepareData() async {
+    if (widget.clsContent.constants.isEmpty) return;
+    
     final Map<String, List<Constant>> groups = {};
     final List<EnumDisplayItem> flattened = [];
     final List<String> translationKeys = [];
@@ -68,6 +66,7 @@ class _ClassEnumsState extends State<ClassEnums>
         if (c.constantText != null) translationKeys.add(c.constantText!);
       }
     }
+    if (groups.isEmpty) return;
 
     final sortedEnumNames = groups.keys.toList()..sort();
     for (var enumName in sortedEnumNames) {

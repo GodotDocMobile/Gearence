@@ -1,7 +1,8 @@
+import 'package:godotclassreference/bloc/tap_event_arg.dart';
 import 'package:godotclassreference/isar/schema/class_content.dart';
 import 'package:isar_plus/isar_plus.dart';
 
-class ClassDB {
+class ClassRepository {
   // 1. Changed to a List for faster ordered iteration (like the Class List)
   static final List<ClassContent> _classList = [];
   // 2. Kept the Map for O(1) lookups (like Links/Detail pages)
@@ -39,16 +40,119 @@ class ClassDB {
 
   static bool class_exists(String name) => _cache.containsKey(name);
 
-  static List<ClassContent> search(String query, List<int> enabledTypeIndices) {
-    final lowercaseQuery = query.toLowerCase();
+  static List<TapEventArg> deepSearch(
+      String query, List<PropertyType> activeFilters) {
+    if (query.isEmpty) return [];
 
-    return _classList.where((c) {
-      // 1. Quick Category Filter (Integer check)
-      if (!enabledTypeIndices.contains(c.nodeType.index)) return false;
+    final term = query.toLowerCase();
+    final List<TapEventArg> results = [];
 
-      // 2. Text Search
-      if (query.isEmpty) return true;
-      return c.name!.toLowerCase().contains(lowercaseQuery);
-    }).toList();
+    for (var cls in _classList) {
+      final className = cls.name!;
+      final classNameLower = className.toLowerCase();
+
+      // 1. Search Class Name
+      if (activeFilters.contains(PropertyType.Class) &&
+          classNameLower.contains(term)) {
+        results.add(TapEventArg(
+            fieldName: className,
+            propertyType: PropertyType.Class,
+            className: className));
+      }
+
+      // 2. Search Methods
+      if (activeFilters.contains(PropertyType.Method)) {
+        for (var m in cls.methods) {
+          if (m.name!.toLowerCase().contains(term)) {
+            results.add(TapEventArg(
+                fieldName: m.name!,
+                propertyType: PropertyType.Method,
+                className: className));
+          }
+        }
+      }
+
+      // 3. Search Signals
+      if (activeFilters.contains(PropertyType.Signal)) {
+        for (var s in cls.signals) {
+          if (s.name!.toLowerCase().contains(term)) {
+            results.add(TapEventArg(
+                fieldName: s.name!,
+                propertyType: PropertyType.Signal,
+                className: className));
+          }
+        }
+      }
+
+      // 4. Search Constants & Enums
+      if (cls.constants.isNotEmpty) {
+        final searchConstants = activeFilters.contains(PropertyType.Constant);
+        final searchEnums = activeFilters.contains(PropertyType.Enum);
+
+        if (searchConstants || searchEnums) {
+          // Track unique enum names seen in this class to avoid duplicates
+          final seenEnums = <String>{};
+
+          for (var c in cls.constants) {
+            final cNameLower = c.name!.toLowerCase();
+            final enumName = c.enumValue;
+
+            // Case A: Search Enum Names (Like 'Mode' in 'ProcessMode')
+            if (searchEnums && enumName != null) {
+              final enumLower = enumName.toLowerCase();
+              if (enumLower.contains(term) && !seenEnums.contains(enumName)) {
+                seenEnums.add(enumName);
+                results.add(TapEventArg(
+                    propertyType: PropertyType.Enum,
+                    className: className,
+                    // Using your specific navigation format: "EnumName:.FirstValue"
+                    fieldName: "$enumName:.${c.name}"));
+              }
+
+              // Case B: Search Enum Values (The specific constants inside the enum)
+              if (cNameLower.contains(term)) {
+                results.add(TapEventArg(
+                    propertyType: PropertyType.Enum,
+                    className: className,
+                    fieldName: "$enumName.${c.name}"));
+              }
+            }
+            // Case C: Search standalone Constants
+            else if (searchConstants && cNameLower.contains(term)) {
+              results.add(TapEventArg(
+                  fieldName: c.name!,
+                  propertyType: PropertyType.Constant,
+                  className: className));
+            }
+          }
+        }
+      }
+
+      // 5. Search Properties (Members)
+      if (activeFilters.contains(PropertyType.Property)) {
+        for (var p in cls.members) {
+          if (p.name!.toLowerCase().contains(term)) {
+            results.add(TapEventArg(
+                fieldName: p.name!,
+                propertyType: PropertyType.Property,
+                className: className));
+          }
+        }
+      }
+
+      // 6. Search Theme Items
+      if (activeFilters.contains(PropertyType.ThemeItem)) {
+        for (var t in cls.themeItems) {
+          if (t.name!.toLowerCase().contains(term)) {
+            results.add(TapEventArg(
+                fieldName: t.name!,
+                propertyType: PropertyType.ThemeItem,
+                className: className));
+          }
+        }
+      }
+    }
+
+    return results;
   }
 }

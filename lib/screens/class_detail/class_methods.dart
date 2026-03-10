@@ -36,9 +36,7 @@ class _ClassMethodsState extends State<ClassMethods>
 
     if (_methods.isEmpty && widget.clsContent != null) {
       _methods = widget.clsContent!.methods;
-      Future.delayed(Duration(milliseconds: 100), () {
-        if (mounted) _prepareData();
-      });
+      if (mounted) _prepareData();
     }
   }
 
