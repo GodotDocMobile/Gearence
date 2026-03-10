@@ -1,4 +1,5 @@
-class MetadataKeys {
+abstract class MetadataKeys {
+  MetadataKeys._();
   // settings keys
   static const String isDarkMode = 'dark_mode';
   static const String translation = 'translation';
@@ -35,3 +36,26 @@ final godotVersions = [
   "4.5",
   "4.6",
 ];
+
+abstract class UIInfoKeys {
+  UIInfoKeys._();
+
+  static const String inherits = "Inherits:";
+  static const String inheritedBy = 'Inherited By:';
+  static const String briefDescription = 'Brief Description:';
+  static const String version = 'Version:';
+  static const String category = 'Category:';
+  static const String description = 'Description';
+  static const String demos = 'Demos:';
+  static const String tutorials = 'Tutorials:';
+
+  // tabs
+  static const String info = "Info";
+  static const String enumerations = "Enumerations";
+  static const String constants = "Constants";
+  static const String properties = "Properties";
+  static const String methods = 'Methods';
+  static const String signals = 'Signals';
+  static const String themeProperties = "Theme Properties";
+  static const String annotations = 'Annotations';
+}

@@ -5,40 +5,66 @@ import 'package:godotclassreference/components/description_text.dart';
 import 'package:godotclassreference/constants/keys.dart';
 import 'package:godotclassreference/helpers/trim_translate.dart';
 import 'package:godotclassreference/isar/schema/class_content.dart';
-// import 'package:godotclassreference/models/class_content.dart';
 import 'package:godotclassreference/theme/default.dart';
 import 'package:isar_plus/isar_plus.dart';
 
-class ClassInfo extends StatelessWidget {
+class ClassInfo extends StatefulWidget {
   final ClassContent? clsContent;
 
   ClassInfo({Key? key, this.clsContent}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final _childClasses = GetIt.I<Isar>(instanceName: MetadataKeys.docsIsarKey)
+  State<ClassInfo> createState() => _ClassInfoState();
+}
+
+class _ClassInfoState extends State<ClassInfo> {
+  Map<String, String> translationCache = {};
+
+  String childClasses = '';
+
+  @override
+  void initState() {
+    super.initState();
+    translationCache = batchTranslate([
+      UIInfoKeys.inherits,
+      UIInfoKeys.inheritedBy,
+      UIInfoKeys.briefDescription,
+      widget.clsContent!.briefDescription ?? "",
+      UIInfoKeys.version,
+      UIInfoKeys.category,
+      UIInfoKeys.description,
+      widget.clsContent!.description ?? "",
+      UIInfoKeys.demos,
+      UIInfoKeys.tutorials
+    ]);
+
+    childClasses = GetIt.I<Isar>(instanceName: MetadataKeys.docsIsarKey)
         .classContents
         .where()
-        .inheritsEqualTo(clsContent!.name)
+        .inheritsEqualTo(widget.clsContent!.name)
         .findAll()
-        .map((c) => ' [' + c.name! + '] ')
+        .map((c) => '[' + c.name! + ']')
         .toList()
-        .toString();
+        .join(' , ');
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return ListView(
       padding: EdgeInsets.all(10),
       children: [
         //inherit chain
         ExcludeSemantics(
           child: Text(
-            context.translate('Inherits:'),
+            translationCache[UIInfoKeys.inherits] ?? UIInfoKeys.inherits,
             style: TextStyle(color: Colors.grey),
           ),
         ),
         DescriptionText(
-          className: clsContent!.name!,
-          content:
-              clsContent!.inheritChain == null ? '' : clsContent!.inheritChain!,
+          className: widget.clsContent!.name!,
+          content: widget.clsContent!.inheritChain == null
+              ? ''
+              : widget.clsContent!.inheritChain!,
           descriptionUsedBy: DescriptionUsedBy.Inherits,
           // onLinkTap: onLinkTap,
         ),
@@ -49,13 +75,13 @@ class ClassInfo extends StatelessWidget {
         //child classes
         ExcludeSemantics(
           child: Text(
-            context.translate('Inherited By:'),
+            translationCache[UIInfoKeys.inheritedBy] ?? UIInfoKeys.inheritedBy,
             style: TextStyle(color: Colors.grey),
           ),
         ),
         DescriptionText(
-          className: clsContent!.name!,
-          content: _childClasses.substring(1, _childClasses.length - 1),
+          className: widget.clsContent!.name!,
+          content: childClasses,
           descriptionUsedBy: DescriptionUsedBy.ChildClasses,
           // onLinkTap: onLinkTap,
         ),
@@ -66,13 +92,16 @@ class ClassInfo extends StatelessWidget {
         //brief_description
         ExcludeSemantics(
           child: Text(
-            'Brief Description:',
+            // 'Brief Description:',
+            translationCache[UIInfoKeys.briefDescription] ??
+                UIInfoKeys.briefDescription,
             style: TextStyle(color: Colors.grey),
           ),
         ),
         DescriptionText(
-          className: clsContent!.name!,
-          content: context.translate(clsContent!.briefDescription!),
+          className: widget.clsContent!.name!,
+          content: translationCache[widget.clsContent!.briefDescription] ??
+              widget.clsContent!.briefDescription!,
           descriptionUsedBy: DescriptionUsedBy.BriefDescription,
           // onLinkTap: onLinkTap,
         ),
@@ -81,18 +110,19 @@ class ClassInfo extends StatelessWidget {
         ),
 
         //version
-        (clsContent!.version == null
+        (widget.clsContent!.version == null
             ? SizedBox()
             : Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    'Version:',
+                    // 'Version:',
+                    translationCache[UIInfoKeys.version] ?? UIInfoKeys.version,
                     style: TextStyle(color: Colors.grey),
                   ),
                   Padding(
                       padding: EdgeInsets.fromLTRB(10, 4, 0, 0),
-                      child: Text(clsContent!.version!)),
+                      child: Text(widget.clsContent!.version!)),
                 ],
               )),
         SizedBox(
@@ -100,18 +130,20 @@ class ClassInfo extends StatelessWidget {
         ),
 
         //category
-        (clsContent!.category == null
+        (widget.clsContent!.category == null
             ? SizedBox()
             : Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    'Category:',
+                    // 'Category:',
+                    translationCache[UIInfoKeys.category] ??
+                        UIInfoKeys.category,
                     style: TextStyle(color: Colors.grey),
                   ),
                   Padding(
                       padding: EdgeInsets.fromLTRB(10, 4, 0, 0),
-                      child: Text(clsContent!.category!)),
+                      child: Text(widget.clsContent!.category!)),
                   SizedBox(
                     height: 10,
                   ),
@@ -121,26 +153,28 @@ class ClassInfo extends StatelessWidget {
         //description
         ExcludeSemantics(
           child: Text(
-            '${context.translate('Description')}:',
+            '${translationCache[UIInfoKeys.description] ?? UIInfoKeys.description}:',
             style: TextStyle(color: Colors.grey),
           ),
         ),
         DescriptionText(
-          className: clsContent!.name!,
-          content: context.translate(clsContent!.description!),
+          className: widget.clsContent!.name!,
+          content: translationCache[widget.clsContent!.description!] ??
+              widget.clsContent!.description!,
           descriptionUsedBy: DescriptionUsedBy.Description,
           // onLinkTap: onLinkTap,
         ),
 
         //tutorials
-        clsContent!.demos != null && clsContent!.demos!.length > 0
+        widget.clsContent!.demos != null && widget.clsContent!.demos!.length > 0
             ? Column(
                 children: [
                   Text(
-                    'Demos:',
+                    // 'Demos:',
+                    translationCache[UIInfoKeys.demos] ?? UIInfoKeys.demos,
                     style: fieldNames,
                   ),
-                  Text(clsContent!.demos!)
+                  Text(widget.clsContent!.demos!)
                 ],
               )
             : Container(),
@@ -149,9 +183,13 @@ class ClassInfo extends StatelessWidget {
         ),
 
         //demos
-        clsContent!.demos != null && clsContent!.demos!.length > 0
+        widget.clsContent!.demos != null && widget.clsContent!.demos!.length > 0
             ? Column(
-                children: [Text('Tutorials:'), Text(clsContent!.tutorials!)],
+                children: [
+                  Text(translationCache[UIInfoKeys.tutorials] ??
+                      UIInfoKeys.tutorials),
+                  Text(widget.clsContent!.tutorials!)
+                ],
               )
             : Container(),
       ],

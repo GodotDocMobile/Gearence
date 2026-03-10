@@ -14,24 +14,27 @@ import 'package:godotclassreference/components/zero_content_hint.dart';
 class ClassThemeItems extends StatefulWidget {
   final ClassContent? clsContent;
 
-  ClassThemeItems({
-    Key? key,
-    this.clsContent,
-  }) : super(key: key);
+  ClassThemeItems({Key? key, this.clsContent}) : super(key: key);
 
   @override
   _ClassThemeItemsState createState() => _ClassThemeItemsState();
 }
 
 class _ClassThemeItemsState extends State<ClassThemeItems> {
-  ItemScrollController? _scrollController;
-  ItemPositionsListener? _itemPositionsListener;
+  final ItemScrollController _scrollController = ItemScrollController();
+  final ItemPositionsListener _itemPositionsListener =
+      ItemPositionsListener.create();
+
+  List<ThemeItem> _themeItems = [];
+  Map<String, String> _translationCache = {};
 
   @override
   void initState() {
     super.initState();
-    _scrollController = ItemScrollController();
-    _itemPositionsListener = ItemPositionsListener.create();
+    if (_themeItems.isEmpty && widget.clsContent != null) {
+      _prepareData();
+    }
+    
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (blocs.tapEventBloc.state.fieldName.isNotEmpty) {
         try {
@@ -42,16 +45,31 @@ class _ClassThemeItemsState extends State<ClassThemeItems> {
     });
   }
 
+  void _prepareData() {
+    final items = widget.clsContent!.themeItems;
+    final List<String> translationKeys = [];
+
+    // 1. Collect descriptions for batch translation
+    for (var t in items) {
+      if (t.description != null && t.description!.isNotEmpty) {
+        translationKeys.add(t.description!);
+      }
+    }
+
+    // 2. Batch fetch and assign
+    _themeItems = items;
+    _translationCache = batchTranslate(translationKeys);
+  }
+
   void scrollTo(TapEventArg args) {
-    if (widget.clsContent!.name == args.className &&
+    if (widget.clsContent?.name == args.className &&
         args.propertyType == PropertyType.ThemeItem) {
-      final _targetIndex = widget.clsContent!.themeItems
-          .indexWhere((w) => w.name == args.fieldName);
-      if (_targetIndex != -1) {
-        _scrollController!.scrollTo(
+      final index = _themeItems.indexWhere((w) => w.name == args.fieldName);
+      if (index != -1) {
+        _scrollController.scrollTo(
           curve: Curves.easeInOutCubic,
-          index: _targetIndex,
-          duration: Duration(milliseconds: 500),
+          index: index,
+          duration: const Duration(milliseconds: 500),
         );
       }
     }
@@ -59,7 +77,7 @@ class _ClassThemeItemsState extends State<ClassThemeItems> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.clsContent!.themeItems.length == 0) {
+    if (_themeItems.isEmpty) {
       return ZeroContentHint(
         clsContent: widget.clsContent!,
         propertyType: PropertyType.ThemeItem,
@@ -72,56 +90,51 @@ class _ClassThemeItemsState extends State<ClassThemeItems> {
       listener: (context, state) {
         if (state.className == widget.clsContent!.name &&
             state.propertyType == PropertyType.ThemeItem) {
-          try {
-            scrollTo(blocs.tapEventBloc.state);
-          } catch (_) {}
+          scrollTo(state);
           blocs.tapEventBloc.reached();
         }
       },
       child: ScrollablePositionedList.builder(
-        itemCount: widget.clsContent!.themeItems.length,
+        itemCount: _themeItems.length,
         itemScrollController: _scrollController,
         itemPositionsListener: _itemPositionsListener,
-        itemBuilder: (context, index) {
-          final t = widget.clsContent!.themeItems[index];
-          return Column(children: [
-            ListTile(
-              title: Text(
-                t.name!,
-                style: monoOptionalStyle(context),
-              ),
-              subtitle: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        itemBuilder: (context, index) =>
+            _buildThemeItemTile(_themeItems[index]),
+      ),
+    );
+  }
+
+  Widget _buildThemeItemTile(ThemeItem t) {
+    return Column(
+      children: [
+        ListTile(
+          title: Text(
+            t.name ?? '',
+            style: monoOptionalStyle(context),
+          ),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
                 children: [
-                  Row(
-                    children: [
-                      Text("type"),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      LinkText(
-                        text: t.type!,
-                        // onLinkTap: widget.onLinkTap,
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  t.description != null
-                      ? DescriptionText(
-                          className: widget.clsContent!.name!,
-                          content: context.translate(t.description!),
-                          // onLinkTap: widget.onLinkTap,
-                        )
-                      : SizedBox(),
+                  const Text("type"),
+                  const SizedBox(width: 10),
+                  LinkText(text: t.type ?? ''),
                 ],
               ),
-            ),
-            Divider(color: Colors.blueGrey)
-          ]);
-        },
-      ),
+              const SizedBox(height: 10.0),
+
+              // Only render DescriptionText if a description exists
+              if (t.description != null && t.description!.isNotEmpty)
+                DescriptionText(
+                  className: widget.clsContent!.name!,
+                  content: _translationCache[t.description] ?? t.description!,
+                ),
+            ],
+          ),
+        ),
+        const Divider(color: Colors.blueGrey),
+      ],
     );
   }
 }

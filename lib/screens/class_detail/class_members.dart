@@ -7,7 +7,6 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:godotclassreference/theme/themes.dart';
 import 'package:godotclassreference/components/link_text.dart';
 import 'package:godotclassreference/components/description_text.dart';
-import 'package:godotclassreference/constants/stored_values.dart';
 // import 'package:godotclassreference/models/class_content.dart';
 import 'package:godotclassreference/bloc/blocs.dart';
 import 'package:godotclassreference/components/zero_content_hint.dart';
@@ -15,48 +14,70 @@ import 'package:godotclassreference/components/zero_content_hint.dart';
 class ClassMembers extends StatefulWidget {
   final ClassContent? clsContent;
 
-  ClassMembers({
-    Key? key,
-    this.clsContent,
-  }) : super(key: key);
+  ClassMembers({Key? key, this.clsContent}) : super(key: key);
 
   @override
   _ClassMembersState createState() => _ClassMembersState();
 }
 
 class _ClassMembersState extends State<ClassMembers> {
-  ItemScrollController? _scrollController;
-  ItemPositionsListener? _itemPositionsListener;
+  final ItemScrollController _scrollController = ItemScrollController();
+  final ItemPositionsListener _itemPositionsListener =
+      ItemPositionsListener.create();
 
-  bool _isDarkMode = storedValues.isDarkTheme;
+  List<Member> _members = [];
+  Map<String, String> _translationCache = {};
 
-  double propertyIndent = 50;
+  // Reusable strings to avoid redundant context.translate calls
+  late String _setterLabel;
+  late String _getterLabel;
 
   @override
   void initState() {
     super.initState();
-    _scrollController = ItemScrollController();
-    _itemPositionsListener = ItemPositionsListener.create();
+    _prepareData();
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (blocs.tapEventBloc.state.fieldName.isNotEmpty) {
-        try {
-          scrollTo(blocs.tapEventBloc.state);
-        } catch (_) {}
+        scrollTo(blocs.tapEventBloc.state);
         blocs.tapEventBloc.reached();
       }
     });
   }
 
+  final setterKey = 'Setter';
+  final getterKey = 'Getter';
+  void _prepareData() {
+    if (widget.clsContent == null) return;
+
+    final members = widget.clsContent!.members;
+    final List<String> translationKeys = [setterKey, getterKey];
+
+    // 1. Collect all keys for batch translation
+    for (var m in members) {
+      if (m.memberText != null) {
+        translationKeys.add(m.memberText!);
+      }
+    }
+
+    // 2. Batch fetch from Isar Plus Sync
+    _members = members;
+    _translationCache = batchTranslate(translationKeys);
+
+    // Cache static labels
+    _setterLabel = _translationCache[setterKey] ?? setterKey;
+    _getterLabel = _translationCache[getterKey] ?? getterKey;
+  }
+
   void scrollTo(TapEventArg args) {
-    if (widget.clsContent!.name == args.className &&
+    if (widget.clsContent?.name == args.className &&
         args.propertyType == PropertyType.Property) {
-      final _targetIndex = widget.clsContent!.members
-          .indexWhere((w) => w.name == args.fieldName);
-      if (_targetIndex != -1) {
-        _scrollController!.scrollTo(
+      final index = _members.indexWhere((w) => w.name == args.fieldName);
+      if (index != -1) {
+        _scrollController.scrollTo(
           curve: Curves.easeInOutCubic,
-          index: _targetIndex,
-          duration: Duration(milliseconds: 500),
+          index: index,
+          duration: const Duration(milliseconds: 500),
         );
       }
     }
@@ -64,7 +85,7 @@ class _ClassMembersState extends State<ClassMembers> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.clsContent!.members.length == 0) {
+    if (_members.isEmpty) {
       return ZeroContentHint(
         clsContent: widget.clsContent!,
         propertyType: PropertyType.Property,
@@ -77,125 +98,84 @@ class _ClassMembersState extends State<ClassMembers> {
       listener: (context, state) {
         if (state.className == widget.clsContent!.name &&
             state.propertyType == PropertyType.Property) {
-          try {
-            scrollTo(blocs.tapEventBloc.state);
-          } catch (_) {}
+          scrollTo(state);
           blocs.tapEventBloc.reached();
         }
       },
       child: ScrollablePositionedList.builder(
-          itemCount: widget.clsContent!.members.length,
-          itemScrollController: _scrollController,
-          itemPositionsListener: _itemPositionsListener,
-          itemBuilder: (context, index) {
-            final m = widget.clsContent!.members[index];
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  ListTile(
-                    title: Container(
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      child: Text(
-                        m.name!,
-                        style: monoOptionalStyle(
-                          context,
-                          baseStyle: TextStyle(
-                            fontSize: 25,
-                          ),
-                        ),
-                      ),
-                    ),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              'type',
-                              style: TextStyle(color: Colors.grey),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            LinkText(
-                              text: m.type!,
-                              // onLinkTap: widget.onLinkTap,
-                            )
-                          ],
-                        ),
-                        Divider(
-                          indent: propertyIndent,
-                        ),
-                        m.setter == null || m.setter!.length == 0
-                            ? SizedBox()
-                            : Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    context.translate('Setter'),
-                                    style: TextStyle(color: Colors.grey),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                                    child: Text(
-                                      m.setter! + "(value)",
-                                      style: monoOptionalStyle(
-                                        context,
-                                        baseStyle: TextStyle(
-                                            color: _isDarkMode
-                                                ? Colors.white
-                                                : Colors.black),
-                                      ),
-                                    ),
-                                  ),
-                                  Divider(
-                                    indent: propertyIndent,
-                                  ),
-                                ],
-                              ),
-                        m.getter == null || m.getter!.length == 0
-                            ? SizedBox()
-                            : Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    context.translate('Getter'),
-                                    style: TextStyle(color: Colors.grey),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                                    child: Text(
-                                      m.getter! + "()",
-                                      style: monoOptionalStyle(
-                                        context,
-                                        baseStyle: TextStyle(
-                                            color: _isDarkMode
-                                                ? Colors.white
-                                                : Colors.black),
-                                      ),
-                                    ),
-                                  ),
-                                  Divider(
-                                    indent: propertyIndent,
-                                  ),
-                                ],
-                              ),
-                        DescriptionText(
-                          className: widget.clsContent!.name!,
-                          content: context.translate(m.memberText!),
-                          // onLinkTap: widget.onLinkTap,
-                        ),
-                      ],
+        itemCount: _members.length,
+        itemScrollController: _scrollController,
+        itemPositionsListener: _itemPositionsListener,
+        itemBuilder: (context, index) => _buildMemberTile(_members[index]),
+      ),
+    );
+  }
+
+  Widget _buildMemberTile(Member m) {
+    // final theme = Theme.of(context);
+    const double propertyIndent = 50;
+
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          ListTile(
+            title: Text(
+              m.name ?? '',
+              style: monoOptionalStyle(context,
+                  baseStyle: const TextStyle(fontSize: 25)),
+            ),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    const Text('type', style: TextStyle(color: Colors.grey)),
+                    const SizedBox(width: 10),
+                    LinkText(text: m.type ?? ''),
+                  ],
+                ),
+                const Divider(indent: propertyIndent),
+
+                // Setter Section
+                if (m.setter != null && m.setter!.isNotEmpty) ...[
+                  Text(_setterLabel,
+                      style: const TextStyle(color: Colors.grey)),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5),
+                    child: Text(
+                      "${m.setter!}(value)",
+                      style: monoOptionalStyle(context),
                     ),
                   ),
-                  Divider(
-                    color: Colors.blueGrey,
-                  )
+                  const Divider(indent: propertyIndent),
                 ],
-              ),
-            );
-          }),
+
+                // Getter Section
+                if (m.getter != null && m.getter!.isNotEmpty) ...[
+                  Text(_getterLabel,
+                      style: const TextStyle(color: Colors.grey)),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5),
+                    child: Text(
+                      "${m.getter!}()",
+                      style: monoOptionalStyle(context),
+                    ),
+                  ),
+                  const Divider(indent: propertyIndent),
+                ],
+
+                DescriptionText(
+                  className: widget.clsContent!.name!,
+                  content:
+                      _translationCache[m.memberText] ?? m.memberText ?? '',
+                ),
+              ],
+            ),
+          ),
+          const Divider(color: Colors.blueGrey),
+        ],
+      ),
     );
   }
 }

@@ -7,8 +7,6 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import 'package:godotclassreference/theme/themes.dart';
 import 'package:godotclassreference/components/description_text.dart';
-// import 'package:godotclassreference/models/class_content.dart';
-// import 'package:godotclassreference/models/constant.dart';
 import 'package:godotclassreference/bloc/blocs.dart';
 
 class ClassConstants extends StatefulWidget {
@@ -21,40 +19,57 @@ class ClassConstants extends StatefulWidget {
 }
 
 class _ClassConstantsState extends State<ClassConstants> {
-  ItemScrollController? _scrollController;
-  ItemPositionsListener? _itemPositionsListener;
+  final ItemScrollController _scrollController = ItemScrollController();
+  final ItemPositionsListener _itemPositionsListener =
+      ItemPositionsListener.create();
 
   List<Constant> _onlyConstants = [];
-
-  double propertyIndent = 50;
+  Map<String, String> _translationCache = {};
 
   @override
   void initState() {
     super.initState();
-    _scrollController = ItemScrollController();
-    _itemPositionsListener = ItemPositionsListener.create();
-    _onlyConstants =
-        widget.clsContent!.constants.where((w) => w.enumValue == null).toList();
+    _prepareData();
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (blocs.tapEventBloc.state.fieldName.isNotEmpty) {
-        try {
-          scrollTo(blocs.tapEventBloc.state);
-        } catch (_) {}
+        scrollTo(blocs.tapEventBloc.state);
         blocs.tapEventBloc.reached();
       }
     });
   }
 
+  void _prepareData() {
+    if (widget.clsContent == null) return;
+
+    // 1. Filter constants that don't belong to an enum
+    final constants = widget.clsContent!.constants
+        .where((w) => w.enumValue == null || w.enumValue!.isEmpty)
+        .toList();
+
+    // 2. Batch collect translation keys
+    final List<String> translationKeys = [];
+    for (var c in constants) {
+      if (c.constantText != null) {
+        translationKeys.add(c.constantText!);
+      }
+    }
+
+    // 3. Assign data and cache translations synchronously
+    _onlyConstants = constants;
+    _translationCache = batchTranslate(translationKeys);
+  }
+
   void scrollTo(TapEventArg args) {
-    if (widget.clsContent!.name == args.className &&
+    if (widget.clsContent?.name == args.className &&
         args.propertyType == PropertyType.Constant) {
-      final _targetIndex =
+      final targetIndex =
           _onlyConstants.indexWhere((w) => w.name == args.fieldName);
-      if (_targetIndex != -1) {
-        _scrollController!.scrollTo(
+      if (targetIndex != -1) {
+        _scrollController.scrollTo(
           curve: Curves.easeInOutCubic,
-          index: _targetIndex,
-          duration: Duration(milliseconds: 500),
+          index: targetIndex,
+          duration: const Duration(milliseconds: 500),
         );
       }
     }
@@ -62,8 +77,8 @@ class _ClassConstantsState extends State<ClassConstants> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.clsContent!.constants.where((w) => w.enumValue == null).length ==
-        0) {
+    // Check against our prepared list instead of re-filtering in build
+    if (_onlyConstants.isEmpty) {
       return ZeroContentHint(
         clsContent: widget.clsContent!,
         propertyType: PropertyType.Constant,
@@ -76,56 +91,57 @@ class _ClassConstantsState extends State<ClassConstants> {
       listener: (context, state) {
         if (state.className == widget.clsContent!.name &&
             state.propertyType == PropertyType.Constant) {
-          try {
-            scrollTo(blocs.tapEventBloc.state);
-          } catch (_) {}
+          scrollTo(state);
           blocs.tapEventBloc.reached();
         }
       },
       child: ScrollablePositionedList.builder(
-          itemCount: _onlyConstants.length,
-          itemScrollController: _scrollController,
-          itemPositionsListener: _itemPositionsListener,
-          itemBuilder: (context, index) {
-            final c = _onlyConstants[index];
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(children: [
-                ListTile(
-                  title: Container(
-                    width: MediaQuery.of(context).size.width * 0.88,
-                    child: Text(
-                      c.name!,
-                      style: monoOptionalStyle(context),
+        itemCount: _onlyConstants.length,
+        itemScrollController: _scrollController,
+        itemPositionsListener: _itemPositionsListener,
+        itemBuilder: (context, index) {
+          final c = _onlyConstants[index];
+          return _buildConstantTile(c);
+        },
+      ),
+    );
+  }
+
+  Widget _buildConstantTile(Constant c) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          ListTile(
+            title: Text(
+              c.name ?? '',
+              style: monoOptionalStyle(context),
+            ),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    const Text("value  "),
+                    Text(
+                      c.value.toString(),
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
-                  ),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Text("value  "),
-                          Text(
-                            c.value.toString(),
-                            style: Theme.of(context).textTheme.bodyLarge,
-                          ),
-                        ],
-                      ),
-                      Divider(
-                        indent: propertyIndent,
-                      ),
-                      DescriptionText(
-                        className: widget.clsContent!.name!,
-                        content: context.translate(c.constantText!),
-                        // onLinkTap: widget.onLinkTap,
-                      ),
-                    ],
-                  ),
+                  ],
                 ),
-                Divider(color: Colors.blueGrey)
-              ]),
-            );
-          }),
+                const Divider(indent: 50),
+                DescriptionText(
+                  className: widget.clsContent!.name!,
+                  // Use the cache! O(1) RAM lookup.
+                  content:
+                      _translationCache[c.constantText] ?? c.constantText ?? '',
+                ),
+              ],
+            ),
+          ),
+          const Divider(color: Colors.blueGrey)
+        ],
+      ),
     );
   }
 }
