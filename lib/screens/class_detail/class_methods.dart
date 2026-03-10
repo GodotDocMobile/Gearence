@@ -21,7 +21,8 @@ class ClassMethods extends StatefulWidget {
   _ClassMethodsState createState() => _ClassMethodsState();
 }
 
-class _ClassMethodsState extends State<ClassMethods> {
+class _ClassMethodsState extends State<ClassMethods>
+    with AutomaticKeepAliveClientMixin {
   final ItemScrollController _scrollController = ItemScrollController();
   final ItemPositionsListener _itemPositionsListener =
       ItemPositionsListener.create();
@@ -41,7 +42,7 @@ class _ClassMethodsState extends State<ClassMethods> {
     }
   }
 
-  void _prepareData() {
+  void _prepareData() async {
     final List<String> translationKeys = [
       UIInfoKeys.returnKey
     ]; // Add 'return' to batch
@@ -53,8 +54,10 @@ class _ClassMethodsState extends State<ClassMethods> {
       // If arguments have descriptions, you'd add them here too
     }
 
+    final translateResult =
+        await Future.microtask(() => batchTranslate(translationKeys));
     setState(() {
-      _translationCache = batchTranslate(translationKeys);
+      _translationCache = translateResult;
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -83,6 +86,7 @@ class _ClassMethodsState extends State<ClassMethods> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     if (_methods.isEmpty) {
       return ZeroContentHint(
         clsContent: widget.clsContent!,
@@ -153,4 +157,7 @@ class _ClassMethodsState extends State<ClassMethods> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

@@ -21,7 +21,8 @@ class ClassThemeItems extends StatefulWidget {
   _ClassThemeItemsState createState() => _ClassThemeItemsState();
 }
 
-class _ClassThemeItemsState extends State<ClassThemeItems> {
+class _ClassThemeItemsState extends State<ClassThemeItems>
+    with AutomaticKeepAliveClientMixin {
   final ItemScrollController _scrollController = ItemScrollController();
   final ItemPositionsListener _itemPositionsListener =
       ItemPositionsListener.create();
@@ -40,7 +41,7 @@ class _ClassThemeItemsState extends State<ClassThemeItems> {
     }
   }
 
-  void _prepareData() {
+  void _prepareData() async {
     final List<String> translationKeys = [];
 
     // 1. Collect descriptions for batch translation
@@ -50,8 +51,10 @@ class _ClassThemeItemsState extends State<ClassThemeItems> {
       }
     }
 
+    final translateResult =
+        await Future.microtask(() => batchTranslate(translationKeys));
     setState(() {
-      _translationCache = batchTranslate(translationKeys);
+      _translationCache = translateResult;
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -80,6 +83,7 @@ class _ClassThemeItemsState extends State<ClassThemeItems> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     if (_themeItems.isEmpty) {
       return ZeroContentHint(
         clsContent: widget.clsContent!,
@@ -140,4 +144,7 @@ class _ClassThemeItemsState extends State<ClassThemeItems> {
       ],
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

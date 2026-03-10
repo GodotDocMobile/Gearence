@@ -20,7 +20,6 @@ class DocSeed extends StatefulWidget {
 }
 
 class _DocSeedState extends State<DocSeed> {
-  // Initialize with an empty string or a fallback to prevent "LateInitializationError"
   String statusMessage = '';
 
   bool _isStarted = false;
