@@ -14,27 +14,26 @@ import 'package:godotclassreference/components/zero_content_hint.dart';
 class ClassSignals extends StatefulWidget {
   final ClassContent? clsContent;
 
-  ClassSignals({
-    Key? key,
-    this.clsContent,
-  }) : super(key: key);
+  ClassSignals({Key? key, this.clsContent}) : super(key: key);
 
   @override
   _ClassSignalsState createState() => _ClassSignalsState();
 }
 
 class _ClassSignalsState extends State<ClassSignals> {
-  ItemScrollController? _scrollController;
+  final ItemScrollController _scrollController = ItemScrollController();
+  final ItemPositionsListener _itemPositionsListener =
+      ItemPositionsListener.create();
 
-  ItemPositionsListener? _itemPositionsListener;
-
-  double propertyIndent = 50;
+  List<Signal> _signals = [];
+  Map<String, String> _translationCache = {};
 
   @override
   void initState() {
     super.initState();
-    _scrollController = ItemScrollController();
-    _itemPositionsListener = ItemPositionsListener.create();
+    if (_signals.isEmpty && widget.clsContent != null) {
+      _prepareData();
+    }
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (blocs.tapEventBloc.state.fieldName.isNotEmpty) {
         try {
@@ -45,16 +44,30 @@ class _ClassSignalsState extends State<ClassSignals> {
     });
   }
 
+  void _prepareData() {
+    final signals = widget.clsContent!.signals;
+    final List<String> translationKeys = [];
+
+    // Collect signal descriptions for batch translation
+    for (var s in signals) {
+      if (s.description != null && s.description!.isNotEmpty) {
+        translationKeys.add(s.description!);
+      }
+    }
+
+    _signals = signals;
+    _translationCache = batchTranslate(translationKeys);
+  }
+
   void scrollTo(TapEventArg args) {
-    if (widget.clsContent!.name == args.className &&
+    if (widget.clsContent?.name == args.className &&
         args.propertyType == PropertyType.Signal) {
-      final _targetIndex = widget.clsContent!.signals
-          .indexWhere((w) => w.name == args.fieldName);
-      if (_targetIndex != -1) {
-        _scrollController!.scrollTo(
+      final index = _signals.indexWhere((w) => w.name == args.fieldName);
+      if (index != -1) {
+        _scrollController.scrollTo(
           curve: Curves.easeInOutCubic,
-          index: _targetIndex,
-          duration: Duration(milliseconds: 500),
+          index: index,
+          duration: const Duration(milliseconds: 500),
         );
       }
     }
@@ -62,7 +75,7 @@ class _ClassSignalsState extends State<ClassSignals> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.clsContent!.signals.length == 0) {
+    if (_signals.isEmpty) {
       return ZeroContentHint(
         clsContent: widget.clsContent!,
         propertyType: PropertyType.Signal,
@@ -75,65 +88,68 @@ class _ClassSignalsState extends State<ClassSignals> {
       listener: (context, state) {
         if (state.className == widget.clsContent!.name &&
             state.propertyType == PropertyType.Signal) {
-          try {
-            scrollTo(blocs.tapEventBloc.state);
-          } catch (_) {}
+          scrollTo(state);
           blocs.tapEventBloc.reached();
         }
       },
       child: ScrollablePositionedList.builder(
-          itemCount: widget.clsContent!.signals.length,
-          itemScrollController: _scrollController,
-          itemPositionsListener: _itemPositionsListener,
-          itemBuilder: (context, index) {
-            final s = widget.clsContent!.signals[index];
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(children: [
-                ListTile(
-                  title: Text(
-                    s.name!,
-                    style: monoOptionalStyle(context,
-                        baseStyle: TextStyle(fontSize: 25)),
+        itemCount: _signals.length,
+        itemScrollController: _scrollController,
+        itemPositionsListener: _itemPositionsListener,
+        itemBuilder: (context, index) => _buildSignalTile(_signals[index]),
+      ),
+    );
+  }
+
+  Widget _buildSignalTile(Signal s) {
+    const double propertyIndent = 50;
+
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          ListTile(
+            title: Text(
+              s.name ?? '',
+              style: monoOptionalStyle(context,
+                  baseStyle: const TextStyle(fontSize: 25)),
+            ),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Arguments List
+                if (s.arguments != null && s.arguments!.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Column(
+                      children: s.arguments!
+                          .map((e) => Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 2.0),
+                                child: Row(
+                                  children: [
+                                    LinkText(text: e.type ?? ''),
+                                    const SizedBox(width: 10),
+                                    Text(e.name ?? '',
+                                        style: const TextStyle(fontSize: 15)),
+                                  ],
+                                ),
+                              ))
+                          .toList(),
+                    ),
                   ),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
-                          children: s.arguments!.map((e) {
-                        return Column(children: [
-                          Row(children: [
-                            LinkText(
-                              text: e.type!,
-                              // onLinkTap: widget.onLinkTap,
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              e.name!,
-                              style: TextStyle(fontSize: 15),
-                            ),
-                          ]),
-                        ]);
-                      }).toList()),
-                      Divider(
-                        indent: propertyIndent,
-                      ),
-                      DescriptionText(
-                        className: widget.clsContent!.name!,
-                        content: context.translate(s.description!),
-                        // onLinkTap: widget.onLinkTap,
-                      ),
-                    ],
-                  ),
+                const Divider(indent: propertyIndent),
+                DescriptionText(
+                  className: widget.clsContent!.name!,
+                  content:
+                      _translationCache[s.description] ?? s.description ?? '',
                 ),
-                Divider(
-                  color: Colors.blueGrey,
-                )
-              ]),
-            );
-          }),
+              ],
+            ),
+          ),
+          const Divider(color: Colors.blueGrey),
+        ],
+      ),
     );
   }
 }

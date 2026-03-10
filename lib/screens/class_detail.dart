@@ -35,10 +35,11 @@ class _ClassDetailState extends State<ClassDetail>
   TabController? tabController;
   late Isar docIsar;
   late ClassContent classContent;
-  // Future<ClassContent>? _classContent;
   late List<ClassTab> _tabs;
 
   String className = '';
+
+  Map<String, String> _translationCache = {};
 
   @override
   void initState() {
@@ -62,6 +63,16 @@ class _ClassDetailState extends State<ClassDetail>
         onLinkTap(widget.args!);
       });
     }
+    _translationCache = batchTranslate([
+      UIInfoKeys.info,
+      UIInfoKeys.enumerations,
+      UIInfoKeys.constants,
+      UIInfoKeys.properties,
+      UIInfoKeys.methods,
+      UIInfoKeys.signals,
+      UIInfoKeys.themeProperties,
+      UIInfoKeys.annotations,
+    ]);
   }
 
   @override
@@ -121,7 +132,7 @@ class _ClassDetailState extends State<ClassDetail>
         onLinkTap(state);
       },
       child: Builder(builder: (context) {
-        _tabs = getClassTabs(classContent, context);
+        _tabs = getClassTabs(classContent, context, _translationCache);
         // append theme item tab if needed
 
         if (tabController == null) {
@@ -167,90 +178,6 @@ class _ClassDetailState extends State<ClassDetail>
           ),
         );
       }),
-
-      // child: FutureBuilder<ClassContent>(
-      //   future: _classContent,
-      //   builder: (BuildContext context, AsyncSnapshot<ClassContent> snapshot) {
-      //     if (snapshot.hasData) {
-      //       _tabs = getClassTabs(snapshot.data!, context);
-      //       // append theme item tab if needed
-      //       if (snapshot.data!.themeItems.length > 0) {
-      //         _tabs.add(
-      //           ClassTab(
-      //             PropertyType.ThemeItem,
-      //             title: context.translate('Theme Properties'),
-      //             child: ClassThemeItems(
-      //               clsContent: snapshot.data,
-      //             ),
-      //             showCnt: true,
-      //             itemCount: snapshot.data!.themeItems.length,
-      //           ),
-      //         );
-      //       }
-
-      //       if (snapshot.data!.annotations.length > 0) {
-      //         _tabs.add(ClassTab(
-      //           PropertyType.Annotation,
-      //           title: context.translate("Annotations"),
-      //           child: ClassAnnotations(
-      //             clsContent: snapshot.data,
-      //           ),
-      //           showCnt: true,
-      //           itemCount: snapshot.data!.annotations.length,
-      //         ));
-      //       }
-
-      //       if (tabController == null) {
-      //         tabController = TabController(
-      //           vsync: this,
-      //           length: _tabs.length,
-      //         );
-      //       }
-
-      //       return MediaQuery(
-      //         data: scaledMediaQueryData(context),
-      //         child: Scaffold(
-      //           appBar: AppBar(
-      //             title: Semantics(
-      //                 label: getSpacedClassName(widget.className),
-      //                 child: ExcludeSemantics(child: Text(widget.className))),
-      //             bottom: TabBar(
-      //               indicatorColor: storedValues.isDarkTheme
-      //                   ? Theme.of(context).colorScheme.secondary
-      //                   : Colors.white,
-      //               controller: tabController,
-      //               isScrollable: true,
-      //               tabs: _tabs.map((f) {
-      //                 return Tab(
-      //                   child: Row(
-      //                     children: [
-      //                       Text(f.title!),
-      //                       f.showCnt
-      //                           ? itemCountContainer(f.itemCount!)
-      //                           : SizedBox(),
-      //                     ],
-      //                   ),
-      //                 );
-      //               }).toList(),
-      //             ),
-      //           ),
-      //           body: TabBarView(
-      //             controller: tabController,
-      //             children: _tabs.map((c) {
-      //               return c.child!;
-      //             }).toList(),
-      //           ),
-      //         ),
-      //       );
-      //     }
-      //     return Container(
-      //       color: storedValues.isDarkTheme ? Colors.black : Colors.white,
-      //       child: Center(
-      //         child: CircularProgressIndicator(),
-      //       ),
-      //     );
-      //   },
-      // ),
     );
   }
 }
@@ -276,18 +203,20 @@ class ClassTab {
   final Stream<TapEventArg>? eventStream;
 }
 
-List<ClassTab> getClassTabs(ClassContent clsContent, BuildContext context) {
+List<ClassTab> getClassTabs(ClassContent clsContent, BuildContext context,
+    Map<String, String> _translationCache) {
   var _tabs = <ClassTab>[
     ClassTab(
       PropertyType.Class,
-      title: "Info",
+      title: _translationCache[UIInfoKeys.info] ?? UIInfoKeys.info,
       child: ClassInfo(
         clsContent: clsContent,
       ),
     ),
     ClassTab(
       PropertyType.Enum,
-      title: context.translate("Enumerations"),
+      title:
+          _translationCache[UIInfoKeys.enumerations] ?? UIInfoKeys.enumerations,
       child: ClassEnums(
         clsContent: clsContent,
       ),
@@ -296,7 +225,7 @@ List<ClassTab> getClassTabs(ClassContent clsContent, BuildContext context) {
     ),
     ClassTab(
       PropertyType.Constant,
-      title: context.translate("Constants"),
+      title: _translationCache[UIInfoKeys.constants] ?? UIInfoKeys.constants,
       child: ClassConstants(
         clsContent: clsContent,
       ),
@@ -305,7 +234,7 @@ List<ClassTab> getClassTabs(ClassContent clsContent, BuildContext context) {
     ),
     ClassTab(
       PropertyType.Property,
-      title: context.translate("Properties"),
+      title: _translationCache[UIInfoKeys.properties] ?? UIInfoKeys.properties,
       child: ClassMembers(
         clsContent: clsContent,
       ),
@@ -314,7 +243,7 @@ List<ClassTab> getClassTabs(ClassContent clsContent, BuildContext context) {
     ),
     ClassTab(
       PropertyType.Method,
-      title: context.translate("Methods"),
+      title: _translationCache[UIInfoKeys.methods] ?? UIInfoKeys.methods,
       child: ClassMethods(
         clsContent: clsContent,
       ),
@@ -323,7 +252,7 @@ List<ClassTab> getClassTabs(ClassContent clsContent, BuildContext context) {
     ),
     ClassTab(
       PropertyType.Signal,
-      title: context.translate("Signals"),
+      title: _translationCache[UIInfoKeys.signals] ?? UIInfoKeys.signals,
       child: ClassSignals(
         clsContent: clsContent,
       ),
@@ -336,7 +265,8 @@ List<ClassTab> getClassTabs(ClassContent clsContent, BuildContext context) {
     _tabs.add(
       ClassTab(
         PropertyType.ThemeItem,
-        title: context.translate('Theme Properties'),
+        title: _translationCache[UIInfoKeys.themeProperties] ??
+            UIInfoKeys.themeProperties,
         child: ClassThemeItems(
           clsContent: clsContent,
         ),
@@ -349,7 +279,8 @@ List<ClassTab> getClassTabs(ClassContent clsContent, BuildContext context) {
   if (clsContent.annotations.length > 0) {
     _tabs.add(ClassTab(
       PropertyType.Annotation,
-      title: context.translate("Annotations"),
+      title:
+          _translationCache[UIInfoKeys.annotations] ?? UIInfoKeys.annotations,
       child: ClassAnnotations(
         clsContent: clsContent,
       ),

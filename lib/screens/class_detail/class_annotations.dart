@@ -20,14 +20,21 @@ class ClassAnnotations extends StatefulWidget {
 }
 
 class _ClassAnnotationsState extends State<ClassAnnotations> {
-  ItemScrollController? _scrollController;
-  ItemPositionsListener? _itemPositionsListener;
+  final ItemScrollController _scrollController = ItemScrollController();
+  final ItemPositionsListener _itemPositionsListener =
+      ItemPositionsListener.create();
+
+  List<Annotation> _annotations = [];
+  Map<String, String> _translationCache = {};
+  late String _returnLabel;
 
   @override
   void initState() {
     super.initState();
-    _scrollController = ItemScrollController();
-    _itemPositionsListener = ItemPositionsListener.create();
+    if (_annotations.isEmpty && widget.clsContent != null) {
+      _prepareData();
+    }
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (blocs.tapEventBloc.state.fieldName.isNotEmpty) {
         try {
@@ -38,16 +45,31 @@ class _ClassAnnotationsState extends State<ClassAnnotations> {
     });
   }
 
+  void _prepareData() {
+    final annotations = widget.clsContent!.annotations;
+    final List<String> translationKeys = ['return'];
+
+    // Collect descriptions for batch translation
+    for (var a in annotations) {
+      if (a.description != null && a.description!.isNotEmpty) {
+        translationKeys.add(a.description!);
+      }
+    }
+
+    _annotations = annotations;
+    _translationCache = batchTranslate(translationKeys);
+    _returnLabel = _translationCache['return'] ?? 'return';
+  }
+
   void scrollTo(TapEventArg args) {
-    if (widget.clsContent!.name == args.className &&
+    if (widget.clsContent?.name == args.className &&
         args.propertyType == PropertyType.Annotation) {
-      final _targetIndex = widget.clsContent!.annotations
-          .indexWhere((w) => w.name == args.fieldName);
-      if (_targetIndex != -1) {
-        _scrollController!.scrollTo(
+      final index = _annotations.indexWhere((w) => w.name == args.fieldName);
+      if (index != -1) {
+        _scrollController.scrollTo(
           curve: Curves.easeInOutCubic,
-          index: _targetIndex,
-          duration: Duration(milliseconds: 500),
+          index: index,
+          duration: const Duration(milliseconds: 500),
         );
       }
     }
@@ -55,77 +77,70 @@ class _ClassAnnotationsState extends State<ClassAnnotations> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.clsContent!.annotations.length == 0) {
+    if (_annotations.isEmpty) {
       return ZeroContentHint(
         clsContent: widget.clsContent!,
         propertyType: PropertyType.Annotation,
       );
     }
+
     return BlocListener<TapEventBloc, TapEventArg>(
       bloc: blocs.tapEventBloc,
       listenWhen: (previous, current) => ModalRoute.of(context)!.isCurrent,
       listener: (context, state) {
         if (state.className == widget.clsContent!.name &&
             state.propertyType == PropertyType.Annotation) {
-          try {
-            scrollTo(blocs.tapEventBloc.state);
-          } catch (_) {}
+          scrollTo(state);
           blocs.tapEventBloc.reached();
         }
       },
       child: ScrollablePositionedList.builder(
-          itemCount: widget.clsContent!.annotations.length,
-          itemScrollController: _scrollController,
-          itemPositionsListener: _itemPositionsListener,
-          itemBuilder: (context, index) {
-            final m = widget.clsContent!.annotations[index];
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(children: [
-                ListTile(
-                  title: Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    child: Text(
-                      m.name!,
-                      softWrap: true,
-                      style: monoOptionalStyle(
-                        context,
-                        baseStyle: TextStyle(fontSize: 25),
-                      ),
-                    ),
-                  ),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Text(
-                          'return',
-                        ),
-                        SizedBox(
-                          width: 15,
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.6,
-                          child: Text(
-                            'void',
-                            style: monoOptionalStyle(context),
-                          ),
-                        ),
-                      ]),
-                      Divider(),
-                      ArgumentTable(arguments: m.params),
-                      DescriptionText(
-                        className: widget.clsContent!.name!,
-                        content: context.translate(m.description!),
-                        // onLinkTap: widget.onLinkTap,
-                      ),
-                    ],
-                  ),
+        itemCount: _annotations.length,
+        itemScrollController: _scrollController,
+        itemPositionsListener: _itemPositionsListener,
+        itemBuilder: (context, index) =>
+            _buildAnnotationTile(_annotations[index]),
+      ),
+    );
+  }
+
+  Widget _buildAnnotationTile(Annotation m) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          ListTile(
+            title: Text(
+              m.name ?? '',
+              softWrap: true,
+              style: monoOptionalStyle(context,
+                  baseStyle: const TextStyle(fontSize: 25)),
+            ),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Text(_returnLabel,
+                        style: const TextStyle(color: Colors.grey)),
+                    const SizedBox(width: 15),
+                    Text('void', style: monoOptionalStyle(context)),
+                  ],
                 ),
-                Divider(color: Colors.blueGrey)
-              ]),
-            );
-          }),
+                const Divider(),
+                // Using m.params for Annotations specifically
+                ArgumentTable(arguments: m.params ?? []),
+                DescriptionText(
+                  className: widget.clsContent!.name!,
+                  content:
+                      _translationCache[m.description] ?? m.description ?? '',
+                ),
+              ],
+            ),
+          ),
+          const Divider(color: Colors.blueGrey)
+        ],
+      ),
     );
   }
 }

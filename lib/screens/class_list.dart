@@ -22,12 +22,14 @@ class ClassList extends StatefulWidget {
 class _ClassListState extends State<ClassList> {
   late Isar docsIsar;
   late SettingsRepository settingsRepo;
+  late List<ClassContent> classes;
 
   @override
   void initState() {
     super.initState();
     docsIsar = GetIt.I(instanceName: MetadataKeys.docsIsarKey);
     settingsRepo = GetIt.instance<SettingsRepository>();
+    classes = docsIsar.classContents.where().sortByName().findAll();
   }
 
   @override
@@ -77,9 +79,10 @@ class _ClassListState extends State<ClassList> {
           )
         ],
       ),
-      body: ListView(
-        children:
-            docsIsar.classContents.where().sortByName().findAll().map((x) {
+      body: ListView.builder(
+        itemCount: classes.length,
+        itemBuilder: (context, index) {
+          final x = classes[index];
           return MediaQuery(
             data: scaledMediaQueryData(context),
             child: Card(
@@ -123,7 +126,7 @@ class _ClassListState extends State<ClassList> {
               ),
             ),
           );
-        }).toList(),
+        },
       ),
     );
   }
