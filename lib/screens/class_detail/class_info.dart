@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 
 import 'package:godotclassreference/components/description_text.dart';
 import 'package:godotclassreference/constants/keys.dart';
+import 'package:godotclassreference/constants/time.dart';
 import 'package:godotclassreference/helpers/trim_translate.dart';
 import 'package:godotclassreference/isar/schema/class_content.dart';
 import 'package:godotclassreference/theme/default.dart';
@@ -25,19 +26,6 @@ class _ClassInfoState extends State<ClassInfo> {
   @override
   void initState() {
     super.initState();
-    translationCache = batchTranslate([
-      UIInfoKeys.inherits,
-      UIInfoKeys.inheritedBy,
-      UIInfoKeys.briefDescription,
-      widget.clsContent!.briefDescription ?? "",
-      UIInfoKeys.version,
-      UIInfoKeys.category,
-      UIInfoKeys.description,
-      widget.clsContent!.description ?? "",
-      UIInfoKeys.demos,
-      UIInfoKeys.tutorials
-    ]);
-
     childClasses = GetIt.I<Isar>(instanceName: MetadataKeys.docsIsarKey)
         .classContents
         .where()
@@ -46,6 +34,26 @@ class _ClassInfoState extends State<ClassInfo> {
         .map((c) => '[' + c.name! + ']')
         .toList()
         .join(' , ');
+    Future.delayed(Duration(milliseconds: dataPrepareDelay), () {
+      if (mounted) _prepareData();
+    });
+  }
+
+  void _prepareData() {
+    setState(() {
+      translationCache = batchTranslate([
+        UIInfoKeys.inherits,
+        UIInfoKeys.inheritedBy,
+        UIInfoKeys.briefDescription,
+        widget.clsContent!.briefDescription ?? "",
+        UIInfoKeys.version,
+        UIInfoKeys.category,
+        UIInfoKeys.description,
+        widget.clsContent!.description ?? "",
+        UIInfoKeys.demos,
+        UIInfoKeys.tutorials
+      ]);
+    });
   }
 
   @override

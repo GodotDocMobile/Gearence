@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:godotclassreference/components/description_text.dart';
+import 'package:godotclassreference/constants/time.dart';
 import 'package:godotclassreference/helpers/trim_translate.dart';
 import 'package:godotclassreference/isar/schema/class_content.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -32,17 +33,10 @@ class _ClassThemeItemsState extends State<ClassThemeItems> {
   void initState() {
     super.initState();
     if (_themeItems.isEmpty && widget.clsContent != null) {
-      _prepareData();
+      Future.delayed(Duration(milliseconds: dataPrepareDelay), () {
+        if (mounted) _prepareData();
+      });
     }
-    
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (blocs.tapEventBloc.state.fieldName.isNotEmpty) {
-        try {
-          scrollTo(blocs.tapEventBloc.state);
-        } catch (_) {}
-        blocs.tapEventBloc.reached();
-      }
-    });
   }
 
   void _prepareData() {
@@ -56,9 +50,20 @@ class _ClassThemeItemsState extends State<ClassThemeItems> {
       }
     }
 
-    // 2. Batch fetch and assign
-    _themeItems = items;
-    _translationCache = batchTranslate(translationKeys);
+    setState(() {
+      // 2. Batch fetch and assign
+      _themeItems = items;
+      _translationCache = batchTranslate(translationKeys);
+    });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (blocs.tapEventBloc.state.fieldName.isNotEmpty) {
+        try {
+          scrollTo(blocs.tapEventBloc.state);
+        } catch (_) {}
+        blocs.tapEventBloc.reached();
+      }
+    });
   }
 
   void scrollTo(TapEventArg args) {

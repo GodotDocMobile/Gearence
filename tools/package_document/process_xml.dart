@@ -18,6 +18,9 @@ void processSingleClassFile(String godotPath, Isar isar) {
     copySvg(svgPath, classContent, isar);
     classContents.add(classContent);
   }
+
+  parsePostProcess(classContents);
+
   isar.write((isar) {
     isar.classContents.putAll(classContents);
   });
@@ -60,9 +63,22 @@ void processMultipleClassFiles(String godotPath, Isar isar) {
     }
   }
 
+  parsePostProcess(classContents);
+
   isar.write((isar) {
     isar.classContents.putAll(classContents);
   });
+}
+
+void parsePostProcess(List<ClassContent> classContents) {
+  final Map<String, ClassContent> classMap = {
+    for (var c in classContents) c.name!: c
+  };
+
+  // 2. Iterate and pre-calculate the chain for every class
+  for (var c in classContents) {
+    c.inheritChain = buildChainString(c.inherits, classMap);
+  }
 }
 
 String removeIndent(String input) {
@@ -89,6 +105,35 @@ String removeIndent(String input) {
       .join('\n')
       .trim();
 }
+
+String buildChainString(String? startParent, Map<String, ClassContent> map) {
+  if (startParent == null || startParent.isEmpty) return "";
+
+  List<String> chain = [];
+  String? current = startParent;
+
+  // Follow the breadcrumbs up to the root (Object)
+  while (current != null && current.isNotEmpty) {
+    chain.add("[$current]");
+
+    // Look up the next ancestor
+    final parentObj = map[current];
+    current = parentObj?.inherits;
+  }
+
+  return chain.join(" >> ");
+}
+
+// void setNodeType(ClassContent classContent) {
+//   for (var e in classNodeType.values) {
+//     if ((classContent.inheritChain != null &&
+//             classContent.inheritChain!.contains('[${getNodeName(e)}]')) ||
+//         classContent.name == getNodeName(e)) {
+//       classContent.nodeType = e;
+//       return;
+//     }
+//   }
+// }
 
 void processSearchableItem(ClassContent classContent, Isar isar) {
   final String className = classContent.name!;
@@ -242,7 +287,7 @@ ClassContent parseXML(XmlElement node, Isar isar) {
       (el) => ThemeItem()
         ..name = attr(el, 'name')
         ..type = attr(el, 'type')
-        ..description = removeIndent(el.innerText.trim()));
+        ..description = removeIndent(el.innerText));
 
 // annotations (specifically for 4.x+)
   rtn.annotations = mapTags('annotations', 'annotation', (el) {

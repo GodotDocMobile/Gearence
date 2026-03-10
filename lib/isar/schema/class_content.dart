@@ -37,12 +37,12 @@ final Map<classNodeType, String> filterOptionStoreKey = {
 };
 
 // names of nodes to categorize them for filtering
-String getNodeName(classNodeType nodeType, String version) {
+String getNodeName(classNodeType nodeType, bool isSpatial) {
   switch (nodeType) {
     case classNodeType.D2:
       return "Node2D";
     case classNodeType.D3:
-      return double.parse(version) >= 4 ? "Node3D" : "Spatial";
+      return isSpatial ? "Node3D" : "Spatial";
     case classNodeType.Control:
       return "Control";
     case classNodeType.VisualScript:

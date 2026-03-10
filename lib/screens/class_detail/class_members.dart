@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:godotclassreference/constants/time.dart';
 import 'package:godotclassreference/helpers/trim_translate.dart';
 import 'package:godotclassreference/isar/schema/class_content.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -35,13 +36,8 @@ class _ClassMembersState extends State<ClassMembers> {
   @override
   void initState() {
     super.initState();
-    _prepareData();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (blocs.tapEventBloc.state.fieldName.isNotEmpty) {
-        scrollTo(blocs.tapEventBloc.state);
-        blocs.tapEventBloc.reached();
-      }
+    Future.delayed(Duration(milliseconds: dataPrepareDelay), () {
+      if (mounted) _prepareData();
     });
   }
 
@@ -59,14 +55,22 @@ class _ClassMembersState extends State<ClassMembers> {
         translationKeys.add(m.memberText!);
       }
     }
+    setState(() {
+      // 2. Batch fetch from Isar Plus Sync
+      _members = members;
+      _translationCache = batchTranslate(translationKeys);
 
-    // 2. Batch fetch from Isar Plus Sync
-    _members = members;
-    _translationCache = batchTranslate(translationKeys);
+      // Cache static labels
+      _setterLabel = _translationCache[setterKey] ?? setterKey;
+      _getterLabel = _translationCache[getterKey] ?? getterKey;
+    });
 
-    // Cache static labels
-    _setterLabel = _translationCache[setterKey] ?? setterKey;
-    _getterLabel = _translationCache[getterKey] ?? getterKey;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (blocs.tapEventBloc.state.fieldName.isNotEmpty) {
+        scrollTo(blocs.tapEventBloc.state);
+        blocs.tapEventBloc.reached();
+      }
+    });
   }
 
   void scrollTo(TapEventArg args) {

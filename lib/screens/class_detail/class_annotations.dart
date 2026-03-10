@@ -4,6 +4,7 @@ import 'package:godotclassreference/bloc/blocs.dart';
 import 'package:godotclassreference/components/argument_table.dart';
 import 'package:godotclassreference/components/description_text.dart';
 import 'package:godotclassreference/components/zero_content_hint.dart';
+import 'package:godotclassreference/constants/time.dart';
 import 'package:godotclassreference/helpers/trim_translate.dart';
 import 'package:godotclassreference/isar/schema/class_content.dart';
 // import 'package:godotclassreference/models/class_content.dart';
@@ -32,17 +33,10 @@ class _ClassAnnotationsState extends State<ClassAnnotations> {
   void initState() {
     super.initState();
     if (_annotations.isEmpty && widget.clsContent != null) {
-      _prepareData();
+      Future.delayed(Duration(milliseconds: dataPrepareDelay), () {
+        if (mounted) _prepareData();
+      });
     }
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (blocs.tapEventBloc.state.fieldName.isNotEmpty) {
-        try {
-          scrollTo(blocs.tapEventBloc.state);
-        } catch (_) {}
-        blocs.tapEventBloc.reached();
-      }
-    });
   }
 
   void _prepareData() {
@@ -55,10 +49,19 @@ class _ClassAnnotationsState extends State<ClassAnnotations> {
         translationKeys.add(a.description!);
       }
     }
-
-    _annotations = annotations;
-    _translationCache = batchTranslate(translationKeys);
-    _returnLabel = _translationCache['return'] ?? 'return';
+    setState(() {
+      _annotations = annotations;
+      _translationCache = batchTranslate(translationKeys);
+      _returnLabel = _translationCache['return'] ?? 'return';
+    });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (blocs.tapEventBloc.state.fieldName.isNotEmpty) {
+        try {
+          scrollTo(blocs.tapEventBloc.state);
+        } catch (_) {}
+        blocs.tapEventBloc.reached();
+      }
+    });
   }
 
   void scrollTo(TapEventArg args) {
