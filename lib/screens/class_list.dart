@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:godotclassreference/components/default_class_icon.dart';
 import 'package:godotclassreference/components/drawer.dart';
+import 'package:godotclassreference/components/node_tag.dart';
 import 'package:godotclassreference/components/svg_icon.dart';
 import 'package:godotclassreference/constants/keys.dart';
 import 'package:godotclassreference/helpers/sematic_helpers.dart';
@@ -119,9 +120,9 @@ class _ClassListState extends State<ClassList> {
                           builder: (context) => ClassDetail(className: x.name!),
                         ));
                   },
-                  // trailing: f.nodeType == classNodeType.None
-                  //     ? null
-                  //     : NodeTag(classContent: f),
+                  trailing: x.nodeType == classNodeType.None
+                      ? null
+                      : NodeTag(classContent: x),
                 ),
               ),
             ),
