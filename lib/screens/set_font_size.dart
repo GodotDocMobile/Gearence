@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:godotclassreference/bloc/blocs.dart';
 import 'package:godotclassreference/constants/keys.dart';
+import 'package:godotclassreference/helpers/trim_translate.dart';
 import 'package:godotclassreference/isar/manager/settings_repository.dart';
 import 'package:godotclassreference/isar/schema/class_content.dart';
 import 'package:godotclassreference/isar/schema/user_setting.dart';
@@ -13,7 +14,6 @@ import 'package:isar_plus/isar_plus.dart';
 import 'class_detail.dart';
 
 class SetFontSize extends StatefulWidget {
-
   const SetFontSize({Key? key}) : super(key: key);
 
   @override
@@ -28,7 +28,7 @@ class _SetFontSizeState extends State<SetFontSize>
   late UserSetting fontSizeRecord;
   late int dbFontSize;
   late int curFontSize;
-  
+
   bool save = false;
 
   ClassContent dummyNode = dummyClass;
@@ -37,6 +37,8 @@ class _SetFontSizeState extends State<SetFontSize>
   TabController? tabController;
   List<ClassTab> _tabs = [];
   final _streamController = StreamController<TapEventArg?>.broadcast();
+
+  Map<String, String> _translationCache = {};
 
   @override
   void initState() {
@@ -53,7 +55,20 @@ class _SetFontSizeState extends State<SetFontSize>
     dummyNode.methods = node.methods;
     dummyNode.signals = node.signals;
 
-    _tabs = getClassTabs(dummyNode, context);
+    setState(() {
+      _translationCache = batchTranslate([
+        UIInfoKeys.info,
+        UIInfoKeys.enumerations,
+        UIInfoKeys.constants,
+        UIInfoKeys.properties,
+        UIInfoKeys.methods,
+        UIInfoKeys.signals,
+        UIInfoKeys.themeProperties,
+        UIInfoKeys.annotations,
+      ]);
+    });
+
+    _tabs = getClassTabs(dummyNode, context, _translationCache);
     tabController = TabController(
       vsync: this,
       length: _tabs.length,

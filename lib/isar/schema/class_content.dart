@@ -14,7 +14,6 @@ final Map<classNodeType, String> tagName = {
   classNodeType.None: "",
 };
 
-
 // names for class_select filter classes pop up
 final Map<classNodeType, String> filterName = {
   classNodeType.D2: "2D Nodes",
@@ -95,6 +94,27 @@ class Translation {
   List<LocaleString>? translations;
 
   Translation({required this.id});
+
+  String getTranslation(String locale) {
+    if (translations == null || translations!.isEmpty) return msgid ?? "";
+
+    // 1. Exact Match (e.g., 'zh_Hans' == 'zh_Hans')
+    final exactMatch =
+        translations!.where((t) => t.locale == locale).firstOrNull;
+    if (exactMatch != null) return exactMatch.value ?? msgid ?? "";
+
+    // 2. Partial Match / Language Family Fallback
+    // (e.g., If looking for 'zh_CN', check if 'zh' or 'zh_Hans' exists)
+    final langCode = locale.split('_').first;
+    final partialMatch = translations!
+        .where((t) => t.locale != null && t.locale!.startsWith(langCode))
+        .firstOrNull;
+
+    if (partialMatch != null) return partialMatch.value ?? msgid ?? "";
+
+    // 3. Ultimate Fallback: Return the original msgid (English)
+    return msgid ?? "";
+  }
 }
 
 @collection
