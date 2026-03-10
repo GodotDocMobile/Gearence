@@ -33,6 +33,7 @@ class _ClassThemeItemsState extends State<ClassThemeItems> {
   void initState() {
     super.initState();
     if (_themeItems.isEmpty && widget.clsContent != null) {
+      _themeItems = widget.clsContent!.themeItems;
       Future.delayed(Duration(milliseconds: dataPrepareDelay), () {
         if (mounted) _prepareData();
       });
@@ -40,19 +41,16 @@ class _ClassThemeItemsState extends State<ClassThemeItems> {
   }
 
   void _prepareData() {
-    final items = widget.clsContent!.themeItems;
     final List<String> translationKeys = [];
 
     // 1. Collect descriptions for batch translation
-    for (var t in items) {
+    for (var t in _themeItems) {
       if (t.description != null && t.description!.isNotEmpty) {
         translationKeys.add(t.description!);
       }
     }
 
     setState(() {
-      // 2. Batch fetch and assign
-      _themeItems = items;
       _translationCache = batchTranslate(translationKeys);
     });
 

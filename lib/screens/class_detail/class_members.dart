@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:godotclassreference/constants/keys.dart';
 import 'package:godotclassreference/constants/time.dart';
 import 'package:godotclassreference/helpers/trim_translate.dart';
 import 'package:godotclassreference/isar/schema/class_content.dart';
@@ -37,32 +38,29 @@ class _ClassMembersState extends State<ClassMembers> {
   void initState() {
     super.initState();
     Future.delayed(Duration(milliseconds: dataPrepareDelay), () {
+    _members = widget.clsContent!.members;
       if (mounted) _prepareData();
     });
   }
 
-  final setterKey = 'Setter';
-  final getterKey = 'Getter';
+
   void _prepareData() {
     if (widget.clsContent == null) return;
 
-    final members = widget.clsContent!.members;
-    final List<String> translationKeys = [setterKey, getterKey];
+    final List<String> translationKeys = [UIInfoKeys.setterKey, UIInfoKeys.getterKey];
 
     // 1. Collect all keys for batch translation
-    for (var m in members) {
+    for (var m in _members) {
       if (m.memberText != null) {
         translationKeys.add(m.memberText!);
       }
     }
     setState(() {
-      // 2. Batch fetch from Isar Plus Sync
-      _members = members;
       _translationCache = batchTranslate(translationKeys);
 
       // Cache static labels
-      _setterLabel = _translationCache[setterKey] ?? setterKey;
-      _getterLabel = _translationCache[getterKey] ?? getterKey;
+      _setterLabel = _translationCache[UIInfoKeys.setterKey] ?? UIInfoKeys.setterKey;
+      _getterLabel = _translationCache[UIInfoKeys.getterKey] ?? UIInfoKeys.getterKey;
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {

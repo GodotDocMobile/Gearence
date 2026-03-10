@@ -30,6 +30,9 @@ class _ClassConstantsState extends State<ClassConstants> {
   @override
   void initState() {
     super.initState();
+    _onlyConstants = widget.clsContent!.constants
+        .where((w) => w.enumValue == null || w.enumValue!.isEmpty)
+        .toList();
     Future.delayed(Duration(milliseconds: dataPrepareDelay), () {
       if (mounted) _prepareData();
     });
@@ -38,14 +41,9 @@ class _ClassConstantsState extends State<ClassConstants> {
   void _prepareData() {
     if (widget.clsContent == null) return;
 
-    // 1. Filter constants that don't belong to an enum
-    final constants = widget.clsContent!.constants
-        .where((w) => w.enumValue == null || w.enumValue!.isEmpty)
-        .toList();
-
     // 2. Batch collect translation keys
     final List<String> translationKeys = [];
-    for (var c in constants) {
+    for (var c in _onlyConstants) {
       if (c.constantText != null) {
         translationKeys.add(c.constantText!);
       }
@@ -53,7 +51,6 @@ class _ClassConstantsState extends State<ClassConstants> {
 
     // 3. Assign data and cache translations synchronously
     setState(() {
-      _onlyConstants = constants;
       _translationCache = batchTranslate(translationKeys);
     });
 

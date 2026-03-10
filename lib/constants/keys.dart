@@ -7,6 +7,7 @@ abstract class MetadataKeys {
   static const String monoSpaceFont = 'mono_space_Font';
   static const String fontSize = 'font_size';
   static const String storageSaver = 'storage_saver';
+  static const String enabledNodeFilters = 'enabled_node_filters';
 
   static const String versionPrefix = 'doc_ver_'; // Used for dynamic keys
   // Helper for dynamic version keys
@@ -58,4 +59,9 @@ abstract class UIInfoKeys {
   static const String signals = 'Signals';
   static const String themeProperties = "Theme Properties";
   static const String annotations = 'Annotations';
+
+  // for batch translations
+  static const String returnKey = 'return';
+  static const String setterKey = 'Setter';
+  static const String getterKey = 'Getter';
 }

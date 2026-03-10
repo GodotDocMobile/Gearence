@@ -78,7 +78,7 @@ class _DocSeedState extends State<DocSeed> {
 
         // 3. Update the version in your settings repo
         localDBVerSetting.stringValue = packageInfo.buildNumber;
-        await settingsRepo.saveSettings(localDBVerSetting);
+        settingsRepo.saveSettings(localDBVerSetting);
       }
 
       // 4. Open the instance (Always use the constant name for the app)

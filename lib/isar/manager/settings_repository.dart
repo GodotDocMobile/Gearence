@@ -1,5 +1,6 @@
 import 'package:godotclassreference/constants/keys.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
+import 'package:godotclassreference/isar/schema/class_content.dart';
 import 'package:godotclassreference/isar/schema/user_setting.dart';
 import 'package:isar_plus/isar_plus.dart';
 
@@ -12,7 +13,7 @@ class SettingsRepository {
     return prefsIsar.userSettings.where().keyEqualTo(key).findFirst();
   }
 
-  Future saveSettings(UserSetting setting) async {
+  void saveSettings(UserSetting setting) {
     UserSetting record;
     if (setting.id == -1) {
       record = UserSetting(id: prefsIsar.userSettings.autoIncrement())
@@ -23,7 +24,7 @@ class SettingsRepository {
     } else {
       record = setting;
     }
-    await prefsIsar.writeAsync((isar) {
+    prefsIsar.write((isar) {
       isar.userSettings.put(record);
     });
   }
@@ -76,81 +77,16 @@ class SettingsRepository {
     return record;
   }
 
-  // /// Adds a document to the history or updates its timestamp if it exists
-  // Future<void> addToHistory(DocEntry doc) async {
-  //   await _prefsIsar.write((isar) {
-  //     // 1. Put the new/updated entry
-  //     isar.historyEntrys.put(
-  //       HistoryEntry(id: isar.userSettings.autoIncrement())
-  //         ..docId = doc.docId!
-  //         ..title = doc.title
-  //         ..emoji = doc.emoji
-  //         ..summary = doc.summary
-  //         ..lastViewed = DateTime.now(),
-  //     );
-
-  //     // 2. Maintain only the last 5 entries
-  //     final allHistory = isar.historyEntrys
-  //         .where()
-  //         .sortByLastViewedDesc()
-  //         .findAll();
-
-  //     if (allHistory.length > 5) {
-  //       final idsToDelete = allHistory.sublist(5).map((e) => e.id).toList();
-  //       isar.historyEntrys.deleteAll(idsToDelete);
-  //     }
-  //   });
-  // }
-
-  // /// Fetches the 5 most recent docs for the Home Screen
-  // List<HistoryEntry> getRecentDocs() {
-  //   return _prefsIsar.historyEntrys.where().sortByLastViewedDesc().findAll(
-  //     limit: 5,
-  //   );
-  // }
-
-  // void clearRecentlyViewed() {
-  //   _prefsIsar.write((isar) {
-  //     isar.historyEntrys.clear();
-  //   });
-  // }
-
-  // // Inside your DocSeed screen or your main bootstrap logic
-  // static Future<void> runStartupSanitySweep() async {
-  //   final prefsIsar = GetIt.instance<Isar>(
-  //     instanceName: MetadataKeys.preferenceIsarKey,
-  //   );
-  //   final docsIsar = GetIt.instance<Isar>(
-  //     instanceName: MetadataKeys.docsIsarKey,
-  //   );
-
-  //   // 1. Get all docIds currently in history
-  //   final historyEntries = prefsIsar.historyEntrys.where().findAll();
-  //   if (historyEntries.isEmpty) return;
-
-  //   // 2. Efficiently find which ones are missing from the Doc DB
-  //   final List<int> staleIds = [];
-
-  //   for (final entry in historyEntries) {
-  //     final exists =
-  //         docsIsar.docEntrys.where().docIdEqualTo(entry.docId).findFirst() !=
-  //         null;
-
-  //     if (!exists) {
-  //       staleIds.add(entry.id);
-  //     }
-  //   }
-
-  //   // 3. Batch delete all orphans in one trip
-  //   if (staleIds.isNotEmpty) {
-  //     await prefsIsar.writeAsync((isar) async {
-  //       isar.historyEntrys.deleteAll(staleIds);
-  //     });
-  //     debugPrint(
-  //       "🧹 Startup Sweep: Removed ${staleIds.length} orphan history entries.",
-  //     );
-  //   }
-  // }
+  // Logic for your settingsRepo
+  UserSetting getEnabledNodeTypes() {
+    // Assuming you store this as a comma-separated string or a bitmask
+    var setting = get(MetadataKeys.enabledNodeFilters);
+    setting ??= UserSetting(id: -1)
+      ..stringValue =
+          classNodeType.values.map((e) => e.index).toList().join(',')
+      ..key = MetadataKeys.enabledNodeFilters;
+    return setting;
+  }
 
   Stream<void> watchSetting(String key) {
     return prefsIsar.userSettings

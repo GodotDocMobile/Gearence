@@ -78,6 +78,7 @@ void parsePostProcess(List<ClassContent> classContents) {
   // 2. Iterate and pre-calculate the chain for every class
   for (var c in classContents) {
     c.inheritChain = buildChainString(c.inherits, classMap);
+    setNodeType(c);
   }
 }
 
@@ -124,16 +125,24 @@ String buildChainString(String? startParent, Map<String, ClassContent> map) {
   return chain.join(" >> ");
 }
 
-// void setNodeType(ClassContent classContent) {
-//   for (var e in classNodeType.values) {
-//     if ((classContent.inheritChain != null &&
-//             classContent.inheritChain!.contains('[${getNodeName(e)}]')) ||
-//         classContent.name == getNodeName(e)) {
-//       classContent.nodeType = e;
-//       return;
-//     }
-//   }
-// }
+void setNodeType(ClassContent classContent) {
+  for (var e in classNodeType.values) {
+    final possibleNames = getPossibleNodeNames(e);
+
+    for (var name in possibleNames) {
+      if (name.isEmpty) continue;
+
+      bool isMatch = (classContent.inheritChain != null &&
+              classContent.inheritChain!.contains('[$name]')) ||
+          classContent.name == name;
+
+      if (isMatch) {
+        classContent.nodeType = e;
+        return;
+      }
+    }
+  }
+}
 
 void processSearchableItem(ClassContent classContent, Isar isar) {
   final String className = classContent.name!;

@@ -21,10 +21,20 @@ class NodeTag extends StatelessWidget {
           ),
           width: 45,
           height: 20,
-          child: Center(
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+            decoration: BoxDecoration(
+              color: tagColor[classContent!.nodeType] ?? Colors.blueGrey,
+              borderRadius:
+                  BorderRadius.circular(4), // Slightly sharper fits Godot style
+            ),
             child: Text(
-              tagName[classContent!.nodeType]!,
-              style: TextStyle(color: Colors.white, fontSize: 15),
+              tagName[classContent!.nodeType] ?? 'Node',
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 12, // Reduced slightly to feel less "cramped"
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),
