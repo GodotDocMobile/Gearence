@@ -37,22 +37,23 @@ final Map<classNodeType, String> filterOptionStoreKey = {
 };
 
 // names of nodes to categorize them for filtering
-String getNodeName(classNodeType nodeType, bool isSpatial) {
+List<String> getPossibleNodeNames(classNodeType nodeType) {
   switch (nodeType) {
-    case classNodeType.D2:
-      return "Node2D";
     case classNodeType.D3:
-      return isSpatial ? "Node3D" : "Spatial";
+      return ["Node3D", "Spatial"]; // Check both aliases
+    case classNodeType.D2:
+      return ["Node2D"];
     case classNodeType.Control:
-      return "Control";
+      return ["Control"];
     case classNodeType.VisualScript:
-      return "VisualScriptNode";
+      return ["VisualScriptNode"];
     case classNodeType.VisualShader:
-      return "VisualShaderNode";
+      return ["VisualShaderNode"];
     case classNodeType.Other:
-      return "Node";
+      return ["Node"];
     case classNodeType.None:
-      return "";
+    default:
+      return [""];
   }
 }
 
@@ -143,13 +144,11 @@ class ClassContent {
   String? description;
   String? tutorials;
 
-  @ignore
   classNodeType nodeType = classNodeType.None;
 
   String? inheritChain;
   String? svgFileName;
 
-  String? xmlFilePath;
   ClassContent({required this.id});
 
   List<Constant> constants = [];

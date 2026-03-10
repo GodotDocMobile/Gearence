@@ -23,7 +23,6 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.1
-  flutter_gettext: ^2.0.1
   flutter_highlight:
     git:
       url: https://github.com/GodotDocMobile/highlight.dart.git/
@@ -37,7 +36,6 @@ dependencies:
   scrollable_positioned_list: ^0.3.1
   shared_preferences: ^2.0.15
   url_launcher: ^6.0.12
-  xml: ^6.3.0
 
   isar_plus: ^1.2.2
   isar_plus_flutter_libs: ^1.2.2

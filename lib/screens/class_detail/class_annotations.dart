@@ -4,10 +4,10 @@ import 'package:godotclassreference/bloc/blocs.dart';
 import 'package:godotclassreference/components/argument_table.dart';
 import 'package:godotclassreference/components/description_text.dart';
 import 'package:godotclassreference/components/zero_content_hint.dart';
+import 'package:godotclassreference/constants/keys.dart';
 import 'package:godotclassreference/constants/time.dart';
 import 'package:godotclassreference/helpers/trim_translate.dart';
 import 'package:godotclassreference/isar/schema/class_content.dart';
-// import 'package:godotclassreference/models/class_content.dart';
 import 'package:godotclassreference/theme/themes.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
@@ -27,12 +27,12 @@ class _ClassAnnotationsState extends State<ClassAnnotations> {
 
   List<Annotation> _annotations = [];
   Map<String, String> _translationCache = {};
-  late String _returnLabel;
 
   @override
   void initState() {
     super.initState();
     if (_annotations.isEmpty && widget.clsContent != null) {
+      _annotations = widget.clsContent!.annotations;
       Future.delayed(Duration(milliseconds: dataPrepareDelay), () {
         if (mounted) _prepareData();
       });
@@ -40,19 +40,16 @@ class _ClassAnnotationsState extends State<ClassAnnotations> {
   }
 
   void _prepareData() {
-    final annotations = widget.clsContent!.annotations;
-    final List<String> translationKeys = ['return'];
+    final List<String> translationKeys = [UIInfoKeys.returnKey];
 
     // Collect descriptions for batch translation
-    for (var a in annotations) {
+    for (var a in _annotations) {
       if (a.description != null && a.description!.isNotEmpty) {
         translationKeys.add(a.description!);
       }
     }
     setState(() {
-      _annotations = annotations;
       _translationCache = batchTranslate(translationKeys);
-      _returnLabel = _translationCache['return'] ?? 'return';
     });
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (blocs.tapEventBloc.state.fieldName.isNotEmpty) {
@@ -124,7 +121,9 @@ class _ClassAnnotationsState extends State<ClassAnnotations> {
               children: [
                 Row(
                   children: [
-                    Text(_returnLabel,
+                    Text(
+                        _translationCache[UIInfoKeys.returnKey] ??
+                            UIInfoKeys.returnKey,
                         style: const TextStyle(color: Colors.grey)),
                     const SizedBox(width: 15),
                     Text('void', style: monoOptionalStyle(context)),

@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
+import 'package:godotclassreference/components/default_class_icon.dart';
 import 'package:godotclassreference/constants/keys.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:godotclassreference/helpers/translation_deletage.dart';
@@ -103,7 +105,6 @@ class _GCRAppState extends State<GCRApp> {
           final isDarkRecord = repo.getIsDarkMode();
           final translation = repo.getTranslation();
           final version = repo.getGodotVersion();
-          // final monoSpace = repo.getMonospace();
 
           final hasTranslation = double.parse(version.stringValue!) >= 3.4;
 
@@ -126,7 +127,6 @@ class _GCRAppState extends State<GCRApp> {
                     GlobalMaterialLocalizations.delegate,
                     GlobalCupertinoLocalizations.delegate,
                     GlobalWidgetsLocalizations.delegate,
-                    // FallbackLocalizationDelegate(),
                   ]
                 : null,
             //hide debug banner
