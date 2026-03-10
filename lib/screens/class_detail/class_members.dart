@@ -22,7 +22,8 @@ class ClassMembers extends StatefulWidget {
   _ClassMembersState createState() => _ClassMembersState();
 }
 
-class _ClassMembersState extends State<ClassMembers> {
+class _ClassMembersState extends State<ClassMembers>
+    with AutomaticKeepAliveClientMixin {
   final ItemScrollController _scrollController = ItemScrollController();
   final ItemPositionsListener _itemPositionsListener =
       ItemPositionsListener.create();
@@ -38,16 +39,18 @@ class _ClassMembersState extends State<ClassMembers> {
   void initState() {
     super.initState();
     Future.delayed(Duration(milliseconds: dataPrepareDelay), () {
-    _members = widget.clsContent!.members;
+      _members = widget.clsContent!.members;
       if (mounted) _prepareData();
     });
   }
 
-
-  void _prepareData() {
+  void _prepareData() async {
     if (widget.clsContent == null) return;
 
-    final List<String> translationKeys = [UIInfoKeys.setterKey, UIInfoKeys.getterKey];
+    final List<String> translationKeys = [
+      UIInfoKeys.setterKey,
+      UIInfoKeys.getterKey
+    ];
 
     // 1. Collect all keys for batch translation
     for (var m in _members) {
@@ -55,12 +58,16 @@ class _ClassMembersState extends State<ClassMembers> {
         translationKeys.add(m.memberText!);
       }
     }
-    setState(() {
-      _translationCache = batchTranslate(translationKeys);
 
+    final translateResult =
+        await Future.microtask(() => batchTranslate(translationKeys));
+    setState(() {
+      _translationCache = translateResult;
       // Cache static labels
-      _setterLabel = _translationCache[UIInfoKeys.setterKey] ?? UIInfoKeys.setterKey;
-      _getterLabel = _translationCache[UIInfoKeys.getterKey] ?? UIInfoKeys.getterKey;
+      _setterLabel =
+          _translationCache[UIInfoKeys.setterKey] ?? UIInfoKeys.setterKey;
+      _getterLabel =
+          _translationCache[UIInfoKeys.getterKey] ?? UIInfoKeys.getterKey;
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -87,6 +94,7 @@ class _ClassMembersState extends State<ClassMembers> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     if (_members.isEmpty) {
       return ZeroContentHint(
         clsContent: widget.clsContent!,
@@ -180,4 +188,7 @@ class _ClassMembersState extends State<ClassMembers> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

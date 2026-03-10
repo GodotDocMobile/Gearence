@@ -52,7 +52,6 @@ List<String> getPossibleNodeNames(classNodeType nodeType) {
     case classNodeType.Other:
       return ["Node"];
     case classNodeType.None:
-    default:
       return [""];
   }
 }

@@ -19,7 +19,8 @@ class ClassConstants extends StatefulWidget {
   _ClassConstantsState createState() => _ClassConstantsState();
 }
 
-class _ClassConstantsState extends State<ClassConstants> {
+class _ClassConstantsState extends State<ClassConstants>
+    with AutomaticKeepAliveClientMixin {
   final ItemScrollController _scrollController = ItemScrollController();
   final ItemPositionsListener _itemPositionsListener =
       ItemPositionsListener.create();
@@ -38,7 +39,7 @@ class _ClassConstantsState extends State<ClassConstants> {
     });
   }
 
-  void _prepareData() {
+  void _prepareData() async {
     if (widget.clsContent == null) return;
 
     // 2. Batch collect translation keys
@@ -49,9 +50,10 @@ class _ClassConstantsState extends State<ClassConstants> {
       }
     }
 
-    // 3. Assign data and cache translations synchronously
+    final translateResult =
+        await Future.microtask(() => batchTranslate(translationKeys));
     setState(() {
-      _translationCache = batchTranslate(translationKeys);
+      _translationCache = translateResult;
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -79,6 +81,7 @@ class _ClassConstantsState extends State<ClassConstants> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     // Check against our prepared list instead of re-filtering in build
     if (_onlyConstants.isEmpty) {
       return ZeroContentHint(
@@ -146,4 +149,7 @@ class _ClassConstantsState extends State<ClassConstants> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

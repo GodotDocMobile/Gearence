@@ -3,12 +3,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
-import 'package:godotclassreference/components/default_class_icon.dart';
 import 'package:godotclassreference/constants/keys.dart';
 import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:godotclassreference/helpers/translation_deletage.dart';
+import 'package:godotclassreference/isar/manager/class_repository.dart';
 import 'package:godotclassreference/isar/manager/settings_repository.dart';
 import 'package:godotclassreference/isar/services/isar_open.dart';
 import 'package:godotclassreference/isar/schema/user_setting.dart';
@@ -53,6 +52,9 @@ Future injectUserPref() async {
   final settingsRepo = SettingsRepository(prefsIsar);
   getIt.registerSingleton(settingsRepo);
   settingsRepo.seedDefaultSettings();
+
+  final classDB = new ClassDB();
+  GetIt.I.registerSingleton(classDB);
 }
 
 Future<void> main() async {

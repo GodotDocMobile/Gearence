@@ -18,7 +18,8 @@ class ClassInfo extends StatefulWidget {
   State<ClassInfo> createState() => _ClassInfoState();
 }
 
-class _ClassInfoState extends State<ClassInfo> {
+class _ClassInfoState extends State<ClassInfo>
+    with AutomaticKeepAliveClientMixin {
   Map<String, String> translationCache = {};
 
   String childClasses = '';
@@ -39,25 +40,27 @@ class _ClassInfoState extends State<ClassInfo> {
     });
   }
 
-  void _prepareData() {
+  void _prepareData() async {
+    final translateResult = await Future.microtask(() => batchTranslate([
+          UIInfoKeys.inherits,
+          UIInfoKeys.inheritedBy,
+          UIInfoKeys.briefDescription,
+          widget.clsContent!.briefDescription ?? "",
+          UIInfoKeys.version,
+          UIInfoKeys.category,
+          UIInfoKeys.description,
+          widget.clsContent!.description ?? "",
+          UIInfoKeys.demos,
+          UIInfoKeys.tutorials
+        ]));
     setState(() {
-      translationCache = batchTranslate([
-        UIInfoKeys.inherits,
-        UIInfoKeys.inheritedBy,
-        UIInfoKeys.briefDescription,
-        widget.clsContent!.briefDescription ?? "",
-        UIInfoKeys.version,
-        UIInfoKeys.category,
-        UIInfoKeys.description,
-        widget.clsContent!.description ?? "",
-        UIInfoKeys.demos,
-        UIInfoKeys.tutorials
-      ]);
+      translationCache = translateResult;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return ListView(
       padding: EdgeInsets.all(10),
       children: [
@@ -203,4 +206,7 @@ class _ClassInfoState extends State<ClassInfo> {
       ],
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
