@@ -29,11 +29,23 @@
             "program": "package_document.dart",
             "args": [
                 "--godot_path",
-                "${userHome}/Projects/GCR/godot/",
+                "${workspaceFolder}/../godot/",
                 "--output",
                 "../assets",
                 "--skip_pull",
                 "--dist"
+            ]
+        },
+        {
+            "name": "fetch isar",
+            "cwd": "tools",
+            "request": "launch",
+            "type": "dart",
+            "program": "fetch_isar.dart",
+            "args": [
+                "--output",
+                "../assets",
+                "--force"
             ]
         }
     ]
