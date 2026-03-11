@@ -47,4 +47,4 @@ tools/*.so
 dist/
 libisar.so
 *.isar
-assets/config.json
+assets/*.json

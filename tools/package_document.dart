@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:args/args.dart';
+import 'package:crypto/crypto.dart';
 import 'package:godotclassreference/constants/keys.dart';
 import 'package:godotclassreference/isar/schema/class_content.dart';
 import 'package:godotclassreference/models/config_content.dart';
@@ -10,6 +11,7 @@ import 'package:isar_plus/isar_plus.dart';
 import 'package:path/path.dart';
 
 import 'download_isar_plus_lib.dart';
+import 'fetch_isar.dart';
 import 'package_document/process_translations.dart';
 import 'package_document/process_xml.dart';
 
@@ -21,7 +23,11 @@ void main(List<String> arguments) async {
     ..addOption('output', abbr: 'o', help: 'Output folder (e.g., assets)')
     ..addFlag('help', abbr: 'h', negatable: false, help: 'Show usage')
     ..addFlag('skip_pull',
-        negatable: false, help: 'Skip pull before processing documents');
+        negatable: false, help: 'Skip pull before processing documents')
+    ..addFlag('dist',
+        abbr: 'd',
+        negatable: false,
+        help: 'Generate dist.json for file list and checksum');
 
   ArgResults argParseResult = parser.parse(arguments);
 
@@ -121,6 +127,56 @@ void main(List<String> arguments) async {
   await File(join(outputPath, 'config.json'))
       .writeAsString(jsonEncode(configConten.toJson()));
   print("ConfigContent generated");
+
+  if (argParseResult['dist'] as bool != true) return;
+  print("Generating dist.json");
+
+  final Map<String, dynamic> distManifest = {
+    "generated_at": DateTime.now().toIso8601String(),
+    "files": {},
+  };
+
+  for (String version in godotVersions) {
+    // We assume your processGodotVersion creates a file named 'godot_$version.isar'
+    final fileName = 'godot_${version.replaceAll('.', '_')}.isar';
+    final filePath = join(outputPath, fileName);
+    final file = File(filePath);
+
+    if (file.existsSync()) {
+      final bytes = await file.readAsBytes();
+
+      // Calculate SHA-256 Checksum
+      final hash = sha256.convert(bytes).toString();
+      final size = bytes.length;
+
+      distManifest["files"][version] = {
+        "file_name": fileName,
+        "sha256": hash,
+        "size_in_bytes": size,
+        "url": "$downloadBaseFolder/$fileName"
+      };
+
+      print("Added $version to manifest: $hash");
+    } else {
+      print("Warning: $filePath not found, skipping manifest entry.");
+    }
+  }
+
+  final configFile = File(join(outputPath, 'config.json'));
+  if (configFile.existsSync()) {
+    final configBytes = await configFile.readAsBytes();
+    distManifest["config"] = {
+      "file_name": "config.json",
+      "sha256": sha256.convert(configBytes).toString(),
+      "size_in_bytes": configBytes.length,
+    };
+  }
+
+  final distFile = File(join(outputPath, 'dist.json'));
+  await distFile
+      .writeAsString(const JsonEncoder.withIndent('  ').convert(distManifest));
+
+  print("dist.json generated successfully at ${distFile.path}");
 }
 
 Future<void> processGodotVersion(
