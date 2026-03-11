@@ -6,7 +6,7 @@ import 'package:crypto/crypto.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
 
-final serverAddr = 'https://godotdocmobile.github.io/dist-assets';
+final serverAddr = 'https://godotdocmobile.github.io';
 final downloadBaseFolder = '$serverAddr/dist-assets';
 void main(List<String> arguments) async {
   var parser = ArgParser()
