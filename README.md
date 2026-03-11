@@ -1,7 +1,6 @@
-
 # Gearence
 
-**Gearence** is a third-party mobile application designed to provide a seamless reading experience for the **Godot Engine Class Reference**. Whether you are commuting or away from your workstation, Gearence allows you to browse documentation for Godot versions 2.0 through 4.x directly on your iOS or Android device.
+**Gearence** is a high-performance, third-party mobile documentation reader for the **Godot Engine**. Built for developers who need instant access to class references on the go, it provides a native, buttery-smooth experience even on resource-constrained hardware.
 
 **[Download on Google Play](https://play.google.com/store/apps/details?id=com.fengjiongmax.godotclassreference)** | **[Download on AppStore](https://apps.apple.com/qa/app/godot-class-reference/id1523486419)** | **[Official Website](https://godotdocmobile.github.io/)**
 
@@ -9,26 +8,18 @@
 
 ## ✨ Features
 
-* **Multi-Version Support**: Access documentation for Godot versions ranging from legacy 2.0 to the latest 4.x releases.
-* **Advanced Navigation**: Effortlessly switch between Classes, Functions, Signals, and Properties with full in-app redirection.
-* **Fast Search**: Quickly find the API information you need with an integrated search bar.
-* **Reading Comfort**:
-* **Dark Mode**: High-contrast theme for low-light environments.
-* **Adjustable Text Size**: Customize font sizes for better readability.
-* **Code Highlighting**: Includes JetBrains Mono for clean code block rendering.
+* **Binary Speed**: Powered by **Isar Database**. Documentation is pre-compiled into binary format for near-instant search and zero-latency tab switching.
+* **Multi-Version Support**: Browse Godot **2.0 through 4.x**.
+* **Smart Redirects**: Deep-link support for Methods, Signals, and Properties. Tap a type to jump directly to its definition.
+* **Low-Power Optimization**: Engine-level optimizations designed to provide a smooth experience on entry-level hardware and media-consumption devices.
+* **Offline First**: Full documentation is cached locally for reliable access in the field.
 
 
-* **Offline Access**: Once synced, browse documentation without needing an active internet connection.
-
-## 🚀 Getting Started
+## 🛠️ Development
 
 ### Prerequisites
 
-Gearence is built with **Flutter**. To build the project from source, you will need:
-
-* Flutter SDK (Latest stable version)
-* Android Studio / Xcode (for mobile deployment)
-* Python 3 (for document generation scripts)
+* **Flutter SDK**: Latest stable version.
 
 ### Installation
 
@@ -40,9 +31,10 @@ cd Gearence
 ```
 
 
-2. **Install Flutter dependencies:**
+2. **Sync Data (Tools):**
+Before running the app, you can use the sync tool to fetch the latest compiled binaries:
 ```bash
-flutter pub get
+flutter run bin/fetch_isar.dart -output ../assets/ --force
 
 ```
 
@@ -53,63 +45,21 @@ flutter run
 
 ```
 
-
-
 ---
-
-## 🛠️ Updating Documentation (Developers)
-
-The app fetches documentation directly from the official Godot repository. To update the XML documentation used in the app:
-
-1. **Clone the Godot repository:**
-```bash
-git clone https://github.com/godotengine/godot.git
-
-```
-
-
-2. **Install Python requirements:**
-```bash
-pip install GitPython polib
-# On Ubuntu 24.04+: sudo apt install python3-git python3-polib
-
-```
-
-
-3. **Run the update script:**
-Navigate to the `scripts` folder and run `godot_repo.py`, pointing it to your local Godot clone:
-```bash
-cd scripts
-python3 godot_repo.py --godot_path /path/to/your/godot/repo
-
-```
-
-
-
----
-
-## 📂 Project Structure
-
-* `lib/`: Main Flutter application logic.
-* `scripts/`: Python scripts for pulling and processing Godot XML documentation.
-* `project_assets/`:  Branding assets(Store banner, Icon).
-* `xmls/`: Stored class reference data.
-* `svgs/`: Stored class icons.
-* `translations/`： Stored translations.
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+We love contributions! Since we've moved to a binary-dist model, please focus PRs on the **Flutter UI** or the **Dart Tooling**.
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+1. Fork the Project.
+2. Create your Feature Branch (`git checkout -b feature/Optimization`).
+3. Commit your Changes (`git commit -m 'Improve search latency'`).
+4. Push to the Branch.
+5. Open a Pull Request.
 
 ## ⚖️ License
 
-This project is licensed under the **GNU General Public License v3.0**. See the [LICENSE](https://github.com/GodotDocMobile/Gearence/blob/master/LICENSE) file for details.
+Distributed under the **GNU General Public License v3.0**. See `LICENSE` for more information.
 
 ---
 

@@ -82,6 +82,14 @@ class GCRDrawerState extends State<GCRDrawer> {
     if (double.parse(versionRecord.stringValue!) < 3.4) {
       return SizedBox();
     }
+    final List<String> languages = List.from(storedValues
+        .configContent.branchTranslations[versionRecord.stringValue!]!);
+    languages.sort((a, b) => a.toLowerCase().compareTo(b.toLowerCase()));
+
+    if (languages.contains('en')) {
+      languages.remove('en');
+      // languages.insert(0, 'en');
+    }
     return MergeSemantics(
       child: ListTile(
         leading: Icon(Icons.compare_arrows),
@@ -95,9 +103,7 @@ class GCRDrawerState extends State<GCRDrawer> {
                 child: Text('None'),
                 value: 'en',
               ),
-              ...storedValues
-                  .configContent.branchTranslations[versionRecord.stringValue!]!
-                  .map((i) {
+              ...languages.map((i) {
                 return DropdownMenuItem<String>(
                   value: i,
                   child: Text(i),
@@ -108,20 +114,6 @@ class GCRDrawerState extends State<GCRDrawer> {
               setState(() {
                 settingsRepo.saveSettings(translationRecord..stringValue = v);
               });
-              // setState(() {
-              //   storedValues.translation = v!;
-              // });
-              // blocs.translationBloc.add(v!);
-              // Navigator.of(context).pop();
-              // setState(() {
-              //   storedValues.version = v!;
-              // });
-              // Navigator.pushAndRemoveUntil(
-              //     context,
-              //     MaterialPageRoute(
-              //       builder: (context) => ClassSelect(),
-              //     ),
-              //     (Route<dynamic> route) => false);
             },
           ),
         ),
