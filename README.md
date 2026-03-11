@@ -34,7 +34,8 @@ cd Gearence
 2. **Sync Data (Tools):**
 Before running the app, you can use the sync tool to fetch the latest compiled binaries:
 ```bash
-flutter run bin/fetch_isar.dart -output ../assets/ --force
+flutter pub get && flutter pub get -C tools/
+dart run tools/fetch_isar.dart --output assets/ --force
 
 ```
 

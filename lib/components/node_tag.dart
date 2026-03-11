@@ -19,7 +19,7 @@ class NodeTag extends StatelessWidget {
             color: tagColor[classContent!.nodeType],
             borderRadius: BorderRadius.circular(5),
           ),
-          width: 45,
+          width: 50,
           height: 20,
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
