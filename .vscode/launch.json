@@ -32,7 +32,8 @@
                 "${userHome}/Projects/GCR/godot/",
                 "--output",
                 "../assets",
-                "--skip_pull"
+                "--skip_pull",
+                "--dist"
             ]
         }
     ]
