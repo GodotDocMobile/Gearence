@@ -56,6 +56,7 @@ class _ClassDetailState extends State<ClassDetail>
     // 4. Handle deep-links
     if (widget.args != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
+        onLinkTap(widget.args!);
         if (mounted) blocs.tapEventBloc.add(widget.args!);
       });
     }
