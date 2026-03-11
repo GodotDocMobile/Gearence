@@ -1,4 +1,3 @@
-import 'package:godotclassreference/bloc/tap_event_arg.dart';
 import 'package:isar_plus/isar_plus.dart';
 
 part 'class_content.g.dart';
