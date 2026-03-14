@@ -90,6 +90,12 @@ class GCRDrawerState extends State<GCRDrawer> {
       languages.remove('en');
       // languages.insert(0, 'en');
     }
+
+    final curLocale = Localizations.localeOf(context);
+    String langValue = curLocale.languageCode;
+    if (curLocale.countryCode != null || curLocale.scriptCode != null) {
+      langValue += '_${curLocale.countryCode ?? curLocale.scriptCode}';
+    }
     return MergeSemantics(
       child: ListTile(
         leading: Icon(Icons.compare_arrows),
@@ -97,7 +103,7 @@ class GCRDrawerState extends State<GCRDrawer> {
         trailing: Semantics(
           onTapHint: 'Select translated language',
           child: DropdownButton<String>(
-            value: translationRecord.stringValue!,
+            value: languages.contains(langValue) ? langValue : 'en',
             items: [
               DropdownMenuItem(
                 child: Text('None'),
@@ -157,8 +163,9 @@ class GCRDrawerState extends State<GCRDrawer> {
                   }).toList(),
                   onChanged: (v) {
                     setState(() {
+                      versionRecord.stringValue = v;
                       // storedValues.version = v;
-                      settingsRepo.saveSettings(versionRecord..stringValue = v);
+                      settingsRepo.saveSettings(versionRecord);
                     });
                     Navigator.pushAndRemoveUntil(
                         context,

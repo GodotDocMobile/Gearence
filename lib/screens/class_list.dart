@@ -147,8 +147,13 @@ class _ClassListState extends State<ClassList> {
     return StreamBuilder(
         stream: settingsRepo.watchAllSettings(),
         builder: (context, asyncSnapshot) {
-          final currentLocale = settingsRepo.getTranslation().stringValue!;
           final currentVersion = settingsRepo.getGodotVersion().stringValue!;
+
+          final curLocale = Localizations.localeOf(context);
+          String langValue = curLocale.languageCode;
+          if (curLocale.countryCode != null || curLocale.scriptCode != null) {
+            langValue += '_${curLocale.countryCode ?? curLocale.scriptCode}';
+          }
           return MediaQuery(
               data: scaledMediaQueryData(context),
               child: Scaffold(
@@ -158,10 +163,9 @@ class _ClassListState extends State<ClassList> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text("Godot v" + currentVersion + " classes"),
-                      double.parse(currentVersion) >= 3.4 &&
-                              currentLocale != 'en'
+                      double.parse(currentVersion) >= 3.4 && langValue != 'en'
                           ? Text(
-                              "Translation: " + currentLocale,
+                              "Translation: " + langValue,
                               style: TextStyle(
                                 color: Colors.grey,
                                 fontSize: 13,

@@ -24,6 +24,14 @@ class ClassRepository {
     _isInitialized = true;
   }
 
+  /// Prepares the repository for a version switch or re-initialization.
+  /// Clears in-memory lists and cache to free up memory.
+  static void clear() {
+    _classList.clear();
+    _cache.clear();
+    _isInitialized = false;
+  }
+
   /// O(1) lookup for ClassDetail and Links
   static ClassContent? getClass(String name) => _cache[name];
 

@@ -111,6 +111,11 @@ class _GCRAppState extends State<GCRApp> {
           Locale appLocale = processLangCode(translation.stringValue!);
           List<Locale> supportedLocales = [Locale('en')];
           if (hasTranslation) {
+            final translations = storedValues
+                .configContent.branchTranslations[version.stringValue!]!;
+            if (!translations.contains(translation.stringValue!)) {
+              appLocale = Locale('en');
+            }
             final godotLocales = storedValues
                 .configContent.branchTranslations[version.stringValue!]!
                 .map((lc) => processLangCode(lc))

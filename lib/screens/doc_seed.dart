@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:godotclassreference/constants/keys.dart';
+import 'package:godotclassreference/isar/manager/class_repository.dart';
 import 'package:godotclassreference/isar/manager/settings_repository.dart';
 import 'package:godotclassreference/isar/schema/class_content.dart';
 import 'package:godotclassreference/isar/services/isar_open.dart';
@@ -39,6 +40,8 @@ class _DocSeedState extends State<DocSeed> {
     try {
       setState(() => statusMessage = "Checking documentation...");
 
+      ClassRepository.clear();
+
       final settingsRepo = GetIt.I<SettingsRepository>();
       final dir = await getApplicationDocumentsDirectory();
       final godotVersion = settingsRepo.getGodotVersion().stringValue!;
@@ -64,6 +67,8 @@ class _DocSeedState extends State<DocSeed> {
             .isRegistered<Isar>(instanceName: MetadataKeys.docsIsarKey)) {
           final Isar openedIsar =
               GetIt.I(instanceName: MetadataKeys.docsIsarKey);
+          await GetIt.I.unregister<Isar>(
+              instance: openedIsar, instanceName: MetadataKeys.docsIsarKey);
           openedIsar.close();
         }
 
@@ -95,7 +100,9 @@ class _DocSeedState extends State<DocSeed> {
 
       // 5. Register with GetIt (Unregister first if exists)
       if (GetIt.I.isRegistered<Isar>(instanceName: MetadataKeys.docsIsarKey)) {
-        await GetIt.I.unregister<Isar>(instanceName: MetadataKeys.docsIsarKey);
+        final Isar openedIsar = GetIt.I(instanceName: MetadataKeys.docsIsarKey);
+        await GetIt.I.unregister<Isar>(
+            instance: openedIsar, instanceName: MetadataKeys.docsIsarKey);
       }
       GetIt.I.registerSingleton<Isar>(docIsar,
           instanceName: MetadataKeys.docsIsarKey);
