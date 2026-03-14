@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:godotclassreference/components/link_text.dart';
-import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:godotclassreference/isar/schema/class_content.dart';
-// import 'package:godotclassreference/models/method_argument.dart';
 import 'package:godotclassreference/theme/themes.dart';
 
 class ArgumentTable extends StatelessWidget {
@@ -61,6 +59,8 @@ class ArgumentTable extends StatelessWidget {
       });
     }
 
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     // assemble table
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Text("arguments:"),
@@ -73,7 +73,7 @@ class ArgumentTable extends StatelessWidget {
           child: Table(
             border: TableBorder.all(
                 width: 2,
-                color: storedValues.isDarkTheme ? Colors.white : Colors.black,
+                color: isDark ? Colors.white : Colors.black,
                 borderRadius: BorderRadius.circular(5)),
             defaultVerticalAlignment: TableCellVerticalAlignment.middle,
             columnWidths: {

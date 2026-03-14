@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_highlight/flutter_highlight.dart';
 import 'package:flutter_highlight/themes/arduino-light.dart';
 import 'package:flutter_highlight/themes/atom-one-dark.dart';
-import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:godotclassreference/theme/themes.dart';
 
 class BBOBCodeTextMultiLang extends StatefulWidget {
@@ -36,7 +35,7 @@ class _BBOBCodeTextMultiLangState extends State<BBOBCodeTextMultiLang> {
     super.initState();
   }
 
-  Widget codeDisplayWidget() {
+  Widget codeDisplayWidget(bool isDark) {
     switch (tabIndex) {
       case 0:
         return ScrollConfiguration(
@@ -51,9 +50,7 @@ class _BBOBCodeTextMultiLangState extends State<BBOBCodeTextMultiLang> {
                 language: 'gdscript',
                 textStyle: scaledTextStyle(context)
                     .copyWith(fontFamily: 'JetbrainsMono'),
-                theme: storedValues.isDarkTheme
-                    ? atomOneDarkTheme
-                    : arduinoLightTheme,
+                theme: isDark ? atomOneDarkTheme : arduinoLightTheme,
                 padding: EdgeInsets.all(10),
               ),
             ));
@@ -70,9 +67,7 @@ class _BBOBCodeTextMultiLangState extends State<BBOBCodeTextMultiLang> {
               language: 'csharp',
               textStyle: scaledTextStyle(context)
                   .copyWith(fontFamily: 'JetbrainsMono'),
-              theme: storedValues.isDarkTheme
-                  ? atomOneDarkTheme
-                  : arduinoLightTheme,
+              theme: isDark ? atomOneDarkTheme : arduinoLightTheme,
               padding: EdgeInsets.all(10),
             ),
           ),
@@ -84,6 +79,7 @@ class _BBOBCodeTextMultiLangState extends State<BBOBCodeTextMultiLang> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return DefaultTabController(
       length: 2,
       child: Container(
@@ -104,9 +100,7 @@ class _BBOBCodeTextMultiLangState extends State<BBOBCodeTextMultiLang> {
                     child: Text(
                       "GDScript",
                       style: TextStyle(
-                          color: storedValues.isDarkTheme
-                              ? Colors.white
-                              : Colors.black),
+                          color: isDark ? Colors.white : Colors.black),
                     ),
                   ),
                 ),
@@ -116,9 +110,7 @@ class _BBOBCodeTextMultiLangState extends State<BBOBCodeTextMultiLang> {
                     child: Text(
                       "CSharp",
                       style: TextStyle(
-                          color: storedValues.isDarkTheme
-                              ? Colors.white
-                              : Colors.black),
+                          color: isDark ? Colors.white : Colors.black),
                     ),
                   ),
                 ),
@@ -130,7 +122,7 @@ class _BBOBCodeTextMultiLangState extends State<BBOBCodeTextMultiLang> {
               },
             ),
           ),
-          codeDisplayWidget(),
+          codeDisplayWidget(isDark),
         ]),
       ),
     );

@@ -8,7 +8,6 @@ import 'package:godotclassreference/helpers/trim_translate.dart';
 import 'package:godotclassreference/isar/manager/class_repository.dart';
 import 'package:godotclassreference/screens/class_detail/class_annotations.dart';
 import 'package:godotclassreference/theme/themes.dart';
-import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:godotclassreference/isar/schema/class_content.dart';
 import 'package:godotclassreference/screens/class_detail/class_constants.dart';
 import 'package:godotclassreference/screens/class_detail/class_enums.dart';
@@ -135,6 +134,7 @@ class _ClassDetailState extends State<ClassDetail>
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return BlocListener<TapEventBloc, TapEventArg>(
       bloc: blocs.tapEventBloc,
       listenWhen: (previous, current) =>
@@ -151,7 +151,7 @@ class _ClassDetailState extends State<ClassDetail>
                   label: getSpacedClassName(widget.className),
                   child: ExcludeSemantics(child: Text(widget.className))),
               bottom: TabBar(
-                indicatorColor: storedValues.isDarkTheme
+                indicatorColor: isDark
                     ? Theme.of(context).colorScheme.secondary
                     : Colors.white,
                 controller: tabController,

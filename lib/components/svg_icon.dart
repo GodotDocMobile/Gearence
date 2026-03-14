@@ -10,7 +10,7 @@ class SvgIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return SvgPicture.string(
       svgContent,
-      placeholderBuilder: (context) => DefaultClassIcon(),
+      placeholderBuilder: (context) => const DefaultClassIcon(),
     );
   }
 }

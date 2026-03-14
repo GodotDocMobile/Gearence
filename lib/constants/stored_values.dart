@@ -18,8 +18,6 @@ class StoredValues {
 
   String get version => prefs.getString('version') ?? godotVersions.last;
 
-  double get versionDouble => double.tryParse(version) ?? 0.0;
-
   bool get isDarkTheme => prefs.getBool('darkTheme') ?? false;
 
   int get fontSize => prefs.getInt('gcrFontSize') ?? 0;

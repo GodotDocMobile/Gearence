@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_highlight/flutter_highlight.dart';
 import 'package:flutter_highlight/themes/arduino-light.dart';
 import 'package:flutter_highlight/themes/atom-one-dark.dart';
-import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:godotclassreference/theme/themes.dart';
 
 class BBOBCodeText extends StatelessWidget {
@@ -13,6 +12,7 @@ class BBOBCodeText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       margin: EdgeInsets.only(top: 10),
       decoration: BoxDecoration(
@@ -30,8 +30,7 @@ class BBOBCodeText extends StatelessWidget {
             language: 'gdscript',
             textStyle:
                 scaledTextStyle(context).copyWith(fontFamily: 'JetbrainsMono'),
-            theme:
-                storedValues.isDarkTheme ? atomOneDarkTheme : arduinoLightTheme,
+            theme: isDark ? atomOneDarkTheme : arduinoLightTheme,
             padding: EdgeInsets.all(10),
           ),
         ),

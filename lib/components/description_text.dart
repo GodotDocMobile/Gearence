@@ -6,7 +6,6 @@ import 'package:godotclassreference/bloc/blocs.dart';
 import 'package:godotclassreference/components/bbob_code_text.dart';
 import 'package:godotclassreference/components/bbob_code_text_multi_lang.dart';
 import 'package:godotclassreference/constants/keys.dart';
-import 'package:godotclassreference/constants/stored_values.dart';
 import 'package:godotclassreference/helpers/sematic_helpers.dart';
 import 'package:godotclassreference/isar/schema/class_content.dart';
 import 'package:godotclassreference/theme/themes.dart';
@@ -37,6 +36,8 @@ class DescriptionText extends StatelessWidget {
       BuildContext context, String hintText, List<bbob.Node> parsed) {
     final Isar docIsar = GetIt.I(instanceName: MetadataKeys.docsIsarKey);
     List<InlineSpan> rtn = [];
+
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     parsed.forEach((element) {
       if (element.runtimeType == bbob.Text) {
         if (element.textContent == '\n') {
@@ -127,9 +128,7 @@ class DescriptionText extends StatelessWidget {
           case 'param':
             rtn.add(WidgetSpan(
               child: Container(
-                color: storedValues.isDarkTheme
-                    ? Colors.grey[600]
-                    : Colors.grey[300],
+                color: isDark ? Colors.grey[600] : Colors.grey[300],
                 child: Text(
                   name,
                   style: monoOptionalStyle(context),
@@ -142,9 +141,7 @@ class DescriptionText extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.all(1),
                 decoration: BoxDecoration(
-                  color: storedValues.isDarkTheme
-                      ? Colors.grey[600]
-                      : Colors.grey[300],
+                  color: isDark ? Colors.grey[600] : Colors.grey[300],
                   border: Border.all(color: Colors.black),
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
                 ),
