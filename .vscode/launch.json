@@ -44,8 +44,7 @@
             "program": "fetch_isar.dart",
             "args": [
                 "--output",
-                "../assets",
-                "--force"
+                "../assets"
             ]
         }
     ]

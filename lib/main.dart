@@ -106,20 +106,27 @@ class _GCRAppState extends State<GCRApp> {
           final translation = repo.getTranslation();
           final version = repo.getGodotVersion();
 
-          final hasTranslation = double.parse(version.stringValue!) >= 3.4;
+          final hasTranslation =
+              (double.tryParse(version.stringValue!) ?? 0.0) >= 3.4;
 
-          Locale appLocale = processLangCode(translation.stringValue!);
+          Locale appLocale = Locale('en');
           List<Locale> supportedLocales = [Locale('en')];
           if (hasTranslation) {
             final translations = storedValues
-                .configContent.branchTranslations[version.stringValue!]!;
-            if (!translations.contains(translation.stringValue!)) {
-              appLocale = Locale('en');
-            }
-            final godotLocales = storedValues
                 .configContent.branchTranslations[version.stringValue!]!
-                .map((lc) => processLangCode(lc))
-                .toList();
+                .where((t) => t != 'en')
+                .toSet();
+            if (translations.contains(translation.stringValue!)) {
+              appLocale = processLangCode(translation.stringValue!);
+            } else if (translation.stringValue != 'en') {
+              // BUG FIX: The selected translation doesn't exist in this version.
+              // Silently reset the DB record to 'en' so the UI matches the reality.
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                repo.saveSettings(translation..stringValue = 'en');
+              });
+            }
+            final godotLocales =
+                translations.map((lc) => processLangCode(lc)).toList();
             supportedLocales.addAll(godotLocales);
           }
 
